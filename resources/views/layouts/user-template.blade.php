@@ -7,6 +7,9 @@
     <title>BFP</title>
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logos/logo.jpg')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/mystyle.css')}}">
+    <script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 </head>
 
 <body>
@@ -23,8 +26,6 @@
 
         </div>
     </div>
-    <script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
     <script src="{{asset('assets/js/app.min.js')}}"></script>
     <script src="{{asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
