@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('index');
 });
 Route::get('/user/dashboard', [UsersController::class,'dashboard'])->middleware(['auth','verified'])->name('dashboard');
 Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
