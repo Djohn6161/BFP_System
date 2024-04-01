@@ -6,6 +6,7 @@
     <title>BFP</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logo.jpg" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     User
@@ -154,8 +155,10 @@
                     <i class="ti ti-list-check fs-6"></i>
                     <p class="mb-0 fs-3">My Task</p>
                   </a>
-                  <a href="{{route('user.logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                 
+                  {{-- <a href="{{route('user.logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a> --}}
+                  <a type="button" class="btn btn-outline-primary mx-3 mt-2 d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Logout
+                  </a>
                 </div>
               </div>
             </li>
@@ -283,12 +286,29 @@
   </div>
 </div>
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/sidebarmenu.js"></script>
 <script src="../assets/js/app.min.js"></script>
 <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
 <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
 <script src="../assets/js/dashboard.js"></script>
        
+<!-- Logout Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+        <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to logout?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+        <a href="{{route('user.logout')}}" type="button" class="btn btn-primary">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
