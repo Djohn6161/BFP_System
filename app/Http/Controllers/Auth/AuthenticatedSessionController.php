@@ -31,9 +31,9 @@ class AuthenticatedSessionController extends Controller
 
         $url = '';
 
-        if($request->user()->type == 'user') {
+        if($request->user()->type === 'user') {
             $url = '/user/dashboard';
-        } elseif ($request->user()->type == 'admin') {
+        } elseif ($request->user()->type === 'admin') {
             $url = '/admin/dashboard';
         }
         
