@@ -8,6 +8,6 @@
 <body>
     Admin
     <br>
-    <a href="{{route('admin.logout')}}">Logout</a>    
+    <a href="{{route('user.logout')}}">Logout</a>    
 </body>
 </html>

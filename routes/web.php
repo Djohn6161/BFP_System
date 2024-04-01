@@ -18,13 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
-Route::get('/user/dashboard', [UsersController::class,'dashboard'])->middleware(['auth','verified'])->name('dashboard');
-Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
+})->middleware(['guest']);
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->middleware(['auth','verified'])->name('admin.dashboard');
-    Route::get('/admin/logout', [AdminController::class,'adminLogout'])->name('admin.logout');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
+    Route::middleware(['role:user'])->prefix('user')->name('user.')->group(function(){
+        Route::get('/dashboard', [UsersController::class,'dashboard'])->name('dashboard');
+    });
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function(){
+        Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
+
+    });
 });
 
 require __DIR__.'/auth.php';
