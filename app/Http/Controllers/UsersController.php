@@ -11,7 +11,9 @@ use function PHPUnit\Framework\returnSelf;
 class UsersController extends Controller
 {
     public function dashboard(){
-        return view('user_dashboard');
+        return view('user.home',[
+            'active' => 'home',
+        ]);
     }
 
     public function userLogout(Request $request): RedirectResponse
