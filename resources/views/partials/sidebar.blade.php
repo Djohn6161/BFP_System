@@ -13,8 +13,8 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                <li class="sidebar-item ">
+                    <a class="sidebar-link {{$active == 'home' ? 'active' : ''}}" href="./index.html" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -38,7 +38,7 @@
                     <div class="accordion accordion-flush" id="accordionExample">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
-                                <button class="accordion-button sidebar-link" type="button"
+                                <button class="accordion-button sidebar-link {{$active == 'response' ? 'active' : ''}}" type="button"
                                     data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     <span> <i class="ti ti-article"></i></span>
@@ -47,9 +47,7 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    Non Response
-                                </div>
+                                <a href="{{route('user.nonResponse.index')}}" class="sidebar-link text-decoration-none py-3"> Non Response</a>
                                 <div class="accordion-body">
                                     Response
                                 </div>
@@ -57,6 +55,7 @@
                         </div>
                     </div>
                 </li>
+                @if (auth()->user()->type == "admin")
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
                         <span>
@@ -92,6 +91,8 @@
                         <span class="hide-menu">Trash</span>
                     </a>
                 </li>
+                @endif
+                
                 {{-- Bottom --}}
 
             </ul>
