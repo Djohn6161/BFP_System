@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('index');
 })->middleware(['guest']);
 
+Route::get('/home', function () {
+    return view('user_homepage');
+});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
