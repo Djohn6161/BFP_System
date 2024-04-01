@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/admin/report', function () {
+    return view('admin.report.response');
+});
+
+Route::get('/user/dashboard', [UsersController::class,'dashboard'])->middleware(['auth','verified'])->name('dashboard');
 Route::get('/user/dashboard', [UsersController::class,'dashboard'])->middleware(['auth','verified'])->name('dashboard');
 Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
 
