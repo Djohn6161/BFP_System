@@ -43,7 +43,7 @@
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label" >Password</label>
-                    <input aria-describedby="Invalid" type="password" required class="form-control" id="InputPassword1" name="password">
+                    <input type="password" required class="form-control" id="InputPassword1" name="password">
                   </div>
                   <button type="submit" class="btn btn-dark w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                 </form>
