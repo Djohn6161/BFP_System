@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [UsersController::class,'dashboard'])->name('dashboard');
 
         Route::get('/reports/nonResponse/index', [ReportController::class, 'nonResponseIndex'])->name('nonResponse.index');
+        Route::get('/reports/Response/index', [ReportController::class, 'ResponseIndex'])->name('Response.index');
     });
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function(){
         Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');

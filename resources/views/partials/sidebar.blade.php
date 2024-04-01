@@ -14,7 +14,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="sidebar-item ">
-                    <a class="sidebar-link {{$active == 'home' ? 'active' : ''}}" href="./index.html" aria-expanded="false">
+                    <a class="sidebar-link {{$active == 'home' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -38,7 +38,7 @@
                     <div class="accordion accordion-flush" id="accordionExample">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
-                                <button class="accordion-button sidebar-link {{$active == 'response' ? 'active' : ''}}" type="button"
+                                <button class="accordion-button sidebar-link " type="button"
                                     data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     <span> <i class="ti ti-article"></i></span>
@@ -47,10 +47,13 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
-                                <a href="{{route('user.nonResponse.index')}}" class="sidebar-link text-decoration-none py-3"> Non Response</a>
-                                <div class="accordion-body">
+                                {{-- <a href="{{route('user.nonResponse.index')}}" class="sidebar-link text-decoration-none py-3"> Non Response</a> --}}
+                                <a href="{{route('user.Response.index')}}" class="{{$active == 'response' ? 'active' : ''}} accordion-body sidebar-link ms-2">
                                     Response
-                                </div>
+                                </a>
+                                <a href="{{route('user.nonResponse.index')}}" class="accordion-body sidebar-link ms-2">
+                                    Non Response
+                                </a>
                             </div>
                         </div>
                     </div>
