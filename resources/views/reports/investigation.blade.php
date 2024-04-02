@@ -71,7 +71,7 @@
                                             <td class="border-bottom-0">
                                                 <a href="#" class="btn btn-primary w-100 mb-1">View</a>
                                                 <br>
-                                                <a href="#" class="btn btn-warning w-100 mb-1">Update</a>
+                                                <a href="#" class="btn btn-success w-100 mb-1">Update</a>
                                                 <br>
                                                 <a href="#" class="btn btn-danger w-100 mb-1">Delete</a>
                                             </td>
