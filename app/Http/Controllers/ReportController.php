@@ -16,9 +16,10 @@ class ReportController extends Controller
         ]);
     }
     public function operationIndex(){
-        $reports = Report::where('category', 'Operation')->get();
+        $operations = Report::where('category', 'Operation')->get();
+        $investigations = Report::where('category', 'Investigation')->get();
         $active = 'operation';
-        return view('reports.operation', compact('active','reports'));
+        return view('reports.operation', compact('active','operations','investigations'));
     }
     public function createReport($id){
         dd($id);

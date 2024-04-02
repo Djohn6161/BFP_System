@@ -23,7 +23,7 @@
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4">Investigation Reports</h5>
+                            <h5 class="card-title fw-semibold mb-4 text-center">Operat Reports</h5>
                             <div class="table-responsive">
                                 <table class="table text-nowrap mb-0 align-middle">
                                     <thead class="text-dark fs-4">
@@ -52,29 +52,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($reports as $report)
+                                        @foreach ($operations as $operation)
                                             <tr>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $operation->name }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}
+                                                        {{ $operation->personRank($operation->teamLeader->ranks_id)->slug . ' ' . $operation->teamLeader->last_name }}
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->type }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->type }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal text-capitalize">
-                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
+                                                        {{ $operation->personRank($operation->driver->ranks_id)->slug . ' ' . $operation->driver->last_name }}
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->time_of_departure }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->time_of_arrival_to_station }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <a href="#" class="btn btn-primary w-100 mb-1">View</a>
@@ -129,32 +129,28 @@
                                 <table class="table w-100 " id="myTable">
                                     <thead>
                                         <tr>
-                                            <th>Category</th>
-                                            <th>Departure</th>
-                                            <th>Arrival to <br> the station</th>
-                                            <th>Address</th>
+                                            <th>Name</th>
                                             <th>Team Leader</th>
-                                            <th></th>
+                                            <th>Type</th>
+                                            <th>Driver</th>
+                                            <th>Departure From Stationr</th>
+                                            <th>Arrival to Station</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011-04-25</td>
-                                            <td><a href="{{ route('report.create', ['id' => 1]) }}"
-                                                    class="btn btn-primary">Apply</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011-07-25</td>
-                                            <td><a href="{{ route('report.create', ['id' => 1]) }}"
-                                                    class="btn btn-primary">Apply</a></td>
+                                            @foreach ($investigations as $investigation)
+                                                <td>{{ $investigation->name }}</td>
+                                                <td> {{ $investigation->personRank($investigation->teamLeader->ranks_id)->slug . ' ' . $investigation->teamLeader->last_name }}</td>
+                                                <td>{{ $investigation->type }}</td>
+                                                <td>{{ $investigation->personRank($investigation->driver->ranks_id)->slug . ' ' . $investigation->driver->last_name }}</td>
+                                                <td>{{ $investigation->time_of_departure }}</td>
+                                                <td>{{ $investigation->time_of_arrival_to_station }}</td>
+                                                <td><a href="{{ route('report.create', ['id' => $investigation->id]) }}"
+                                                        class="btn btn-primary">Apply</a></td>
+                                            @endforeach
+
                                         </tr>
                                     </tbody>
                                 </table>
