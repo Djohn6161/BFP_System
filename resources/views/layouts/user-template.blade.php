@@ -21,6 +21,29 @@
         @include('partials.sidebar')
         <!--  Main wrapper -->
         <div class="body-wrapper">
+            <!-- Logout Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
+            aria-labelledby="addResponseModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <!-- Input fields for adding content -->
+                        <div class="mb-3 text-center">
+                            <h3>You want to logout?</h3>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
+                        <a href="{{ route('user.logout') }}"
+                            class="btn btn-secondary btn-reports">Yes</a>
+                        <button type="button" class="btn btn-danger btn-reports"
+                            data-bs-dismiss="modal" aria-label="Close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
             @include('partials.header')
             <!--  Header End -->
             @yield('content')
