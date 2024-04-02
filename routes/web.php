@@ -39,9 +39,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     });
-    
+
     Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/report/create/{id}', [ReportController::class, 'createReport'])->name('report.create');
 });
+
 
 require __DIR__ . '/auth.php';

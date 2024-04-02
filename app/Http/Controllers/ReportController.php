@@ -17,4 +17,7 @@ class ReportController extends Controller
             'active' => 'operation'
         ]);
     }
+    public function createReport($id){
+        dd($id);
+    }
 }

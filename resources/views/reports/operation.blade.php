@@ -140,13 +140,13 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5>
+                        {{-- <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5> --}}
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Input fields for adding content -->
                         <div class="mb-3 text-center">
-                            <h3>Sample Line here?</h3>
+                            <h3>You want to use existing report?</h3>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
@@ -164,18 +164,18 @@
                         <div class="modal-header">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body m-3">
+                        <div class="modal-body m-3 text-center">
                             <h3 class="mb-2">Investigation Reports</h3>
                             <div class="shadow rounded p-4">
-                                <table class="table w-100" id="myTable">
+                                <table class="table w-100 " id="myTable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Category</th>
+                                            <th>Departure</th>
+                                            <th>Arrival to <br> the station</th>
+                                            <th>Address</th>
+                                            <th>Team Leader</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -185,7 +185,7 @@
                                             <td>Edinburgh</td>
                                             <td>61</td>
                                             <td>2011-04-25</td>
-                                            <td>$320,800</td>
+                                            <td><a href="{{route('report.create', ['id' => 1])}}" class="btn btn-primary">Apply</a></td>
                                         </tr>
                                         <tr>
                                             <td>Garrett Winters</td>
@@ -193,7 +193,7 @@
                                             <td>Tokyo</td>
                                             <td>63</td>
                                             <td>2011-07-25</td>
-                                            <td>$170,750</td>
+                                            <td><a href="{{route('report.create', ['id' => 1])}}" class="btn btn-primary">Apply</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
