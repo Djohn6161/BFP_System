@@ -1,3 +1,8 @@
+<style>
+    .btn-reports {
+        width: 200px
+    }
+</style>
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -131,65 +136,111 @@
 
             <!-- Add Modal -->
             <div class="modal fade" data-bs-backdrop="static" id="addResponseModal" tabindex="-1"
-                aria-labelledby="addResponseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+            aria-labelledby="addResponseModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Input fields for adding content -->
+                        <div class="mb-3 text-center">
+                            <h3>Sample Line here?</h3>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button>
+                        <button type="button" class="btn btn-danger btn-reports" id="noBtn">No</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Second Modal (Yes Modal) -->
+            <div class="modal fade" id="yesModal" tabindex="-1" aria-labelledby="yesModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <!-- Input fields for adding content -->
-                            <div class="mb-3">
-                                <label for="itemName" class="form-label">Item Name (Text)</label>
-                                <input type="text" class="form-control" id="itemName" placeholder="Enter item name">
+                        <div class="modal-body m-3">
+                            <h3 class="mb-2">Investigation Reports</h3>
+                            <div class="shadow rounded p-4">
+                                <table class="table w-100" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011-04-25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011-07-25</td>
+                                            <td>$170,750</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="mb-3">
-                                <label for="itemNumber" class="form-label">Item Quantity (Number)</label>
-                                <input type="number" class="form-control" id="itemNumber"
-                                    placeholder="Enter item quantity">
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemEmail" class="form-label">Email Address (Email)</label>
-                                <input type="email" class="form-control" id="itemEmail" placeholder="Enter email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemPassword" class="form-label">Password (Password)</label>
-                                <input type="password" class="form-control" id="itemPassword"
-                                    placeholder="Enter password">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="itemCheckbox">
-                                    <label class="form-check-label" for="itemCheckbox">Check me out (Checkbox)</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Default radio (Radio)
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios2" value="option2">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                        Second default radio (Radio)
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemDate" class="form-label">Select Date (Date)</label>
-                                <input type="date" class="form-control" id="itemDate">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary">Add</button>
                         </div>
                     </div>
                 </div>
             </div>
-        @endsection
+
+            <!-- Third Modal (No Modal) -->
+            <div class="modal fade" id="noModal" tabindex="-1" aria-labelledby="noModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="noModalLabel">Choose which type of incident:</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</button>
+                            <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Vehicular Accident</button>
+                            <button class="btn btn-lg btn-outline-primary d-block w-100">Non-Emergency Response</button>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+
+<script>
+    // Wait for the document to load
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the Yes and No buttons
+        var yesBtn = document.getElementById('yesBtn');
+        var noBtn = document.getElementById('noBtn');
+
+        // Attach click event listeners to the buttons
+        yesBtn.addEventListener('click', function () {
+            // Show the Yes modal
+            $('#yesModal').modal('show');
+            // Hide the current modal
+            $('#addResponseModal').modal('hide');
+        });
+
+        noBtn.addEventListener('click', function () {
+            // Show the No modal
+            $('#noModal').modal('show');
+            // Hide the current modal
+            $('#addResponseModal').modal('hide');
+        });
+    });
+</script>
+@endsection
