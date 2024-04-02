@@ -23,7 +23,7 @@
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 text-center">Recent Report</h5>
+                            <h5 class="card-title fw-semibold mb-4">Investigation Reports</h5>
                             <div class="table-responsive">
                                 <table class="table text-nowrap mb-0 align-middle">
                                     <thead class="text-dark fs-4">
@@ -49,21 +49,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($operations as $operation)
+                                        @foreach ($reports as $report)
+                                            {{-- {{dd()}} --}}
                                             <tr>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{$operation->name}}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">Elite Admin</p>
+                                                    <h6 class="fw-semibold mb-0 text-capitalize">
+                                                        {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}
+                                                    </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <span class="badge bg-primary rounded-3 fw-semibold">Low</span>
-                                                    </div>
+                                                    <p class="mb-0 fw-normal">{{ $report->type }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
+                                                    <p class="mb-0 fw-normal text-capitalize">
+                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
+                                                    </p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -97,30 +106,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Logout Modal -->
-            <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
-                aria-labelledby="addResponseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        </div>
-                        <div class="modal-body">
-                            <!-- Input fields for adding content -->
-                            <div class="mb-3 text-center">
-                                <h3>You want to logout?</h3>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
-                            <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
-                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
-                                aria-label="Close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
             <!-- Second Modal (Yes Modal) -->
             <div class="modal fade" id="yesModal" tabindex="-1" aria-labelledby="yesModalLabel" aria-hidden="true">

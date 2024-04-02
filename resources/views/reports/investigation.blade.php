@@ -214,7 +214,7 @@
                         <div class="modal-body">
                             <!-- Input fields for adding content -->
                             <div class="mb-3 text-center">
-                                <h3>You want to logout?</h3>
+                                <h3>Do you want to logout?</h3>
                             </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-around">
