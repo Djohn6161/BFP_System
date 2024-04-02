@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -13,9 +14,9 @@ class ReportController extends Controller
         ]);
     }
     public function operationIndex(){
-        return view('reports.operation',[
-            'active' => 'operation'
-        ]);
+        $operations = Report::where('category', 'Operation')->get();
+        $active = 'operation';
+        return view('reports.operation', compact('active','operations'));
     }
     public function createReport($id){
         dd($id);
