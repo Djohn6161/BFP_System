@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
             $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
+            $table->foreignId('ranks_id')->constrained('ranks')->onUpdate('cascade');
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');

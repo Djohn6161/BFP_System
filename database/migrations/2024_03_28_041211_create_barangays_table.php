@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('barangays', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('municipalities_id')->constrained('municipalities')->onUpdate('cascade');
             $table->string('name');
+            $table->string('unit');
             $table->timestamps();
         });
     }

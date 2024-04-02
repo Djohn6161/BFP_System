@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReportType extends Model
+class Rank extends Model
 {
     use HasFactory;
-
-    public function reports(){
-        return $this->hasMany(Report::class, 'report_types_id');
+    public function personnels(){
+        return $this->hasMany(Personnel::class, 'ranks_id');
     }
 }
