@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('drivers_id')->constrained('personnels')->onUpdate('cascade');
             $table->foreignId('barangays_id')->constrained('barangays')->onUpdate('cascade');
             $table->enum('category', ['Investigation', 'Operation']);
-            $table->enum('type', ['Fire Incident', 'Car Accident', 'Non-Emergency Response']);
+            $table->enum('type', ['Fire Incident', 'Vehicular Accident', 'Non-Emergency Response']);
             $table->dateTime('time_of_departure');
             $table->dateTime('time_of_arrival_to_scene');
             $table->string('name');
