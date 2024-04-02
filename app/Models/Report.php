@@ -18,7 +18,10 @@ class Report extends Model
     public function logs(){
         return $this->hasMany(Log::class, 'reports_id');
     }
-    public function Driver(){
+    public function driver(){
         return $this->belongsTo(Personnel::class, 'drivers_id');
+    }
+    public function truck(){
+        return $this->belongsTo(Truck::class, 'trucks_id');
     }
 }
