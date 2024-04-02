@@ -12,7 +12,7 @@ class Personnel extends Model
     public function department(){
         return $this->BelongsTo(Department::class, 'departments_id');
     }
-    public function personnel(){
-        return $this->hasMany(Personnel::class, 'personnels_id');
+    public function rank(){
+        return $this->belongsTo(Rank::class, 'ranks_id');
     }
 }

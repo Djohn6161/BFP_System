@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Barangay extends Model
 {
     use HasFactory;
-
-    public function municipality(){
-        return $this->belongsTo(Municipality::class, 'municipalities_id');
-    }
 }
