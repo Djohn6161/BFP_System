@@ -43,7 +43,8 @@
                                 <p class="mb-0 fs-3">My Task</p>
                             </a>
                             <a href="{{ route('user.logout') }}"
-                                class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                class="btn btn-outline-primary mx-3 mt-2 d-block" data-bs-toggle="modal" data-bs-target="#logoutModal"
+                                >Logout</a>
 
                         </div>
                     </div>

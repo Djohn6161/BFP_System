@@ -136,33 +136,58 @@
 
             <!-- Add Modal -->
             <div class="modal fade" data-bs-backdrop="static" id="addResponseModal" tabindex="-1"
-            aria-labelledby="addResponseModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        {{-- <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5> --}}
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Input fields for adding content -->
-                        <div class="mb-3 text-center">
-                            <h3>You want to use existing report?</h3>
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {{-- <h5 class="modal-title" id="addResponseModalLabel">Modal title</h5> --}}
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button>
-                        <button type="button" class="btn btn-danger btn-reports" id="noBtn">No</button>
+                        <div class="modal-body">
+                            <!-- Input fields for adding content -->
+                            <div class="mb-3 text-center">
+                                <h3>You want to use existing report?</h3>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button>
+                            <button type="button" class="btn btn-danger btn-reports" id="noBtn">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Logout Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header"> 
+                        </div>
+                        <div class="modal-body">
+                            <!-- Input fields for adding content -->
+                            <div class="mb-3 text-center">
+                                <h3>You want to logout?</h3>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">
+                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
+                            <a href="{{route('user.logout')}}" class="btn btn-secondary btn-reports">Yes</a>
+                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
+                            aria-label="Close">No</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Second Modal (Yes Modal) -->
             <div class="modal fade" id="yesModal" tabindex="-1" aria-labelledby="yesModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body m-3 text-center">
                             <h3 class="mb-2">Investigation Reports</h3>
@@ -185,7 +210,8 @@
                                             <td>Edinburgh</td>
                                             <td>61</td>
                                             <td>2011-04-25</td>
-                                            <td><a href="{{route('report.create', ['id' => 1])}}" class="btn btn-primary">Apply</a></td>
+                                            <td><a href="{{ route('report.create', ['id' => 1]) }}"
+                                                    class="btn btn-primary">Apply</a></td>
                                         </tr>
                                         <tr>
                                             <td>Garrett Winters</td>
@@ -193,7 +219,8 @@
                                             <td>Tokyo</td>
                                             <td>63</td>
                                             <td>2011-07-25</td>
-                                            <td><a href="{{route('report.create', ['id' => 1])}}" class="btn btn-primary">Apply</a></td>
+                                            <td><a href="{{ route('report.create', ['id' => 1]) }}"
+                                                    class="btn btn-primary">Apply</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -209,38 +236,39 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="noModalLabel">Choose which type of incident:</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</button>
                             <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Vehicular Accident</button>
                             <button class="btn btn-lg btn-outline-primary d-block w-100">Non-Emergency Response</button>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
 
-<script>
-    // Wait for the document to load
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the Yes and No buttons
-        var yesBtn = document.getElementById('yesBtn');
-        var noBtn = document.getElementById('noBtn');
+            <script>
+                // Wait for the document to load
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Get the Yes and No buttons
+                    var yesBtn = document.getElementById('yesBtn');
+                    var noBtn = document.getElementById('noBtn');
 
-        // Attach click event listeners to the buttons
-        yesBtn.addEventListener('click', function () {
-            // Show the Yes modal
-            $('#yesModal').modal('show');
-            // Hide the current modal
-            $('#addResponseModal').modal('hide');
-        });
+                    // Attach click event listeners to the buttons
+                    yesBtn.addEventListener('click', function() {
+                        // Show the Yes modal
+                        $('#yesModal').modal('show');
+                        // Hide the current modal
+                        $('#addResponseModal').modal('hide');
+                    });
 
-        noBtn.addEventListener('click', function () {
-            // Show the No modal
-            $('#noModal').modal('show');
-            // Hide the current modal
-            $('#addResponseModal').modal('hide');
-        });
-    });
-</script>
-@endsection
+                    noBtn.addEventListener('click', function() {
+                        // Show the No modal
+                        $('#noModal').modal('show');
+                        // Hide the current modal
+                        $('#addResponseModal').modal('hide');
+                    });
+                });
+            </script>
+        @endsection
