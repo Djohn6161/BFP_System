@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Rank;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Report extends Model
 {
@@ -21,7 +22,11 @@ class Report extends Model
     public function driver(){
         return $this->belongsTo(Personnel::class, 'drivers_id');
     }
+
     public function truck(){
         return $this->belongsTo(Truck::class, 'trucks_id');
+    }
+    public function personRank($id){
+        return Rank::where('id', $id)->first();
     }
 }
