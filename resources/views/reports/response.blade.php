@@ -150,8 +150,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button>
-                        <button type="button" class="btn btn-danger btn-reports" id="noBtn">No</button>
+                        <button type="button" class="btn btn-lg btn-secondary btn-reports" id="yesBtn">Yes</button>
+                        <button type="button" class="btn btn-lg btn-outline-secondary btn-reports" id="noBtn">No</button>
                     </div>
                 </div>
             </div>

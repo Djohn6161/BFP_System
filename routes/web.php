@@ -25,6 +25,9 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('user_homepage');
 });
+Route::get('/form', function () {
+    return view('form');
+});
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -25,7 +25,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="sidebar-item ">
-                    <a class="sidebar-link {{ $active == 'home' ? 'active' : '' }}"
+                    <a class="sidebar-link"
                         href="{{ route(auth()->user()->type . '.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
@@ -47,8 +47,7 @@
                                 data-bs-parent="#accordionExample">
                                 {{-- <a href="{{route('user.nonResponse.index')}}" class="sidebar-link text-decoration-none py-3"> Non Response</a> --}}
                                 <a href="{{ route('user.Response.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'response' ? 'active' : '' }}"
-                                    href="{{ route(auth()->user()->type . '.dashboard') }}">
+                                    class="sidebar-link accordion-body ms-2 reports-collapse">
                                     Operation
                                 </a>
                                 <a href="{{ route('user.nonResponse.index') }}"
