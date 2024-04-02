@@ -41,6 +41,9 @@
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Arrival to Station</h6>
                                             </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Action</h6>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,69 +68,16 @@
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">{{$report->time_of_arrival_to_station}}</p>
                                             </td>
+                                            <td class="border-bottom-0">
+                                                <a href="#" class="btn btn-primary w-100 mb-1">View</a>
+                                                <br>
+                                                <a href="#" class="btn btn-warning w-100 mb-1">Update</a>
+                                                <br>
+                                                <a href="#" class="btn btn-danger w-100 mb-1">Delete</a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         
-                                        <tr>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">2</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-1">Andrew McDownland</h6>
-                                                <span class="fw-normal">Project Manager</span>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">Real Homes WP Theme</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <span class="badge bg-secondary rounded-3 fw-semibold">Medium</span>
-                                                </div>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">$24.5k</h6>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">3</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-1">Christopher Jamil</h6>
-                                                <span class="fw-normal">Project Manager</span>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">MedicalPro WP Theme</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <span class="badge bg-danger rounded-3 fw-semibold">High</span>
-                                                </div>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">$12.8k</h6>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">4</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-1">Nirav Joshi</h6>
-                                                <span class="fw-normal">Frontend Engineer</span>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">Hosting Press HTML</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <span class="badge bg-success rounded-3 fw-semibold">Critical</span>
-                                                </div>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
