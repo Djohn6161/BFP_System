@@ -9,10 +9,13 @@ class ReportController extends Controller
 {
     //
     public function investigationIndex(){
-
+        $investigation = Report::all()->where('category', 'Investigation');
+        $operation = Report::all()->where('category', 'Operation');
         return view('reports.investigation',[
             'active' => 'investigation',
-            'reports' => Report::all()->where('category', 'Investigation'),
+            'investigation' => $investigation,
+            'operation' => $operation,
+
         ]);
     }
     public function operationIndex(){
