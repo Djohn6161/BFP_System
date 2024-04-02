@@ -155,53 +155,50 @@
                     </div>
                 </div>
             </div>
-            <<<<<<< HEAD <!-- Logout Modal -->
-                <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
-                    aria-labelledby="addResponseModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
+            <!-- Logout Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <!-- Input fields for adding content -->
+                            <div class="mb-3 text-center">
+                                <h3>Do you want to logout?</h3>
                             </div>
-                            <div class="modal-body">
-                                <!-- Input fields for adding content -->
-                                <div class="mb-3 text-center">
-                                    <h3>Do you want to logout?</h3>
-                                </div>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-around">
-                                {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
-                                <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
-                                <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
-                                    aria-label="Close">No</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">
+                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
+                            <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
+                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
+                                aria-label="Close">No</button>
                         </div>
                     </div>
                 </div>
-                =======
+            </div>
 
-                >>>>>>> Don
+            <script>
+                // Wait for the document to load
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Get the Yes and No buttons
+                    var yesBtn = document.getElementById('yesBtn');
+                    var noBtn = document.getElementById('noBtn');
 
-                <script>
-                    // Wait for the document to load
-                    document.addEventListener("DOMContentLoaded", function() {
-                        // Get the Yes and No buttons
-                        var yesBtn = document.getElementById('yesBtn');
-                        var noBtn = document.getElementById('noBtn');
-
-                        // Attach click event listeners to the buttons
-                        yesBtn.addEventListener('click', function() {
-                            // Show the Yes modal
-                            $('#yesModal').modal('show');
-                            // Hide the current modal
-                            $('#addResponseModal').modal('hide');
-                        });
-
-                        noBtn.addEventListener('click', function() {
-                            // Show the No modal
-                            $('#noModal').modal('show');
-                            // Hide the current modal
-                            $('#addResponseModal').modal('hide');
-                        });
+                    // Attach click event listeners to the buttons
+                    yesBtn.addEventListener('click', function() {
+                        // Show the Yes modal
+                        $('#yesModal').modal('show');
+                        // Hide the current modal
+                        $('#addResponseModal').modal('hide');
                     });
-                </script>
-            @endsection
+
+                    noBtn.addEventListener('click', function() {
+                        // Show the No modal
+                        $('#noModal').modal('show');
+                        // Hide the current modal
+                        $('#addResponseModal').modal('hide');
+                    });
+                });
+            </script>
+        @endsection

@@ -46,11 +46,13 @@
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Arrival to Station</h6>
                                             </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Action</h6>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($reports as $report)
-                                            {{-- {{dd()}} --}}
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
@@ -73,6 +75,13 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <a href="#" class="btn btn-primary w-100 mb-1">View</a>
+                                                    <br>
+                                                    <a href="#" class="btn btn-success w-100 mb-1">Update</a>
+                                                    <br>
+                                                    <a href="#" class="btn btn-danger w-100 mb-1">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -161,7 +170,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="noModalLabel">Choose which type of incident:</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</button>
