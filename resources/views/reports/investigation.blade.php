@@ -49,26 +49,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($reports as $report)
+                                        {{-- {{dd()}} --}}
                                         <tr>
                                             <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">1</h6>
+                                                <h6 class="fw-semibold mb-0">{{$report->name}}</h6>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
-                                                <span class="fw-normal">Web Designer</span>
+                                                <h6 class="fw-semibold mb-0 text-capitalize">{{$report->personRank($report->teamLeader->ranks_id)->slug . " " . $report->teamLeader->last_name}}</h6>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">Elite Admin</p>
+                                                <p class="mb-0 fw-normal">{{$report->type}}</p>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <span class="badge bg-primary rounded-3 fw-semibold">Low</span>
-                                                </div>
+                                                <p class="mb-0 fw-normal text-capitalize">{{$report->personRank($report->driver->ranks_id)->slug . " " . $report->driver->last_name}}</p>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
+                                                <p class="mb-0 fw-normal">{{$report->time_of_departure}}</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">{{$report->time_of_arrival_to_station}}</p>
                                             </td>
                                         </tr>
+                                        @endforeach
+                                        
                                         <tr>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">2</h6>
