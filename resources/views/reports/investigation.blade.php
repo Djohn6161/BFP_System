@@ -50,29 +50,33 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($reports as $report)
-                                        {{-- {{dd()}} --}}
-                                        <tr>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">{{$report->name}}</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 text-capitalize">{{$report->personRank($report->teamLeader->ranks_id)->slug . " " . $report->teamLeader->last_name}}</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">{{$report->type}}</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal text-capitalize">{{$report->personRank($report->driver->ranks_id)->slug . " " . $report->driver->last_name}}</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">{{$report->time_of_departure}}</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">{{$report->time_of_arrival_to_station}}</p>
-                                            </td>
-                                        </tr>
+                                            {{-- {{dd()}} --}}
+                                            <tr>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0 text-capitalize">
+                                                        {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}
+                                                    </h6>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->type }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal text-capitalize">
+                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
+                                                    </p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                        
+
                                         <tr>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">2</h6>

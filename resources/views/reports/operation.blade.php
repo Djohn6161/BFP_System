@@ -161,8 +161,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="noModalLabel">Choose which type of incident:</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <button class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</button>
