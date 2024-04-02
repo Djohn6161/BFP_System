@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slugs');
+            $table->string('slug');
             $table->timestamps();
         });
     }

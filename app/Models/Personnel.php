@@ -15,4 +15,10 @@ class Personnel extends Model
     public function rank(){
         return $this->belongsTo(Rank::class, 'ranks_id');
     }
+    public function driverReport(){
+        return $this->hasMany(Personnel::class, 'drivers_id');
+    }
+    public function teamLeaderReport(){
+        return $this->hasMany(Personnel::class, 'team_leaders_id');
+    }
 }
