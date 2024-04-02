@@ -138,7 +138,7 @@
                 </nav>
             </header>
             <!--  Header End -->
-            <div class="container-fluid">
+            <div class="container-fluid d-flex justify-content-center align-items-center vh-100 pt-0">
                 <!--  Row 1 -->
                 <div class="col-lg-12">
                   <!-- Monthly Earnings -->
