@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     //
-    public function nonResponseIndex(){
-        return view('reports.nonresponse',[
-            'active' => 'response'
+    public function investigationIndex(){
+        return view('reports.investigation',[
+            'active' => 'investigation'
         ]);
     }
-    public function ResponseIndex(){
-        return view('reports.response',[
-            'active' => 'response'
+    public function operationIndex(){
+        return view('reports.operation',[
+            'active' => 'operation'
         ]);
     }
 }

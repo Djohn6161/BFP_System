@@ -48,11 +48,11 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
                                 {{-- <a href="{{route('user.nonResponse.index')}}" class="sidebar-link text-decoration-none py-3"> Non Response</a> --}}
-                                <a href="{{route('user.Response.index')}}" class="{{$active == 'response' ? 'active' : ''}} accordion-body sidebar-link ms-2">
-                                    Response
+                                <a href="{{route('operation.index')}}" class="{{$active == 'operation' ? 'active' : ''}} accordion-body sidebar-link ms-2">
+                                    Operation
                                 </a>
-                                <a href="{{route('user.nonResponse.index')}}" class="accordion-body sidebar-link ms-2">
-                                    Non Response
+                                <a href="{{route('investigation.index')}}" class="accordion-body sidebar-link ms-2">
+                                    Investigation
                                 </a>
                             </div>
                         </div>

@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view('admin_dashboard');
+        return view('admin.home',[
+            'active' => 'home',
+        ]);
     }
 
     public function adminLogout(Request $request): RedirectResponse
