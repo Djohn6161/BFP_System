@@ -47,7 +47,7 @@
             @include('partials.header')
             <!--  Header End -->
             @yield('content')
-            @include('partials.footer')
+            {{-- @include('partials.footer') --}}
 
         </div>
     </div>

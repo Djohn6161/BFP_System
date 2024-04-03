@@ -25,7 +25,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="sidebar-item ">
-                    <a class="sidebar-link {{ $active == 'home' ? 'active' : '' }}"
+                    <a class="sidebar-link"
                         href="{{ route(auth()->user()->type . '.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
