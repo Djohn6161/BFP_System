@@ -93,8 +93,8 @@
                 </div>
             </div>
 
-            <x-reports.chooseReport :reports=$operation :type="'Operation'"> </x-reports.chooseReport>
-            <x-reports.chosen  > </x-reports.chosen>
+            <x-reports.chooseReport :reports=$operation :category="'Operation'"> </x-reports.chooseReport>
+            <x-reports.chosen :category=$active > </x-reports.chosen>
 
 
             <script>

@@ -50,7 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
-    Route::get('/report/create/{type}/{id}', [ReportController::class, 'createReport'])->name('report.create');
+    Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
+    Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 });
 
 

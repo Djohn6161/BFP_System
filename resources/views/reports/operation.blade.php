@@ -92,8 +92,8 @@
                     </div>
                 </div>
             </div>
-            <x-reports.chooseReport :reports=$investigation :type="'Investigation'"> </x-reports.chooseReport>
-            <x-reports.chosen  > </x-reports.chosen>
+            <x-reports.chooseReport :reports=$investigation :category="'Investigation'"> </x-reports.chooseReport>
+            <x-reports.chosen :category=$active > </x-reports.chosen>
 
             <script>
                 // Wait for the document to load

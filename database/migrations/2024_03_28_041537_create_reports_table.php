@@ -23,7 +23,9 @@ return new class extends Migration
             $table->dateTime('time_of_arrival_to_scene');
             $table->string('name');
             $table->string('street')->nullable();
+            $table->string('otherLocation')->nullable();
             $table->integer('number_of_victims')->nullable();
+            $table->string('crewName')->nullable();
             $table->string('name_of_victims')->nullable();
             $table->string('property_involved')->nullable();
             $table->float('estimate_cost_of_damages')->nullable();

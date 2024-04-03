@@ -33,9 +33,9 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Fire Incident'])}}" class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</a>
-                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Vehicular Accident'])}}" class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Vehicular Accident</a>
-                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Non-Emergency Response'])}}" class="btn btn-lg btn-outline-primary d-block w-100">Non-Emergency Response</a>
+                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Fire Incident',  'category' => $category])}}" class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Fire Incident</a>
+                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Vehicular Accident' , 'category' => $category])}}" class="btn btn-lg btn-outline-primary d-block w-100 mb-2">Vehicular Accident</a>
+                            <a href="{{route('report.create', ['id' => 0, 'type' => 'Non-Emergency Response', 'category' => $category])}}" class="btn btn-lg btn-outline-primary d-block w-100">Non-Emergency Response</a>
                         </div>
                     </div>
                 </div>
