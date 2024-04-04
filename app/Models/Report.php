@@ -2,25 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Rank;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Report extends Model
 {
     use HasFactory;
-    public function reportType(){
-        return $this->belongsTo(ReportType::class, 'report_types_id');
-    }
-    public function personnel(){
-        return $this->belongsTo(Personnel::class, 'personnels_id');
-    }
-
-    public function province(){
-        return $this->belongsTo(Province::class, 'provinces_id');
-    }
-
-    public function munipality(){
-        return $this->belongsTo(Municipality::class, 'munipalities_id');
+    public function teamLeader(){
+        return $this->belongsTo(Personnel::class, 'team_leaders_id');
     }
 
     public function barangay(){
@@ -28,5 +18,15 @@ class Report extends Model
     }
     public function logs(){
         return $this->hasMany(Log::class, 'reports_id');
+    }
+    public function driver(){
+        return $this->belongsTo(Personnel::class, 'drivers_id');
+    }
+
+    public function truck(){
+        return $this->belongsTo(Truck::class, 'trucks_id');
+    }
+    public function personRank($id){
+        return Rank::where('id', $id)->first();
     }
 }

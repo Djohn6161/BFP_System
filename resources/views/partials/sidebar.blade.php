@@ -1,3 +1,14 @@
+<style>
+    .reports-collapse.active {
+        background-color: #5D87FF;
+        color: #fff !important;
+    }
+
+    .reports-collapse.active:hover {
+        color: #000 !important;
+    }
+</style>
+
 <!-- Sidebar Start -->
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -13,85 +24,76 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                <li class="sidebar-item ">
+                    <a class="sidebar-link"
+                        href="{{ route(auth()->user()->type . '.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                {{-- <li class="nav-small-cap">
-    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-    <span class="hide-menu">JOSHUA POGI</span>
-  </li> --}}
-
-                {{-- <li class="sidebar-item">
-    <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
-      <span>
-        <i class="ti ti-article"></i>
-      </span>
-      <span class="hide-menu">Reports</span>
-    </a>
-  </li> --}}
                 <li class="sidebar-item">
                     <div class="accordion accordion-flush" id="accordionExample">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
-                                <button class="accordion-button sidebar-link" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                    aria-controls="collapseOne">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <span> <i class="ti ti-article"></i></span>
                                     <span class="hide-menu">Reports</span>
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    Non Response
-                                </div>
-                                <div class="accordion-body">
-                                    Response
-                                </div>
+
+                                <a href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                    Operation
+                                </a>
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                    Investigation
+                                </a>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-alert-circle"></i>
-                        </span>
-                        <span class="hide-menu">Accounts</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-cards"></i>
-                        </span>
-                        <span class="hide-menu">Personnel</span>
-                    </a>
-                </li>
+                @if (auth()->user()->type == 'admin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-alert-circle"></i>
+                            </span>
+                            <span class="hide-menu">Accounts</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-cards"></i>
+                            </span>
+                            <span class="hide-menu">Personnel</span>
+                        </a>
+                    </li>
 
 
-                {{-- Bottom --}}
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-file-description"></i>
-                        </span>
-                        <span class="hide-menu">Logs</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-typography"></i>
-                        </span>
-                        <span class="hide-menu">Trash</span>
-                    </a>
-                </li>
+                    {{-- Bottom --}}
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-file-description"></i>
+                            </span>
+                            <span class="hide-menu">Logs</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-typography"></i>
+                            </span>
+                            <span class="hide-menu">Trash</span>
+                        </a>
+                    </li>
+                @endif
+
                 {{-- Bottom --}}
 
             </ul>

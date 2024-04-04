@@ -13,16 +13,26 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('report_types_id')->constrained('report_types')->onUpdate('cascade');
-            $table->foreignId('personnels_id')->constrained('personnels')->onUpdate('cascade');
-            $table->foreignId('provinces_id')->constrained('provinces')->onUpdate('cascade');
-            $table->foreignId('municipalities_id')->constrained('municipalities')->onUpdate('cascade');
+            $table->foreignId('team_leaders_id')->constrained('personnels')->onUpdate('cascade');
+            $table->foreignId('drivers_id')->constrained('personnels')->onUpdate('cascade');
             $table->foreignId('barangays_id')->constrained('barangays')->onUpdate('cascade');
-            $table->boolean('deleted_at');
+            $table->foreignId('trucks_id')->constrained('trucks')->onUpdate('cascade');
+            $table->enum('category', ['Investigation', 'Operation']);
+            $table->enum('type', ['Fire Incident', 'Vehicular Accident', 'Non-Emergency Response']);
+            $table->dateTime('time_of_departure');
+            $table->dateTime('time_of_arrival_to_scene');
             $table->string('name');
-            $table->string('description');
-            $table->integer('zone');
-            $table->string('street');
+            $table->string('street')->nullable();
+            $table->string('otherLocation')->nullable();
+            $table->integer('number_of_victims')->nullable();
+            $table->longText('crewName')->nullable();
+            $table->longText('name_of_victims')->nullable();
+            $table->string('property_involved')->nullable();
+            $table->float('estimate_cost_of_damages')->nullable();
+            $table->longText('remarks')->nullable();
+            $table->longText('photos')->nullable();
+            $table->dateTime('time_of_arrival_to_station');
+            $table->boolean('deleted_at')->default(0);
             $table->timestamps();
         });
     }

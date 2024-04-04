@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
+use App\Models\Report;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +20,39 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
-Route::get('/user/dashboard', [UsersController::class,'dashboard'])->middleware(['auth','verified'])->name('dashboard');
-Route::get('/user/logout', [UsersController::class,'userLogout'])->name('user.logout');
+})->middleware(['guest'])->name('index');
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->middleware(['auth','verified'])->name('admin.dashboard');
-    Route::get('/admin/logout', [AdminController::class,'adminLogout'])->name('admin.logout');
+Route::get('/home', function () {
+    return view('user_homepage');
+});
+Route::get('/test', function(){
+    return view('test');
+});
+Route::get('/form', function () {
+    return view('form',[
+        'active' => 'dashboard'
+    ]);
 });
 
-require __DIR__.'/auth.php';
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
+
+    Route::middleware(['role:user'])->prefix('user')->name('user.')->group(function () {
+        Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
+
+    });
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    });
+
+    Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
+    Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
+    Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+});
+
+
+require __DIR__ . '/auth.php';
