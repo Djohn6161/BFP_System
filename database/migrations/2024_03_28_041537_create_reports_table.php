@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('otherLocation')->nullable();
             $table->integer('number_of_victims')->nullable();
-            $table->string('crewName')->nullable();
-            $table->string('name_of_victims')->nullable();
+            $table->longText('crewName')->nullable();
+            $table->longText('name_of_victims')->nullable();
             $table->string('property_involved')->nullable();
             $table->float('estimate_cost_of_damages')->nullable();
-            $table->string('remarks')->nullable();
-            $table->string('photos')->nullable();
+            $table->longText('remarks')->nullable();
+            $table->longText('photos')->nullable();
             $table->dateTime('time_of_arrival_to_station');
             $table->boolean('deleted_at')->default(0);
             $table->timestamps();

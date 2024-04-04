@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->middleware(['guest']);
+})->middleware(['guest'])->name('index');
 
 Route::get('/home', function () {
     return view('user_homepage');

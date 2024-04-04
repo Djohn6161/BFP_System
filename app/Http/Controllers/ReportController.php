@@ -34,7 +34,7 @@ class ReportController extends Controller
         try{
             $report = Report::findorfail($id);
         }catch(\Exception $ex){
-            $report = "";
+            $report = null;
             // abort(404);
         }
         if($type == "Fire Incident"){
