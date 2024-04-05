@@ -13,7 +13,7 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNonResponseModal">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addResponseModal">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -52,7 +52,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($reports as $report)
+                                        @foreach ($investigation as $report)
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
@@ -93,90 +93,9 @@
                 </div>
             </div>
 
-            <!-- Add Modal -->
-            <div class="modal fade" data-bs-backdrop="static" id="addNonResponseModal" tabindex="-1"
-                aria-labelledby="addNonResponseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addNonResponseModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Input fields for adding content -->
-                            <div class="mb-3">
-                                <label for="itemName" class="form-label">Item Name (Text)</label>
-                                <input type="text" class="form-control" id="itemName" placeholder="Enter item name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemNumber" class="form-label">Item Quantity (Number)</label>
-                                <input type="number" class="form-control" id="itemNumber"
-                                    placeholder="Enter item quantity">
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemEmail" class="form-label">Email Address (Email)</label>
-                                <input type="email" class="form-control" id="itemEmail" placeholder="Enter email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemPassword" class="form-label">Password (Password)</label>
-                                <input type="password" class="form-control" id="itemPassword" placeholder="Enter password">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="itemCheckbox">
-                                    <label class="form-check-label" for="itemCheckbox">Check me out (Checkbox)</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Default radio (Radio)
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios2" value="option2">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                        Second default radio (Radio)
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="itemDate" class="form-label">Select Date (Date)</label>
-                                <input type="date" class="form-control" id="itemDate">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Add</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Logout Modal -->
-            <div class="modal fade" data-bs-backdrop="static" id="logoutModal" tabindex="-1"
-                aria-labelledby="addResponseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        </div>
-                        <div class="modal-body">
-                            <!-- Input fields for adding content -->
-                            <div class="mb-3 text-center">
-                                <h3>Do you want to logout?</h3>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
-                            <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
-                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
-                                aria-label="Close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-reports.chooseReport :reports=$operation :category="'Operation'"> </x-reports.chooseReport>
+            <x-reports.chosen :category=$active > </x-reports.chosen>
+
 
             <script>
                 // Wait for the document to load

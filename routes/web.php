@@ -20,10 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->middleware(['guest']);
+})->middleware(['guest'])->name('index');
 
 Route::get('/home', function () {
     return view('user_homepage');
+});
+Route::get('/test', function(){
+    return view('test');
+});
+Route::get('/form', function () {
+    return view('form',[
+        'active' => 'dashboard'
+    ]);
 });
 
 
@@ -42,7 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
-    Route::get('/report/create/{id}', [ReportController::class, 'createReport'])->name('report.create');
+    Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
+    Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 });
 
 

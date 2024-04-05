@@ -138,7 +138,7 @@
                 </nav>
             </header>
             <!--  Header End -->
-            <div class="container-fluid d-flex justify-content-center align-items-center vh-100 pt-0">
+            <div class="container-fluid">
                 <!--  Row 1 -->
                 <div class="col-lg-12">
                   <!-- Monthly Earnings -->
@@ -162,10 +162,7 @@
         </div>
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../assets/js/sidebarmenu.js"></script>
         <script src="../assets/js/app.min.js"></script>
-        <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-        <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
         <script src="../assets/js/dashboard.js"></script>
 
 </body>
