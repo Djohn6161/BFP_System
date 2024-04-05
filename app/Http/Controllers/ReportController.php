@@ -37,9 +37,14 @@ class ReportController extends Controller
             $report = null;
             // abort(404);
         }
+        if($category == "Investigation"){
+            $active = "Operation";
+        }else{
+            $active = "Investigation";
+        }
         if($type == "Fire Incident"){
             return view('reports.types.fireIncident',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -49,7 +54,7 @@ class ReportController extends Controller
             ]);
         }elseif($type == "Vehicular Accident"){
             return view('reports.types.vehicularAccident',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -59,7 +64,7 @@ class ReportController extends Controller
             ]);
         }else{
             return view('reports.types.nonEmergency',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -93,18 +98,28 @@ class ReportController extends Controller
             'photos' => 'nullable',
             'time_of_arrival_to_station' => 'required',
         ]);
+        // dd($validatedData['photos']);
+        // if ($request->hasFile('photos')) {
+        //     foreach ($variable as $key => $value) {
+        //         # code...
+        //     }
+        //     $validatedData['photos'] = $request->file('photos')->store('report', 'public');
+        // }
         // $validatedDate->crewName = "don";
         try {
             $validatedData['crewName'] = implode(", ", $validatedData['crewName']);
         } catch (\Exception $ex) {
             
-        }
+        }   
         try {
             $validatedData['name_of_victims'] = implode(", ", $validatedData['name_of_victims']);
         } catch (\Exception $ex) {
         }
         try {
             $validatedData['photos'] = implode(", ", $validatedData['photos']);
+            foreach ($validatedData['photos'] as $photo) {
+                $photo->store('report', 'public');
+            }
         } catch (\Exception $ex) {
         }
         // dd($validatedData);

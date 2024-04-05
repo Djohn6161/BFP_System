@@ -15,6 +15,11 @@ class BarangaySeeder extends Seeder
     {
         //
         Barangay::factory()->create([
+            'id' => '1',
+            'name' => 'None',
+            'unit' => 'None',
+        ]);
+        Barangay::factory()->create([
             'name' => 'Amtic',
             'unit' => 'Mayon Unit',
         ]);
