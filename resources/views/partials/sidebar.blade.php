@@ -58,7 +58,7 @@
                 </li>
                 @if (auth()->user()->type == 'admin')
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.accounts') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-alert-circle"></i>
                             </span>

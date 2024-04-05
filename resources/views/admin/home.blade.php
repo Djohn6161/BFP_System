@@ -7,7 +7,7 @@
       <div class="row">
           <div class="col text-center">
             <img src="../assets/images/logos/BFP_Ligao_logo.png" width="170" alt="">
-              <h1>Welcome to my vlog!</h1>
+              <h1>NOOOOOOOOOOOOOOOOOOOO</h1>
           </div>
           
       </div>

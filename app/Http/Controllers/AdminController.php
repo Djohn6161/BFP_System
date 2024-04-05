@@ -14,6 +14,12 @@ class AdminController extends Controller
         ]);
     }
 
+    public function viewAccount(){
+        return view('admin.account.accounts',[
+            'active' => 'accounts',
+        ]);
+    }
+
     public function adminLogout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
