@@ -16,8 +16,8 @@
                             </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-around">
-                            <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button>
-                            <button type="button" class="btn btn-danger btn-reports" id="noBtn">No</button>
+                            <button type="button" class="btn btn-lg btn-secondary btn-reports" id="yesBtn">Yes, proceed to use existing report</button>
+                            <button type="button" class="btn btn-lg btn-outline-danger btn-reports" id="noBtn">No, choose another type of incident</button>
                         </div>
                     </div>
                 </div>
