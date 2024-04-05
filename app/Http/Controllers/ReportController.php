@@ -27,6 +27,9 @@ class ReportController extends Controller
         $investigation = Report::where('category', 'Investigation')->get();                                   
         return view('reports.operation', compact('active','reports', 'investigation'));
     }
+
+
+
     public function createReport($id, $type, $category){
     // dd($id != 0, $type);
         // abort(404);

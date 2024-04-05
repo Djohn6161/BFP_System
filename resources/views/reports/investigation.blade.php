@@ -77,17 +77,179 @@
                                                     <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="#" class="btn btn-primary w-100 mb-1">View</a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#viewModal" class="btn btn-primary w-100 mb-1">View</a>
                                                     <br>
-                                                    <a href="#" class="btn btn-success w-100 mb-1">Update</a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#updateModal{{ $report->id }}" class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
-                                                    <a href="#" class="btn btn-danger w-100 mb-1">Delete</a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $report->id }}" class="btn btn-danger hide-menu w-100 mb-1">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Inventigation  -->
+            <div class="modal fade" data-bs-backdrop="static" id="viewModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body m-3">
+                            <h3 class="mb-2">Reports</h3>
+                            <div class="d-flex justify-content-end mb-3">
+                                <span class="btn btn-primary w-10">Print</span>
+                            </div>
+                            <div class="shadow rounded p-4">
+                                <table class="table w-100 text-center">
+                                    <thead class="text-dark fs-4">
+                                        <tr>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Name</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Team Leader</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Type</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Driver</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Departure From Station</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Arrival to Station</h6>
+                                            </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($investigation as $report)
+                                            <tr>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0 text-capitalize">
+                                                        {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}
+                                                    </h6>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->type }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal text-capitalize">
+                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
+                                                    </p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
+                                                </td>
+                                               
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Update Investigation  -->
+            <div class="modal fade" data-bs-backdrop="static" id="updateModal{{ $report->id }}" tabindex="-1" aria-labelledby="updateModalLabel{{ $report->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateModalLabel{{ $report->id }}">Update Report</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ $report->name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="team_leader" class="form-label">Team Leader</label>
+                                            <select class="form-select" id="team_leader" name="team_leader">
+                                                <option value="">teamleader</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="type" class="form-label">Type</label>
+                                            <select class="form-select" id="type" name="type">
+                                                <option value="Type 1" {{ $report->type === 'Type 1' ? 'selected' : '' }}>Type 1</option>
+                                                <option value="Type 2" {{ $report->type === 'Type 2' ? 'selected' : '' }}>Type 2</option>
+                                                <option value="Type 3" {{ $report->type === 'Type 3' ? 'selected' : '' }}>Type 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="driver" class="form-label">Driver</label>
+                                            <select class="form-select" id="driver" name="driver">
+                                                <option value="">driver</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="departure_time" class="form-label">Departure Time</label>
+                                            <input type="datetime-local" class="form-control" id="departure_time" name="departure_time" value="{{ $report->time_of_departure }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="arrival_time" class="form-label">Arrival Time</label>
+                                            <input type="datetime-local" class="form-control" id="arrival_time" name="arrival_time" value="{{ $report->time_of_arrival_to_station }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Confirmation Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="deleteModal{{ $report->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $report->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered text-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="deleteModalLabel">Confirm Deletion</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           <h5>Are you sure you want to delete this report?</h5> 
+                        </div>
+                        <div class="modal-footer d-flex justify-content-around">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
+                            <button type="button" id="confirmDeleteBtn" class="btn btn-danger" aria-label="Close">No</button>
                         </div>
                     </div>
                 </div>
