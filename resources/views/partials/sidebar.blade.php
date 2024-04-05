@@ -46,10 +46,10 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
 
-                                <a href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                <a href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{strtolower($active) == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
                                     Operation
                                 </a>
-                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{strtolower($active) == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
                                     Investigation
                                 </a>
                             </div>

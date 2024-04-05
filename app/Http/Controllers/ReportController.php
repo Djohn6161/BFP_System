@@ -37,9 +37,14 @@ class ReportController extends Controller
             $report = null;
             // abort(404);
         }
+        if($category == "Investigation"){
+            $active = "Operation";
+        }else{
+            $active = "Investigation";
+        }
         if($type == "Fire Incident"){
             return view('reports.types.fireIncident',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -49,7 +54,7 @@ class ReportController extends Controller
             ]);
         }elseif($type == "Vehicular Accident"){
             return view('reports.types.vehicularAccident',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -59,7 +64,7 @@ class ReportController extends Controller
             ]);
         }else{
             return view('reports.types.nonEmergency',[
-                'active' => $category,
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
