@@ -93,18 +93,28 @@ class ReportController extends Controller
             'photos' => 'nullable',
             'time_of_arrival_to_station' => 'required',
         ]);
+        // dd($validatedData['photos']);
+        // if ($request->hasFile('photos')) {
+        //     foreach ($variable as $key => $value) {
+        //         # code...
+        //     }
+        //     $validatedData['photos'] = $request->file('photos')->store('report', 'public');
+        // }
         // $validatedDate->crewName = "don";
         try {
             $validatedData['crewName'] = implode(", ", $validatedData['crewName']);
         } catch (\Exception $ex) {
             
-        }
+        }   
         try {
             $validatedData['name_of_victims'] = implode(", ", $validatedData['name_of_victims']);
         } catch (\Exception $ex) {
         }
         try {
             $validatedData['photos'] = implode(", ", $validatedData['photos']);
+            foreach ($validatedData['photos'] as $photo) {
+                $photo->store('report', 'public');
+            }
         } catch (\Exception $ex) {
         }
         // dd($validatedData);

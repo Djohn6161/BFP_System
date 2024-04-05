@@ -65,7 +65,7 @@
                                     <option selected>Select Truck</option>
                                     @foreach ($trucks as $truck)
                                         
-                                        <option {{ $report != null ? "readonly" : ""}} value="{{$truck->id}}" {{ old('trucks_id') == $truck->id ? 'selected': ($report->trucks_id == $truck->id ? "selected" : '') }}>{{$truck->name}}</option>
+                                        <option {{ $report != null ? "readonly" : ""}} value="{{$truck->id}}" {{ old('trucks_id') == $truck->id ? 'selected': (($report->trucks_id ?? "") == $truck->id ? "selected" : '') }}>{{$truck->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('trucks_id')
@@ -79,7 +79,7 @@
                                 <select class="form-select" aria-label="Default select example" name="drivers_id">
                                     <option selected>Select Driver</option>
                                     @foreach ($personnels as $driver)
-                                        <option {{ old('drivers_id') == $driver->id ? 'selected': ($report->drivers_id == $driver->id ? "selected" : '') }} value="{{$driver->id}}">{{$driver->rank->slug . " " . $driver->last_name}}</option>
+                                        <option {{ old('drivers_id') == $driver->id ? 'selected': (($report->drivers_id ?? "") == $driver->id ? "selected" : '') }} value="{{$driver->id}}">{{$driver->rank->slug . " " . $driver->last_name}}</option>
                                     @endforeach
                                 </select>
                                 @error('drivers_id')
@@ -93,7 +93,7 @@
                                 <select class="form-select" aria-label="Default select example" name="team_leaders_id">
                                     <option selected>Select Team Leader</option>
                                     @foreach ($personnels as $teamLeader)
-                                        <option {{ old('team_leaders_id') == $teamLeader->id ? 'selected': ($report->team_leaders_id == $teamLeader->id ? "selected" : '') }} value="{{$teamLeader->id}}">{{$teamLeader->rank->slug . " " . $teamLeader->last_name}}</option>
+                                        <option {{ old('team_leaders_id') == $teamLeader->id ? 'selected': (($report->team_leaders_id ?? "") == $teamLeader->id ? "selected" : '') }} value="{{$teamLeader->id}}">{{$teamLeader->rank->slug . " " . $teamLeader->last_name}}</option>
                                     @endforeach
                                 </select>
                                 @error('team_leaders_id')
@@ -126,7 +126,7 @@
                                 <select class="form-select" aria-label="Default select example" name="barangays_id">
                                     <option selected>Select Barangay</option>
                                     @foreach ($barangays as $barangay)
-                                        <option {{ old('barangays_id') == $barangay->id ? 'selected': ($report->barangays_id == $barangay->id ? "selected" : '') }} value="{{$barangay->id}}">{{$barangay->name}}</option>
+                                        <option {{ old('barangays_id') == $barangay->id ? 'selected': (($report->barangays_id ?? "") == $barangay->id ? "selected" : '') }} value="{{$barangay->id}}">{{$barangay->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('barangays_id')
