@@ -19,6 +19,13 @@ class AdminController extends Controller
             'active' => 'accounts',
         ]);
     }
+    public function viewPersonnel(){
+        return view('admin.personnel.index',[
+            'active' => 'index',
+        ]);
+    }
+    
+
 
     public function adminLogout(Request $request): RedirectResponse
     {
