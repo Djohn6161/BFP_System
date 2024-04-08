@@ -193,7 +193,7 @@
                                         <div class="mb-3">
                                             <label for="team_leader" class="form-label">Team Leader</label>
                                             <select class="form-select" id="team_leader" name="team_leader">
-                                                <option value="">teamleader</option>
+                                                <option value="{{ $report->teamLeader->id }}">{{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -201,9 +201,7 @@
                                         <div class="mb-3">
                                             <label for="type" class="form-label">Type</label>
                                             <select class="form-select" id="type" name="type">
-                                                <option value="Type 1" {{ $report->type === 'Type 1' ? 'selected' : '' }}>Type 1</option>
-                                                <option value="Type 2" {{ $report->type === 'Type 2' ? 'selected' : '' }}>Type 2</option>
-                                                <option value="Type 3" {{ $report->type === 'Type 3' ? 'selected' : '' }}>Type 3</option>
+                                                <option value="{{ $report->type }}">{{ $report->type }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -240,8 +238,6 @@
                 </div>
             </div>
             
-            
-
             <!-- Delete Confirmation Modal -->
             <div class="modal fade" data-bs-backdrop="static" id="deleteModal{{ $report->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $report->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered text-center">
@@ -255,7 +251,7 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-around">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes</button>
-                            <button type="button" id="confirmDeleteBtn" class="btn btn-danger" aria-label="Close">No</button>
+                            <button type="button" id="confirmDeleteBtn" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>
