@@ -14,14 +14,22 @@
             </div>
             <div class="row justify-content-center mt-3">
                 <div class="col-auto">
-                    <a href="{{route('operation.index')}}" type="button" class="btn btn-lg btn-secondary me-2 btn-width">Operation</a>
+                    <a href="{{route('operation.index')}}" type="button" class="btn btn-lg btn-secondary me-2 btn-width">Response</a>
                 </div>
                 <div class="col-auto">
-                    <a href="{{route('investigation.index')}}" type="button" class="btn btn-lg btn-outline-secondary btn-width">Investigation</a>
+                    <a href="{{route('investigation.index')}}" type="button" class="btn btn-lg btn-outline-secondary btn-width">Non-Response</a>
                 </div>
             </div>
           </div>
           
+      </div>
+      <div class="row justify-content-center mt-3">
+          <div class="col-auto">
+              <a href="{{route('operation.index')}}" type="button" class="btn btn-lg btn-secondary me-2 btn-width">Operation</a>
+          </div>
+          <div class="col-auto">
+              <a href="{{route('investigation.index')}}" type="button" class="btn btn-lg btn-outline-secondary btn-width">Investigation</a>
+          </div>
       </div>
   </div>
   
