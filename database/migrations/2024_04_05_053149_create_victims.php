@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('victims', function (Blueprint $table) {
             $table->id();
             $table->foreignId('report_id')->constrained('reports')->onUpdate('cascade');
-            $table->string('name');
             $table->timestamps();
         });
     }

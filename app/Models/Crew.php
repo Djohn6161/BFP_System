@@ -10,6 +10,6 @@ class Crew extends Model
     use HasFactory;
 
     public function report(){
-        $this->belongsTo(Report::class, 'trucks_id');
+        $this->belongsTo(Report::class, 'victims');
     }
 }
