@@ -21,10 +21,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Station::factory()->create([
-            'name' => 'Bureau of Fire Protection Ligao City'
-        ]);
-
         $this->call([
             UserSeeder::class,
             DepartmentSeeder::class,
@@ -35,6 +31,7 @@ class DatabaseSeeder extends Seeder
             ReportSeeder::class,
             CrewSeeder::class,
             VictimSeeder::class,
+            StationSeeder::class,
         ]);
     }
 }
