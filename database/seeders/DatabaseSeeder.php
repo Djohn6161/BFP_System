@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
             PersonnelSeeder::class,
             BarangaySeeder::class,
             ReportSeeder::class,
-            CrewSeeder::class,
-            VictimSeeder::class,
+            // CrewSeeder::class,
+            // VictimSeeder::class,
             StationSeeder::class,
         ]);
     }

@@ -24,9 +24,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('street')->nullable();
             $table->string('otherLocation')->nullable();
-            $table->integer('number_of_victims')->nullable();
-            $table->longText('crewName')->nullable();
-            $table->longText('name_of_victims')->nullable();
             $table->string('property_involved')->nullable();
             $table->float('estimate_cost_of_damages')->nullable();
             $table->longText('remarks')->nullable();
