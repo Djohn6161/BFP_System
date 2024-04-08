@@ -26,6 +26,9 @@ class Report extends Model
     public function truck(){
         return $this->belongsTo(Truck::class, 'trucks_id');
     }
+    public function victims(){
+        return $this->hasMany(Victim::class, 'report_id');
+    }
     public function personRank($id){
         return Rank::where('id', $id)->first();
     }

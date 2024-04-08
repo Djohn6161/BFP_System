@@ -50,6 +50,7 @@ class ReportController extends Controller
                 'personnels' => Personnel::all(),
                 'trucks' => Truck::all(),
                 'barangays' => Barangay::all(),
+                // 'victims' => Victim::all()->where('reports_id',)
                 'type' => $type
             ]);
         }elseif($type == "Vehicular Accident"){

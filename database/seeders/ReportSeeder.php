@@ -37,6 +37,7 @@ class ReportSeeder extends Seeder
                 'time_of_arrival_to_station' => $endDate,
                 'name' => $faker->randomElement(['Blaze Inferno at Industrial Park','Ember Outbreak in Downtown District','
                 Flame Fury at Residential Complex' ,'Pyre Catastrophe in Forest Reserve','Inferno Rampage at Historical Landmark', 'Investigation']),
+                // 'vi'
             ];
 
             DB::table('reports')->insert($attributes);

@@ -18,7 +18,8 @@ class VictimSeeder extends Seeder
         foreach (range(1, 5) as $index){
 
             $attributes = [
-                'report_id' => $faker->numberBetween(1,10),
+                'report_id' => 1,
+                'name' => $faker->firstName() . " " . $faker->lastName(),
             ];
 
             DB::table('victims')->insert($attributes);
