@@ -59,6 +59,13 @@ class ReportSeeder extends Seeder
     
                 DB::table('victims')->insert($attributes);
             }
+
+            $attributes = [
+                'report_id' => $reportID,
+                'brgy_id' => $faker->numberBetween(1,56),
+            ];
+
+            DB::table('brgy_reports')->insert($attributes);
         }
     }
 }
