@@ -14,7 +14,7 @@ class Report extends Model
     }
 
     public function barangay(){
-        return $this->belongsTo(Barangay::class, 'barangays_id');
+        return $this->hasOneThrough(Barangay::class, Brgy_reports::class, 'report_id', 'id', 'id', 'brgy_id' );
     }
     public function logs(){
         return $this->hasMany(Log::class, 'reports_id');

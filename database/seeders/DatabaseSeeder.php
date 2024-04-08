@@ -29,14 +29,14 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('111'),
             'type' => 'admin'
         ]);
-        Station::factory()->create([
-            'name' => 'Bureau of Fire Protection Ligao City'
-        ]);
+        // Station::factory()->create([
+        //     'name' => 'Bureau of Fire Protection Ligao City'
+        // ]);
         $this->call([
             PersonnelSeeder::class,
             BarangaySeeder::class,
             ReportSeeder::class,
-            StationSeeder::class,
+            // StationSeeder::class,
         ]);
     }
 }
