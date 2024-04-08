@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-9 shadow-lg rounded p-4">
                 <div class="row">
-                    <form action="{{ route('report.store', ['category' => $active]) }}" method="POST"
+                    <form id="addReport" action="{{ route('report.store', ['category' => $active]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         {{-- {{dd($report)}} --}}
@@ -17,8 +17,8 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Name</label>
-                                <input type="text" {{ $report != null ? 'readonly' : '' }}
-                                    placeholder="Enter Incident Name" class="form-control" id="name" name="name"
+                                <input type="text" 
+                                    placeholder="Enter Incident Name" class="form-control unchangeable" id="name" name="name"
                                     value="{{ old('name') ?? ($report->name ?? '') }}">
                                 @error('name')
                                     <div class="text-danger ps-3" role="">
@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Type of Incident</label>
-                                <input type="text" placeholder="Enter Incident Name" class="form-control" id="type"
+                                <input type="text" placeholder="Enter Incident Name" class="form-control unchangeable" id="type"
                                     name="type" value="{{ $type }}" readonly>
                                 @error('type')
                                     <div class="text-danger ps-3" role="">
@@ -45,7 +45,7 @@
                             <div class="col-lg-6 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">Time of Departure</label>
                                 <input name="time_of_departure" {{ $report != null ? 'readonly' : '' }}
-                                    type="datetime-local" class="form-control" id="exampleCheck1"
+                                    type="datetime-local" class="form-control unchangeable" id="exampleCheck1"
                                     value="{{ old('time_of_departure') ?? ($report->time_of_departure ?? '') }}">
                                 @error('time_of_departure')
                                     <div class="text-danger ps-3" role="">
@@ -58,7 +58,7 @@
                                 <label class="form-label" for="exampleCheck1">Time of Arrival to Scene</label>
                                 <input name="time_of_arrival_to_scene" {{ $report != null ? 'readonly' : '' }}
                                     value="{{ old('time_of_arrival_to_scene') ?? ($report->time_of_arrival_to_scene ?? '') }}"
-                                    type="datetime-local" class="form-control" id="exampleCheck1">
+                                    type="datetime-local" class="form-control unchangeable" id="exampleCheck1">
                                 @error('time_of_arrival_to_scene')
                                     <div class="text-danger ps-3" role="">
                                         {{ $message }}
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Truck deployed</label>
-                                <select name="trucks_id" class="form-select" aria-label="Default select example">
+                                <select name="trucks_id" class="form-select" aria-label="Default select example" readonly>
                                     <option value="" selected>Select Truck</option>
                                     @foreach ($trucks as $truck)
                                         <option {{ $report != null ? 'readonly' : '' }} value="{{ $truck->id }}"
@@ -120,9 +120,7 @@
                         </div>
                         <label for="exampleInputEmail1" class="form-label">Ranks and Names of Crew</label>
                         <button type="button" id="addCrewDivButton" class="btn btn-primary mb-2 ms-3">add</button>
-                        {{-- {{dd($report->crewname)}} --}}
                         <div class="row" id="crew">
-                            {{-- <div class="d-none"> --}}
                                 <div class="col-lg-4 mb-3 "  id="addCrew">
                                     <div class="d-flex align-items-center">
                                         <select class="form-select" aria-label="Default select example" name="crewName[]">
@@ -137,22 +135,6 @@
                                         <button id="closeCrew" class="btn btn-outline-danger remove-crew-input ms-1" disabled >X</button>
                                     </div>
                                 </div>
-                            {{-- </div> --}}
-                            
-                            {{-- <div class="col-lg-4 mb-3 " >
-                                <div class="d-flex align-items-center">
-                                    <select class="form-select" aria-label="Default select example" name="crewName[]">
-                                        <option selected value="">Select Your Crew</option>
-                                        @foreach ($personnels as $crew)
-                                            <option class="text-capitalize"
-                                                {{ old('crewName[]') == $crew->id ? 'selected' : (($report->crewName ?? '') == $crew->id ? 'selected' : '') }}
-                                                value="{{$crew->id}}">
-                                                {{ $crew->rank->slug . ' ' . ucwords($crew->last_name) . ', ' . ucwords($crew->first_name) }}</option>
-                                        @endforeach
-                                    </select>
-                                    <button class="btn btn-outline-danger remove-crew-input ms-1" >X</button>
-                                </div>
-                            </div> --}}
                         </div>
                         @error('crewName')
                             <div class="text-danger ps-3" role="">
@@ -190,7 +172,7 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Other Locations</label>
-                                <input type="text" placeholder="Outside Area of Responsibility" class="form-control"
+                                <input type="text" placeholder="Outside Area of Responsibility" class="form-control unchangeable"
                                     value="{{ old('otherLocation') ?? ($report->otherLocation ?? '') }}"
                                     name="otherLocation" id="otherLocation">
                                 @error('otherLocation')
@@ -205,10 +187,9 @@
                                 <label for="exampleInputEmail1" class="form-label">No. of Victim / Patient</label>
                                 {{-- <input type="number" class="form-control" id="number_of_victims" value="{{old('number_of_victims') ?? $report->number_of_victims ?? '' }}" name="number_of_victims"> --}}
                                 <div class="d-flex align-items-center">
-                                    <input type="number" class="form-control" id="inputNumber"
+                                    <input type="number" class="form-control unchangeable" id="inputNumber"
                                         value="{{ old('number_of_victims') ?? ($report->number_of_victims ?? '1') }}"
-                                        name="number_of_victims" placeholder="Enter number of victims/patient"
-                                        min="1">
+                                        name="number_of_victims" placeholder="Enter number of victims/patient">
                                     <p class="text-gray fst-italic ms-2 mb-0 text-nowrap">&#40;Specify the no. of
                                         victims/patient&#41;</p>
                                 </div>
@@ -223,7 +204,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <input type="text" id="name_of_victims[]" name="name_of_victims[]"
-                                        class="form-control" placeholder="Enter victim/patient name">
+                                        class="form-control unchangeable" placeholder="Enter victim/patient name">
                                     <button class="btn btn-outline-danger remove-crew-input ms-1">X</button>
                                 </div>
                             </div>
@@ -274,7 +255,7 @@
                         <div class="row">
                             <div class="col-lg-6 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">Time of arrival to the station</label>
-                                <input type="datetime-local" class="form-control" id="time_of_arrival_to_station"
+                                <input type="datetime-local" class="form-control unchangeable" id="time_of_arrival_to_station"
                                     value="{{ old('time_of_arrival_to_station') ?? ($report->time_of_arrival_to_station ?? '') }}"
                                     name="time_of_arrival_to_station">
                                 @error('time_of_arrival_to_station')
@@ -317,10 +298,19 @@
         </div>
     </div>
     <script>
+
         $(document).ready(function() {
-            // $('#closeCrew').attr("disabled", true);
-            // $('#crew').children().first().find('#closeCrew').prop('disabled', true)
-            // console.log();
+
+            @if ($report ?? false) 
+                $('select').prop('disabled', true);
+                $('#addCrewDivButton').prop('disabled',true);
+                $('.unchangeable').prop('disabled', true);
+                $('#addReport').on('submit', function() {
+                    $('select').prop('disabled', false);
+                    $('.unchangeable').prop('disabled', false);
+                });
+            @endif
+
             $('#addCrewDivButton').click(function() {
                 var newDiv = $('#addCrew').clone();
                 
@@ -375,7 +365,5 @@
             });
         });
 
-
-        // });
     </script>
 @endsection
