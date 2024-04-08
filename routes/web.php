@@ -48,14 +48,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
-        Route::post('/account/create', [AdminController::class, 'createAccount'])->name('account.create');
-    });
+        Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
 
+    });
+    
     // Reports
     Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+
+
 });
 
 

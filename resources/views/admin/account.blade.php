@@ -20,16 +20,16 @@
                         <div class="modal-body">
                             <div>
                                 <!-- Monthly Earnings -->
-                                <form action="{{route('account.create')}}" method="POST">
+                                <form method="POST" action="{{ route('admin.account.create') }}">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="inputName" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" required>
+                                        <input type="text" class="form-control" name="name">
                                     </div>
                                     <hr>
                                     <div class="mb-3">
                                         <label for="dropdownSelection" class="form-label">Privilege</label>
-                                        <select class="form-select" id="dropdownSelection" name="dropdownSelection">
+                                        <select class="form-select" name="privilege">
                                             <option value="">Select Privilege</option>
                                             <option value="operation">Operation</option>
                                             <option value="investigation">Investigation</option>
@@ -38,11 +38,11 @@
                                     <hr>
                                     <div class="mb-3">
                                         <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="inputEmail" name="email" required>
+                                        <input type="email" class="form-control" name="email">
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputEmail" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="inputEmail" name="email" required>
+                                        <input type="password" class="form-control" name="password">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -54,6 +54,25 @@
             </div>
 
             <div class="row">
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+
                 <div class="col d-flex justify-content-end mb-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                         <span>
