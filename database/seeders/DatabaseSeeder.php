@@ -3,13 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Report;
-use App\Models\Station;
-use App\Models\Truck;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Database\Seeders\BarangaySeeder;
-use Illuminate\Support\Facades\Hash;
 use Database\Seeders\PersonnelSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -40,8 +36,6 @@ class DatabaseSeeder extends Seeder
             PersonnelSeeder::class,
             BarangaySeeder::class,
             ReportSeeder::class,
-            // CrewSeeder::class,
-            // VictimSeeder::class,
             StationSeeder::class,
         ]);
     }

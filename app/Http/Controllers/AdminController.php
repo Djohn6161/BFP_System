@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
@@ -12,6 +13,13 @@ class AdminController extends Controller
         return view('admin.home',[
             'active' => 'home',
         ]);
+    }
+
+    public function accountIndex(){
+        $users = User::where('type', 'user')->get();
+        $active = 'account';
+        return view('admin.account', compact('users','active'));
+        
     }
 
     public function adminLogout(Request $request): RedirectResponse

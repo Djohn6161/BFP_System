@@ -25,11 +25,11 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('user_homepage');
 });
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view('test');
 });
 Route::get('/form', function () {
-    return view('form',[
+    return view('form', [
         'active' => 'dashboard'
     ]);
 });
@@ -46,8 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+        // Account
+        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
     });
 
+    // Reports
     Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
