@@ -147,7 +147,7 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Name</label>
-                                <input type="text" {{ $report != null ? 'readonly' : '' }}
+                                <input type="text"
                                     placeholder="Enter Incident Name" class="form-control" id="name" name="name"
                                     value="{{ old('name') ?? ($report->name ?? '') }}">
 
@@ -164,7 +164,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Type of Incident</label>
                                 <input type="text" placeholder="Type" class="form-control" id="type"
-                                    name="type" value="{{ $report->type }}" readonly>
+                                    name="type" value="{{ $report->type }}">
                             </div>
                         
                         
@@ -179,14 +179,14 @@
                         <div class="row">
                             <div class="col-lg-6 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">Departure from Station</label>
-                                <input name="time_of_departure" {{ $report != null ? 'readonly' : '' }}
+                                <input name="time_of_departure" 
                                     type="datetime-local" class="form-control" id="exampleCheck1"
                                     value="{{ old('time_of_departure') ?? ($report->time_of_departure ?? '') }}">
 
                             </div>
                             <div class="col-lg-6 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">Arrival to Station</label>
-                                <input name="time_of_arrival_to_scene" {{ $report != null ? 'readonly' : '' }}
+                                <input name="time_of_arrival_to_scene"
                                     value="{{ old('time_of_arrival_to_scene') ?? ($report->time_of_arrival_to_scene ?? '') }}"
                                     type="datetime-local" class="form-control" id="exampleCheck1">
                             </div>
