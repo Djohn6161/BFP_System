@@ -52,29 +52,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($reports as $report)
+                                        @foreach ($operations as $operation)
                                             <tr>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{ $report->name }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $operation->name }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}
+                                                        {{ $operation->personRank($operation->teamLeader->ranks_id)->slug . ' ' . $operation->teamLeader->last_name }}
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->type }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->type }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal text-capitalize">
-                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
+                                                        {{ $operation->personRank($operation->driver->ranks_id)->slug . ' ' . $operation->driver->last_name }}
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->time_of_departure }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $report->time_of_arrival_to_station }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->time_of_arrival_to_station }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <a href="#" class="btn btn-primary w-100 mb-1">View</a>
