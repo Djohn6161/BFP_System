@@ -25,10 +25,10 @@
                         <div class="card-body p-4">
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">{{$active}} Reports</h5>
                             <div class="table-responsive">
-                                <table class="table text-nowrap mb-0 align-middle">
+                                <table class="table mb-0 align-middle ">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0">
+                                            <th class="border-bottom-0" style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
                                             <th class="border-bottom-0">
@@ -36,9 +36,6 @@
                                             </th>
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Type</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Driver</h6>
                                             </th>
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Departure From Station</h6>
@@ -64,11 +61,6 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">{{ $report->type }}</p>
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal text-capitalize">
-                                                        {{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}
-                                                    </p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">{{ $report->time_of_departure }}</p>

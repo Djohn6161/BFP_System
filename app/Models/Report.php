@@ -29,6 +29,9 @@ class Report extends Model
     public function victims(){
         return $this->hasMany(Victim::class, 'report_id');
     }
+    public function crews(){
+        return $this->hasMany(Crew::class, 'report_id');
+    }
     public function personRank($id){
         return Rank::where('id', $id)->first();
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barangay;
+use App\Models\Crew;
 use App\Models\Truck;
 use App\Models\Report;
 use App\Models\Personnel;
+use App\Models\Victim;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -78,7 +80,7 @@ class ReportController extends Controller
     }
     public function storeReport(Request $request, $category){
         $request->merge(["category" => $category]);
-        // dd($request);
+        // dd($request['name_of_victims']);
         $validatedData = $request->validate([
             'name' => 'required',
             'category' => 'required',
@@ -92,13 +94,15 @@ class ReportController extends Controller
             'street' => 'nullable',
             'otherLocation' => 'nullable',
             'number_of_victims' => 'nullable',
-            'crewName' => 'nullable',
+            'personnels_id' => 'nullable',
             'name_of_victims' => 'nullable',
             'property_involved' => 'nullable',
             'remarks' => 'nullable',
             'photos' => 'nullable',
             'time_of_arrival_to_station' => 'required',
         ]);
+        
+
         // dd($validatedData['photos']);
         // if ($request->hasFile('photos')) {
         //     foreach ($variable as $key => $value) {
@@ -108,23 +112,34 @@ class ReportController extends Controller
         // }
         // $validatedDate->crewName = "don";
         try {
-            $validatedData['crewName'] = implode(", ", $validatedData['crewName']);
-        } catch (\Exception $ex) {
-            
-        }   
-        try {
-            $validatedData['name_of_victims'] = implode(", ", $validatedData['name_of_victims']);
-        } catch (\Exception $ex) {
-        }
-        try {
-            $validatedData['photos'] = implode(", ", $validatedData['photos']);
+            // $validatedData['crewName'] = implode(", ", $validatedData['crewName']);
+            // $validatedData['name_of_victims'] = implode(", ", $validatedData['name_of_victims']);
             foreach ($validatedData['photos'] as $photo) {
                 $photo->store('report', 'public');
             }
+            $validatedData['photos'] = implode(", ", $validatedData['photos']);
+
         } catch (\Exception $ex) {
-        }
+            dd("error: ", $ex); 
+        }   
         // dd($validatedData);
-        Report::create($validatedData);
+        unset($validatedData['number_of_victims']);
+        unset($validatedData['personnels_id']);
+        unset($validatedData['name_of_victims']);
+        $report = Report::create($validatedData);
+        foreach ($request['personnels_id'] as $personnel) {
+            $crew = new Crew();
+            $crew->personnel_id = $personnel;
+            $crew->report_id = $report->id;
+            $crew->save();
+        }
+        foreach ($request['name_of_victims'] as $victimName) {
+            $victim = new Victim();
+            $victim->name = $victimName;
+            $victim->report_id = $report->id;
+            $victim->save();
+            # code...
+        }
         return redirect('reports/' . $category . '/index')->with('message', 'Report Created Successfully');
     }
 }

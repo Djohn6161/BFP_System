@@ -122,19 +122,15 @@
                         <button type="button" id="addCrewDivButton" class="btn btn-primary mb-2 ms-3">add</button>
                         <div class="row" id="crew">
                                 @if ($report ?? false)
-                                @php
-                                    $crews = explode(', ', $report->crewName);
-                                    // dd($crews)
-                                @endphp
-                               @foreach ($crews as $percrew)
+                               @foreach ($report->crews as $percrew)
                                 <div class="col-lg-4 mb-3 "  id="addCrew">
                                     <div class="d-flex align-items-center">
                                         
-                                        <select class="form-select" aria-label="Default select example" name="crewName[]">
+                                        <select class="form-select" aria-label="Default select example" name="personnels_id[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
                                                 <option class="text-capitalize"
-                                                    {{ $percrew == $crew->id ? 'selected' : '' }}
+                                                    {{ $percrew->personnel_id == $crew->id ? 'selected' : '' }}
                                                     value="{{$crew->id}}">
                                                     {{ $crew->rank->slug . ' ' . ucwords($crew->last_name) . ', ' . ucwords($crew->first_name) }}</option>
                                             @endforeach
@@ -148,11 +144,11 @@
                                 <div class="col-lg-4 mb-3 "  id="addCrew">
                                     <div class="d-flex align-items-center">
                                         
-                                        <select class="form-select" aria-label="Default select example" name="crewName[]">
+                                        <select class="form-select" aria-label="Default select example" name="personnels_id[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
                                                 <option class="text-capitalize"
-                                                    {{ old('crewName[]') == $crew->id ? 'selected' : (($report->crewName ?? '') == $crew->id ? 'selected' : '') }}
+                                                    {{ old('crewName[]') == $crew->id ? 'selected' :  '' }}
                                                     value="{{$crew->id}}">
                                                     {{ $crew->rank->slug . ' ' . ucwords($crew->last_name) . ', ' . ucwords($crew->first_name) }}</option>
                                             @endforeach
@@ -215,7 +211,7 @@
                                 {{-- <input type="number" class="form-control" id="number_of_victims" value="{{old('number_of_victims') ?? $report->number_of_victims ?? '' }}" name="number_of_victims"> --}}
                                 <div class="d-flex align-items-center">
                                     <input type="number" class="form-control unchangeable" id="inputNumber"
-                                        value="{{ old('number_of_victims') ?? (count($report->victims) ?? '0') }}"
+                                        value="{{ old('number_of_victims') ?? count($report->victims ?? []) }}"
                                         name="number_of_victims" placeholder="Enter number of victims/patient">
                                     <p class="text-gray fst-italic ms-2 mb-0 text-nowrap">&#40;Specify the no. of
                                         victims/patient&#41;</p>
