@@ -18,16 +18,36 @@
                         <div class="modal-header">
                         </div>
                         <div class="modal-body">
-                            <!-- Input fields for adding content -->
-                            <div class="mb-3 text-center">
-                                <h3>You want to logout?</h3>
+                            <div>
+                                <!-- Monthly Earnings -->
+                                <form action="{{route('account.create')}}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="inputName" class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <label for="dropdownSelection" class="form-label">Privilege</label>
+                                        <select class="form-select" id="dropdownSelection" name="dropdownSelection">
+                                            <option value="">Select Privilege</option>
+                                            <option value="operation">Operation</option>
+                                            <option value="investigation">Investigation</option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <label for="inputEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="inputEmail" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEmail" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="inputEmail" name="email" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </form>
                             </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
-                            <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
-                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
-                                aria-label="Close">No</button>
                         </div>
                     </div>
                 </div>
@@ -35,7 +55,7 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addResponseModal">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -104,23 +124,23 @@
                 // Wait for the document to load
                 document.addEventListener("DOMContentLoaded", function() {
                     // Get the Yes and No buttons
-                    var yesBtn = document.getElementById('yesBtn');
-                    var noBtn = document.getElementById('noBtn');
+                    // var yesBtn = document.getElementById('yesBtn');
+                    // var noBtn = document.getElementById('noBtn');
 
-                    // Attach click event listeners to the buttons
-                    yesBtn.addEventListener('click', function() {
-                        // Show the Yes modal
-                        $('#yesModal').modal('show');
-                        // Hide the current modal
-                        $('#addResponseModal').modal('hide');
-                    });
+                    // // Attach click event listeners to the buttons
+                    // yesBtn.addEventListener('click', function() {
+                    //     // Show the Yes modal
+                    //     $('#yesModal').modal('show');
+                    //     // Hide the current modal
+                    //     $('#addResponseModal').modal('hide');
+                    // });
 
-                    noBtn.addEventListener('click', function() {
-                        // Show the No modal
-                        $('#noModal').modal('show');
-                        // Hide the current modal
-                        $('#addResponseModal').modal('hide');
-                    });
+                    // noBtn.addEventListener('click', function() {
+                    //     // Show the No modal
+                    //     $('#noModal').modal('show');
+                    //     // Hide the current modal
+                    //     $('#addResponseModal').modal('hide');
+                    // });
                 });
             </script>
         @endsection

@@ -29,7 +29,6 @@ class ReportSeeder extends Seeder
                 'team_leaders_id' => $faker->numberBetween(1, 16),
                 'drivers_id' => $faker->numberBetween(1, 16),
                 'trucks_id' => $faker->numberBetween(1, 4),
-                'barangays_id' => $faker->numberBetween(1, 56),
                 'category' => $faker->randomElement(['Operation', 'Investigation']),
                 'type' => $faker->randomElement(['Fire Incident', 'Vehicular Accident', 'Non-Emergency Response']),
                 'time_of_departure' => $startDateTime,
