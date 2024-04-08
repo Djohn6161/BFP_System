@@ -21,11 +21,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        \App\Models\User::factory()->create([
+            'name' => 'User1',
+            'email' => 'User1@example.com',
+            'password' => bcrypt('111'),
+            'type' => 'user'
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'Admin@example.com',
+            'password' => bcrypt('111'),
+            'type' => 'admin'
+        ]);
+        Station::factory()->create([
+            'name' => 'Bureau of Fire Protection Ligao City'
+        ]);
         $this->call([
-            UserSeeder::class,
-            DepartmentSeeder::class,
-            TruckSeeder::class,
-            RankSeeder::class,
             PersonnelSeeder::class,
             BarangaySeeder::class,
             ReportSeeder::class,
