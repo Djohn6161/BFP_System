@@ -14,7 +14,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="./index.html" class="text-nowrap logo-img">
+            <a href="{{ route(auth()->user()->type . '.dashboard') }}" class="text-nowrap logo-img">
                 <h2>BFP</h2>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -46,10 +46,10 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
 
-                                <a href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                <a href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{strtolower($active) == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
                                     Operation
                                 </a>
-                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{strtolower($active) == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
                                     Investigation
                                 </a>
                             </div>
@@ -58,7 +58,7 @@
                 </li>
                 @if (auth()->user()->type == 'admin')
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-alert-circle"></i>
                             </span>
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-cards"></i>
                             </span>
@@ -77,7 +77,7 @@
 
                     {{-- Bottom --}}
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-file-description"></i>
                             </span>
@@ -85,7 +85,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-typography"></i>
                             </span>
