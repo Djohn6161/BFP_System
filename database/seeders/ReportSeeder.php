@@ -40,35 +40,27 @@ class ReportSeeder extends Seeder
                 // 'vi'
             ];
 
-            DB::table('reports')->insert($attributes);
+            $reportID = DB::table('reports')->insertGetId($attributes);
+
+            foreach (range(1, 8) as $index){
+
+                $attributes = [
+                    'report_id' => $reportID,
+                    'personnel_id' => $faker->numberBetween(1,16),
+                ];
+    
+                DB::table('crews')->insert($attributes);
+            }
+
+            foreach (range(1, 5) as $index){
+
+                $attributes = [
+                    'report_id' => $reportID,
+                    'name' => $faker->firstName . ' ' . $faker->lastName,
+                ];
+    
+                DB::table('victims')->insert($attributes);
+            }
         }
-
-        // Report::factory()->create([
-        //     'team_leaders_id' => '1',
-        //     'drivers_id' => '1',
-        //     'trucks_id' => '1',
-        //     'Barangays_id' => '1',
-        //     'category' => 'Operation',
-        //     'type' => 'Vehicular Accident',
-        //     'time_of_departure' => '2024-04-02 05:23:42',
-        //     'time_of_arrival_to_scene' => '2024-04-02 05:23:42',
-        //     'time_of_arrival_to_station' => '2024-04-02 05:23:42',
-        //     'name' => 'Bungoan',
-        // ]);
-        // Report::factory()->create([
-        //     'team_leaders_id' => '1',
-        //     'drivers_id' => '1',
-        //     'trucks_id' => '1',
-        //     'Barangays_id' => '1',
-        //     'category' => 'Investigation',
-        //     'type' => 'Fire Incident',
-        //     'time_of_departure' => '2024-04-02 05:23:42',
-        //     'time_of_arrival_to_scene' => '2024-04-02 05:23:42',
-        //     'time_of_arrival_to_station' => '2024-04-02 05:23:42',
-        //     'name' => 'Sunog sa Edsa',
-        // ]);
-
-        // // Insert data into the 'users' table
-        // DB::table('users')->insert($users);
     }
 }
