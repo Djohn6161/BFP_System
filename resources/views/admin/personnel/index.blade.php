@@ -13,7 +13,7 @@
             <!-- Monthly Earnings -->
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -47,8 +47,6 @@
         </div>
     </div>
 
-
-
-
     <x-personnel.view :category="$active"> </x-personnel.view>
+    <x-personnel.add :category="$active"> </x-personnel.add>
 @endsection
