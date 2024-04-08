@@ -143,52 +143,56 @@
                             <form action="" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="{{ $report->name }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="team_leader" class="form-label">Team Leader</label>
-                                            <select class="form-select" id="team_leader" name="team_leader">
-                                                <option value="{{ $report->teamLeader->id }}">{{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="type" class="form-label">Type</label>
-                                            <select class="form-select" id="type" name="type">
-                                                <option value="{{ $report->type }}">{{ $report->type }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="driver" class="form-label">Driver</label>
-                                            <select class="form-select" id="driver" name="driver">
-                                                <option value="">driver</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="departure_time" class="form-label">Departure Time</label>
-                                            <input type="datetime-local" class="form-control" id="departure_time" name="departure_time" value="{{ $report->time_of_departure }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="arrival_time" class="form-label">Arrival Time</label>
-                                            <input type="datetime-local" class="form-control" id="arrival_time" name="arrival_time" value="{{ $report->time_of_arrival_to_station }}">
-                                        </div>
-                                    </div>
-                                </div>
+                                <h1 class="text-capitalize">New {{ $active }}</h1>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Name</label>
+                                <input type="text" {{ $report != null ? 'readonly' : '' }}
+                                    placeholder="Enter Incident Name" class="form-control" id="name" name="name"
+                                    value="{{ old('name') ?? ($report->name ?? '') }}">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Rank and Name of team leader</label>
+                            <select class="form-select team-leader" aria-label="Default select example" name="team_leaders_id">
+                                <option value="{{ $report->teamLeader->id }}"> {{ $report->personRank($report->teamLeader->ranks_id)->slug . ' ' . $report->teamLeader->last_name }}</option>
+
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Type of Incident</label>
+                                <input type="text" placeholder="Type" class="form-control" id="type"
+                                    name="type" value="{{ $report->type }}" readonly>
+                            </div>
+                        
+                        
+                            <div class="col-lg-6 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Driver</label>
+                                <select class="form-select driver" aria-label="Default select example" name="drivers_id">
+                                    <option selected value="">Select Driver</option>
+                                        <option value="">{{ $report->personRank($report->driver->ranks_id)->slug . ' ' . $report->driver->last_name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3 form-check ps-3">
+                                <label class="form-label" for="exampleCheck1">Departure from Station</label>
+                                <input name="time_of_departure" {{ $report != null ? 'readonly' : '' }}
+                                    type="datetime-local" class="form-control" id="exampleCheck1"
+                                    value="{{ old('time_of_departure') ?? ($report->time_of_departure ?? '') }}">
+
+                            </div>
+                            <div class="col-lg-6 mb-3 form-check ps-3">
+                                <label class="form-label" for="exampleCheck1">Arrival to Station</label>
+                                <input name="time_of_arrival_to_scene" {{ $report != null ? 'readonly' : '' }}
+                                    value="{{ old('time_of_arrival_to_scene') ?? ($report->time_of_arrival_to_scene ?? '') }}"
+                                    type="datetime-local" class="form-control" id="exampleCheck1">
+                            </div>
+                        </div>
+                       
+                        
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success">Update</button>
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
