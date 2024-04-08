@@ -32,22 +32,20 @@ class AdminController extends Controller
             'privilege' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
         ]);
-        
-        if($request['privilige'] === 'operation'){
-            $privilege = 'OC';
-        }else{
-            $privilege = 'IC';
-        }
 
         $account = new User();
         $account->name = $request['name'];
         $account->type = 'user';
-        $account->privilege = $privilege;
+        $account->privilege = $request['privilege'];
         $account->email = $request['email'];
         $account->password = Hash::make($request['password']);
         $account->save();
 
         return redirect()->route('admin.account')->with('success', 'Account created successfully');
+    }
+
+    public function accountUpdate(Request $request){
+        dd($request);
     }
 
     public function adminLogout(Request $request): RedirectResponse

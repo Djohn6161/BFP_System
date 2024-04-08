@@ -49,9 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
+        Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
 
     });
-    
+
     // Reports
     Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
     Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
