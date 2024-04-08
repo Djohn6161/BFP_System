@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Truck deployed</label>
-                                <select name="trucks_id" class="form-select" aria-label="Default select example">
+                                <select name="trucks_id" class="form-select truck-deployed" aria-label="Default select example">
                                     <option value="" selected>Select Truck</option>
                                     @foreach ($trucks as $truck)
                                         <option {{ $report != null ? 'readonly' : '' }} value="{{ $truck->id }}"
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Rank and Name of driver</label>
-                                <select class="form-select" aria-label="Default select example" name="drivers_id">
+                                <select class="form-select driver" aria-label="Default select example" name="drivers_id">
                                     <option selected value="">Select Driver</option>
                                     @foreach ($personnels as $driver)
                                         <option
@@ -102,7 +102,7 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Rank and Name of team leader</label>
-                                <select class="form-select" aria-label="Default select example" name="team_leaders_id">
+                                <select class="form-select team-leader" aria-label="Default select example" name="team_leaders_id">
                                     <option selected value="">Select Team Leader</option>
                                     @foreach ($personnels as $teamLeader)
                                         <option
@@ -125,7 +125,7 @@
                             {{-- <div class="d-none"> --}}
                                 <div class="col-lg-4 mb-3 "  id="addCrew">
                                     <div class="d-flex align-items-center">
-                                        <select class="form-select" aria-label="Default select example" name="crewName[]">
+                                        <select class="form-select crew-name" aria-label="Default select example" name="crewName[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
                                                 <option class="text-capitalize"
@@ -162,7 +162,7 @@
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Barangay in <b>Ligao City</b></label>
-                                <select class="form-select" aria-label="Default select example" name="barangays_id">
+                                <select class="form-select barangay" aria-label="Default select example" name="barangays_id">
                                     <option selected value="1">Select Barangay</option>
                                     @foreach ($barangays as $barangay)
                                         <option
