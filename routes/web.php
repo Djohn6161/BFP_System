@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+        Route::post('/account/create', [AdminController::class, 'createAccount'])->name('account.create');
     });
 
     // Reports

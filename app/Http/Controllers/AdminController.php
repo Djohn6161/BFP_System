@@ -22,6 +22,10 @@ class AdminController extends Controller
         
     }
 
+    public function createAccount(Request $request){
+        dd($request);
+    }
+
     public function adminLogout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
