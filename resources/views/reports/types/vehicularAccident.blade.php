@@ -121,8 +121,33 @@
                         <label for="exampleInputEmail1" class="form-label">Ranks and Names of Crew</label>
                         <button type="button" id="addCrewDivButton" class="btn btn-primary mb-2 ms-3">add</button>
                         <div class="row" id="crew">
+                                @if ($report ?? false)
+                                @php
+                                    $crews = explode(', ', $report->crewName);
+                                    // dd($crews)
+                                @endphp
+                               @foreach ($crews as $percrew)
                                 <div class="col-lg-4 mb-3 "  id="addCrew">
                                     <div class="d-flex align-items-center">
+                                        
+                                        <select class="form-select" aria-label="Default select example" name="crewName[]">
+                                            <option selected value="">Select Your Crew</option>
+                                            @foreach ($personnels as $crew)
+                                                <option class="text-capitalize"
+                                                    {{ $percrew == $crew->id ? 'selected' : '' }}
+                                                    value="{{$crew->id}}">
+                                                    {{ $crew->rank->slug . ' ' . ucwords($crew->last_name) . ', ' . ucwords($crew->first_name) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button id="closeCrew" class="btn btn-outline-danger remove-crew-input ms-1" disabled >X</button>
+                                    </div>
+                                </div>
+                               @endforeach
+                                
+                                @else
+                                <div class="col-lg-4 mb-3 "  id="addCrew">
+                                    <div class="d-flex align-items-center">
+                                        
                                         <select class="form-select" aria-label="Default select example" name="crewName[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
@@ -135,6 +160,8 @@
                                         <button id="closeCrew" class="btn btn-outline-danger remove-crew-input ms-1" disabled >X</button>
                                     </div>
                                 </div>
+                                @endif
+                                
                         </div>
                         @error('crewName')
                             <div class="text-danger ps-3" role="">
@@ -159,8 +186,8 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Street</label>
-                                <input type="text" placeholder="Enter Street name" class="form-control"
+                                <label for="exampleInputEmail1" class="form-label ">Street</label>
+                                <input type="text" placeholder="Enter Street name" class="form-control unchangeable"
                                     id="street" value="{{ old('street') ?? ($report->street ?? '') }}" name="street">
                                 @error('street')
                                     <div class="text-danger ps-3" role="">
@@ -188,7 +215,7 @@
                                 {{-- <input type="number" class="form-control" id="number_of_victims" value="{{old('number_of_victims') ?? $report->number_of_victims ?? '' }}" name="number_of_victims"> --}}
                                 <div class="d-flex align-items-center">
                                     <input type="number" class="form-control unchangeable" id="inputNumber"
-                                        value="{{ old('number_of_victims') ?? ($report->number_of_victims ?? '1') }}"
+                                        value="{{ old('number_of_victims') ?? (count($report->victims) ?? '0') }}"
                                         name="number_of_victims" placeholder="Enter number of victims/patient">
                                     <p class="text-gray fst-italic ms-2 mb-0 text-nowrap">&#40;Specify the no. of
                                         victims/patient&#41;</p>
@@ -200,14 +227,22 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- {{dd(count($report->victims))}} --}}
                         <div class="row" id="outputDivs">
-                            <div class="col-lg-6 mb-3">
-                                <div class="d-flex align-items-center">
-                                    <input type="text" id="name_of_victims[]" name="name_of_victims[]"
-                                        class="form-control unchangeable" placeholder="Enter victim/patient name">
-                                    <button class="btn btn-outline-danger remove-crew-input ms-1">X</button>
-                                </div>
-                            </div>
+                            @if ($report ?? false)
+                                @foreach ($report->victims as $victim)
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" id="name_of_victims[]" name="name_of_victims[]" value="{{$victim->name}}"
+                                                class="form-control unchangeable" placeholder="Enter victim/patient name">
+                                            <button class="btn btn-outline-danger remove-crew-input ms-1">X</button>
+                                        </div>
+                                    </div>
+                                    
+                                @endforeach
+                                
+                            @endif
+                            
                         </div>
                         {{-- <label for="exampleInputEmail1" class="form-label">Name of victim/patient</label>
                         <button type="button" id="addVictimDivButton" class="btn btn-primary mb-2 ms-3">add</button>

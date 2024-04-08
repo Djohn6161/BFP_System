@@ -227,24 +227,14 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- {{dd(count($report->victms))}} --}}
+                        {{-- {{dd(count($report->victims))}} --}}
                         <div class="row" id="outputDivs">
                             @if ($report ?? false)
                                 @foreach ($report->victims as $victim)
                                     <div class="col-lg-6 mb-3">
                                         <div class="d-flex align-items-center">
-                                            {{-- <input type="text" id="name_of_victims[]" name="name_of_victims[]" value=""
-                                                class="form-control unchangeable" placeholder="Enter victim/patient name"> --}}
-                                            
-                                            <select class="form-control" aria-label="Default select example" name="name_of_victims">
-                                                {{-- <option selected value="1">Select Barangay</option> --}}
-                                                <option value="{{$victim->id}}"> {{$victim->name}}</option>
-                                                {{-- @foreach ($barangays as $barangay)
-                                                    <option
-                                                        {{ old('barangays_id') == $barangay->id ? 'selected' : (($report->barangays_id ?? '') == $barangay->id ? 'selected' : '') }}
-                                                        value="{{ $barangay->id }}">{{ $barangay->name }}</option>
-                                                @endforeach --}}
-                                            </select>
+                                            <input type="text" id="name_of_victims[]" name="name_of_victims[]" value="{{$victim->name}}"
+                                                class="form-control unchangeable" placeholder="Enter victim/patient name">
                                             <button class="btn btn-outline-danger remove-crew-input ms-1">X</button>
                                         </div>
                                     </div>
