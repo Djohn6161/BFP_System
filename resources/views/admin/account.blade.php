@@ -83,13 +83,38 @@
                                         <label for="inputEmail" class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email" id="email">
                                     </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" data-bs-backdrop="static" id="passwordModal" tabindex="-1"
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <!-- Monthly Earnings -->
+                                <form method="POST" action="{{ route('admin.account.password.update') }}">
+                                    @csrf
                                     <div class="mb-3">
+                                        <input type="hidden" name="password_id" id="password_id">
                                         <label for="inputEmail" class="form-label">New Password</label>
                                         <input type="password" class="form-control" name="password">
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputEmail" class="form-label">Confirmation</label>
                                         <input type="password" class="form-control" name="confirmation">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputEmail" class="form-label">Admin Password Confirmation</label>
+                                        <input type="password" class="form-control" name="admin_password">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn btn-secondary"
@@ -101,11 +126,44 @@
                 </div>
             </div>
 
+            <div class="modal fade" data-bs-backdrop="static" id="deleteModal" tabindex="-1"
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            Are you sure you want to delete this account?
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <!-- Monthly Earnings -->
+                                <form method="POST" action="{{ route('admin.account.delete') }}">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <input type="hidden" name="account_id" id="account_id">
+                                        <label for="inputEmail" class="form-label">Admin Password Confirmation</label>
+                                        <input type="password" class="form-control" name="admin_password">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('status'))
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ session('status') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -171,16 +229,21 @@
                                                 </td>
 
                                                 <td class="border-bottom-0">
-                                                    <a href="#" class="btn btn-primary w-100 mb-1">View</a>
-                                                    <br>
                                                     <a class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
                                                         data-bs-target="#editModal"
                                                         data-user-id="{{ json_encode($user->id) }}"
                                                         data-name="{{ json_encode($user->name) }}"
                                                         data-privilege="{{ json_encode($user->privilege) }}"
-                                                        data-email="{{ json_encode($user->email) }}">Update</a>
+                                                        data-email="{{ json_encode($user->email) }}">Update Info</a>
                                                     <br>
-                                                    <a href="#" class="btn btn-danger w-100 mb-1">Delete</a>
+                                                    <a href="#" class="btn btn-primary w-100 mb-1"
+                                                        data-bs-toggle="modal" data-bs-target="#passwordModal"
+                                                        data-user-id="{{ json_encode($user->id) }}">Change
+                                                        Password</a>
+                                                    <br>
+                                                    <a href="#" class="btn btn-danger w-100 mb-1"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                        data-user-id="{{ json_encode($user->id) }}">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -209,19 +272,18 @@
                         modal.find('#privilege').val(privilege);
                         modal.find('#email').val(email);
                     });
+                    $('#passwordModal').on('show.bs.modal', function(event) {
+                        var button = $(event.relatedTarget);
+                        var user_id = button.data('user-id');
+                        var modal = $(this);
+                        modal.find('#password_id').val(user_id);
+                    });
+                    $('#deleteModal').on('show.bs.modal', function(event) {
+                        var button = $(event.relatedTarget);
+                        var user_id = button.data('user-id');
+                        var modal = $(this);
+                        modal.find('#account_id').val(user_id);
+                    });
                 });
-
-                function validateInput() {
-                    var passwordInput = document.getElementById('password').value.trim();
-                    var confirmationInput = document.getElementById('confirmation').value.trim();
-
-                    if (passwordInput !== '' && confirmationInput !== '') {
-                        console.log('Both password and confirmation have input.');
-                        // Here you can perform any actions you need, such as enabling a submit button
-                    } else {
-                        console.log('Both password and confirmation have no input.');
-
-                    }
-                }
             </script>
         @endsection

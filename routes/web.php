@@ -50,6 +50,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
+        Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
+        Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+        
 
     });
 
