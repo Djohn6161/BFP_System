@@ -88,12 +88,6 @@
                 </div>
             </div>
 
-             
-        
-            
-            
-            
-
             <x-reports.chooseReport :reports=$investigation :category="'Investigation'"> </x-reports.chooseReport>
             <x-reports.chosen :category=$active > </x-reports.chosen>
 
@@ -120,6 +114,4 @@
                     });
                 });
             </script>
-
-
         @endsection
