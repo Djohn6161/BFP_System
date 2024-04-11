@@ -16,6 +16,9 @@ class UsersController extends Controller
         ]);
     }
 
+    public function updateProfile(Request $request){
+        dd($request->all());
+    }
     public function userLogout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();

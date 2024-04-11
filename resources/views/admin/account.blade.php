@@ -236,12 +236,12 @@
                                                         data-privilege="{{ json_encode($user->privilege) }}"
                                                         data-email="{{ json_encode($user->email) }}">Update Info</a>
                                                     <br>
-                                                    <a href="#" class="btn btn-primary w-100 mb-1"
+                                                    <a class="btn btn-primary w-100 mb-1"
                                                         data-bs-toggle="modal" data-bs-target="#passwordModal"
                                                         data-user-id="{{ json_encode($user->id) }}">Change
                                                         Password</a>
                                                     <br>
-                                                    <a href="#" class="btn btn-danger w-100 mb-1"
+                                                    <a class="btn btn-danger w-100 mb-1"
                                                         data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                         data-user-id="{{ json_encode($user->id) }}">Delete</a>
                                                 </td>

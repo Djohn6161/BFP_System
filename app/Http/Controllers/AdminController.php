@@ -12,8 +12,12 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        $user = Auth::user();
+
         return view('admin.home', [
             'active' => 'home',
+            'user' => $user,
+            
         ]);
     }
 

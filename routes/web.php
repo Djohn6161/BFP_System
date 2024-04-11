@@ -62,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 
-
+    Route::post('/account/update', [UsersController::class, 'updateProfile'])->name('profile.update');
 });
 
 

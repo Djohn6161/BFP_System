@@ -50,36 +50,57 @@
                         <div class="modal-header">
                         </div>
                         <div class="modal-body">
-                            form method="POST" action="{{ route('admin.account.update') }}">
+                            <form method="POST" action="{{ route('profile.update') }}">
                             @csrf
                             <div class="mb-3">
-                                <input type="text" class="form-control" hidden name="user_id" id="user_id">
+                                <input type="text" class="form-control" hidden name="user_id" id="user_id"
+                                    value="{{ $user->id }}">
                                 <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name">
-                            </div>
-                            <hr>
-                            <div class="mb-3">
-                                <label for="dropdownSelection" class="form-label">Privilege</label>
-                                <select class="form-select" name="privilege" id="privilege">
-                                    <option value="">Select Privilege</option>
-                                    <option value="OC">Operation</option>
-                                    <option value="IC">Investigation</option>
-                                </select>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    value="{{ $user->name }}">
                             </div>
                             <hr>
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <input type="email" class="form-control" name="email" id="email"
+                                    value="{{ $user->email }}">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </form>
+                            </form>
                         </div>
-                        <div class="modal-footer d-flex justify-content-around">
-                            {{-- <button type="button" class="btn btn-secondary btn-reports" id="yesBtn">Yes</button> --}}
-                            <a href="{{ route('user.logout') }}" class="btn btn-secondary btn-reports">Yes</a>
-                            <button type="button" class="btn btn-danger btn-reports" data-bs-dismiss="modal"
-                                aria-label="Close">No</button>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
+                aria-labelledby="addResponseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <method="POST" action="{{ route('admin.account.update') }}">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" name="admin_password">
+                            </div>
+                            <div class="mb-3">
+                                <input type="hidden" name="password_id" id="password_id">
+                                <label for="inputEmail" class="form-label">New Password</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Confirmation</label>
+                                <input type="password" class="form-control" name="confirmation">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
                         </div>
                     </div>
                 </div>
@@ -88,7 +109,6 @@
             <!--  Header End -->
             @yield('content')
             {{-- @include('partials.footer') --}}
-
         </div>
     </div>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
@@ -97,36 +117,6 @@
     <script src="{{asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script> --}}
     <script src="{{ asset('assets/js/datatables.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-
-            $('#editModal').on('show.bs.modal',  function(event) {
-                var button = $(event.relatedTarget);
-                var user_id = button.data('user-id');
-                var name = button.data('name').replace(/"/g, '');
-                var privilege = button.data('privilege').replace(/"/g, '');
-                var email = button.data('email').replace(/"/g, '');
-                var modal = $(this);
-
-                modal.find('#user_id').val(user_id);
-                modal.find('#name').val(name);
-                modal.find('#privilege').val(privilege);
-                modal.find('#email').val(email);
-            });
-            // $('#passwordModal').on('show.bs.modal', function(event) {
-            //     var button = $(event.relatedTarget);
-            //     var user_id = button.data('user-id');
-            //     var modal = $(this);
-            //     modal.find('#password_id').val(user_id);
-            // });
-            // $('#deleteModal').on('show.bs.modal', function(event) {
-            //     var button = $(event.relatedTarget);
-            //     var user_id = button.data('user-id');
-            //     var modal = $(this);
-            //     modal.find('#account_id').val(user_id);
-            // });
-        });
-    </script>
 </body>
 
 </html>
