@@ -50,16 +50,19 @@
                                             {{ $report->estimate_cost_of_damages }}</li>
                                         <li class="list-group-item"><strong>Remarks:</strong> {{ $report->remarks }}
                                         </li>
-                                        <li class="list-group-item"><strong>Protos:</strong>
-                                            @if ($report->photos ?? false)
-                                                @foreach ($photos as $photo)
-                                                    <img src="{{ asset('storage/' . $photo) }}" width="300px"
-                                                        alt="">
-                                                @endforeach
-                                            @endif
-
+                                        <li class="list-group-item"><strong>Photos:</strong>
+                                            <div class="row mt-3">
+                                                @if ($report->photos ?? false)
+                                                    @foreach ($photos as $photo)
+                                                        <div class="col-md-4 mb-3">
+                                                            <a href="{{ asset('storage/' . $photo) }}" data-toggle="lightbox" data-gallery="gallery">
+                                                                <img src="{{ asset('storage/' . $photo) }}" class="img-thumbnail object-fit-cover w-100" style="height: 300px" alt="">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>                                            
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
