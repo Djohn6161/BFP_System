@@ -69,8 +69,8 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Truck deployed</label>
-                                <select name="trucks_id" class="form-select" aria-label="Default select example">
-                                    <option selected>Select Truck</option>
+                                <select name="trucks_id" class="form-select truck-deployed" aria-label="Default select example">
+                                    <option value="" selected>Select Truck</option>
                                     @foreach ($trucks as $truck)
                                         <option {{ $report != null ? 'readonly' : '' }} value="{{ $truck->id }}"
                                             {{ old('trucks_id') == $truck->id ? 'selected' : ($report->trucks_id == $truck->id ? 'selected' : '') }}>
@@ -85,8 +85,8 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Rank and Name of driver</label>
-                                <select class="form-select" aria-label="Default select example" name="drivers_id">
-                                    <option selected>Select Driver</option>
+                                <select class="form-select driver" aria-label="Default select example" name="drivers_id">
+                                    <option selected value="">Select Driver</option>
                                     @foreach ($personnels as $driver)
                                         <option
                                             {{ old('drivers_id') == $driver->id ? 'selected' : ($report->drivers_id == $driver->id ? 'selected' : '') }}
@@ -102,8 +102,8 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Rank and Name of team leader</label>
-                                <select class="form-select" aria-label="Default select example" name="team_leaders_id">
-                                    <option selected>Select Team Leader</option>
+                                <select class="form-select team-leader" aria-label="Default select example" name="team_leaders_id">
+                                    <option selected value="">Select Team Leader</option>
                                     @foreach ($personnels as $teamLeader)
                                         <option
                                             {{ old('team_leaders_id') == $teamLeader->id ? 'selected' : ($report->team_leaders_id == $teamLeader->id ? 'selected' : '') }}
@@ -146,9 +146,7 @@
                             @else
                                 <div class="col-lg-4 mb-3 " id="addCrew">
                                     <div class="d-flex align-items-center">
-
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="personnels_id[]">
+                                        <select class="form-select crew-name" aria-label="Default select example" name="personnels_id[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
                                                 <option class="text-capitalize"
@@ -173,8 +171,8 @@
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Barangay in <b>Ligao City</b></label>
-                                <select class="form-select" aria-label="Default select example" name="barangays_id">
-                                    <option selected value="">Select Barangay</option>
+                                <select class="form-select barangay" aria-label="Default select example" name="barangays_id">
+                                    <option selected value="1">Select Barangay</option>
                                     @foreach ($barangays as $barangay)
                                         <option
                                             {{ old('barangays_id') == $barangay->id ? 'selected' : ($report->barangays_id == $barangay->id ? 'selected' : '') }}

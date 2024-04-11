@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BFP</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.jpg') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/DataTables/datatables.css') }}">
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/DataTables/datatables.js') }}"></script>
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logos/logo.jpg')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/mystyle.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/DataTables/datatables.css')  }}">
+    <link rel="stylesheet" href="{{asset('assets/select2/dist/css/select2.css') }}">
+    <script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/DataTables/datatables.js') }}"></script>
+    <script src="{{asset('assets/select2/dist/js/select2.js') }}"></script>
 </head>
 
 <body>
@@ -55,7 +57,8 @@
     {{-- <script src="{{asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script> --}}
-    <script src="{{ asset('assets/js/datatables.js') }}"></script>
+    <script src="{{asset('assets/js/datatables.js') }}"></script>
+    <script src="{{asset('assets/select2/dist/scripts/script.js') }}"></script>
 </body>
 
 </html>
