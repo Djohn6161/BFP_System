@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barangay extends Model
+class Crew extends Model
 {
     use HasFactory;
 
     public function report(){
-        return $this->hasOne(Brgy_reports::class, 'brgy_id');
+        $this->belongsTo(Report::class, 'report_id');
+    }
+
+    public function personnel(){
+        $this->belongsTo(Personnel::class, 'personnel_id');
     }
 }
