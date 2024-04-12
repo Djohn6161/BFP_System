@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('used_equipments', function (Blueprint $table) {
             $table->id();
-            $table->foreign('afor_id');
-            $table->int('quantity');
+            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
+            $table->integer('quantity');
             $table->enum('category', ['extinguishing agent','rope and ladder','breathing apparatus','hose line']);
             $table->string('type');
             $table->string('nr')->nullable();
-            $table->int('length')->nullable();
+            $table->integer('length')->nullable();
             $table->timestamps();
         });
     }

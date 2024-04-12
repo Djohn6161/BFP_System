@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreign('afor_id');
-            $table->foreign('engine_dispatched');
+            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
+            $table->foreignid('engine_dispatched')->constrained('trucks')->onUpdate('cascade');
             $table->string('time_dispatched');
             $table->string('time_arrived_at_scene');
             $table->string('response_duration');

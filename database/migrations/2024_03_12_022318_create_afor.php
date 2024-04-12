@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('afor', function (Blueprint $table) {
             $table->id();
             $table->time('alarm_received');
-            $table->foreign('transmitted_by');
-            $table->foreign('caller_address');
+            $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
+            $table->string('caller_address');
             $table->string('location');
             $table->dateTime('td_under_control');
             $table->dateTime('td_declared_fireout');

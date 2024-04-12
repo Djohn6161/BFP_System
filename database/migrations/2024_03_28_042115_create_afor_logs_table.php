@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('duty_personnels', function (Blueprint $table) {
+        Schema::create('afor_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('afor_id')->constrained('afor')->onDelete('cascade');
+            $table->string('action');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('duty_personnels');
+        Schema::dropIfExists('afor_logs');
     }
 };
