@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             RankSeeder::class,
             PersonnelSeeder::class,
             BarangaySeeder::class,
-            ReportSeeder::class,
+            // ReportSeeder::class,
             StationSeeder::class,
         ]);
     }
