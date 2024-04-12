@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('afor_logs', function (Blueprint $table) {
+        Schema::create('progress', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afor')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('action');
+            $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
+            $table->longText('authority');
+            $table->longText('facts_of_the_Case');
+            $table->string('disposition');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('afor_logs');
+        Schema::dropIfExists('progress');
     }
 };

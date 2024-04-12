@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('afor_duty_personnels', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
             $table->foreignId('personnels_id')->constrained('personnels')->onUpdate('cascade');
             $table->string('designation');
             $table->string('remarks');

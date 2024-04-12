@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('casualties', function (Blueprint $table) {
+        Schema::create('investigation_casualties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('investigation')->constrained('afor')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('type', ['civillian','firefighters']);
+            $table->integer('fatality');
             $table->integer('injured');
-            $table->integer('death');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('casualties');
+        Schema::dropIfExists('investigation_casualties');
     }
 };
