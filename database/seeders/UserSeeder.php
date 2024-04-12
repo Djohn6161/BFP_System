@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@example.com',
-                'password' => Hash::make('111'),
+                'password' => Hash::make('12341234'),
                 'type' => 'admin',
                 'privilege' => 'All',
             ],      
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'user IC',
                 'email' => 'user1@example.com',
-                'password' => Hash::make('111'),
+                'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'IC',
             ],
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'user OC',
                 'email' => 'user2@example.com',
-                'password' => Hash::make('111'),
+                'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'OC',
             ],
