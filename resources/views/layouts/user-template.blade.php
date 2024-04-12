@@ -51,22 +51,22 @@
                         </div>
                         <div class="modal-body">
                             <form method="POST" action="{{ route('profile.update') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <input type="text" class="form-control" hidden name="user_id" id="user_id"
-                                    value="{{ $user->id }}">
-                                <label for="inputName" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    value="{{ $user->name }}">
-                            </div>
-                            <hr>
-                            <div class="mb-3">
-                                <label for="inputEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                    value="{{ $user->email }}">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                @csrf
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" hidden name="user_id" id="user_id"
+                                        value="{{ $user->id }}">
+                                    <label for="inputName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        value="{{ $user->name }}">
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        value="{{ $user->email }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -81,23 +81,24 @@
                         <div class="modal-header">
                         </div>
                         <div class="modal-body">
-                            <method="POST" action="{{ route('admin.account.update') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="inputEmail" class="form-label">Current Password</label>
-                                <input type="password" class="form-control" name="admin_password">
-                            </div>
-                            <div class="mb-3">
-                                <input type="hidden" name="password_id" id="password_id">
-                                <label for="inputEmail" class="form-label">New Password</label>
-                                <input type="password" class="form-control" name="password">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputEmail" class="form-label">Confirmation</label>
-                                <input type="password" class="form-control" name="confirmation">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form method="POST" action="{{ route('profile.password.update') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Current Password</label>
+                                    <input type="password" class="form-control" name="current_password">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="hidden" name="password_id" id="password_id">
+                                    <label for="inputEmail" class="form-label">New Password</label>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Confirmation</label>
+                                    <input type="password" class="form-control" name="confirmation">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancel</button>
                             </form>
                         </div>
                         <div class="modal-footer">
