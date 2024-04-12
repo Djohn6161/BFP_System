@@ -25,11 +25,11 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('user_homepage');
 });
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view('test');
 });
 Route::get('/form', function () {
-    return view('form',[
+    return view('form', [
         'active' => 'dashboard'
     ]);
 });
@@ -48,10 +48,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
         Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
 
+        // Account
+        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+        Route::post('/account/create', [AdminController::class, 'createAccount'])->name('account.create');
     });
 
-    Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
-    Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
+    // Reports
+    Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
+    Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 });

@@ -25,8 +25,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="sidebar-item ">
-                    <a class="sidebar-link"
-                        href="{{ route(auth()->user()->type . '.dashboard') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route(auth()->user()->type . '.dashboard') }}"
+                        aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -56,9 +56,9 @@
                         </div>
                     </div>
                 </li>
-                @if (auth()->user()->type == 'admin')
+                @if (auth()->user()->type === 'admin')
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.accounts') }}" aria-expanded="false">
+                        <a class="sidebar-link" href="{{route(auth()->user()->type . '.account')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-alert-circle"></i>
                             </span>
