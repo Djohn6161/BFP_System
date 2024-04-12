@@ -4,4 +4,6 @@ $(document).ready(function () {
     $(".team-leader").select2();
     $(".crew-name").select2();
     $(".barangay").select2();
+    // $(".updateTruck").select2();
+    
 });

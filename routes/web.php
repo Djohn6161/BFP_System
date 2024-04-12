@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+    Route::put('/reports/update/{id}/{category}', [ReportController::class, 'updateReport'])->name('report.update');
 });
 
 

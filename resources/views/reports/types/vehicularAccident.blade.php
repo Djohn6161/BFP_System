@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-9 shadow-lg rounded p-4">
                 <div class="row">
-                    <form id="addReport" action="{{ route('report.store', ['category' => $category]) }}" method="POST"
+                    <form id="updateReport" action="{{ route('report.store', ['category' => $category]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         {{-- {{dd($report)}} --}}
@@ -18,8 +18,8 @@
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Name</label>
                                 <input type="text" {{ $report != null ? 'readonly' : '' }}
-                                    placeholder="Enter Incident Name" class="form-control unchangeable" id="name" name="name"
-                                    value="{{ old('name') ?? ($report->name ?? '') }}">
+                                    placeholder="Enter Incident Name" class="form-control unchangeable" id="name"
+                                    name="name" value="{{ old('name') ?? ($report->name ?? '') }}">
                                 @error('name')
                                     <div class="text-danger ps-3" role="">
                                         {{ $message }}
@@ -31,8 +31,8 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Type of Incident</label>
-                                <input type="text" placeholder="Enter Incident Name" class="form-control unchangeable" id="type"
-                                    name="type" value="{{ $type }}" readonly>
+                                <input type="text" placeholder="Enter Incident Name" class="form-control unchangeable"
+                                    id="type" name="type" value="{{ $type }}" readonly>
                                 @error('type')
                                     <div class="text-danger ps-3" role="">
                                         {{ $message }}
@@ -69,7 +69,8 @@
                         <div class="row">
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Truck deployed</label>
-                                <select name="trucks_id" class="form-select truck-deployed" aria-label="Default select example">
+                                <select name="trucks_id" class="form-select truck-deployed"
+                                    aria-label="Default select example">
                                     <option value="" selected>Select Truck</option>
                                     @foreach ($trucks as $truck)
                                         <option {{ $report != null ? 'readonly' : '' }} value="{{ $truck->id }}"
@@ -102,7 +103,8 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Rank and Name of team leader</label>
-                                <select class="form-select team-leader" aria-label="Default select example" name="team_leaders_id">
+                                <select class="form-select team-leader" aria-label="Default select example"
+                                    name="team_leaders_id">
                                     <option selected value="">Select Team Leader</option>
                                     @foreach ($personnels as $teamLeader)
                                         <option
@@ -127,7 +129,7 @@
                                     <div class="col-lg-4 mb-3 " id="addCrew">
                                         <div class="d-flex align-items-center">
 
-                                            <select class="form-select" aria-label="Default select example"
+                                            <select class="form-select crew-name" aria-label="Default select example"
                                                 name="personnels_id[]">
                                                 <option selected value="">Select Your Crew</option>
                                                 @foreach ($personnels as $crew)
@@ -146,7 +148,8 @@
                             @else
                                 <div class="col-lg-4 mb-3 " id="addCrew">
                                     <div class="d-flex align-items-center">
-                                        <select class="form-select crew-name" aria-label="Default select example" name="personnels_id[]">
+                                        <select class="form-select crew-name" aria-label="Default select example"
+                                            name="personnels_id[]">
                                             <option selected value="">Select Your Crew</option>
                                             @foreach ($personnels as $crew)
                                                 <option class="text-capitalize"
@@ -171,7 +174,8 @@
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Barangay in <b>Ligao City</b></label>
-                                <select class="form-select barangay" aria-label="Default select example" name="barangays_id">
+                                <select class="form-select barangay" aria-label="Default select example"
+                                    name="barangays_id">
                                     <option selected value="1">Select Barangay</option>
                                     @foreach ($barangays as $barangay)
                                         <option
@@ -200,7 +204,8 @@
                         <div class="row">
                             <div class="col-lg-12 mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Other Locations</label>
-                                <input type="text" placeholder="Outside Area of Responsibility" class="form-control unchangeable"
+                                <input type="text" placeholder="Outside Area of Responsibility"
+                                    class="form-control unchangeable"
                                     value="{{ old('otherLocation') ?? ($report->otherLocation ?? '') }}"
                                     name="otherLocation" id="otherLocation">
                                 @error('otherLocation')
@@ -237,7 +242,8 @@
                                             <input type="text" id="name_of_victims[]" name="name_of_victims[]"
                                                 value="{{ $victim->name }}" class="form-control unchangeable"
                                                 placeholder="Enter victim/patient name">
-                                            <button class="btn btn-outline-danger remove-crew-input ms-1 unchangeable">X</button>
+                                            <button
+                                                class="btn btn-outline-danger remove-crew-input ms-1 unchangeable">X</button>
                                         </div>
                                     </div>
                                 @endforeach
@@ -261,76 +267,77 @@
                                 @enderror
                             </div>
                         </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Property involved</label>
-                        <input type="text" placeholder="Enter the property involved" class="form-control"
-                            id="property_involved" name="property_involved">
-                        @error('property_involved')
-                            <div class="text-danger ps-3" role="">
-                                {{ $message }}
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Property involved</label>
+                                <input type="text" placeholder="Enter the property involved" class="form-control"
+                                    id="property_involved" name="property_involved">
+                                @error('property_involved')
+                                    <div class="text-danger ps-3" role="">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Estimated cost of damages</label>
-                        <input type="number" placeholder="ex. 1000" class="form-control" id="estimate_cost_of_damages"
-                            value="{{ old('estimate_cost_of_damages') ?? ($report->estimate_cost_of_damages ?? '') }}"
-                            name="estimate_cost_of_damages">
-                        @error('estimated_cost_of_damages')
-                            <div class="text-danger ps-3" role="">
-                                {{ $message }}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Estimated cost of damages</label>
+                                <input type="number" placeholder="ex. 1000" class="form-control"
+                                    id="estimate_cost_of_damages"
+                                    value="{{ old('estimate_cost_of_damages') ?? ($report->estimate_cost_of_damages ?? '') }}"
+                                    name="estimate_cost_of_damages">
+                                @error('estimated_cost_of_damages')
+                                    <div class="text-danger ps-3" role="">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 mb-3 form-check ps-3">
-                        <label class="form-label" for="exampleCheck1">Time of arrival to the station</label>
-                        <input type="datetime-local" class="form-control unchangeable" id="time_of_arrival_to_station"
-                            value="{{ old('time_of_arrival_to_station') ?? ($report->time_of_arrival_to_station ?? '') }}"
-                            name="time_of_arrival_to_station">
-                        @error('time_of_arrival_to_station')
-                            <div class="text-danger ps-3" role="">
-                                {{ $message }}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3 form-check ps-3">
+                                <label class="form-label" for="exampleCheck1">Time of arrival to the station</label>
+                                <input type="datetime-local" class="form-control unchangeable"
+                                    id="time_of_arrival_to_station"
+                                    value="{{ old('time_of_arrival_to_station') ?? ($report->time_of_arrival_to_station ?? '') }}"
+                                    name="time_of_arrival_to_station">
+                                @error('time_of_arrival_to_station')
+                                    <div class="text-danger ps-3" role="">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mb-3 form-check ps-3">
-                        <label class="form-label" for="exampleCheck1">Remarks</label>
-                        <textarea class="form-control" name="remarks" id="remarks">{{ old('remarks') ?? ($report->remarks ?? '') }}</textarea>
-                        @error('remarks')
-                            <div class="text-danger ps-3" role="">
-                                {{ $message }}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3 form-check ps-3">
+                                <label class="form-label" for="exampleCheck1">Remarks</label>
+                                <textarea class="form-control" name="remarks" id="remarks">{{ old('remarks') ?? ($report->remarks ?? '') }}</textarea>
+                                @error('remarks')
+                                    <div class="text-danger ps-3" role="">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mb-3 form-check ps-3">
-                        <label class="form-label" for="exampleCheck1">Photos</label>
-                        <input type="file" class="form-control uncheable"
-                            value="{{ old('photos') ?? ($report->photos ?? '') }}" id="photos" name="photos[]"
-                            multiple>
-                        @error('photos')
-                            <div class="text-danger ps-3" role="">
-                                {{ $message }}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3 form-check ps-3">
+                                <label class="form-label" for="exampleCheck1">Photos</label>
+                                <input type="file" class="form-control uncheable"
+                                    value="{{ old('photos') ?? ($report->photos ?? '') }}" id="photos"
+                                    name="photos[]" multiple>
+                                @error('photos')
+                                    <div class="text-danger ps-3" role="">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                </div>
+                        </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <script>
         $(document).ready(function() {
@@ -347,10 +354,15 @@
 
             $('#addCrewDivButton').click(function() {
                 var newDiv = $('#addCrew').clone();
+                var mnewDiv = $('<div class="col-lg-4 mb-3 " id="addCrew"><div class="d-flex align-items-center"> <select class="form-select crew-name" aria-label="Default select example" name="personnels_id[]"><option selected value="">Select Your Crew</option> @foreach ($personnels as $crew) <option class="text-capitalize" {{ old("crewName[]") == $crew->id ? "selected" : "" }} value="{{ $crew->id }}"> {{ $crew->rank->slug . " " . ucwords($crew->last_name) . ", " . ucwords($crew->first_name) }} </option> @endforeach </select> <button id="closeCrew" class="btn btn-outline-danger remove-crew-input ms-1" disabled>X</button> </div></div>' );
+                // var newDiv = $('<div class="col-lg-6 mb-3"><div class="d-flex align-items-center"><input type="text" name="name_of_victims[]" class="form-control" placeholder="Enter patient/victim name"><button class="btn btn-outline-danger remove-input ms-1">X</button></div></div>
 
-                console.log(newDiv);
-                $('#crew').append(newDiv);
-                newDiv.find('#closeCrew').prop('disabled', false);
+                console.log(mnewDiv);
+                $('#crew').append(mnewDiv);
+                mnewDiv.find('#closeCrew').prop('disabled', false);
+
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.crew-name').select2();
             });
             // $('#addVictimDivButton').click(function() {
             //     var newDiv = $('<div class="col-lg-4 mb-3"><div class="d-flex align-items-center"><input type="text" placeholder="Enter victim/patient name" class="form-control" id="exampleCheck1" name="name_of_victims[]"></div></div>');

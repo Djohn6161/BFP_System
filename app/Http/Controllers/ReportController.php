@@ -21,14 +21,20 @@ class ReportController extends Controller
             'active' => 'investigation',
             'investigation' => $investigation,
             'operation' => $operation,
+            'personnels' => Personnel::all(),
+            'trucks' => Truck::all(),
+            'barangays' => Barangay::all(),
 
         ]);
     }
     public function operationIndex(){
         $active = 'operation';
         $reports = Report::where('category', 'Operation')->get();                                   
-        $investigation = Report::where('category', 'Investigation')->get();                                   
-        return view('reports.operation', compact('active','reports', 'investigation'));
+        $investigation = Report::where('category', 'Investigation')->get();
+        $personnels = Personnel::all();
+        $trucks = Truck::all();
+        $barangays = Barangay::all();
+        return view('reports.operation', compact('active','reports', 'investigation', 'trucks', 'personnels', 'barangays'));
     }
 
 
@@ -143,5 +149,8 @@ class ReportController extends Controller
             # code...
         }
         return redirect('reports/' . $category . '/index')->with('message', 'Report Created Successfully');
+    }
+    public function updateReport(Request $request, Report $id, $category){
+        dd($request, $id, $category);
     }
 }
