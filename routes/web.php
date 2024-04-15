@@ -48,7 +48,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
-        Route::post('/account/create', [AdminController::class, 'createAccount'])->name('account.create');
+        Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
+        Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
+        Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
+        Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+        
+
     });
 
     // Reports
@@ -57,6 +62,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
     Route::put('/reports/update/{id}/{category}', [ReportController::class, 'updateReport'])->name('report.update');
+
+    // Account
+    Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });
 
 

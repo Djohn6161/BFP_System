@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('victims', function (Blueprint $table) {
+        Schema::create('afor_duty_personnels', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('report_id')->constrained('reports')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name')->nullable();
+            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
+            $table->foreignId('personnels_id')->constrained('personnels')->onUpdate('cascade');
+            $table->string('designation');
+            $table->string('remarks');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('victims');
+        Schema::dropIfExists('afor_duty_personnels');
     }
 };
