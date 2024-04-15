@@ -281,7 +281,7 @@
 
                 // Create and append the removal ('X') button
                 var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
                 removeButton.click(function() {
                     var rowToRemove = $(this).closest('.time-alarm-status-declared-div');
                     var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
