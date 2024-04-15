@@ -30,7 +30,8 @@
                     <form>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3>Fire Incident Details</h3>
-                            <h5>Details</h5>
+                            <hr>
+                            {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received (Time)</label>
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
@@ -66,7 +67,8 @@
                                 </select>
                             </div>
 
-                            <h5 class="mt-2">Location</h5>
+                            <hr>
+                            {{-- <h5>Location</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
                                 <select class="form-select" aria-label="">
@@ -92,51 +94,54 @@
                             </div>
                         </div>
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 second-div">
-                            <h3>Fire Engine Response Details</h3>
-                            <div class="col-lg-3 mb-3">
-                                <label for="vehicle" class="form-label">Engine Dispatched</label>
-                                <select class="form-select" aria-label="">
-                                    <option selected>Select vehicle</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <div class="row m-0 p-0 second-div border-0">
+                                <h3>Fire Engine Response Details</h3>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="vehicle" class="form-label">Engine Dispatched</label>
+                                    <select class="form-select" aria-label="">
+                                        <option selected>Select vehicle</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="timeDispatched" class="form-label">Time Dispatched</label>
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                        id="timeDispatchedInput">
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label>
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                        id="timeArrivedFireSceneInput">
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="responseTime" class="form-label">Response Time</label>
+                                    <input type="text" placeholder="Eg. 1900h - 2300h"
+                                        class="form-control text-uppercase" id="responseTimeInput">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="timeReturned" class="form-label">Time Returned to Base</label>
+                                    <input type="text" placeholder="Eg. 1900h - 2300h"
+                                        class="form-control text-uppercase" id="timeReturnedInput">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label>
+                                    <input type="text" placeholder="Eg. 1900h - 2300h"
+                                        class="form-control text-uppercase" id="waterTankInput">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="gasConsumed" class="form-label">Gas Consumed (L)</label>
+                                    <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
+                                        id="gasConsumedInput">
+                                </div>
                             </div>
-                            <div class="col-lg-3 mb-3">
-                                <label for="timeDispatched" class="form-label">Time Dispatched</label>
-                                <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    id="timeDispatchedInput">
+                            <hr>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewDivApor" class="btn btn-primary">+ Add New Fire Engine
+                                    Response Details</button>
                             </div>
-                            <div class="col-lg-3 mb-3">
-                                <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label>
-                                <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    id="timeArrivedFireSceneInput">
-                            </div>
-                            <div class="col-lg-3 mb-3">
-                                <label for="responseTime" class="form-label">Response Time</label>
-                                <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase"
-                                    id="responseTimeInput">
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <label for="timeReturned" class="form-label">Time Returned to Base</label>
-                                <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase"
-                                    id="timeReturnedInput">
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label>
-                                <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase"
-                                    id="waterTankInput">
-                            </div>
-                            <div class="col-lg-4 mb-3">
-                                <label for="gasConsumed" class="form-label">Gas Consumed (L)</label>
-                                <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
-                                    id="gasConsumedInput">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button type="button" id="addNewDivApor" class="btn btn-primary mb-4">+ Add New Fire Engine
-                                Response Details</button>
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
@@ -175,47 +180,39 @@
                                 <input type="datetime-local" placeholder="" class="form-control"
                                     id="firstResponderInput">
                             </div>
-
-                            <div class="mt-3 d-flex justify-content-start align-items-center">
-                                <h5 class="mb-0 me-3">TIME ALARM STATUS DECLARED</h5>
-                                <button type="button" class="btn btn-sm btn-primary add-time-alarm-status-button">+ Add Time Alarm Status</button>
-                            </div>
-                            
-                            <div class="container mt-3">
-                                <!-- Container to hold the dynamically added sections -->
-                                <div class="time-alarm-status-container">
-                                    <div class="row time-alarm-status-declared-div m-0 p-0">
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                            <select class="form-select" aria-label="">
-                                                <option selected>Select alarm status</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
-                                            <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime">
-                                        </div>
-                                        <div class="col-lg-3 mb-3">
-                                            <label for="fundCommander" class="form-label">Fund Commander</label>
-                                            <select class="form-select" aria-label="">
-                                                <option selected>Select Fund Commander</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-1 mb-3">
-                                            <label for="remove-time-alarm-status" class="form-label">Action</label>
-                                            <br>
-                                            <button type="button" disabled class="btn btn-outline-danger remove-time-alarm-status">X</button>
-                                        </div>
-                                    </div>
+                            <hr>
+                            <div class="row time-alarm-status-declared-div m-0 p-0">
+                                <h3>Time Alarm Status Declared</h3>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
+                                    <select class="form-select" aria-label="">
+                                        <option selected>Select alarm status</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
                                 </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                        id="timeAlarmStatusDeclaredTime">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="fundCommander" class="form-label">Fund Commander</label>
+                                    <select class="form-select" aria-label="">
+                                        <option selected>Select Fund Commander</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                
                             </div>
-                            
+                            <hr>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addTimeAlarmStatusDeclared" class="btn btn-primary add-time-alarm-status-button">+ Add
+                                    Time Alarm Status</button>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -226,62 +223,84 @@
         </div>
     </div>
     <script>
-       $(document).ready(function() {
-        $('#addNewDivApor').click(function() {
-            // Clone the first row (assuming it's the row you want to duplicate)
-            var newRow = $('.second-div:first').clone();
+        $(document).ready(function() {
+            $('#addNewDivApor').click(function() {
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.second-div:first').clone();
 
-            // Reset input values in the cloned row (if needed)
-            newRow.find('input').val('');
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-            // Update the header text to reflect "New Fire Engine Response Details"
-            var newHeaderText = "New Fire Engine Response Details";
-            var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-            // Create a flex container for the header and button
-            var flexContainer = $('<div class="d-flex justify-content-between align-items-center"></div>');
-            flexContainer.append(newHeader); // Append the new header to the flex container
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-            // Create and append the removal ('X') button
-            var removeButton = $('<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-            removeButton.click(function() {
-                $(this).closest('.second-div').remove(); // Remove the entire row when 'X' button is clicked
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.second-div');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
+
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
+
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
-            flexContainer.append(removeButton); // Append the remove button to the flex container
 
-            // Replace the existing header with the flex container
-            newRow.find('h3').replaceWith(flexContainer);
+            $('#addTimeAlarmStatusDeclared').click(function() {
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.time-alarm-status-declared-div:first').clone();
 
-            // Insert the cloned row before the button
-            $(this).parent().before(newRow);
-        });
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-        // Add Time Alarm Status button click handler
-        $('.add-time-alarm-status-button').click(function(event) {
-            event.preventDefault(); // Prevent default form submission
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-            // Clone the template section
-            var clonedSection = $('.time-alarm-status-declared-div:first').clone();
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-            // Reset input values in the cloned section
-            clonedSection.find('input').val('');
-            clonedSection.find('select').prop('selectedIndex', 0);
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.time-alarm-status-declared-div');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-            // Add remove button to the cloned section
-            var removeButton = $('<button type="button" class="btn btn-sm btn-outline-danger remove-time-alarm-status">Remove</button>');
-            removeButton.click(function() {
-                $(this).closest('.time-alarm-status-declared-div').remove();
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
+
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
+
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
-            clonedSection.append(removeButton);
-
-            // Append the cloned section to the container
-            $('.time-alarm-status-container').append(clonedSection);
         });
-
-        // Remove Time Alarm Status button click handler for existing sections
-        $(document).on('click', '.remove-time-alarm-status', function() {
-            $(this).closest('.time-alarm-status-declared-div').remove();
-        });
-    });
     </script>
 @endsection
