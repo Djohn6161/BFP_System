@@ -30,6 +30,11 @@
                     <form>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3>Fire Incident Details</h3>
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
                             <hr>
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
@@ -97,6 +102,12 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <div class="row m-0 p-0 second-div border-0">
                                 <h3>Fire Engine Response Details</h3>
+                                <hr class="mb-0">
+                                <hr class="mb-0">
+                                <hr class="mb-0">
+                                <hr class="mb-0">
+                                <hr class="mb-0">
+                                <hr>
                                 <div class="col-lg-3 mb-3">
                                     <label for="vehicle" class="form-label">Engine Dispatched</label>
                                     <select class="form-select" aria-label="">
@@ -145,7 +156,13 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            <h3>Fire Alarm Status and Response Details</h3>
+                            <h3 class="border-bottom border-4 border-primary pb-2 mb-3">Fire Alarm Status and Response Details</h3>
+                            {{-- <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr class="mb-0">
+                            <hr> --}}
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm Status</label>
                                 <select class="form-select" aria-label="">
@@ -206,16 +223,17 @@
                                         <option value="3">Three</option>
                                     </select>
                                 </div>
-                                
+
                             </div>
                             <hr>
                             <div class="row m-0 p-0">
-                                <button type="button" id="addTimeAlarmStatusDeclared" class="btn btn-primary add-time-alarm-status-button">+ Add
+                                <button type="button" id="addTimeAlarmStatusDeclared"
+                                    class="btn btn-primary add-time-alarm-status-button">+ Add
                                     Time Alarm Status</button>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-secondary">Submit</button>
 
                     </form>
                 </div>
