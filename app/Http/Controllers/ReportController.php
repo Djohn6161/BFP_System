@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\Report;
 use App\Models\Barangay;
@@ -25,7 +26,7 @@ class ReportController extends Controller
     {
         $user = Auth::user();
         $active = 'operation';
-        $operations = Report::where('category', 'Operation')->get();
+        $operations = Afor::all();
         $investigation = Report::where('category', 'Investigation')->get();
         return view('reports.operation', compact('active', 'operations', 'investigation','user'));
     }

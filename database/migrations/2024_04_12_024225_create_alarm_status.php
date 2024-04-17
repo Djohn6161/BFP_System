@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('used_equipments', function (Blueprint $table) {
+        Schema::create('alarm_status', function (Blueprint $table) {
             $table->id();
             $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
-            $table->integer('quantity');
-            $table->enum('category', ['extinguishing agent','rope and ladder','breathing apparatus','hose line']);
-            $table->string('type');
-            $table->string('nr')->nullable();
-            $table->string('length')->nullable();
+            $table->string('alarm');
+            $table->string('time');
+            $table->foreignid('ground_commander')->constrained('personnels')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('used_equipments');
+        Schema::dropIfExists('alarm_status');
     }
 };

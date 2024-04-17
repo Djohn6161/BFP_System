@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('afor', function (Blueprint $table) {
             $table->id();
-            $table->time('alarm_received');
+            $table->string('alarm_received');
             $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
             $table->string('caller_address');
             $table->string('location');

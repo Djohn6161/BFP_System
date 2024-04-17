@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Afor extends Model
+class Afor_casualties extends Model
 {
-    protected $table = 'afor';
-
+    protected $title = 'afor_casulaties'; 
+    
     use HasFactory;
-
-
 }
