@@ -47,7 +47,7 @@
 
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select caller" aria-label="">
                                     <option selected>Select caller</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Office / Address of the Caller</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select officeAddressCaller" aria-label="">
                                     <option selected>Select the office or address</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -66,7 +66,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Personnel on duty who received the
                                     alarm</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select personnelReceive" aria-label="">
                                     <option selected>Select personnel</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -78,7 +78,7 @@
                             {{-- <h5>Location</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select barangayApor" aria-label="">
                                     <option selected>Select barangay</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Zone</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select zoneApor" aria-label="">
                                     <option selected>Select zone</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -107,7 +107,7 @@
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2</h3>
                                 <div class="col-lg-3 mb-3">
                                     <label for="vehicle" class="form-label">Engine Dispatched</label>
-                                    <select class="form-select" aria-label="">
+                                    <select class="form-select engineDispatched" aria-label="">
                                         <option selected>Select vehicle</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -157,7 +157,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and 9</h3>
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm Status</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select alarmStatus" aria-label="">
                                     <option selected>Select alarm status</option>
                                     <option value="1">1st Alarm</option>
                                     <option value="2">2nd Alarm</option>
@@ -194,7 +194,7 @@
                                 <h5>Time Alarm Status Declared</h5>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                    <select class="form-select" aria-label="">
+                                    <select class="form-select alarmApor" aria-label="">
                                         <option selected>Select alarm status</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -208,7 +208,7 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="fundCommander" class="form-label">Fund Commander</label>
-                                    <select class="form-select" aria-label="">
+                                    <select class="form-select fundCommander" aria-label="">
                                         <option selected>Select Fund Commander</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -229,7 +229,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="typeOfOccupancy" class="form-label">Type of Occupancy</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select typeOccupancy" aria-label="">
                                     <option selected>Select type of occupancy</option>
                                     <option value="1">Structural</option>
                                     <option value="2">Non-Structural</option>
@@ -238,7 +238,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
-                                <select class="form-select" aria-label="">
+                                <select class="form-select specify" aria-label="">
                                     <option selected>Please specify</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -353,21 +353,21 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13</h3>
                             <div class="row m-0 p-0 duty-personnel-at-fire-scene">
                                 <h3></h3>
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-lg-6 mb-3">
                                     <label for="fundCommander" class="form-label">Rank / Name</label>
-                                    <select class="form-select" aria-label="">
+                                    <select class="form-select rankName" aria-label="">
                                         <option selected>Select Fund Commander</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Designation</label>
                                     <input type="text" placeholder="No. of deaths" class="form-control"
                                         id="firstResponderInput">
                                 </div>
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-lg-12 mb-3">
                                     <label for="firefighterDeath" class="form-label">Remarks</label>
                                     <textarea type="text" placeholder="No. of deaths" class="form-control"
                                         id="firstResponderInput"></textarea>
@@ -560,7 +560,7 @@
                     reader.onload = (function(file) {
                         return function(e) {
                             // Create a new image element
-                            var imgElement = $('<img class="img-fluid m-2 object-fit-cover">').addClass('preview-image').attr('src', e.target.result);
+                            var imgElement = $('<img class="img-fluid m-2 object-fit-cover rounded shadow">').addClass('preview-image').attr('src', e.target.result);
 
                             // Append the image to the preview container
                             $('#preview-container').append(imgElement);
@@ -571,6 +571,8 @@
                     reader.readAsDataURL(file);
                 }
             });
+
+            $(".caller").select2();
         });
     </script>
 @endsection

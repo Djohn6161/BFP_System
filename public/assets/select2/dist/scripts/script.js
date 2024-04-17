@@ -5,6 +5,22 @@ $(document).ready(function () {
     $(".crew-name").select2();
     $(".barangay").select2();
 
+    $(".officeAddressCaller").select2();
+    $(".personnelReceive").select2();
+    $(".barangayApor").select2();
+    $(".zoneApor").select2();
+    $(".engineDispatched").select2();
+    $(".alarmStatus").select2();
+    $(".alarmApor").select2();
+    $(".fundCommander").select2();
+    $(".typeOccupancy").select2();
+    $(".specify").select2();
+    $(".rankName").select2();
+
+
+
+    
+
     // FOR REMOVING THE IMAGE
     // $(".remove-button").on("click", function () {
     //     $(this).closest(".col-md-4").remove();

@@ -68,7 +68,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                             <span>
-                                <i class="ti ti-cards"></i>
+                                <i class="ti ti-users"></i>
                             </span>
                             <span class="hide-menu">Personnel</span>
                         </a>
@@ -87,7 +87,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
                             <span>
-                                <i class="ti ti-typography"></i>
+                                <i class="ti ti-trash"></i>
                             </span>
                             <span class="hide-menu">Trash</span>
                         </a>
