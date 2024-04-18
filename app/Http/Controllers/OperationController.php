@@ -6,6 +6,7 @@ use App\Models\Afor;
 use App\Models\Barangay;
 use App\Models\Operation;
 use App\Models\Personnel;
+use App\Models\Truck;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,12 @@ class OperationController extends Controller
         $active = 'operation';
         $personnels = Personnel::all();
         $barangays = Barangay::all();
-        return view('reports.operation.operation_form', compact('active', 'user','personnels','barangays'));
+        $trucks = Truck::all();
+        return view('reports.operation.operation_form', compact('active', 'user','personnels','barangays','trucks'));
+    }
+
+    public function operationCreateSubmit(Request $request)
+    {
+        dd($request);
     }
 }

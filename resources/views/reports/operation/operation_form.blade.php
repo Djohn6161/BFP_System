@@ -16,16 +16,17 @@
                                     <div class="row justify-content-center">
                                         <div class="col-lg-11 p-4">
                                             <div class="row">
-                                                <form>
+                                                <form method="POST" action="{{route('operation.create.submit')}}">
+                                                    @csrf
                                                     <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                                                        {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                                                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
                                                         {{-- <h5>Details</h5> --}}
                                                         <div class="col-lg-6 mb-3">
                                                             <label for="alarmReceived" class="form-label">Alarm Received
                                                                 (Time)</label>
                                                             <input type="text" placeholder="Eg. 2300h"
-                                                                class="form-control text-uppercase" id="alarmReceivedInput">
+                                                                class="form-control text-uppercase" id="alarm_received"
+                                                                name="alarm_received">
                                                         </div>
 
                                                         <div class="col-lg-6 mb-3">
@@ -44,13 +45,15 @@
                                                             <label for="otherLocation" class="form-label">Office / Address
                                                                 of the Caller</label>
                                                             <input type="text" placeholder="Enter the office or address"
-                                                                class="form-control" id="officeAddressCaller">
+                                                                class="form-control" id="officeAddressCaller"
+                                                                name="caller_address">
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
                                                             <label for="officeAddress" class="form-label">Personnel on duty
                                                                 who received the
                                                                 alarm</label>
-                                                            <select class="form-select personnelReceive" aria-label="">
+                                                            <select class="form-select personnelReceive" aria-label=""
+                                                                name="received_by">
                                                                 <option selected>Select personnel</option>
                                                                 @foreach ($personnels as $personnel)
                                                                     <option value="{{ $personnel->id }}">
@@ -64,39 +67,43 @@
                                                         {{-- <h5>Location</h5> --}}
                                                         <div class="col-lg-6 mb-3">
                                                             <label for="officeAddress" class="form-label">Barangay</label>
-                                                            <input type="text" placeholder="Enter the office or address"
-                                                            class="form-control" id="officeAddressCaller">
+                                                            <select class="form-select barangayApor" aria-label="" name="barangay">
+                                                                <option selected>Select barangay</option>
+                                                                @foreach ($barangays as $barangay)
+                                                                    <option value="{{ $barangay->id }}">
+                                                                        {{ $barangay->name }} - {{ $barangay->unit }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="col-lg-6 mb-3">
-                                                            <label for="officeAddress" class="form-label">Zone</label>
-                                                            <select class="form-select zoneApor" aria-label="">
-                                                                <option selected>Select zone</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            <label for="officeAddress"
+                                                                class="form-label">Zone/Street</label>
+                                                            <input type="text" placeholder="Enter the zone/street"
+                                                                class="form-control" id="zone" name="zone">
                                                         </div>
                                                         <div class="col-lg-12 mb-3">
                                                             <label for="otherLocation" class="form-label">Other
                                                                 Location</label>
                                                             <input type="text" placeholder="Enter other location"
-                                                                class="form-control" id="otherLocation">
+                                                                class="form-control" id="otherLocation" name="otherLocation">
                                                         </div>
                                                     </div>
 
                                                     <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                                                         <div class="row m-0 p-0 second-div border-0">
-                                                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Engine Response Details</h3> --}}
                                                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
                                                             </h3>
                                                             <div class="col-lg-3 mb-3">
                                                                 <label for="vehicle" class="form-label">Engine
                                                                     Dispatched</label>
-                                                                <select class="form-select engineDispatched" aria-label="">
+                                                                <select class="form-select engineDispatched" aria-label="" name="engine_dispatched">
                                                                     <option selected>Select vehicle</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
+                                                                    @foreach ($trucks as $truck)
+                                                                        <option value="{{ $truck->id }}">
+                                                                            {{ $truck->name }}
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-3 mb-3">
@@ -104,42 +111,42 @@
                                                                     Dispatched</label>
                                                                 <input type="text" placeholder="Eg. 2300h"
                                                                     class="form-control text-uppercase"
-                                                                    id="timeDispatchedInput">
+                                                                    id="timeDispatchedInput" name="time_dispatched">
                                                             </div>
                                                             <div class="col-lg-3 mb-3">
                                                                 <label for="timeArrivedFireScene" class="form-label">Time
                                                                     Arrived at Fire Scene</label>
                                                                 <input type="text" placeholder="Eg. 2300h"
                                                                     class="form-control text-uppercase"
-                                                                    id="timeArrivedFireSceneInput">
+                                                                    id="timeArrivedFireSceneInput" name="time_arrived_at_scene">
                                                             </div>
                                                             <div class="col-lg-3 mb-3">
                                                                 <label for="responseTime" class="form-label">Response
                                                                     Time</label>
                                                                 <input type="text" placeholder="Eg. 1900h - 2300h"
                                                                     class="form-control text-uppercase"
-                                                                    id="responseTimeInput">
+                                                                    id="responseTimeInput" name="response_duration">
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
                                                                 <label for="timeReturned" class="form-label">Time Returned
                                                                     to Base</label>
                                                                 <input type="text" placeholder="Eg. 1900h - 2300h"
                                                                     class="form-control text-uppercase"
-                                                                    id="timeReturnedInput">
+                                                                    id="timeReturnedInput" name="time_return_to_base">
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
                                                                 <label for="waterTank" class="form-label">Water Tank
                                                                     Refilled (GAL)</label>
                                                                 <input type="text" placeholder="Eg. 1900h - 2300h"
                                                                     class="form-control text-uppercase"
-                                                                    id="waterTankInput">
+                                                                    id="waterTankInput" name="water_tank_refilled">
                                                             </div>
                                                             <div class="col-lg-4 mb-3">
                                                                 <label for="gasConsumed" class="form-label">Gas Consumed
                                                                     (L)</label>
                                                                 <input type="text" placeholder="Eg. 24l"
                                                                     class="form-control text-uppercase"
-                                                                    id="gasConsumedInput">
+                                                                    id="gasConsumedInput" name="gas_consumed">
                                                             </div>
                                                         </div>
                                                         <hr>
@@ -216,7 +223,7 @@
                                                                 <label for="fundCommander" class="form-label">Fund
                                                                     Commander</label>
                                                                 <select class="form-select fundCommander" aria-label="">
-                                                                    <option selected>Select Fund Commander</option>
+                                                                    <option selected>Select Fund Commanders</option>
                                                                     <option value="1">One</option>
                                                                     <option value="2">Two</option>
                                                                     <option value="3">Three</option>
@@ -383,21 +390,23 @@
                                                                     Name</label>
                                                                 <select class="form-select rankName" aria-label="">
                                                                     <option selected>Select Fund Commander</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
+                                                                    @foreach ($personnels as $personnel)
+                                                                        <option value="{{ $personnel->id }}">
+                                                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                            {{ $personnel->last_name }}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-6 mb-3">
                                                                 <label for="firefighterDeath"
                                                                     class="form-label">Designation</label>
-                                                                <input type="text" placeholder="No. of deaths"
+                                                                <input type="text" placeholder="Designation"
                                                                     class="form-control" id="firstResponderInput">
                                                             </div>
                                                             <div class="col-lg-12 mb-3">
                                                                 <label for="firefighterDeath"
                                                                     class="form-label">Remarks</label>
-                                                                <textarea type="text" placeholder="No. of deaths" class="form-control" id="firstResponderInput"></textarea>
+                                                                <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput"></textarea>
                                                             </div>
                                                         </div>
                                                         <hr>
@@ -425,8 +434,8 @@
                                                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
                                                         </h3>
                                                         <div class="col-lg-12 mb-3">
-                                                            <label for="firefighterDeath"
-                                                                class="form-label">Remarks</label>
+                                                            <label for="firefighterDeath" class="form-label">Details
+                                                                (Narrative)</label>
                                                             <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
                                                         </div>
                                                     </div>
@@ -436,8 +445,8 @@
                                                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
                                                         </h3>
                                                         <div class="col-lg-12 mb-3">
-                                                            <label for="firefighterDeath"
-                                                                class="form-label">Remarks</label>
+                                                            <label for="firefighterDeath" class="form-label">Problems /
+                                                                Encountered during operation:</label>
                                                             <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
                                                         </div>
                                                     </div>
@@ -447,8 +456,8 @@
                                                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
                                                         </h3>
                                                         <div class="col-lg-12 mb-3">
-                                                            <label for="firefighterDeath"
-                                                                class="form-label">Remarks</label>
+                                                            <label for="firefighterDeath" class="form-label">Observation /
+                                                                Recommendation</label>
                                                             <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
                                                         </div>
                                                     </div>

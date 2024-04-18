@@ -25,6 +25,7 @@ class AforSeeder extends Seeder
                 'transmitted_by' => $faker->numberBetween(1, 16),
                 'caller_address' => $faker->address(),
                 'location' => $faker->address(),
+                'received_by' => $faker->numberBetween(1, 16),
                 'td_under_control' => $stringDate,
                 'td_declared_fireout' => $td_declared_fireout,
                 'occupancy' => $faker->randomElement(['s', 'ns', 'v']),

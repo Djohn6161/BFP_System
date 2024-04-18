@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
             $table->string('caller_address');
             $table->string('location');
+            $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control');
             $table->dateTime('td_declared_fireout');
             $table->enum('occupancy',['s','ns','v']);

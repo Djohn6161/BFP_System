@@ -65,7 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 
     // Afor
-    Route::get('/reports/operation/create', [OperationController::class, 'operationCreate'])->name('operation.create');
+    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreate'])->name('operation.create.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationCreateSubmit'])->name('operation.create.submit');
 
     // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
