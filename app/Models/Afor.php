@@ -9,6 +9,14 @@ class Afor extends Model
 {
     protected $table = 'afor';
 
+    public function transmittedBy(){
+        return $this->belongsTo(Personnel::class, 'transmitted_by');
+    }
+
+    public function personRank($id){
+        return Rank::where('id', $id)->first();
+    }
+
     use HasFactory;
 
 }

@@ -28,8 +28,8 @@ class ReportController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $operations = Afor::all();
-        $investigation = Report::where('category', 'Investigation')->get();
-        return view('reports.operation', compact('active', 'operations', 'investigation', 'user'));
+        // $investigation = Report::where('category', 'Investigation')->get();
+        return view('reports.operation', compact('active', 'operations', 'user'));
     }
     public function createReport($id, $type, $category)
     {

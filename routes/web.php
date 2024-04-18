@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Models\Report;
 use Illuminate\Support\Facades\Route;
+use App\Models\Operation;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,9 +60,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Reports
     Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
-    Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+
+    // Afor
+    Route::get('/reports/operation/create', [OperationController::class, 'operationCreate'])->name('operation.create');
 
     // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');

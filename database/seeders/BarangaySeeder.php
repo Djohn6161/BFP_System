@@ -24,10 +24,6 @@ class BarangaySeeder extends Seeder
                 'unit' => 'Mayon Unit',
             ],
             [
-                'name' => 'Baligang',
-                'unit' => 'Mayon Unit',
-            ],
-            [
                 'name' => 'Barayong',
                 'unit' => 'Mayon Unit',
             ],
