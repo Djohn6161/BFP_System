@@ -14,7 +14,7 @@ class Report extends Model
     }
 
     public function barangay(){
-        return $this->belongsTo(Barangay::class, 'barangays_id');
+        return $this->hasOneThrough(Barangay::class, Brgy_reports::class, 'report_id', 'id', 'id', 'brgy_id' );
     }
     public function logs(){
         return $this->hasMany(Log::class, 'reports_id');
@@ -25,6 +25,12 @@ class Report extends Model
 
     public function truck(){
         return $this->belongsTo(Truck::class, 'trucks_id');
+    }
+    public function victims(){
+        return $this->hasMany(Victim::class, 'report_id');
+    }
+    public function crews(){
+        return $this->hasMany(Crew::class, 'report_id');
     }
     public function personRank($id){
         return Rank::where('id', $id)->first();

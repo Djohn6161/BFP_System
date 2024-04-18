@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Truck extends Model
 {
-    use HasFactory; 
+    use HasFactory;
+    public function report(){
+        $this->hasMany(Report::class, 'trucks_id');
+    }
 }

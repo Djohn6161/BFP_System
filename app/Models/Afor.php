@@ -11,5 +11,4 @@ class Afor extends Model
 
     use HasFactory;
 
-
 }
