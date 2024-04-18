@@ -802,6 +802,47 @@
                 // Add <hr> tag after each cloned row for visual separation
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
+
+            // Function to check and toggle disable state of Other Location input
+        function toggleOtherLocation() {
+            var barangayValue = $('.barangayApor').val();
+            var zoneValue = $('#zone').val();
+            var otherLocationValue = $('#otherLocation').val();
+
+            // Check if either barangay or zone is filled
+            if (barangayValue !== 'Select barangay' || zoneValue !== '') {
+                $('#otherLocation').prop('disabled', true); // Disable Other Location input
+            } else {
+                $('#otherLocation').prop('disabled', false); // Enable Other Location input
+            }
+        }
+
+        // Function to check and toggle disable state of Barangay and Zone inputs
+            function toggleBarangayAndZone() {
+                var otherLocationValue = $('#otherLocation').val();
+
+                // Check if Other Location is filled
+                if (otherLocationValue !== '') {
+                    $('.barangayApor').prop('disabled', true); // Disable Barangay select
+                    $('#zone').prop('disabled', true); // Disable Zone input
+                } else {
+                    $('.barangayApor').prop('disabled', false); // Enable Barangay select
+                    $('#zone').prop('disabled', false); // Enable Zone input
+                }
+            }
+
+            // Listen for changes in Barangay select, Zone input, and Other Location input
+            $('.barangayApor, #zone').on('change keyup', function() {
+                toggleOtherLocation(); // Check and toggle Other Location input state
+            });
+
+            $('#otherLocation').on('input', function() {
+                toggleBarangayAndZone(); // Check and toggle Barangay and Zone inputs state
+            });
+
+            // Trigger the checks initially in case there are pre-filled values
+            toggleOtherLocation();
+            toggleBarangayAndZone();
         });
     </script>
 @endsection
