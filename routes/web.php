@@ -36,7 +36,7 @@ Route::get('/form', function () {
 
 Route::get('/investigation', function () {
     return view('investigation', [
-        'active' => 'dashboard'
+        'active' => 'investigation'
     ]);
 });
 
