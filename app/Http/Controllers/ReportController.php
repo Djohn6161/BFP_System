@@ -2,50 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barangay;
-use App\Models\Brgy_reports;
-use App\Models\Crew;
+use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\Report;
+use App\Models\Barangay;
 use App\Models\Personnel;
 use App\Models\Victim;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
     //
-    public function investigationIndex(){
+    public function investigationIndex()
+    {
+        $user = Auth::user();
         $investigation = Report::all()->where('category', 'Investigation');
         $operation = Report::all()->where('category', 'Operation');
-        return view('reports.investigation',[
-            'active' => 'investigation',
-            'investigation' => $investigation,
-            'operation' => $operation,
+        $active = 'investigation';
 
-        ]);
+        return view('reports.investigation', compact('active', 'investigation', 'operation', 'user'));
     }
-    public function operationIndex(){
+    public function operationIndex()
+    {
+        $user = Auth::user();
         $active = 'operation';
-        $reports = Report::where('category', 'Operation')->get();                                   
-        $investigation = Report::where('category', 'Investigation')->get();                                   
-        return view('reports.operation', compact('active','reports', 'investigation'));
+        $operations = Afor::all();
+        // $investigation = Report::where('category', 'Investigation')->get();
+        return view('reports.operation', compact('active', 'operations', 'user'));
     }
-
-
-
-    public function createReport($id, $type, $category){
-    // dd($id != 0, $type);
-        // abort(404);
-        // $report = "";
-        try{
+    public function createReport($id, $type, $category)
+    {
+        try {
             $report = Report::findorfail($id);
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
             $report = null;
             // abort(404);
         }
-        if($type == "Fire Incident"){
-            return view('reports.types.fireIncident',[
-                'active' => $category,
+        if ($category == "Investigation") {
+            $active = "Operation";
+        } else {
+            $active = "Investigation";
+        }
+        if ($type == "Fire Incident") {
+            return view('reports.types.fireIncident', [
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -54,9 +55,9 @@ class ReportController extends Controller
                 // 'victims' => Victim::all()->where('reports_id',)
                 'type' => $type
             ]);
-        }elseif($type == "Vehicular Accident"){
-            return view('reports.types.vehicularAccident',[
-                'active' => $category,
+        } elseif ($type == "Vehicular Accident") {
+            return view('reports.types.vehicularAccident', [
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -64,9 +65,9 @@ class ReportController extends Controller
                 'barangays' => Barangay::all(),
                 'type' => $type
             ]);
-        }else{
-            return view('reports.types.nonEmergency',[
-                'active' => $category,
+        } else {
+            return view('reports.types.nonEmergency', [
+                'active' => $active,
                 'report' => $report,
                 'category' => $category,
                 'personnels' => Personnel::all(),
@@ -75,9 +76,10 @@ class ReportController extends Controller
                 'type' => $type,
             ]);
         }
-        
+
     }
-    public function storeReport(Request $request, $category){
+    public function storeReport(Request $request, $category)
+    {
         $request->merge(["category" => $category]);
         // dd($request['name_of_victims']);
         $validatedData = $request->validate([
@@ -101,21 +103,24 @@ class ReportController extends Controller
             'time_of_arrival_to_station' => 'required',
         ]);
         try {
-            // dd($validatedData['photos'][0]);
-            if($request->hasFile('photos')){
-                $photoPath = [];
-                foreach ($validatedData['photos'] as $photo) {
-                    $path = $photo->store('report', 'public');
-                    $photoPath[] = $path;
-                }
-                // dd(implode(", ", $photoPath));
-                $validatedData['photos'] = implode(", ", $photoPath);
+            $validatedData['crewName'] = implode(", ", $validatedData['crewName']);
+        } catch (\Exception $ex) {
+
+        }
+        try {
+            $validatedData['name_of_victims'] = implode(", ", $validatedData['name_of_victims']);
+        } catch (\Exception $ex) {
+        }
+        try {
+            $validatedData['photos'] = implode(", ", $validatedData['photos']);
+            foreach ($validatedData['photos'] as $photo) {
+                $photo->store('report', 'public');
             }
-            
+
 
         } catch (\Exception $ex) {
-            dd("error: ", $ex); 
-        }   
+            dd("error: ", $ex);
+        }
         // dd($validatedData);
         unset($validatedData['number_of_victims']);
         unset($validatedData['personnels_id']);
@@ -134,7 +139,7 @@ class ReportController extends Controller
             $brgyReport->report_id = $report->id;
             $brgyReport->save();
         }
-        
+
         foreach ($request['name_of_victims'] as $victimName) {
             $victim = new Victim();
             $victim->name = $victimName;

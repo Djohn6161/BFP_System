@@ -21,7 +21,7 @@ class Personnel extends Model
     public function teamLeaderReport(){
         return $this->hasMany(Personnel::class, 'team_leaders_id');
     }
-    public function crewReport(){
-        return $this->hasMany(Crew::class, 'personnel_id');
-    }
+    // public function crewReport(){
+    //     return $this->hasMany(Crew::class, 'personnel_id');
+    // }
 }
