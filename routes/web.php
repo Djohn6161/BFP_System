@@ -34,6 +34,12 @@ Route::get('/form', function () {
     ]);
 });
 
+Route::get('/investigation', function () {
+    return view('investigation', [
+        'active' => 'dashboard'
+    ]);
+});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
