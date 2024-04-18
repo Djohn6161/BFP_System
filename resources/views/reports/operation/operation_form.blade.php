@@ -350,16 +350,18 @@
                             </div>
                             <hr>
                             <div class="row m-0 p-0">
-                                <button type="button" id="addNewRopeAndLadder" class="btn btn-primary">+ Add another rope and ladder used</button>
+                                <button type="button" id="addNewRopeAndLadder" class="btn btn-primary">+ Add another
+                                    rope and ladder used</button>
                             </div>
                         </div>
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 hose-line">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
+                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">No.</label>
-                                    <input type="number" placeholder="No." class="form-control" id="firstResponderInput">
+                                    <input type="number" placeholder="No." class="form-control"
+                                        id="firstResponderInput">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type /
@@ -375,7 +377,8 @@
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
-                                <button type="button" id="addNewHoseLine" class="btn btn-primary">+ Add another hose line used</button>
+                                <button type="button" id="addNewHoseLine" class="btn btn-primary">+ Add another hose
+                                    line used</button>
                             </div>
                         </div>
 
@@ -645,160 +648,160 @@
             });
 
             $('#addNewBreathingApparatus').click(function() {
-                        // Clone the first row (assuming it's the row you want to duplicate)
-                        var newRow = $('.breathing-apparatus:first').clone();
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.breathing-apparatus:first').clone();
 
-                        // Reset input values in the cloned row (if needed)
-                        newRow.find('input').val('');
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-                        // Update the header text to reflect "New Fire Engine Response Details"
-                        var newHeaderText = "";
-                        var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                        // Create a flex container for the header and button
-                        var flexContainer = $(
-                            '<div class="d-flex justify-content-between align-items-center"></div>');
-                        flexContainer.append(newHeader); // Append the new header to the flex container
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-                        // Create and append the removal ('X') button
-                        var removeButton = $(
-                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                        removeButton.click(function() {
-                            var rowToRemove = $(this).closest('.breathing-apparatus');
-                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.breathing-apparatus');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                            // Remove both the row and the preceding <hr> element
-                            rowToRemove.remove();
-                            hrToRemove.remove();
-                        });
-                        flexContainer.append(removeButton); // Append the remove button to the flex container
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
 
-                        // Replace the existing header with the flex container
-                        newRow.find('h3').replaceWith(flexContainer);
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
 
-                        // Insert the cloned row before the button
-                        $(this).parent().before(newRow);
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
 
-                        // Add <hr> tag after each cloned row for visual separation
-                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-                    });
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            });
 
-                    $('#addNewExtinguishingAgent').click(function() {
-                        // Clone the first row (assuming it's the row you want to duplicate)
-                        var newRow = $('.extinguishing-agent:first').clone();
+            $('#addNewExtinguishingAgent').click(function() {
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.extinguishing-agent:first').clone();
 
-                        // Reset input values in the cloned row (if needed)
-                        newRow.find('input').val('');
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-                        // Update the header text to reflect "New Fire Engine Response Details"
-                        var newHeaderText = "";
-                        var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                        // Create a flex container for the header and button
-                        var flexContainer = $(
-                            '<div class="d-flex justify-content-between align-items-center"></div>');
-                        flexContainer.append(newHeader); // Append the new header to the flex container
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-                        // Create and append the removal ('X') button
-                        var removeButton = $(
-                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                        removeButton.click(function() {
-                            var rowToRemove = $(this).closest('.extinguishing-agent');
-                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.extinguishing-agent');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                            // Remove both the row and the preceding <hr> element
-                            rowToRemove.remove();
-                            hrToRemove.remove();
-                        });
-                        flexContainer.append(removeButton); // Append the remove button to the flex container
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
 
-                        // Replace the existing header with the flex container
-                        newRow.find('h3').replaceWith(flexContainer);
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
 
-                        // Insert the cloned row before the button
-                        $(this).parent().before(newRow);
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
 
-                        // Add <hr> tag after each cloned row for visual separation
-                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-                    });
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            });
 
-                    $('#addNewRopeAndLadder').click(function() {
-                        // Clone the first row (assuming it's the row you want to duplicate)
-                        var newRow = $('.rope-ladder:first').clone();
+            $('#addNewRopeAndLadder').click(function() {
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.rope-ladder:first').clone();
 
-                        // Reset input values in the cloned row (if needed)
-                        newRow.find('input').val('');
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-                        // Update the header text to reflect "New Fire Engine Response Details"
-                        var newHeaderText = "";
-                        var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                        // Create a flex container for the header and button
-                        var flexContainer = $(
-                            '<div class="d-flex justify-content-between align-items-center"></div>');
-                        flexContainer.append(newHeader); // Append the new header to the flex container
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-                        // Create and append the removal ('X') button
-                        var removeButton = $(
-                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                        removeButton.click(function() {
-                            var rowToRemove = $(this).closest('.rope-ladder');
-                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.rope-ladder');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                            // Remove both the row and the preceding <hr> element
-                            rowToRemove.remove();
-                            hrToRemove.remove();
-                        });
-                        flexContainer.append(removeButton); // Append the remove button to the flex container
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
 
-                        // Replace the existing header with the flex container
-                        newRow.find('h3').replaceWith(flexContainer);
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
 
-                        // Insert the cloned row before the button
-                        $(this).parent().before(newRow);
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
 
-                        // Add <hr> tag after each cloned row for visual separation
-                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-                    });
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            });
 
-                    $('#addNewHoseLine').click(function() {
-                        // Clone the first row (assuming it's the row you want to duplicate)
-                        var newRow = $('.hose-line:first').clone();
+            $('#addNewHoseLine').click(function() {
+                // Clone the first row (assuming it's the row you want to duplicate)
+                var newRow = $('.hose-line:first').clone();
 
-                        // Reset input values in the cloned row (if needed)
-                        newRow.find('input').val('');
+                // Reset input values in the cloned row (if needed)
+                newRow.find('input').val('');
 
-                        // Update the header text to reflect "New Fire Engine Response Details"
-                        var newHeaderText = "";
-                        var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Update the header text to reflect "New Fire Engine Response Details"
+                var newHeaderText = "";
+                var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                        // Create a flex container for the header and button
-                        var flexContainer = $(
-                            '<div class="d-flex justify-content-between align-items-center"></div>');
-                        flexContainer.append(newHeader); // Append the new header to the flex container
+                // Create a flex container for the header and button
+                var flexContainer = $(
+                    '<div class="d-flex justify-content-between align-items-center"></div>');
+                flexContainer.append(newHeader); // Append the new header to the flex container
 
-                        // Create and append the removal ('X') button
-                        var removeButton = $(
-                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                        removeButton.click(function() {
-                            var rowToRemove = $(this).closest('.hose-line');
-                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+                // Create and append the removal ('X') button
+                var removeButton = $(
+                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                removeButton.click(function() {
+                    var rowToRemove = $(this).closest('.hose-line');
+                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                            // Remove both the row and the preceding <hr> element
-                            rowToRemove.remove();
-                            hrToRemove.remove();
-                        });
-                        flexContainer.append(removeButton); // Append the remove button to the flex container
+                    // Remove both the row and the preceding <hr> element
+                    rowToRemove.remove();
+                    hrToRemove.remove();
+                });
+                flexContainer.append(removeButton); // Append the remove button to the flex container
 
-                        // Replace the existing header with the flex container
-                        newRow.find('h3').replaceWith(flexContainer);
+                // Replace the existing header with the flex container
+                newRow.find('h3').replaceWith(flexContainer);
 
-                        // Insert the cloned row before the button
-                        $(this).parent().before(newRow);
+                // Insert the cloned row before the button
+                $(this).parent().before(newRow);
 
-                        // Add <hr> tag after each cloned row for visual separation
-                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-                    });
+                // Add <hr> tag after each cloned row for visual separation
+                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            });
 
             $(".caller").select2();
         });
