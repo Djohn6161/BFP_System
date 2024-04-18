@@ -6,11 +6,7 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <!--  Row 1 -->
-
         <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
                     <a href="{{route('operation.create.form')}}" class="btn btn-primary">Create</a>

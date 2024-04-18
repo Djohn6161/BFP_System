@@ -1,10 +1,52 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <!--  Row 1 -->
+        <div class="row justify-content-center">
+            <div class="col-lg-11 p-4">
+                <h1>Operation Report</h1>
+                <div class="row">
+                    <form>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-6 mb-3">
+                                <label for="alarmReceived" class="form-label">Alarm Received
+                                    (Time)</label>
+                                <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                    id="alarmReceivedInput">
+                            </div>
 
-        <div class="col-lg-12">
-            <!-- Monthly Earnings -->
+                            <div class="col-lg-6 mb-3">
+                                <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
+                                <select class="form-select caller" aria-label="">
+                                    <option selected>Select caller</option>
+                                    @foreach ($personnels as $personnel)
+                                        <option value="{{ $personnel->id }}">
+                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                            {{ $personnel->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="otherLocation" class="form-label">Office / Address
+                                    of the Caller</label>
+                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                    id="officeAddressCaller">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="officeAddress" class="form-label">Personnel on duty
+                                    who received the
+                                    alarm</label>
+                                <select class="form-select personnelReceive" aria-label="">
+                                    <option selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        <option value="{{ $personnel->id }}">
+                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                            {{ $personnel->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -471,7 +513,194 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+
+
+
+
+
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
+                            <div class="row m-0 p-0 breathing-apparatus">
+                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used</h3>
+
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">No.</label>
+                                    <input type="number" placeholder="No." class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Type /
+                                        Kind</label>
+                                    <input type="text" placeholder="Enter type" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewBreathingApparatus" class="btn btn-primary">+ Add
+                                    another breathing apparatus used</button>
+                            </div>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
+                            <div class="row m-0 p-0 extinguishing-agent">
+                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent Used</h3>
+
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Quantity</label>
+                                    <input type="number" placeholder="Enter quantity" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Type /
+                                        Kind</label>
+                                    <input type="text" placeholder="Enter type" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewExtinguishingAgent" class="btn btn-primary">+ Add
+                                    another extinguishing agent</button>
+                            </div>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
+                            <div class="row m-0 p-0 rope-ladder">
+                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
+
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Type</label>
+                                    <input type="text" placeholder="Enter type" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Length</label>
+                                    <input type="number" placeholder="Enter length" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewRopeAndLadder" class="btn btn-primary">+ Add another rope and ladder used</button>
+                            </div>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
+                            <div class="row m-0 p-0 hose-line">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="firefighterDeath" class="form-label">No.</label>
+                                    <input type="number" placeholder="No." class="form-control" id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Type /
+                                        Kind</label>
+                                    <input type="text" placeholder="Type / kind" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Total
+                                        ft.</label>
+                                    <input type="number" placeholder="Enter total feet" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                            </div>
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewHoseLine" class="btn btn-primary">+ Add another hose line used</button>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
+                            </h3>
+                            <div class="row m-0 p-0 duty-personnel-at-fire-scene">
+                                <h3></h3>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="fundCommander" class="form-label">Rank /
+                                        Name</label>
+                                    <select class="form-select rankName" aria-label="">
+                                        <option selected>Select Fund Commander</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Designation</label>
+                                    <input type="text" placeholder="No. of deaths" class="form-control"
+                                        id="firstResponderInput">
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="firefighterDeath" class="form-label">Remarks</label>
+                                    <textarea type="text" placeholder="No. of deaths" class="form-control" id="firstResponderInput"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row m-0 p-0">
+                                <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
+                                    another duty
+                                    personnel</button>
+                            </div>
+                        </div>
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14
+                            </h3>
+                            <label class="form-label" for="exampleCheck1">Photos</label>
+                            <input type="file" class="form-control uncheable" value="" id="photos"
+                                name="photos">
+
+                            <div id="preview-container"></div>
+                        </div>
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
+                            </h3>
+                            <div class="col-lg-12 mb-3">
+                                <label for="firefighterDeath" class="form-label">Remarks</label>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
+                            </h3>
+                            <div class="col-lg-12 mb-3">
+                                <label for="firefighterDeath" class="form-label">Remarks</label>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
+                            </h3>
+                            <div class="col-lg-12 mb-3">
+                                <label for="firefighterDeath" class="form-label">Remarks</label>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                    </form>
                 </div>
             </div>
 
@@ -581,6 +810,7 @@
                         // Add <hr> tag after each cloned row for visual separation
                         $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
                     });
+
                     $('#addNewDutyPersonnelAtFireScene').click(function() {
                         // Clone the first row (assuming it's the row you want to duplicate)
                         var newRow = $('.duty-personnel-at-fire-scene:first').clone();
@@ -602,6 +832,162 @@
                             '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
                         removeButton.click(function() {
                             var rowToRemove = $(this).closest('.duty-personnel-at-fire-scene');
+                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                            // Remove both the row and the preceding <hr> element
+                            rowToRemove.remove();
+                            hrToRemove.remove();
+                        });
+                        flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                        // Replace the existing header with the flex container
+                        newRow.find('h3').replaceWith(flexContainer);
+
+                        // Insert the cloned row before the button
+                        $(this).parent().before(newRow);
+
+                        // Add <hr> tag after each cloned row for visual separation
+                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                    });
+
+                    $('#addNewBreathingApparatus').click(function() {
+                        // Clone the first row (assuming it's the row you want to duplicate)
+                        var newRow = $('.breathing-apparatus:first').clone();
+
+                        // Reset input values in the cloned row (if needed)
+                        newRow.find('input').val('');
+
+                        // Update the header text to reflect "New Fire Engine Response Details"
+                        var newHeaderText = "";
+                        var newHeader = $('<h3></h3>').text(newHeaderText);
+
+                        // Create a flex container for the header and button
+                        var flexContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center"></div>');
+                        flexContainer.append(newHeader); // Append the new header to the flex container
+
+                        // Create and append the removal ('X') button
+                        var removeButton = $(
+                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                        removeButton.click(function() {
+                            var rowToRemove = $(this).closest('.breathing-apparatus');
+                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                            // Remove both the row and the preceding <hr> element
+                            rowToRemove.remove();
+                            hrToRemove.remove();
+                        });
+                        flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                        // Replace the existing header with the flex container
+                        newRow.find('h3').replaceWith(flexContainer);
+
+                        // Insert the cloned row before the button
+                        $(this).parent().before(newRow);
+
+                        // Add <hr> tag after each cloned row for visual separation
+                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                    });
+
+                    $('#addNewExtinguishingAgent').click(function() {
+                        // Clone the first row (assuming it's the row you want to duplicate)
+                        var newRow = $('.extinguishing-agent:first').clone();
+
+                        // Reset input values in the cloned row (if needed)
+                        newRow.find('input').val('');
+
+                        // Update the header text to reflect "New Fire Engine Response Details"
+                        var newHeaderText = "";
+                        var newHeader = $('<h3></h3>').text(newHeaderText);
+
+                        // Create a flex container for the header and button
+                        var flexContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center"></div>');
+                        flexContainer.append(newHeader); // Append the new header to the flex container
+
+                        // Create and append the removal ('X') button
+                        var removeButton = $(
+                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                        removeButton.click(function() {
+                            var rowToRemove = $(this).closest('.extinguishing-agent');
+                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                            // Remove both the row and the preceding <hr> element
+                            rowToRemove.remove();
+                            hrToRemove.remove();
+                        });
+                        flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                        // Replace the existing header with the flex container
+                        newRow.find('h3').replaceWith(flexContainer);
+
+                        // Insert the cloned row before the button
+                        $(this).parent().before(newRow);
+
+                        // Add <hr> tag after each cloned row for visual separation
+                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                    });
+
+                    $('#addNewRopeAndLadder').click(function() {
+                        // Clone the first row (assuming it's the row you want to duplicate)
+                        var newRow = $('.rope-ladder:first').clone();
+
+                        // Reset input values in the cloned row (if needed)
+                        newRow.find('input').val('');
+
+                        // Update the header text to reflect "New Fire Engine Response Details"
+                        var newHeaderText = "";
+                        var newHeader = $('<h3></h3>').text(newHeaderText);
+
+                        // Create a flex container for the header and button
+                        var flexContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center"></div>');
+                        flexContainer.append(newHeader); // Append the new header to the flex container
+
+                        // Create and append the removal ('X') button
+                        var removeButton = $(
+                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                        removeButton.click(function() {
+                            var rowToRemove = $(this).closest('.rope-ladder');
+                            var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                            // Remove both the row and the preceding <hr> element
+                            rowToRemove.remove();
+                            hrToRemove.remove();
+                        });
+                        flexContainer.append(removeButton); // Append the remove button to the flex container
+
+                        // Replace the existing header with the flex container
+                        newRow.find('h3').replaceWith(flexContainer);
+
+                        // Insert the cloned row before the button
+                        $(this).parent().before(newRow);
+
+                        // Add <hr> tag after each cloned row for visual separation
+                        $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                    });
+
+                    $('#addNewHoseLine').click(function() {
+                        // Clone the first row (assuming it's the row you want to duplicate)
+                        var newRow = $('.hose-line:first').clone();
+
+                        // Reset input values in the cloned row (if needed)
+                        newRow.find('input').val('');
+
+                        // Update the header text to reflect "New Fire Engine Response Details"
+                        var newHeaderText = "";
+                        var newHeader = $('<h3></h3>').text(newHeaderText);
+
+                        // Create a flex container for the header and button
+                        var flexContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center"></div>');
+                        flexContainer.append(newHeader); // Append the new header to the flex container
+
+                        // Create and append the removal ('X') button
+                        var removeButton = $(
+                            '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+                        removeButton.click(function() {
+                            var rowToRemove = $(this).closest('.hose-line');
                             var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
                             // Remove both the row and the preceding <hr> element
@@ -649,8 +1035,6 @@
                             reader.readAsDataURL(file);
                         }
                     });
-
-                    $(".caller").select2();
                 });
             </script>
         @endsection

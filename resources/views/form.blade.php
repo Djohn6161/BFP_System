@@ -384,7 +384,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
-                            <input type="file" class="form-control uncheable" value="" id="photos" name="photos">
+                            <input type="file" class="form-control uncheable" value="" id="photos" name="photos" multiple>
                             
                             <div id="preview-container"></div>  
                         </div>
@@ -570,9 +570,7 @@
                     // Read the file as a data URL
                     reader.readAsDataURL(file);
                 }
-            });
-
-            $(".caller").select2();
+            }); 
         });
     </script>
 @endsection
