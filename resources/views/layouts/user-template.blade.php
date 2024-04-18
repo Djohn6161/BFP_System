@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/DataTables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/select2/dist/css/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/summernote/summernote.css') }}">
-    {{-- <link href="{{ asset('assets/quill/quill.snow.css') }}" rel="stylesheet"> --}}
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/DataTables/datatables.js') }}"></script>
@@ -120,8 +118,7 @@
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.js') }}"></script>
     <script src="{{ asset('assets/select2/dist/scripts/script.js') }}"></script>
-    <script src="{{ asset('assets/js/lightbox.js') }}"></script>    
-    {{-- <script src="{{ asset('assets/quill/quill.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/lightbox.js') }}"></script>
 </body>
 
 </html>
