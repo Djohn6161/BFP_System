@@ -70,14 +70,14 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
 
-                                <a class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
                                    spot
                                 </a>
-                                <a  href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
                                     mini
                                 </a>
                             
-                                <a class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     postchuchu
                                 </a>
 
