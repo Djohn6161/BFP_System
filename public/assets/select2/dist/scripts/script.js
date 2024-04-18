@@ -5,6 +5,8 @@ $(document).ready(function () {
     $(".crew-name").select2();
     $(".barangay").select2();
 
+    // APOR Form
+    $(".caller").select2();
     $(".officeAddressCaller").select2();
     $(".personnelReceive").select2();
     $(".barangayApor").select2();
@@ -17,16 +19,11 @@ $(document).ready(function () {
     $(".specify").select2();
     $(".rankName").select2();
 
-
-
-    
-
     // FOR REMOVING THE IMAGE
     // $(".remove-button").on("click", function () {
     //     $(this).closest(".col-md-4").remove();
     // });
 
-    
     // Function to handle input event on the time input field
     $('#alarmReceivedInput').on('input', function() {
         // Get the current value of the input field
