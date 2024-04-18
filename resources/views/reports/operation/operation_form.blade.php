@@ -13,13 +13,13 @@
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    id="alarm_received" name="alarm_received">
+                                    name="alarm_received">
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <select class="form-select caller" aria-label="">
-                                    <option selected>Select caller</option>
+                                <select class="form-select caller" aria-label="" name="transmitted_by">
+                                    <option value="" selected>Select caller</option>
                                     @foreach ($personnels as $personnel)
                                         <option value="{{ $personnel->id }}">
                                             {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
@@ -28,8 +28,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="otherLocation" class="form-label">Office / Address
-                                    of the Caller</label>
+                                <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     id="officeAddressCaller" name="caller_address">
                             </div>
@@ -38,7 +37,7 @@
                                     who received the
                                     alarm</label>
                                 <select class="form-select personnelReceive" aria-label="" name="received_by">
-                                    <option selected>Select personnel</option>
+                                    <option value="" selected>Select personnel</option>
                                     @foreach ($personnels as $personnel)
                                         <option value="{{ $personnel->id }}">
                                             {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
@@ -52,7 +51,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
                                 <select class="form-select barangayApor" aria-label="" name="barangay">
-                                    <option selected>Select barangay</option>
+                                    <option value="" selected>Select barangay</option>
                                     @foreach ($barangays as $barangay)
                                         <option value="{{ $barangay->id }}">
                                             {{ $barangay->name }} - {{ $barangay->unit }}
@@ -80,8 +79,8 @@
                                 <div class="col-lg-3 mb-3">
                                     <label for="vehicle" class="form-label">Engine
                                         Dispatched</label>
-                                    <select class="form-select engineDispatched" aria-label="" name="engine_dispatched">
-                                        <option selected>Select vehicle</option>
+                                    <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]">
+                                        <option value="" selected>Select vehicle</option>
                                         @foreach ($trucks as $truck)
                                             <option value="{{ $truck->id }}">
                                                 {{ $truck->name }}
@@ -90,42 +89,38 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-3 mb-3">
-                                    <label for="timeDispatched" class="form-label">Time
-                                        Dispatched</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        id="timeDispatchedInput" name="time_dispatched">
+                                    <label for="timeDispatched" class="form-label">Time Dispatched</label>
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" name="time_dispatched[]">
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <label for="timeArrivedFireScene" class="form-label">Time
                                         Arrived at Fire Scene</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        id="timeArrivedFireSceneInput" name="time_arrived_at_scene">
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" name="time_arrived_at_scene[]">
                                 </div>
                                 <div class="col-lg-3 mb-3">
-                                    <label for="responseTime" class="form-label">Response
-                                        Time</label>
+                                    <label for="responseTime" class="form-label">Response Time</label>
                                     <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="responseTimeInput" name="response_duration">
+                                        class="form-control text-uppercase" id="responseTimeInput" name="response_duration[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeReturned" class="form-label">Time Returned
                                         to Base</label>
                                     <input type="text" placeholder="Eg. 1900h - 2300h"
                                         class="form-control text-uppercase" id="timeReturnedInput"
-                                        name="time_return_to_base">
+                                        name="time_return_to_base[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="waterTank" class="form-label">Water Tank
                                         Refilled (GAL)</label>
                                     <input type="text" placeholder="Eg. 1900h - 2300h"
                                         class="form-control text-uppercase" id="waterTankInput"
-                                        name="water_tank_refilled">
+                                        name="water_tank_refilled[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gasConsumed" class="form-label">Gas Consumed
                                         (L)</label>
                                     <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
-                                        id="gasConsumedInput" name="gas_consumed">
+                                        id="gasConsumedInput" name="gas_consumed[]">
                                 </div>
                             </div>
                             <hr>
@@ -136,14 +131,13 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Alarm Status and Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
                                 9</h3>
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
-                                <select class="form-select alarmStatus" aria-label="">
-                                    <option selected>Select alarm status</option>
+                                <select class="form-select alarmStatus" aria-label="" name="alarm">
+                                    <option value="" selected>Select alarm status</option>
                                     <option value="1">1st Alarm</option>
                                     <option value="2">2nd Alarm</option>
                                     <option value="3">3rd Alarm</option>
@@ -163,48 +157,58 @@
                                 <label for="firstResponder" class="form-label">First
                                     Responder</label>
                                 <input type="text" placeholder="Enter responder" class="form-control"
-                                    id="firstResponderInput">
+                                    id="firstResponderInput" name="first_responder">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
                                 <input type="datetime-local" placeholder="" class="form-control"
-                                    id="firstResponderInput">
+                                    id="firstResponderInput" name="td_under_control">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
                                 <input type="datetime-local" placeholder="" class="form-control"
-                                    id="firstResponderInput">
+                                    id="firstResponderInput" name="td_declared_fireout">
                             </div>
                             <hr>
                             <div class="row time-alarm-status-declared-div m-0 p-0">
                                 <h5>Time Alarm Status Declared</h5>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                    <select class="form-select alarmApor" aria-label="">
-                                        <option selected>Select alarm status</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select alarmApor" aria-label="" name="alarm_status[]">
+                                        <option value="" selected>Select alarm status</option>
+                                        <option value="1">1st Alarm</option>
+                                        <option value="2">2nd Alarm</option>
+                                        <option value="3">3rd Alarm</option>
+                                        <option value="4">4th Alarm</option>
+                                        <option value="5">5th Alarm</option>
+                                        <option value="6">Task Force Alpha</option>
+                                        <option value="6">Task Force Bravo</option>
+                                        <option value="6">Task Force Charlie</option>
+                                        <option value="6">Task Force Delta</option>
+                                        <option value="6">Task Force Echo</option>
+                                        <option value="6">Task Force Hotel</option>
+                                        <option value="6">Task Force India</option>
+                                        <option value="8">General Alarm</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
                                     <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        id="timeAlarmStatusDeclaredTime">
+                                        id="timeAlarmStatusDeclaredTime" name="timeAlarmStatusDeclaredTime[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
-                                    <label for="fundCommander" class="form-label">Fund
-                                        Commander</label>
-                                    <select class="form-select fundCommander" aria-label="">
-                                        <option selected>Select Fund Commanders</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <label for="fundCommander" class="form-label">Fund Commander</label>
+                                    <select class="form-select fundCommander" aria-label="" name="fund_command[]">
+                                        <option value="" selected>Select Fund Commanders</option>
+                                        @foreach ($personnels as $personnel)
+                                            <option value="{{ $personnel->id }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ $personnel->last_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-
                             </div>
                             <hr>
                             <div class="row m-0 p-0">
@@ -221,7 +225,7 @@
                                 <label for="typeOfOccupancy" class="form-label">Type of
                                     Occupancy</label>
                                 <select class="form-select typeOccupancy" aria-label="">
-                                    <option selected>Select type of occupancy</option>
+                                    <option value="" selected>Select type of occupancy</option>
                                     <option value="1">Structural</option>
                                     <option value="2">Non-Structural</option>
                                     <option value="3">Vehicular</option>
@@ -229,12 +233,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
-                                <select class="form-select specify" aria-label="">
-                                    <option selected>Please specify</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                    name="occupancy_specify">
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">
@@ -294,13 +294,13 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">No.</label>
                                     <input type="number" placeholder="No." class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="no_breathing[]">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type /
                                         Kind</label>
                                     <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="breathing[]">
                                 </div>
                             </div>
                             <hr>
@@ -317,13 +317,13 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Quantity</label>
                                     <input type="number" placeholder="Enter quantity" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="quantity_extinguishing[]">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type /
                                         Kind</label>
                                     <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="extinguishing[]">
                                 </div>
                             </div>
                             <hr>
@@ -340,12 +340,12 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type</label>
                                     <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="rope_ladder[]">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Length</label>
                                     <input type="number" placeholder="Enter length" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="rope_ladder_length[]">
                                 </div>
                             </div>
                             <hr>
@@ -361,19 +361,19 @@
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">No.</label>
                                     <input type="number" placeholder="No." class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="no_hose">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type /
                                         Kind</label>
                                     <input type="text" placeholder="Type / kind" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="type_hose">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">Total
                                         ft.</label>
                                     <input type="number" placeholder="Enter total feet" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="hose_feet">
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -395,8 +395,8 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="fundCommander" class="form-label">Rank /
                                         Name</label>
-                                    <select class="form-select rankName" aria-label="">
-                                        <option selected>Select Fund Commander</option>
+                                    <select class="form-select rankName" aria-label="" name="duty_personnel[]">
+                                        <option selected>Select duty personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
@@ -407,11 +407,11 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Designation</label>
                                     <input type="text" placeholder="Designation" class="form-control"
-                                        id="firstResponderInput">
+                                        id="firstResponderInput" name="designation[]">
                                 </div>
                                 <div class="col-lg-12 mb-3">
                                     <label for="firefighterDeath" class="form-label">Remarks</label>
-                                    <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput"></textarea>
+                                    <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput" name="remarks_duty[]"></textarea>
                                 </div>
                             </div>
                             <hr>
@@ -441,7 +441,7 @@
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Details
                                     (Narrative)</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="details"></textarea>
                             </div>
                         </div>
 
@@ -452,7 +452,7 @@
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Problems /
                                     Encountered during operation:</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="problem_encounter"></textarea>
                             </div>
                         </div>
 
@@ -463,7 +463,7 @@
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Observation /
                                     Recommendation</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"></textarea>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="observation_recommendation"></textarea>
                             </div>
                         </div>
 
@@ -807,7 +807,9 @@
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
 
-            $(".caller").select2();
+            $(".caller").select2({
+                tags: true
+            });
         });
     </script>
 @endsection

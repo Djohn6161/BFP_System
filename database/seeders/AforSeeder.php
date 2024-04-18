@@ -29,6 +29,7 @@ class AforSeeder extends Seeder
                 'td_under_control' => $stringDate,
                 'td_declared_fireout' => $td_declared_fireout,
                 'occupancy' => $faker->randomElement(['s', 'ns', 'v']),
+                'occupancy_specify' => '',
                 'distance_to_fire_incident' => '7 kilometers',
                 'structure_description' => $faker->paragraph(),
                 'sketch_of_fire_operation' => '',

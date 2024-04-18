@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime('td_under_control');
             $table->dateTime('td_declared_fireout');
             $table->enum('occupancy',['s','ns','v']);
+            $table->string('occupancy_specify');
             $table->string('distance_to_fire_incident');
             $table->string('structure_description');
             $table->string('sketch_of_fire_operation');

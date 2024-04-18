@@ -32,6 +32,24 @@ class OperationController extends Controller
 
     public function operationCreateSubmit(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'alarm_received' => 'required',
+            'transmitted_by' => 'required',
+            'caller_address' => 'required',
+            'received_by' => 'required',
+            'barangay' => 'required',
+            'zone' => 'required',
+            'otherLocation' => 'required',
+        ]);
+
+        $engine_dispatched = $request->input('engine_dispatched', []);
+        $time_dispatched = $request->input('time_dispatched', []); 
+        $time_arrived_at_scene = $request->input('time_arrived_at_scene', []); 
+        $response_duration = $request->input('response_duration', []); 
+        $time_return_to_base = $request->input('time_return_to_base', []);
+        $water_tank_refilled = $request->input('water_tank_refilled', []); 
+        $gas_consumed = $request->input('gas_consumed', []);
+
+        dd($request->all());
     }
 }
