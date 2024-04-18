@@ -802,8 +802,6 @@
                 // Add <hr> tag after each cloned row for visual separation
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
-
-            $(".caller").select2();
         });
     </script>
 @endsection
