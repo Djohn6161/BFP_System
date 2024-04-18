@@ -34,9 +34,9 @@ Route::get('/form', function () {
     ]);
 });
 
-Route::get('/investigation', function () {
-    return view('investigation', [
-        'active' => 'investigation'
+Route::get('/minimalInvestigation', function () {
+    return view('minimalInvestigation', [
+        'active' => 'minimalInvestigation'
     ]);
 });
 

@@ -41,37 +41,37 @@
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="dateTime" class="form-label">Date and Time of Actual Occurrence</label>
-                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control text-uppercase" id="dateTime" required>
+                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="dateTime" required>
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="reported" class="form-label">Date and Time Reported</label>
-                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control text-uppercase" id="reported" required>
+                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="reported" required>
 
                             </div>
                             <div class="col-lg-3 mb-4">
                                 <label for="province" class="form-label">Province</label>
-                                <input type="text" placeholder=" Eg. Albay" class="form-control text-uppercase" id="province" required>
+                                <input type="text" placeholder=" Eg. Albay" class="form-control" id="province" required>
                             </div>
                             <div class="col-lg-3 mb-4">
                                 <label for="municipality" class="form-label">Municipality</label>
-                                    <input type="text" placeholder=" Eg. Ligao" class="form-control text-uppercase" id="municipality" required>
+                                    <input type="text" placeholder=" Eg. Ligao" class="form-control" id="municipality" required>
                             </div>
                             <div class="col-lg-3 mb-4">
                                 <label for="barangay" class="form-label">Barangay</label>
-                                    <input type="text" placeholder=" Eg. Sta. Cruz" class="form-control text-uppercase" id="barangay" required>
+                                    <input type="text" placeholder=" Eg. Sta. Cruz" class="form-control" id="barangay" required>
                             </div>
                             <div class="col-lg-3 mb-4">
                                 <label for="other" class="form-label">Other Location</label>
-                                    <input type="text" placeholder=" Eg. Camarines Sur" class="form-control text-uppercase" id="other" required>
+                                    <input type="text" placeholder=" Eg. Camarines Sur" class="form-control" id="other" required>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Involved Property/Establishment</label>
-                                <input type="text" placeholder=" Eg. Vacant Lot " class="form-control text-uppercase" id="province" required>
+                                <input type="text" placeholder=" Eg. Vacant Lot " class="form-control" id="province" required>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Property Data</label>
-                                <input type="text" placeholder=" Eg. Juan Dela Cruz" class="form-control text-uppercase" id="province" required>
+                                <input type="text" placeholder=" Eg. Juan Dela Cruz" class="form-control" id="province" required>
                             </div>
                         </div>
 
@@ -81,23 +81,23 @@
                                 <h5 class="  pb-1 mb-3">Receiver</h5>
                                 <div class="col-lg-4 mb-3">
                                     <label for="name" class="form-label">Complete Name</label>
-                                    <input type="text" placeholder="Eg. SPO1 joseph d. Santos" class="form-control text-uppercase"
+                                    <input type="text" placeholder="Eg. SPO1 joseph d. Santos" class="form-control"
                                         id="name" required>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" placeholder="Eg. Guinobatan Albay" class="form-control text-uppercase"
+                                    <input type="text" placeholder="Eg. Guinobatan Albay" class="form-control"
                                         id="address" required>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="telephone" class="form-label">Telephone</label>
                                     <input type="number" placeholder="Eg. 09xxxxxxxxx"
-                                        class="form-control text-uppercase" id="telephone" required>
+                                        class="form-control" id="telephone" required>
                                 </div>
                                 <div class="col-lg-12 mb-12 p-2 mb-3">
                                     <label for="chief" class="form-label">Notification Originator</label>
                                     <input type="text" placeholder="Eg. Chief Operation"
-                                    class="form-control text-uppercase" id="chief" required>
+                                    class="form-control" id="chief" required>
                                 </div>
                                 <h5 class="  pb-1 mb-3">First Responding Unit</h5>
                                 <div class="col-lg-6 mb-3">
@@ -121,7 +121,7 @@
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeReturned" class="form-label">Time Arrival on Scene</label>
                                     <input type="text" placeholder="Eg. 1900h"
-                                        class="form-control text-uppercase" id="timeReturnedInput" required>
+                                        class="form-control" id="timeReturnedInput" required>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="waterTank" class="form-label">Alarm Status</label>
@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gasConsumed" class="form-label">Time Fire Out</label>
-                                    <input type="text" placeholder="Eg. 0200H" class="form-control text-uppercase"
+                                    <input type="text" placeholder="Eg. 0200H" class="form-control"
                                         id="gasConsumedInput"required>
                                 </div>
                             </div>
@@ -157,12 +157,12 @@
                             <div class="row time-alarm-status-declared-div m-0 p-0">
                                 <div class="col-lg-6 mb-6">
                                     <label for="timeAlarmStatusDeclared" class="form-label">Owner of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. Mr. Tomas Hilario" class="form-control text-uppercase"
+                                    <input type="text" placeholder="Eg. Mr. Tomas Hilario" class="form-control"
                                         id="timeAlarmStatusDeclaredTime" required>
                                 </div>
                                 <div class="col-lg-6 mb-6">
                                     <label for="timeAlarmStatusDeclaredTime" class="form-label">Occupant of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. James Padilla" class="form-control text-uppercase"
+                                    <input type="text" placeholder="Eg. James Padilla" class="form-control"
                                         id="timeAlarmStatusDeclaredTime">
                                 </div>
                             </div>
@@ -174,5 +174,19 @@
             </div>
         </div>
     </div>
+    <script>
+        // Get the input element
+    var input = document.getElementById('telephone');
 
+// Listen for input events
+input.addEventListener('input', function() {
+    // Remove any non-numeric characters
+    this.value = this.value.replace(/\D/g, '');
+
+    // Limit the input to exactly 11 digits
+    if (this.value.length > 11) {
+        this.value = this.value.slice(0, 11);
+    }
+});
+    </script>
 @endsection
