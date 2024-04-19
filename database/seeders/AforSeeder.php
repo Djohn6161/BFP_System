@@ -24,6 +24,8 @@ class AforSeeder extends Seeder
                 'alarm_received' => $faker->time('H:i') . 'H',
                 'transmitted_by' => $faker->numberBetween(1, 16),
                 'caller_address' => $faker->address(),
+                'barangay_id' => $faker->numberBetween(1, 55),
+                'zone' => 'Zone' . $faker->numberBetween(1, 5),
                 'location' => $faker->address(),
                 'received_by' => $faker->numberBetween(1, 16),
                 'td_under_control' => $stringDate,

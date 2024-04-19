@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Afor;
+use App\Models\Truck;
 use App\Models\Barangay;
+use App\Models\Response;
 use App\Models\Operation;
 use App\Models\Personnel;
-use App\Models\Truck;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 
 class OperationController extends Controller
@@ -25,31 +27,45 @@ class OperationController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $personnels = Personnel::all();
-        $barangays = Barangay::all();
+        $barangays = Barangay::where('id', '>', 1)->get();
         $trucks = Truck::all();
-        return view('reports.operation.operation_form', compact('active', 'user','personnels','barangays','trucks'));
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks'));
     }
 
     public function operationCreateSubmit(Request $request)
     {
-        $request->validate([
-            'alarm_received' => 'required',
-            'transmitted_by' => 'required',
-            'caller_address' => 'required',
-            'received_by' => 'required',
-            'barangay' => 'required',
-            'zone' => 'required',
-            'otherLocation' => 'required',
+        $afor = new Afor();
+        
+        $afor->fill([
+            'alarm_received' => $request->input('alarm_received') ?? '',
+            'transmitted_by' => $request->input('transmitted_by') ?? '',
+            'caller_address' => $request->input('caller_address') ?? '',
+            'received_by' => $request->input('received_by') ?? '',
+            'barangay_id' => $request->input('barangay') ?? 1,
+            'zone' => $request->input('zone') ?? '',
+            'location' => $request->input('location') ?? '',
+            'td_under_control' => $request->input('td_under_control') ?? '',
+            'td_declared_fireout' => $request->input('td_declared_fireout') ?? '',
+            'occupancy' => $request->input('occupancy') ?? '',
+            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
+            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
+            'structure_description' => $request->input('structure_description') ?? '',
+            'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
+            'details' => $request->input('details') ?? '',
+            'problem_encounter' => $request->input('problem_encounter') ?? '',
+            'observation_recommendation' => $request->input('observation_recommendation') ?? '',
+            'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
+            'first_responder' => $request->input('first_responder') ?? '',
         ]);
+        
+        $afor->save();
 
-        $engine_dispatched = $request->input('engine_dispatched', []);
-        $time_dispatched = $request->input('time_dispatched', []); 
-        $time_arrived_at_scene = $request->input('time_arrived_at_scene', []); 
-        $response_duration = $request->input('response_duration', []); 
-        $time_return_to_base = $request->input('time_return_to_base', []);
-        $water_tank_refilled = $request->input('water_tank_refilled', []); 
-        $gas_consumed = $request->input('gas_consumed', []);
 
-        dd($request->all());
+
+        // $savedId = $afor->id;
+
+        // $afor = new Response();
+
+        
     }
 }

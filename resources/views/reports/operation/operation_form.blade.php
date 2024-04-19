@@ -6,16 +6,16 @@
                 <div class="row">
                     <form method="POST" action="{{ route('operation.create.submit') }}">
                         @csrf
+
+                        <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
-                            {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
                                     name="alarm_received">
                             </div>
-
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
                                 <select class="form-select caller" aria-label="" name="transmitted_by">
@@ -29,8 +29,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control"
-                                    id="officeAddressCaller" name="caller_address">
+                                <input type="text" placeholder="Enter the office or address" class="form-control" name="caller_address">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Personnel on duty
@@ -45,9 +44,7 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <hr>
-                            {{-- <h5>Location</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
                                 <select class="form-select barangayApor" aria-label="" name="barangay">
@@ -66,12 +63,13 @@
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="otherLocation" class="form-label">Other
-                                    Location</label>
+                                    Location / Landmark</label>
                                 <input type="text" placeholder="Enter other location" class="form-control"
-                                    id="otherLocation" name="otherLocation">
+                                    id="otherLocation" name="location">
                             </div>
                         </div>
 
+                        <!-- Response -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <div class="row m-0 p-0 second-div border-0">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
@@ -90,17 +88,20 @@
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <label for="timeDispatched" class="form-label">Time Dispatched</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" name="time_dispatched[]">
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                        name="time_dispatched[]">
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <label for="timeArrivedFireScene" class="form-label">Time
                                         Arrived at Fire Scene</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" name="time_arrived_at_scene[]">
+                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                        name="time_arrived_at_scene[]">
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <label for="responseTime" class="form-label">Response Time</label>
                                     <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="responseTimeInput" name="response_duration[]">
+                                        class="form-control text-uppercase" id="responseTimeInput"
+                                        name="response_duration[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeReturned" class="form-label">Time Returned
@@ -112,9 +113,8 @@
                                 <div class="col-lg-4 mb-3">
                                     <label for="waterTank" class="form-label">Water Tank
                                         Refilled (GAL)</label>
-                                    <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="waterTankInput"
-                                        name="water_tank_refilled[]">
+                                    <input type="text" placeholder="Eg. 1000GAL" class="form-control text-uppercase"
+                                        id="waterTankInput" name="water_tank_refilled[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gasConsumed" class="form-label">Gas Consumed
@@ -130,6 +130,7 @@
                             </div>
                         </div>
 
+                        <!-- Alarm -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
                                 9</h3>
@@ -218,6 +219,7 @@
                             </div>
                         </div>
 
+                        <!-- Occupancy -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
@@ -226,9 +228,19 @@
                                     Occupancy</label>
                                 <select class="form-select typeOccupancy" aria-label="">
                                     <option value="" selected>Select type of occupancy</option>
-                                    <option value="1">Structural</option>
-                                    <option value="2">Non-Structural</option>
-                                    <option value="3">Vehicular</option>
+                                    <option value="Places of Assembly">Places of Assembly</option>
+                                    <option value="Educational Occupancy">Educational Occupancy</option>
+                                    <option value="Day Care Occupancy">Day Care Occupancy</option>
+                                    <option value="Health Care Occupancy">Health Care Occupancy</option>
+                                    <option value="Residential Board and Care">Residential Board and Care</option>
+                                    <option value="Detention and Correctional Occupancy">Detention and Correctional
+                                        Occupancy</option>
+                                    <option value="Residential Occupancy">Residential Occupancy</option>
+                                    <option value="Mercantile Occupancy">Mercantile Occupancy</option>
+                                    <option value="Business Occupancy">Business Occupancy</option>
+                                    <option value="Industrial Occupancy">Industrial Occupancy</option>
+                                    <option value="Storage Occupancy">Storage Occupancy</option>
+                                    <option value="Special Structures">Special Structures</option>
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
@@ -250,6 +262,7 @@
                             </div>
                         </div>
 
+                        <!-- Victim -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
@@ -286,6 +299,7 @@
                             </div>
                         </div>
 
+                        <!-- Material Used -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 breathing-apparatus">
@@ -382,10 +396,7 @@
                             </div>
                         </div>
 
-
-
-
-
+                        <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
@@ -423,6 +434,7 @@
                             </div>
                         </div>
 
+                        <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14
@@ -434,6 +446,7 @@
                             <div id="preview-container"></div>
                         </div>
 
+                        <!-- Details narrative -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
@@ -445,6 +458,7 @@
                             </div>
                         </div>
 
+                        <!-- Problem encounterd -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
@@ -456,6 +470,7 @@
                             </div>
                         </div>
 
+                        <!-- Observation Recommendation -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
@@ -463,7 +478,8 @@
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Observation /
                                     Recommendation</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="observation_recommendation"></textarea>
+                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"
+                                    name="observation_recommendation"></textarea>
                             </div>
                         </div>
 

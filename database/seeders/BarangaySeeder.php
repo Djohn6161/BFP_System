@@ -16,6 +16,10 @@ class BarangaySeeder extends Seeder
     {
         $brgys = [
             [
+                'name' => '',
+                'unit' => '',
+            ],    
+            [
                 'name' => 'Amtic',
                 'unit' => 'Mayon Unit',
             ],      
