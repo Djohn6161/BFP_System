@@ -66,14 +66,7 @@
                                                     <p class="mb-0 fw-normal">{{ $operation->td_declared_fireout }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#viewModal{{ $operation->id }}"
-                                                        class="btn btn-primary w-100 mb-1">View</a>
-
-                                                    <br>
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#updateModal{{ $operation->id }}"
-                                                        class="btn btn-success w-100 mb-1">Update</a>
+                                                    <a href="{{route('operation.edit.form', $operation->id)}}" class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
                                                     <a href="#" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $operation->id }}"

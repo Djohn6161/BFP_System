@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control');
             $table->dateTime('td_declared_fireout');
-            $table->enum('occupancy',['s','ns','v']);
+            $table->string('occupancy');
             $table->string('occupancy_specify');
             $table->string('distance_to_fire_incident');
             $table->string('structure_description');

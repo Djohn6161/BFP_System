@@ -67,6 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Afor
     Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreate'])->name('operation.create.form');
     Route::post('/reports/operation/create/submit', [OperationController::class, 'operationCreateSubmit'])->name('operation.create.submit');
+    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationEdit'])->name('operation.edit.form');
 
     // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');

@@ -7,6 +7,34 @@
                     <form method="POST" action="{{ route('operation.create.submit') }}">
                         @csrf
 
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Oops!</strong> There were some errors with your submission:
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if (session('status'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{ session('status') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
@@ -14,22 +42,30 @@
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    name="alarm_received">
+                                    name="alarm_received" value="{{ $operation->alarm_received }}">
+                                <input type="hidden" name="operation_id" value="{{ $operation->id }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
                                 <select class="form-select caller" aria-label="" name="transmitted_by">
                                     <option value="" selected>Select caller</option>
                                     @foreach ($personnels as $personnel)
-                                        <option value="{{ $personnel->id }}">
-                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                            {{ $personnel->last_name }}</option>
+                                        @if ($operation->transmitted_by != $personnel->id)
+                                            <option value="{{ $personnel->id }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ $personnel->last_name }}</option>
+                                        @else
+                                            <option selected value="{{ $personnel->id }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ $personnel->last_name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control" name="caller_address">
+                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                    name="caller_address" value="{{ $operation->caller_address }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Personnel on duty
@@ -38,9 +74,15 @@
                                 <select class="form-select personnelReceive" aria-label="" name="received_by">
                                     <option value="" selected>Select personnel</option>
                                     @foreach ($personnels as $personnel)
-                                        <option value="{{ $personnel->id }}">
-                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                            {{ $personnel->last_name }}</option>
+                                        @if ($operation->received_by != $personnel->id)
+                                            <option value="{{ $personnel->id }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ $personnel->last_name }}</option>
+                                        @else
+                                            <option selected value="{{ $personnel->id }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ $personnel->last_name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -48,24 +90,30 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
                                 <select class="form-select barangayApor" aria-label="" name="barangay">
-                                    <option value="" selected>Select barangay</option>
+                                    <option value="">Select barangay</option>
                                     @foreach ($barangays as $barangay)
-                                        <option value="{{ $barangay->id }}">
-                                            {{ $barangay->name }} - {{ $barangay->unit }}
-                                        </option>
+                                        @if ($operation->barangay_id != $barangay->id)
+                                            <option value="{{ $barangay->id }}">
+                                                {{ $barangay->name }} - {{ $barangay->unit }}
+                                            </option>
+                                        @else
+                                            <option selected value="{{ $barangay->id }}">
+                                                {{ $barangay->name }} - {{ $barangay->unit }}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Enter the zone/street" class="form-control"
-                                    id="zone" name="zone">
+                                    id="zone" name="zone" value="{{ $operation->zone }}">
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="otherLocation" class="form-label">Other
                                     Location / Landmark</label>
                                 <input type="text" placeholder="Enter other location" class="form-control"
-                                    id="otherLocation" name="location">
+                                    id="otherLocation" name="location" value="{{ $operation->location }}">
                             </div>
                         </div>
 
@@ -138,39 +186,68 @@
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
                                 <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
-                                    <option value="" selected>Select alarm status</option>
-                                    <option value="1st Alarm">1st Alarm</option>
-                                    <option value="2nd Alarm">2nd Alarm</option>
-                                    <option value="3rd Alarm">3rd Alarm</option>
-                                    <option value="4th Alarm">4th Alarm</option>
-                                    <option value="5th Alarm">5th Alarm</option>
-                                    <option value="Task Force Alpha">Task Force Alpha</option>
-                                    <option value="Task Force Bravo">Task Force Bravo</option>
-                                    <option value="Task Force Charlie">Task Force Charlie</option>
-                                    <option value="Task Force Delta">Task Force Delta</option>
-                                    <option value="Task Force Echo">Task Force Echo</option>
-                                    <option value="Task Force Hotel">Task Force Hotel</option>
-                                    <option value="Task Force India">Task Force India</option>
-                                    <option value="General Alarm">General Alarm</option>
+                                    <option value="" {{ $operation->alarm_status_arrival == '' ? 'selected' : '' }}>
+                                        Select alarm status</option>
+                                    <option value="1st Alarm"
+                                        {{ $operation->alarm_status_arrival == '1st Alarm' ? 'selected' : '' }}>1st Alarm
+                                    </option>
+                                    <option value="2nd Alarm"
+                                        {{ $operation->alarm_status_arrival == '2nd Alarm' ? 'selected' : '' }}>2nd Alarm
+                                    </option>
+                                    <option value="3rd Alarm"
+                                        {{ $operation->alarm_status_arrival == '3rd Alarm' ? 'selected' : '' }}>3rd Alarm
+                                    </option>
+                                    <option value="4th Alarm"
+                                        {{ $operation->alarm_status_arrival == '4th Alarm' ? 'selected' : '' }}>4th Alarm
+                                    </option>
+                                    <option value="5th Alarm"
+                                        {{ $operation->alarm_status_arrival == '5th Alarm' ? 'selected' : '' }}>5th Alarm
+                                    </option>
+                                    <option value="Task Force Alpha"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Alpha' ? 'selected' : '' }}>Task
+                                        Force Alpha</option>
+                                    <option value="Task Force Bravo"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Bravo' ? 'selected' : '' }}>Task
+                                        Force Bravo</option>
+                                    <option value="Task Force Charlie"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Charlie' ? 'selected' : '' }}>
+                                        Task Force Charlie</option>
+                                    <option value="Task Force Delta"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Delta' ? 'selected' : '' }}>Task
+                                        Force Delta</option>
+                                    <option value="Task Force Echo"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Echo' ? 'selected' : '' }}>Task
+                                        Force Echo</option>
+                                    <option value="Task Force Hotel"
+                                        {{ $operation->alarm_status_arrival == 'Task Force Hotel' ? 'selected' : '' }}>Task
+                                        Force Hotel</option>
+                                    <option value="Task Force India"
+                                        {{ $operation->alarm_status_arrival == 'Task Force India' ? 'selected' : '' }}>Task
+                                        Force India</option>
+                                    <option value="General Alarm"
+                                        {{ $operation->alarm_status_arrival == 'General Alarm' ? 'selected' : '' }}>General
+                                        Alarm</option>
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="firstResponder" class="form-label">First
                                     Responder</label>
                                 <input type="text" placeholder="Enter responder" class="form-control"
-                                    id="firstResponderInput" name="first_responder">
+                                    id="firstResponderInput" name="first_responder" value="first_responder">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
                                 <input type="datetime-local" placeholder="" class="form-control"
-                                    id="firstResponderInput" name="td_under_control">
+                                    id="firstResponderInput" name="td_under_control"
+                                    value="{{ \Carbon\Carbon::parse($operation->td_under_control)->format('Y-m-d\TH:i') }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
                                 <input type="datetime-local" placeholder="" class="form-control"
-                                    id="firstResponderInput" name="td_declared_fireout">
+                                    id="firstResponderInput"
+                                    name="td_declared_fireout"value="{{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('Y-m-d\TH:i') }}">
                             </div>
                             <hr>
                             <div class="row time-alarm-status-declared-div m-0 p-0">
