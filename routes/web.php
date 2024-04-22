@@ -37,6 +37,7 @@ Route::get('/form', function () {
     ]);
 });
 
+// TEMPORARY ROUTES
 Route::get('/minimalInvestigation', function () {
     return view('minimalInvestigation', [
         'active' => 'minimalInvestigation',
@@ -57,6 +58,12 @@ Route::get('/progressInvestigation', function () {
     ]);
 });
 
+Route::get('/finalInvestigation', function () {
+    return view('finalInvestigation', [
+        'active' => 'finalInvestigation'
+    ]);
+});
+//
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
@@ -68,6 +75,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
+        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');

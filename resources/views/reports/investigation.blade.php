@@ -13,8 +13,12 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <a href="{{route('investigation.minimal.create.form')}}" class="btn btn-primary">Create</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">Create</button>
+                    <x-reports.create-investigation></x-reports.create-investigation>
                 </div>
+                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal
+                  </button> --}}
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
@@ -67,5 +71,13 @@
                     </div>
                 </div>
             </div>
-
+            <script>
+                function progress(btn){
+                     // Show the Yes modal
+                     $('#spotTable').modal('show');
+                                    // Hide the current modal
+                     $('#chooseInvestigation').modal('hide');
+                }
+            </script>
         @endsection
+
