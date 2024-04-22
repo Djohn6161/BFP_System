@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('afor', function (Blueprint $table) {
+        Schema::create('afors', function (Blueprint $table) {
             $table->id();
             $table->string('alarm_received');
             $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
             $table->string('caller_address');
-            $table->foreignId('barangay_id')->constrained('barangays')->onUpdate('cascade');
-            $table->string('zone');
             $table->string('location');
             $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control');
@@ -41,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('afor');
+        Schema::dropIfExists('afors');
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('minimals', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('investigation_id');
+            $table->foreignid('investigation_id')->constrained('investigations')->onUpdate('cascade');
             $table->string('dt_actual_occurence');
             $table->string('dt_reported');
             $table->string('incident_location');

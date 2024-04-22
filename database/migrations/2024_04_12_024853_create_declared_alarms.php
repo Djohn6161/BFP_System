@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('declared_alarms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
+            $table->foreignId('afor_id')->constrained('afors')->onUpdate('cascade');
             $table->string('alarm_name');
             $table->string('time');
             $table->foreignId('ground_commander')->constrained('personnels')->onUpdate('cascade');

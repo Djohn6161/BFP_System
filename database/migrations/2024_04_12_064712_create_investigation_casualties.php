@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('investigation_casualties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('investigation')->constrained('afor')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('investigations')->constrained('investigations')->onUpdate('cascade');
             $table->enum('type', ['civillian','firefighters']);
             $table->integer('fatality');
             $table->integer('injured');
