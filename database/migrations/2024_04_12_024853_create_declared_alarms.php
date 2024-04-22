@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('logs', function (Blueprint $table) {
+        Schema::create('declared_alarms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reports_id')->constrained('reports')->onUpdate('cascade');
-            $table->foreignId('users_id')->constrained('users')->onUpdate('cascade');
-            $table->string('action');
+            $table->foreignId('afor_id')->constrained('afors')->onUpdate('cascade');
+            $table->string('alarm_name');
+            $table->string('time');
+            $table->foreignId('ground_commander')->constrained('personnels')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('declared_alarms');
     }
 };

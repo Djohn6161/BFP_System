@@ -69,18 +69,24 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
-
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                   spot
+                                
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
+                                    All
                                 </a>
                                 <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
-                                    mini
+                                    Minimal
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                   Spot
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    Progress
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    Final
                                 </a>
                             
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                    postchuchu
-                                </a>
-
+                                
                                 {{-- href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}" --}}
                             </div>
                         </div>
@@ -96,7 +102,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.personnel.index') }}" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-users"></i>
                             </span>

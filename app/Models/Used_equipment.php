@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barangay extends Model
+class Used_equipment extends Model
 {
     use HasFactory;
+
+    public function afor(){
+        return $this->belongsTo(Afor::class, 'afor_id');
+    }
 }

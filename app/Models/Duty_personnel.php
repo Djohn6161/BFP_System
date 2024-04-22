@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Crew extends Model
+class Duty_personnel extends Model
 {
     use HasFactory;
-
-    public function report(){
-        $this->belongsTo(Report::class, 'report_id');
+    public function afor(){
+        return $this->belongsTo(Afor::class,'afor_id');
     }
-
     public function personnel(){
-        $this->belongsTo(Personnel::class, 'personnel_id');
+        return $this->belongsTo(Personnel::class,'personnels_id');
     }
 }
