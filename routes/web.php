@@ -34,6 +34,18 @@ Route::get('/form', function () {
     ]);
 });
 
+Route::get('/minimalInvestigation', function () {
+    return view('minimalInvestigation', [
+        'active' => 'minimalInvestigation'
+    ]);
+});
+
+Route::get('/progressInvestigation', function () {
+    return view('progressInvestigation', [
+        'active' => 'progressInvestigation'
+    ]);
+});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
