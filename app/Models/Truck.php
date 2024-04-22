@@ -9,6 +9,9 @@ class Truck extends Model
 {
     use HasFactory;
     public function responses(){
-        $this->hasMany(Response::class, 'engine_dispatched');
+        return $this->hasMany(Response::class, 'engine_dispatched');
+    }
+    public function minimalEngine(){
+        return $this->hasMany(Minimal::class, 'first_responding_engine');
     }
 }

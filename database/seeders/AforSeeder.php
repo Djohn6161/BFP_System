@@ -42,7 +42,7 @@ class AforSeeder extends Seeder
                 'first_responder' => '',
             ];
 
-            $reportID = DB::table('afor')->insertGetId($attributes);
+            $reportID = DB::table('afors')->insertGetId($attributes);
 
             $date = $faker->dateTime();
             $formatted_date = $date->format('Y-m-d H:i') . 'H';

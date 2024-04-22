@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Afor extends Model
 {
-    protected $table = 'afor';
+    use HasFactory;
+    // protected $table = 'afor';
     protected $fillable = [
         'alarm_received',
         'transmitted_by',
@@ -33,29 +34,31 @@ class Afor extends Model
         return $this->belongsTo(Personnel::class, 'transmitted_by');
     }
 
+    public function receivedBy(){
+        return $this->belongsTo(Personnel::class, 'received_by');
+    }
+
     public function personRank($id){
         return Rank::where('id', $id)->first();
     }
-
-    use HasFactory;
 
     public function aforLogs(){
         return $this->hasMany(AforLog::class, 'afor_id');
     }
     public function casualties(){
-        return $this->hasMany(Casualty::class, 'afor_id');
+        return $this->hasMany(Afor_casualties::class, 'afor_id');
     }
     public function declaredAlarms(){
         return $this->hasMany(Declared_alarm::class, 'afor_id');
+    }
+    public function alarmStatus(){
+        return $this->hasMany(Alarm_status::class, 'afor_id');
     }
     public function usedEquipments(){
         return $this->hasMany(Used_equipment::class, 'afor_id');
     }
     public function responses(){
         return $this->hasMany(Response::class, 'afor_id');
-    }
-    public function transmittedBy(){
-        return $this->belongsTo(Personnel::class, 'afor_id');
     }
     public function dutyPersonnel(){
         return $this->belongsTo(Duty_personnel::class,'afor_id');
@@ -64,4 +67,5 @@ class Afor extends Model
     public function personnel(){
         $this->belongsTo(Personnel::class, 'personnel_id');
     }
+
 }

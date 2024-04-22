@@ -18,6 +18,15 @@ class Personnel extends Model
     public function aforTransmitted(){
         return $this->hasMany(Afor::class, 'transmitted_by');
     }
+    public function aforReceived(){
+        return $this->hasMany(Afor::class, 'received_by');
+    }
+    public function minimalReceived(){
+        return $this->hasMany(Minimal::class, 'receiver');
+    }
+    public function minimalLeader(){
+        return $this->hasMany(Minimal::class, 'first_responding_leader');
+    }
     public function alarmCommand(){
         return $this->hasMany(Declared_alarm::class, 'ground_commander');
     }

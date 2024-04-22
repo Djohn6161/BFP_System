@@ -46,13 +46,14 @@
                                     <tbody>
                                         @foreach ($operations as $operation)
                                             <x-reports.view-modal :report=$operation></x-reports.view-modal>
-                                            <x-reports.update :report=$operation></x-reports.update>
+                                            {{-- <x-reports.update :report=$operation></x-reports.update> --}}
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
+                                                        {{-- {{dd}} --}}
                                                         {{ $operation->personRank($operation->transmittedBy->ranks_id)->slug . ' ' . $operation->transmittedBy->last_name }}
                                                     </h6>
                                                 </td>
