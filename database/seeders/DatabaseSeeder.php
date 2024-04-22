@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             BarangaySeeder::class,
             AforSeeder::class,
             StationSeeder::class,
+            InvestigationSeeder::class,
         ]);
     }
 }

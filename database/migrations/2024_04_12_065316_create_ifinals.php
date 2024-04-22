@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('final', function (Blueprint $table) {
+        Schema::create('ifinals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
             $table->string('place_of_fire');

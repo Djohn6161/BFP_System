@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('progress', function (Blueprint $table) {
+        Schema::create('progresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
             $table->longText('authority');

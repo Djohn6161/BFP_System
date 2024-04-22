@@ -568,34 +568,6 @@
         </div>
     </div>
 
-
-    {{-- <x-reports.chooseReport :reports=$investigation :category="'Investigation'"> </x-reports.chooseReport> --}}
-    <x-reports.chosen :category=$active> </x-reports.chosen>
-
-    <script>
-        // Wait for the document to load
-        document.addEventListener("DOMContentLoaded", function() {
-            // Get the Yes and No buttons
-            var yesBtn = document.getElementById('yesBtn');
-            var noBtn = document.getElementById('noBtn');
-
-            // Attach click event listeners to the buttons
-            yesBtn.addEventListener('click', function() {
-                // Show the Yes modal
-                $('#yesModal').modal('show');
-                // Hide the current modal
-                $('#addResponseModal').modal('hide');
-            });
-
-            noBtn.addEventListener('click', function() {
-                // Show the No modal
-                $('#noModal').modal('show');
-                // Hide the current modal
-                $('#addResponseModal').modal('hide');
-            });
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
             $('#addNewDivApor').click(function() {

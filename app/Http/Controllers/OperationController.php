@@ -22,19 +22,25 @@ class OperationController extends Controller
         return view('reports.operation', compact('active', 'operations', 'user'));
     }
 
-    public function operationCreate()
+    public function operationCreateForm()
     {
         $user = Auth::user();
         $active = 'operation';
         $personnels = Personnel::all();
-        $barangays = Barangay::where('id', '>', 1)->get();
+        $barangays = Barangay::all();
         $trucks = Truck::all();
         return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks'));
     }
 
-    public function operationCreateSubmit(Request $request)
+    public function operationStore(Request $request)
     {
         $afor = new Afor();
+
+        if(!$request->has('barangay_name')){
+            $location =  'Location: ' . $$request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other locaation: ' . $request->input('location') ;
+        } else {
+            $location =  'Location: ' . $request->input('location') ;
+        }
 
         $afor->fill([
             'alarm_received' => $request->input('alarm_received') ?? '',
@@ -43,7 +49,7 @@ class OperationController extends Controller
             'received_by' => $request->input('received_by') ?? '',
             'barangay_id' => $request->input('barangay') ?? 1,
             'zone' => $request->input('zone') ?? '',
-            'location' => $request->input('location') ?? '',
+            'location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? '',
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? '',
             'occupancy' => $request->input('occupancy') ?? '',
@@ -71,7 +77,7 @@ class OperationController extends Controller
 
     }
 
-    public function operationEdit($id)
+    public function operationUpdate($id)
     {
         $user = Auth::user();
         $active = 'operation';

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -36,6 +37,12 @@ Route::get('/form', function () {
     ]);
 });
 
+Route::get('/minimalInvestigation', function () {
+    return view('minimalInvestigation', [
+        'active' => 'minimalInvestigation'
+    ]);
+});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
@@ -59,16 +66,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Reports
-    Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
-    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
-    Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
-    Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
-    Route::put('/reports/update/{id}/{category}', [ReportController::class, 'updateReport'])->name('report.update');
+
+
+    // Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
+    // Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
 
     // Afor
-    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreate'])->name('operation.create.form');
-    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationCreateSubmit'])->name('operation.create.submit');
-    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationEdit'])->name('operation.edit.form');
+    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreateForm'])->name('operation.create.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create.submit');
+    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationUpdate'])->name('operation.edit.form');
+
+    // Investigation
+    Route::get('/reports/investigation/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.index');
+    Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
+
 
     // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');

@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('alarm_received');
             $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
             $table->string('caller_address');
-            $table->foreignId('barangay_id')->constrained('barangays')->onUpdate('cascade');
-            $table->string('zone');
             $table->string('location');
             $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control');

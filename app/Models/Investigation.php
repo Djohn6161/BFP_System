@@ -21,6 +21,6 @@ class Investigation extends Model
         return $this->hasMany(Ifinal::class, 'investigation_id');
     }
     public function Casualties(){
-        return $this->hasMany(Investigation_casualties::class, 'investigation_id');
+        return $this->hasMany(Investigation_casualties::class, 'investigations_id');
     }
 }
