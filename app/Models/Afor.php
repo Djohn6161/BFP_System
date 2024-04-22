@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Afors extends Model
+class Afor extends Model
 {
     // protected $table = 'afors';
     // protected $fillable = [

@@ -49,7 +49,7 @@
                                                     <p class="mb-0 fw-normal">{{ $investigation->subject }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $investigation->date }}</p>
+                                                    <p class="mb-0 fw-normal">{{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <a href="{{route('operation.edit.form', $investigation->id)}}" class="btn btn-success w-100 mb-1">Update</a>

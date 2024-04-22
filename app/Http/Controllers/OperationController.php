@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Afors;
+use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
@@ -18,7 +18,7 @@ class OperationController extends Controller
     {
         $user = Auth::user();
         $active = 'operation';
-        $operations = Afors::all();
+        $operations = Afor::all();
         return view('reports.operation', compact('active', 'operations', 'user'));
     }
 
@@ -34,7 +34,7 @@ class OperationController extends Controller
 
     public function operationStore(Request $request)
     {
-        $afor = new Afors();
+        $afor = new Afor();
 
         if(!$request->has('barangay_name')){
             $location =  'Location: ' . $$request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other locaation: ' . $request->input('location') ;
@@ -84,7 +84,7 @@ class OperationController extends Controller
         $personnels = Personnel::all();
         $barangays = Barangay::where('id', '>', 1)->get();
         $trucks = Truck::all();
-        $operation = Afors::findOrFail($id);
+        $operation = Afor::findOrFail($id);
         return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation'));
     }
 
@@ -112,7 +112,7 @@ class OperationController extends Controller
             'first_responder' => $request->input('first_responder'),
         ];
 
-        $operation = AFors::findOrFail($request['operation_id']);
+        $operation = AFor::findOrFail($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
 
         if (!$operationChange) {
