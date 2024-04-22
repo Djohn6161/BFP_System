@@ -31,4 +31,7 @@ class Afor extends Model
         return $this->belongsTo(Duty_personnel::class,'afor_id');
     }
 
+    public function personnel(){
+        $this->belongsTo(Personnel::class, 'personnel_id');
+    }
 }

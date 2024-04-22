@@ -150,5 +150,5 @@ class ReportController extends Controller
     }
     public function updateReport(Request $request, Report $id, $category){
         dd($request, $id, $category);
-    }
+    }   
 }
