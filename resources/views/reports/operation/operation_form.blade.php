@@ -396,7 +396,6 @@
                             </div>
                         </div>
 
-                        <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
@@ -821,10 +820,6 @@
 
                 // Add <hr> tag after each cloned row for visual separation
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
-
-            $(".caller").select2({
-                tags: true
             });
         });
     </script>
