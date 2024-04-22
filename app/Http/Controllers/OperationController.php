@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Afor;
+use App\Models\Declared_alarm;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
@@ -34,47 +35,75 @@ class OperationController extends Controller
 
     public function operationStore(Request $request)
     {
-        $afor = new Afor();
+        // $afor = new Afor();
 
-        if(!$request->has('barangay_name')){
-            $location =  'Location: ' . $$request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other locaation: ' . $request->input('location') ;
-        } else {
-            $location =  'Location: ' . $request->input('location') ;
-        }
+        // if ($request->has('barangay_name')) {
+        //     $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
+        // } else {
+        //     $location = 'Location: ' . $request->input('location');
+        // }
 
-        $afor->fill([
-            'alarm_received' => $request->input('alarm_received') ?? '',
-            'transmitted_by' => $request->input('transmitted_by') ?? '',
-            'caller_address' => $request->input('caller_address') ?? '',
-            'received_by' => $request->input('received_by') ?? '',
-            'barangay_id' => $request->input('barangay') ?? 1,
-            'zone' => $request->input('zone') ?? '',
-            'location' => $location,
-            'td_under_control' => $request->input('td_under_control') ?? '',
-            'td_declared_fireout' => $request->input('td_declared_fireout') ?? '',
-            'occupancy' => $request->input('occupancy') ?? '',
-            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
-            'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
-            'details' => $request->input('details') ?? '',
-            'problem_encounter' => $request->input('problem_encounter') ?? '',
-            'observation_recommendation' => $request->input('observation_recommendation') ?? '',
-            'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
-            'first_responder' => $request->input('first_responder') ?? '',
-        ]);
+        // $afor->fill([
+        //     'alarm_received' => $request->input('alarm_received') ?? '',
+        //     'transmitted_by' => $request->input('transmitted_by') ?? '',
+        //     'caller_address' => $request->input('caller_address') ?? '',
+        //     'received_by' => $request->input('received_by') ?? '',
+        //     'location' => $location,
+        //     'td_under_control' => $request->input('td_under_control') ?? '',
+        //     'td_declared_fireout' => $request->input('td_declared_fireout') ?? '',
+        //     'occupancy' => $request->input('occupancy') ?? '',
+        //     'occupancy_specify' => $request->input('occupancy_specify') ?? '',
+        //     'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
+        //     'structure_description' => $request->input('structure_description') ?? '',
+        //     'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
+        //     'details' => $request->input('details') ?? '',
+        //     'problem_encounter' => $request->input('problem_encounter') ?? '',
+        //     'observation_recommendation' => $request->input('observation_recommendation') ?? '',
+        //     'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
+        //     'first_responder' => $request->input('first_responder') ?? '',
+        // ]);
 
-        $afor->save();
+        // $afor->save();
+
+        // $afor_id = $afor->id;
+
+        // $engine_dispatched = $request->input('engine_dispatched', []);
+        // $time_dispatched = $request->input('time_dispatched', []);
+        // $time_arrived_at_scene = $request->input('time_arrived_at_scene', []);
+        // $response_duration = $request->input('response_duration', []);
+        // $time_return_to_base = $request->input('time_return_to_base', []);
+        // $water_tank_refilled = $request->input('water_tank_refilled', []);
+        // $gas_consumed = $request->input('gas_consumed', []);
+
+        // foreach ($engine_dispatched as $key => $engine_dispatch) {
+        //     $response = new Response();
+        //     $response->afor_id = $afor_id;
+        //     $response->engine_dispatched = $engine_dispatch;
+        //     $response->time_dispatched = isset($time_dispatched[$key]) ? $time_dispatched[$key] : '';
+        //     $response->time_arrived_at_scene = isset($time_arrived_at_scene[$key]) ? $time_arrived_at_scene[$key] : '';
+        //     $response->response_duration = isset($response_duration[$key]) ? $response_duration[$key] : '';
+        //     $response->time_return_to_base = isset($time_return_to_base[$key]) ? $time_return_to_base[$key] : '';
+        //     $response->water_tank_refilled = isset($water_tank_refilled[$key]) ? $water_tank_refilled[$key] : '';
+        //     $response->gas_consumed = isset($gas_consumed[$key]) ? $gas_consumed[$key] : '';
+        //     $response->save();
+        // }
+
+        // $alarm_names = $request->input('alarm_name', []);
+        // $alarm_time = $request->input('alarm_time', []);
+        // $fund_commander = $request->input('fund_commander', []);
+
+        // foreach ($alarm_names as $key => $alarm_name) {
+        //     $alarm = new Declared_alarm();
+        //     $alarm->afor_id = 1;
+        //     $alarm->alarm_name = $alarm_name;
+        //     $alarm->time =isset($alarm_time[$key]) ? $alarm_time[$key] : '';
+        //     $alarm->ground_commander = $fund_commander[$key];
+        //     $alarm->save();
+        // }
+
+        
 
         return redirect()->back()->with('success', "Operation report added successfully.");
-
-
-
-        // $savedId = $afor->id;
-
-        // $afor = new Response();
-
-
     }
 
     public function operationUpdate($id)
@@ -130,6 +159,11 @@ class OperationController extends Controller
         // $afor = new Response();
     }
 
+    private function hasValues($array)
+    {
+        return !empty($array) && count(array_filter($array, 'strlen')) > 0;
+    }
+
     private function hasChanges($info, $updatedData)
     {
 
@@ -142,6 +176,5 @@ class OperationController extends Controller
         }
 
         return false;
-
     }
 }

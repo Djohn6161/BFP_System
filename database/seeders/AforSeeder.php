@@ -31,7 +31,7 @@ class AforSeeder extends Seeder
                 'occupancy' => $faker->randomElement(['s', 'ns', 'v']),
                 'occupancy_specify' => '',
                 'distance_to_fire_incident' => '7 kilometers',
-                'structure_description' => $faker->paragraph(),
+                'structure_description' => '',
                 'sketch_of_fire_operation' => '',
                 'details' => $faker->paragraph(),
                 'problem_encounter' => $faker->paragraph(),
@@ -86,15 +86,15 @@ class AforSeeder extends Seeder
                 DB::table('used_equipments')->insert($attributes);
             }
             
-            $attributes = [
-                'afor_id' => $reportID,
-                'quantity' => $faker->numberBetween(1,3),
-                'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
-                'type' => $faker->word(),
-                'length' => '5 feet',
-            ];
+            // $attributes = [
+            //     'afor_id' => $reportID,
+            //     'quantity' => $faker->numberBetween(1,3),
+            //     'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
+            //     'type' => $faker->word(),
+            //     'length' => '5 feet',
+            // ];
             
-            DB::table('used_equipments')->insert($attributes);
+            // DB::table('used_equipments')->insert($attributes);
 
         }
     }
