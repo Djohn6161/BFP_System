@@ -1,1 +1,2 @@
 $('#myTable').DataTable();
+$('#spotJTable').DataTable();

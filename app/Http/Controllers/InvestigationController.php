@@ -22,7 +22,7 @@ class InvestigationController extends Controller
     public function investigationMinimalIndex()
     {
         $user = Auth::user();
-        $active = 'investigation';
+        $active = 'minimal';
         $minimals = Minimal::all();
         $investigations = Investigation::all();
         return view('reports.investigation', compact('active', 'investigations', 'user','minimals'));
