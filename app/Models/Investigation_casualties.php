@@ -9,7 +9,7 @@ class Investigation_casualties extends Model
 {
     use HasFactory;
     public function investigation(){
-        return $this->belongsTo(Investigation::class, 'investigation_id');
+        return $this->belongsTo(Investigation::class, 'investigations_id');
     }
     
 }
