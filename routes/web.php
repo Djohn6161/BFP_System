@@ -39,18 +39,21 @@ Route::get('/form', function () {
 
 Route::get('/minimalInvestigation', function () {
     return view('minimalInvestigation', [
-        'active' => 'minimalInvestigation'
+        'active' => 'minimalInvestigation',
+        'user' => auth()->user(),
     ]);
 });
 Route::get('/spotInvestigation', function () {
     return view('spotInvestigation', [
-        'active' => 'spotInvestigation'
+        'active' => 'spotInvestigation',
+        'user' => auth()->user(),
     ]);
 });
 
 Route::get('/progressInvestigation', function () {
     return view('progressInvestigation', [
-        'active' => 'progressInvestigation'
+        'active' => 'progressInvestigation',
+        'user' => auth()->user(),
     ]);
 });
 
