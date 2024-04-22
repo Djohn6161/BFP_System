@@ -9,6 +9,6 @@ class Ifinal extends Model
 {
     use HasFactory;
     public function spot(){
-        return $this->belongsTo(Spot::class, 'spot_id');
+        return $this->belongsTo(Spot::class, 'spot_id');    
     }
 }

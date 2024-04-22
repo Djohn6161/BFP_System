@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class InvestigationController extends Controller
 {
+    public function index(){
+        // dd("Hello World");
+        return view('reports.investigation', [
+            'active' => 'investigation',
+            'user' => Auth::user(),
+            'minimals' => Minimal::all(),
+            'investigations' => Investigation::all(),
+        ]);
+    }
     public function investigationMinimalIndex()
     {
         $user = Auth::user();
@@ -27,5 +36,15 @@ class InvestigationController extends Controller
         // $barangays = Barangay::all();
         // $trucks = Truck::all();
         return view('reports.investigaiton.investigation_form', compact('active', 'user', ));
+    }
+    
+    public function Spot(){
+        dd("Hello World");
+    }
+    public function Progress(){
+        dd("Hello World");
+    }
+    public function Final(){
+        dd("Hello World");
     }
 }

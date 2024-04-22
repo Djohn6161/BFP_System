@@ -78,7 +78,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationUpdate'])->name('operation.edit.form');
 
     // Investigation
-    Route::get('/reports/investigation/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.index');
+    Route::get('/reports/investigation/index', [InvestigationController::class, 'index'])->name('investigation.index');
+    Route::get('/reports/investigation/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.minimal.index');
+    Route::get('/reports/investigation/Spot/index', [InvestigationController::class, 'spot'])->name('investigation.spot.index');
+    Route::get('/reports/investigation/progress/index', [InvestigationController::class, 'progress'])->name('investigation.progress.index');
+    Route::get('/reports/investigation/final/index', [InvestigationController::class, 'final'])->name('investigation.final.index');
     Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
 
 
