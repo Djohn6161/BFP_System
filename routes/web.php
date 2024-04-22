@@ -34,6 +34,7 @@ Route::get('/form', function () {
     ]);
 });
 
+// TEMPORARY ROUTES
 Route::get('/minimalInvestigation', function () {
     return view('minimalInvestigation', [
         'active' => 'minimalInvestigation'
@@ -51,7 +52,7 @@ Route::get('/finalInvestigation', function () {
         'active' => 'finalInvestigation'
     ]);
 });
-
+//
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');

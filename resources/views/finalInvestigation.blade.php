@@ -60,12 +60,7 @@
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">1-7</h3>
-
-                            <div class="col-lg-6 mb-3">
-                               <h3 class ='a'>FINAL INVESTIGATION REPORT</h3>
-                               <h3 class ='a' >(F.I.R)</h3>
-                            </div>
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINAL INVESTIGATION REPORT (F.I.R)</h3>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="dateTime" class="form-label">INVESTIGATION AND INTELLIGENCE UNIT</label>
@@ -81,15 +76,15 @@
                                 <label for="reported" class="form-label">TIME AND DATE OF ALARM</label>
                                 <input type="text" placeholder="Eg. 0034H 30 March 2024" class="form-control" id="reported" required>
                             </div>
-                            <div class="col-lg-4 mb-4">
+                            <div class="col-lg-6 mb-4">
                                 <label for="province" class="form-label">ESTABLISHMENT BURNED</label>
                                 <input type="text" placeholder=" Eg. Romy Nabas Residence" class="form-control" id="province" required>
                             </div>
-                            <div class="col-lg-4 mb-4">
+                            <div class="col-lg-6 mb-4">
                                 <label for="municipality" class="form-label">DAMAGE TO PROPERTY</label>
                                     <input type="text" placeholder=" Eg. Php 20,000.00" class="form-control" id="municipality" required>
                             </div>
-                            <div class="col-lg-4 mb-4">
+                            <div class="col-lg-6 mb-4">
                                 <label for="barangay" class="form-label">FIRE VICTIM/S</label>
                                     <input type="text" placeholder=" Eg. Romy nabas" class="form-control" id="barangay" required>
                             </div>
@@ -101,9 +96,6 @@
                                 <label class="form-label" for="exampleCheck1">CAUSE OF FIRE</label>
                                 <textarea class="form-control" placeholder="Eg. Electrical Igniton cause by Loose Connection" name="" id=""></textarea>
                             </div>
-                         
-                           
-
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -118,98 +110,6 @@
                             </div>
                         </div>
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            <div class="row m-0 p-0 second-div border-0">
-                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RESPONSE AND SUPPRESSION DATA</h3>
-                                <h5 class="  pb-1 mb-3">Receiver</h5>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="name" class="form-label">Complete Name</label>
-                                    <input type="text" placeholder="Eg. SPO1 joseph d. Santos" class="form-control"
-                                        id="name" required>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" placeholder="Eg. Guinobatan Albay" class="form-control"
-                                        id="address" required>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="telephone" class="form-label">Telephone</label>
-                                    <input type="number" placeholder="Eg. 09xxxxxxxxx"
-                                        class="form-control" id="telephone" required>
-                                </div>
-                                <div class="col-lg-12 mb-12 p-2 mb-3">
-                                    <label for="chief" class="form-label">Notification Originator</label>
-                                    <input type="text" placeholder="Eg. Chief Operation"
-                                    class="form-control" id="chief" required>
-                                </div>
-                                <h5 class="  pb-1 mb-3">First Responding Unit</h5>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="timeReturned" class="form-label">Truck Deployed</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
-                                        <option selected>Select truck</option>
-                                        <option value="1">Truck 1</option>
-                                        <option value="2">Truck 2</option>
-                                        <option value="3">Truck 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="waterTank" class="form-label">Team Leader</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
-                                        <option selected>Select Team Leader</option>
-                                        <option value="1">Team Leader 1</option>
-                                        <option value="2">Team Leader 2</option>
-                                        <option value="3">Team Leader 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="timeReturned" class="form-label">Time Arrival on Scene</label>
-                                    <input type="text" placeholder="Eg. 1900h"
-                                        class="form-control" id="timeReturnedInput" required>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="waterTank" class="form-label">Alarm Status</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
-                                        <option selected>Select alarm status</option>
-                                        <option value="1">1st Alarm</option>
-                                        <option value="2">2nd Alarm</option>
-                                        <option value="3">3rd Alarm</option>
-                                        <option value="4">4th Alarm</option>
-                                        <option value="5">5th Alarm</option>
-                                        <option value="6">Task Force Alpha</option>
-                                        <option value="6">Task Force Bravo</option>
-                                        <option value="6">Task Force Charlie</option>
-                                        <option value="6">Task Force Delta</option>
-                                        <option value="6">Task Force Echo</option>
-                                        <option value="6">Task Force Hotel</option>
-                                        <option value="6">Task Force India</option>
-                                        <option value="8">General Alarm</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="gasConsumed" class="form-label">Time Fire Out</label>
-                                    <input type="text" placeholder="Eg. 0200H" class="form-control"
-                                        id="gasConsumedInput"required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Alarm Status and Response Details</h3> --}}
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">INVOLVED PARTIES</h3>
-                            
-                            <div class="row time-alarm-status-declared-div m-0 p-0">
-                                <div class="col-lg-6 mb-6">
-                                    <label for="timeAlarmStatusDeclared" class="form-label">Owner of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. Mr. Tomas Hilario" class="form-control"
-                                        id="timeAlarmStatusDeclaredTime" required>
-                                </div>
-                                <div class="col-lg-6 mb-6">
-                                    <label for="timeAlarmStatusDeclaredTime" class="form-label">Occupant of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. James Padilla" class="form-control"
-                                        id="timeAlarmStatusDeclaredTime">
-                                </div>
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>
