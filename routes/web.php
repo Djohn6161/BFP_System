@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Models\Report;
 use Illuminate\Support\Facades\Route;
+use App\Models\Operation;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +28,11 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('user_homepage');
 });
-Route::get('/test', function(){
+Route::get('/test', function () {
     return view('test');
 });
 Route::get('/form', function () {
-    return view('form',[
+    return view('form', [
         'active' => 'dashboard'
     ]);
 });
@@ -63,12 +66,40 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+        // Account
+        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+        Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
+        Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
+        Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
+        Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+        
+
     });
 
-    Route::get('/reports/investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
-    Route::get('/reports/operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
-    Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
-    Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+    // Reports
+
+
+    // Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
+    // Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
+
+    // Afor
+    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreateForm'])->name('operation.create.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create.submit');
+    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationUpdate'])->name('operation.edit.form');
+
+    // Investigation
+    Route::get('/reports/investigation/index', [InvestigationController::class, 'index'])->name('investigation.index');
+    Route::get('/reports/investigation/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.minimal.index');
+    Route::get('/reports/investigation/Spot/index', [InvestigationController::class, 'spot'])->name('investigation.spot.index');
+    Route::get('/reports/investigation/progress/index', [InvestigationController::class, 'progress'])->name('investigation.progress.index');
+    Route::get('/reports/investigation/final/index', [InvestigationController::class, 'final'])->name('investigation.final.index');
+    Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
+
+
+    // Account
+    Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });
 
 
