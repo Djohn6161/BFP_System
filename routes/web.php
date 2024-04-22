@@ -60,7 +60,8 @@ Route::get('/progressInvestigation', function () {
 
 Route::get('/finalInvestigation', function () {
     return view('finalInvestigation', [
-        'active' => 'finalInvestigation'
+        'active' => 'finalInvestigation',
+        'user' => auth()->user(),
     ]);
 });
 //
