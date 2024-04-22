@@ -39,6 +39,11 @@ Route::get('/minimalInvestigation', function () {
         'active' => 'minimalInvestigation'
     ]);
 });
+Route::get('/spotInvestigation', function () {
+    return view('spotInvestigation', [
+        'active' => 'spotInvestigation'
+    ]);
+});
 
 Route::get('/progressInvestigation', function () {
     return view('progressInvestigation', [
