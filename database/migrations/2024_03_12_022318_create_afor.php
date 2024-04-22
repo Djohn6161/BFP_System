@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('afor', function (Blueprint $table) {
             $table->id();
-            $table->time('alarm_received');
+            $table->string('alarm_received');
             $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
             $table->string('caller_address');
+            $table->foreignId('barangay_id')->constrained('barangays')->onUpdate('cascade');
+            $table->string('zone');
             $table->string('location');
+            $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control');
             $table->dateTime('td_declared_fireout');
-            $table->enum('occupancy',['s','ns','v']);
+            $table->string('occupancy');
+            $table->string('occupancy_specify');
             $table->string('distance_to_fire_incident');
             $table->string('structure_description');
             $table->string('sketch_of_fire_operation');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\Report;
 use App\Models\Barangay;
@@ -20,15 +21,15 @@ class ReportController extends Controller
         $operation = Report::all()->where('category', 'Operation');
         $active = 'investigation';
 
-        return view('reports.investigation', compact('active','investigation','operation','user'));
+        return view('reports.investigation', compact('active', 'investigation', 'operation', 'user'));
     }
     public function operationIndex()
     {
         $user = Auth::user();
         $active = 'operation';
-        $operations = Report::where('category', 'Operation')->get();
-        $investigation = Report::where('category', 'Investigation')->get();
-        return view('reports.operation', compact('active', 'operations', 'investigation','user'));
+        $operations = Afor::all();
+        // $investigation = Report::where('category', 'Investigation')->get();
+        return view('reports.operation', compact('active', 'operations', 'user'));
     }
     public function createReport($id, $type, $category)
     {
@@ -115,11 +116,11 @@ class ReportController extends Controller
             foreach ($validatedData['photos'] as $photo) {
                 $photo->store('report', 'public');
             }
-            
+
 
         } catch (\Exception $ex) {
-            dd("error: ", $ex); 
-        }   
+            dd("error: ", $ex);
+        }
         // dd($validatedData);
         unset($validatedData['number_of_victims']);
         unset($validatedData['personnels_id']);
@@ -138,7 +139,7 @@ class ReportController extends Controller
             $brgyReport->report_id = $report->id;
             $brgyReport->save();
         }
-        
+
         foreach ($request['name_of_victims'] as $victimName) {
             $victim = new Victim();
             $victim->name = $victimName;

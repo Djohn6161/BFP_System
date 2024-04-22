@@ -26,7 +26,7 @@
                                         }
                                         // dd($photos);
                                     @endphp
-                                    <ul class="list-group list-group-flush">
+                                    {{-- <ul class="list-group list-group-flush">
                                         <li class="list-group-item"><strong>Category:</strong> {{ $report->category }}
                                         </li>
                                         <li class="list-group-item"><strong>Type:</strong> {{ $report->type }}</li>
@@ -63,7 +63,7 @@
                                                 @endif
                                             </div>                                            
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                             {{-- @endforeach --}}

@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Models\Report;
 use Illuminate\Support\Facades\Route;
+use App\Models\Operation;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +60,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Reports
     Route::get('/reports/Investigation/index', [ReportController::class, 'investigationIndex'])->name('investigation.index');
-    Route::get('/reports/Operation/index', [ReportController::class, 'operationIndex'])->name('operation.index');
+    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
     Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
     Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
     Route::put('/reports/update/{id}/{category}', [ReportController::class, 'updateReport'])->name('report.update');
+
+    // Afor
+    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreate'])->name('operation.create.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationCreateSubmit'])->name('operation.create.submit');
+    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationEdit'])->name('operation.edit.form');
 
     // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');

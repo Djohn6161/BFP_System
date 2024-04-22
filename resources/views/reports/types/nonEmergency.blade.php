@@ -9,6 +9,14 @@
         <div class="row justify-content-center">
             <div class="col-lg-9 shadow-lg rounded p-4">
                 <div class="row">
+                    @php
+                        if ($report->photos ?? false) {
+                            $photos = explode(', ', $report->photos);
+
+                            # code...
+                        }
+                        // dd($photos);
+                    @endphp
                     <form id="addReport" action="{{ route('report.store', ['category' => $category]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -317,18 +325,31 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 mb-3 form-check ps-3">
-                                <label class="form-label" for="exampleCheck1">Photos</label>
-                                <input type="file" class="form-control uncheable"
-                                    value="{{ old('photos') ?? ($report->photos ?? '') }}" id="photos"
-                                    name="photos[]" multiple>
-                                @error('photos')
-                                    <div class="text-danger ps-3" role="">
-                                        {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mb-3 form-check ps-3">
+                        <label class="form-label" for="exampleCheck1">Photos</label>
+                        <div class="row mt-2">
+                            @if ($report->photos ?? false)
+                                @foreach ($photos as $photo)
+                                    <div class="col-md-4 mb-3">
+                                        <div class="image-container position-relative">
+                                            <img src="{{ asset('storage/' . $photo) }}" class="object-fit-cover w-100" style="height: 200px" alt="">
+                                            <button class="btn btn-danger remove-button position-absolute">Remove</button>
+                                            {{-- Uncomment the javascript in the public/assets/select/2/dist/scripts/script.js --}}
+                                        </div>
                                     </div>
-                                @enderror
+                                @endforeach
+                            @endif
+                        </div>
+                        <input type="file" class="form-control uncheable"
+                            value="{{ old('photos') ?? ($report->photos ?? '') }}" id="photos" name="photos[]"
+                            multiple>
+                        @error('photos')
+                            <div class="text-danger ps-3" role="">
+                                {{ $message }}
                             </div>
                         </div>
 

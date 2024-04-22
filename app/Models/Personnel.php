@@ -24,4 +24,7 @@ class Personnel extends Model
     public function aforDuty(){
         return $this->hasMany(Duty_personnel::class, 'personnels_id');
     }
+    // public function crewReport(){
+    //     return $this->hasMany(Crew::class, 'personnel_id');
+    // }
 }
