@@ -60,9 +60,21 @@
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3"></h3>
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-12 mb-12 pb-5 mb-3">
-                                <label for="dateTime" class="form-label"></label>
+                                <label for="authority" class="form-label"><h3>AUTHORITY</h3></label>
                                 <div>
-                                    <div id="editor"></div>
+                                    <div id="authority"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3"></h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                <label for="matters-investigated" class="form-label"><h3>MATTERS INVESTIGATED</h3></label>
+                                <div>
+                                    <div id="matters-investigated"></div>
                                 </div>
                             </div>
                         </div>
@@ -207,29 +219,17 @@
         </div>
     </div>
     <script>
-        // Get the input element
-    var input = document.getElementById('telephone');
-
-// Listen for input events
-input.addEventListener('input', function() {
-    // Remove any non-numeric characters
-    this.value = this.value.replace(/\D/g, '');
-
-    // Limit the input to exactly 11 digits
-    if (this.value.length > 11) {
-        this.value = this.value.slice(0, 11);
-    }
-});
-    </script>
-
-<script>
-    const quill = new Quill('#editor', {
-      theme: 'snow',
-      placeholder: 'Compose an epic...',
+        // First Quill editor initialization
+        const quill1 = new Quill('#authority', {
+          theme: 'snow',
+          placeholder: 'Compose an epic...',
+        });
       
+        // Second Quill editor initialization
+        const quill2 = new Quill('#matters-investigated', {
+          theme: 'snow',
+          placeholder: 'a',
+        });
+      </script>
       
-    });
-    
-    
-  </script>
 @endsection

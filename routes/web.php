@@ -40,6 +40,12 @@ Route::get('/minimalInvestigation', function () {
     ]);
 });
 
+Route::get('/progressInvestigation', function () {
+    return view('progressInvestigation', [
+        'active' => 'progressInvestigation'
+    ]);
+});
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
