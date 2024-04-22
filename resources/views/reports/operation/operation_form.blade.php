@@ -68,62 +68,66 @@
                                     id="otherLocation" name="location">
                             </div>
                         </div>
-
-                        <!-- Response -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            <div class="row m-0 p-0 second-div border-0">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
-                                </h3>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="vehicle" class="form-label">Engine
-                                        Dispatched</label>
-                                    <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]">
-                                        <option value="" selected>Select vehicle</option>
-                                        @foreach ($trucks as $truck)
-                                            <option value="{{ $truck->id }}">
-                                                {{ $truck->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <div class="row m-0 p-0" id="divApor">
+                                <div class="row m-0 p-0 border-0" id="addApor">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
+                                    </h3>
+                                    <div class="col-lg-3 mb-3">
+                                        <label for="vehicle" class="form-label">Engine
+                                            Dispatched</label>
+                                        <select class="form-select engineDispatched" aria-label=""
+                                            name="engine_dispatched">
+                                            <option selected>Select vehicle</option>
+                                            @foreach ($trucks as $truck)
+                                                <option value="{{ $truck->id }}">
+                                                    {{ $truck->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 mb-3">
+                                        <label for="timeDispatched" class="form-label">Time
+                                            Dispatched</label>
+                                        <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                            id="timeDispatchedInput" name="time_dispatched">
+                                    </div>
+                                    <div class="col-lg-3 mb-3">
+                                        <label for="timeArrivedFireScene" class="form-label">Time
+                                            Arrived at Fire Scene</label>
+                                        <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
+                                            id="timeArrivedFireSceneInput" name="time_arrived_at_scene">
+                                    </div>
+                                    <div class="col-lg-3 mb-3">
+                                        <label for="responseTime" class="form-label">Response
+                                            Time</label>
+                                        <input type="text" placeholder="Eg. 1900h - 2300h"
+                                            class="form-control text-uppercase" id="responseTimeInput"
+                                            name="response_duration">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="timeReturned" class="form-label">Time Returned
+                                            to Base</label>
+                                        <input type="text" placeholder="Eg. 1900h - 2300h"
+                                            class="form-control text-uppercase" id="timeReturnedInput"
+                                            name="time_return_to_base">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="waterTank" class="form-label">Water Tank
+                                            Refilled (GAL)</label>
+                                        <input type="text" placeholder="Eg. 1900h - 2300h"
+                                            class="form-control text-uppercase" id="waterTankInput"
+                                            name="water_tank_refilled">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="gasConsumed" class="form-label">Gas Consumed
+                                            (L)</label>
+                                        <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
+                                            id="gasConsumedInput" name="gas_consumed">
+                                    </div>
                                 </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="timeDispatched" class="form-label">Time Dispatched</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        name="time_dispatched[]">
-                                </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="timeArrivedFireScene" class="form-label">Time
-                                        Arrived at Fire Scene</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        name="time_arrived_at_scene[]">
-                                </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="responseTime" class="form-label">Response Time</label>
-                                    <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="responseTimeInput"
-                                        name="response_duration[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="timeReturned" class="form-label">Time Returned
-                                        to Base</label>
-                                    <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="timeReturnedInput"
-                                        name="time_return_to_base[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="waterTank" class="form-label">Water Tank
-                                        Refilled (GAL)</label>
-                                    <input type="text" placeholder="Eg. 1000GAL" class="form-control text-uppercase"
-                                        id="waterTankInput" name="water_tank_refilled[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="gasConsumed" class="form-label">Gas Consumed
-                                        (L)</label>
-                                    <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
-                                        id="gasConsumedInput" name="gas_consumed[]">
-                                </div>
+                                <hr>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewDivApor" class="btn btn-primary">+ Add New Fire Engine
                                     Response Details</button>
@@ -211,7 +215,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addTimeAlarmStatusDeclared"
                                     class="btn btn-primary add-time-alarm-status-button">+ Add
@@ -424,9 +427,8 @@
                                     <label for="firefighterDeath" class="form-label">Remarks</label>
                                     <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput" name="remarks_duty[]"></textarea>
                                 </div>
+                                <hr>
                             </div>
-                            <hr>
-
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
                                     another duty
@@ -493,121 +495,63 @@
 
     <script>
         $(document).ready(function() {
+            $('#divApor').on('click', '.remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.remove-button-container').remove();
+            });
+
             $('#addNewDivApor').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.second-div:first').clone();
+                var newDiv = $('#addApor').clone();
+                var mnewDiv = $(
+                    '<div class="row remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button> </div> <div class="col-lg-3 mb-3"> <label for="vehicle" class="form-label">Engine Dispatched</label> <select class="form-select engineDispatched" aria-label="" name="engine_dispatched"> <option selected>Select vehicle</option> @foreach ($trucks as $truck) <option value="{{ $truck->id }}"> {{ $truck->name }} </option> @endforeach </select> </div> <div class="col-lg-3 mb-3"> <label for="timeDispatched" class="form-label">Time Dispatched</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeDispatchedInput" name="time_dispatched"> </div> <div class="col-lg-3 mb-3"> <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeArrivedFireSceneInput" name="time_arrived_at_scene"> </div> <div class="col-lg-3 mb-3"> <label for="responseTime" class="form-label">Response Time</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="responseTimeInput" name="response_duration"> </div> <div class="col-lg-4 mb-3"> <label for="timeReturned" class="form-label">Time Returned to Base</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="timeReturnedInput" name="time_return_to_base"> </div> <div class="col-lg-4 mb-3"> <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="waterTankInput" name="water_tank_refilled"> </div> <div class="col-lg-4 mb-3"> <label for="gasConsumed" class="form-label">Gas Consumed (L)</label> <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase" id="gasConsumedInput" name="gas_consumed"> </div> <hr> </div>'
+                    );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#divApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.engineDispatched').select2();
+            });
 
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.second-div');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            $('#secondDivApor').on('click', '.second-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.second-remove-button-container').remove();
             });
 
             $('#addTimeAlarmStatusDeclared').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.time-alarm-status-declared-div:first').clone();
+                var newDiv = $('#secondAddApor').clone();
+                var mnewDiv = $(
+                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label=""> <option selected>Select alarm status</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label=""> <option selected>Select Fund Commanders</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div><hr></div>'
+                    );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#secondDivApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect ""
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.time-alarm-status-declared-div');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h5').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.alarmApor').select2();
             });
+
+            $('#thirdDivApor').on('click', '.third-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.third-remove-button-container').remove();
+            });
+
             $('#addNewDutyPersonnelAtFireScene').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.duty-personnel-at-fire-scene:first').clone();
+                var newDiv = $('#thirdAddApor').clone();
+                var mnewDiv = $(
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label=""> <option selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" id="firstResponderInput"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput"></textarea> </div> <hr> </div>'
+                    );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#thirdDivApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.duty-personnel-at-fire-scene');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.rankName').select2();
             });
+
             // Target the file input
             $('#photos').on('change', function() {
                 // Get the selected files
@@ -793,10 +737,6 @@
 
                 // Add <hr> tag after each cloned row for visual separation
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
-
-            $(".caller").select2({
-                tags: true
             });
         });
     </script>
