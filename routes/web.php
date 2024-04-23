@@ -6,6 +6,7 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
+use App\Models\Investigation;
 use App\Models\Report;
 use Illuminate\Support\Facades\Route;
 use App\Models\Operation;
@@ -104,7 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('minimal.index');
         Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
-
+        Route::post('minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
         Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
         Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
 

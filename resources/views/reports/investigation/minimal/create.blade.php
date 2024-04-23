@@ -34,24 +34,25 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form>
+                    <form action="{{route('investigation.minimal.store')}}" method="POST" id="minimalCreate">
+                      @csrf
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">MEMORANDUM</h3>
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-12 mb-12 pb-2 mb-3">
                                 <label for="dateTime" class="form-label">FOR:</label>
-                                <input type="text" placeholder="Eg. pedro villa" class="form-control text-uppercase" id="dateTime" required>
+                                <input type="text" placeholder="Eg. pedro villa" class="form-control text-uppercase" id="dateTime" name="for" >
                             </div>
  
                             <div class="col-lg-12 mb-12 pb-2 mb-3">
                                 <label for="reported" class="form-label">SUBJECT:</label>
-                                <input type="text" placeholder="Eg. fire incident report " class="form-control text-uppercase" id="reported" required>
+                                <input type="text" placeholder="Eg. fire incident report " class="form-control text-uppercase" name="subject" id="reported" >
 
                             </div>
                             <div class="col-lg-12 mb-12 pb-2 mb-3">
                                 <label for="province" class="form-label">DATE:</label>
-                                <input type="text" placeholder=" Eg. march 02, 2013" class="form-control" id="province" required>
+                                <input type="text" placeholder=" Eg. march 02, 2013" class="form-control" id="province" name="date" >
                             </div>
                         </div>
 
@@ -61,91 +62,112 @@
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="dateTime" class="form-label">Date and Time of Actual Occurrence</label>
-                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="dateTime" required>
+                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="dateTime" name="dt_actual_occurence" >
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="reported" class="form-label">Date and Time Reported</label>
-                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="reported" required>
+                                <input type="text" placeholder="Eg. 06 March 2024 2300h" class="form-control" id="reported" name="dt_reported" >
 
                             </div>
-                            <div class="col-lg-3 mb-4">
-                                <label for="province" class="form-label">Province</label>
-                                <input type="text" placeholder=" Eg. Albay" class="form-control" id="province" required>
-                            </div>
-                            <div class="col-lg-3 mb-4">
-                                <label for="municipality" class="form-label">Municipality</label>
-                                    <input type="text" placeholder=" Eg. Ligao" class="form-control" id="municipality" required>
-                            </div>
-                            <div class="col-lg-3 mb-4">
-                                <label for="barangay" class="form-label">Barangay</label>
-                                    <input type="text" placeholder=" Eg. Sta. Cruz" class="form-control" id="barangay" required>
-                            </div>
-                            <div class="col-lg-3 mb-4">
-                                <label for="other" class="form-label">Other Location</label>
-                                    <input type="text" placeholder=" Eg. Camarines Sur" class="form-control" id="other" required>
-                            </div>
+                            <div class="col-lg-6 mb-4">
+                              <label for="barangay-select" class="form-label">Barangay</label>
+                              <select class="form-select" id="barangay-select" name="barangay" >
+                                  <option value="" disabled selected>-- Select a Barangay --</option>
+                                  @foreach ($barangay as $barangay)
+                                    <option value="{{$barangay->name}}">{{$barangay->name}}</option>
+                                  @endforeach
+                                  <!-- Add more barangay options as needed -->
+                              </select>
+                          </div>
+
+                          <!-- Corrected "Zone/Street" -->
+                          <div class="col-lg-6 mb-4">
+                              <label for="zone-street" class="form-label">Zone/Street</label>
+                              <input type="text" placeholder="Eg. Zone 4" class="form-control" id="zone-street" name="zone"
+                                  >
+                          </div>
+
+                          <!-- Corrected "Other Location/Landmark" -->
+                          <div class="col-lg-12 mb-4">
+                              <label for="landmark" class="form-label">Other Location/Landmark</label>
+                              <input type="text" placeholder="Eg. LCC Mall" class="form-control" id="landmark" name="landmark"
+                                  >
+                          </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Involved Property/Establishment</label>
-                                <input type="text" placeholder=" Eg. Vacant Lot " class="form-control" id="province" required>
+                                <input type="text" placeholder=" Eg. Vacant Lot " class="form-control" id="province" name="involved_property" >
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Property Data</label>
-                                <input type="text" placeholder=" Eg. Juan Dela Cruz" class="form-control" id="province" required>
+                                <input type="text" placeholder=" Eg. Juan Dela Cruz" class="form-control" id="province" name="property_data" >
                             </div>
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <div class="row m-0 p-0 second-div border-0">
                                 <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RESPONSE AND SUPPRESSION DATA</h3>
-                                <h5 class="  pb-1 mb-3">Receiver</h5>
+                                <div class="col-lg-12 mb-3">
+                                  <label for="" class="form-label">Receiver</label>
+                                  <select class="form-select alarmStatus" aria-label=""  name="receiver">
+                                      <option selected>Select Personnel</option>
+                                      @foreach ($personnels as $personnel)
+                                        <option value="{{$personnel->id}}">{{$personnel->rank->slug . " " .$personnel->first_name . " " . $personnel->last_name}}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                                <h5 class="  pb-1 mb-3">Caller Information</h5>
                                 <div class="col-lg-4 mb-3">
                                     <label for="name" class="form-label">Complete Name</label>
-                                    <input type="text" placeholder="Eg. SPO1 joseph d. Santos" class="form-control"
-                                        id="name" required>
+                                    <input type="text" placeholder="Eg. SPO1 joseph d. Santos" class="form-control" name="caller_name"
+                                        id="name" >
                                 </div>
+                                
                                 <div class="col-lg-4 mb-3">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" placeholder="Eg. Guinobatan Albay" class="form-control"
-                                        id="address" required>
+                                    <input type="text" placeholder="Eg. Guinobatan Albay" class="form-control" name="caller_address"
+                                        id="address" >
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="telephone" class="form-label">Telephone</label>
-                                    <input type="number" placeholder="Eg. 09xxxxxxxxx"
-                                        class="form-control" id="telephone" required>
+                                    <input type="number" placeholder="Eg. 09xxxxxxxxx" name="caller_number"
+                                        class="form-control" id="telephone" >
                                 </div>
                                 <div class="col-lg-12 mb-12 p-2 mb-3">
                                     <label for="chief" class="form-label">Notification Originator</label>
-                                    <input type="text" placeholder="Eg. Chief Operation"
-                                    class="form-control" id="chief" required>
+                                    <input type="text" placeholder="Eg. Chief Operation" name="notification_originator"
+                                    class="form-control" id="chief" >
                                 </div>
                                 <h5 class="  pb-1 mb-3">First Responding Unit</h5>
                                 <div class="col-lg-6 mb-3">
                                     <label for="timeReturned" class="form-label">Truck Deployed</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
+                                    <select class="form-select alarmStatus" aria-label="" name="first_responding_engine">
                                         <option selected>Select truck</option>
-                                        <option value="1">Truck 1</option>
+                                        @foreach ($engines as $truck)
+                                          <option value="{{$truck->id}}">{{$truck->name}}</option>
+                                        @endforeach
+                                        
                                         <option value="2">Truck 2</option>
                                         <option value="3">Truck 3</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="waterTank" class="form-label">Team Leader</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
+                                    <select class="form-select alarmStatus" aria-label="" name="first_responding_leader" >
                                         <option selected>Select Team Leader</option>
-                                        <option value="1">Team Leader 1</option>
-                                        <option value="2">Team Leader 2</option>
-                                        <option value="3">Team Leader 3</option>
+                                        @foreach ($personnels as $personnel)
+                                          <option value="{{$personnel->id}}">{{$personnel->rank->slug . " " .$personnel->first_name . " " . $personnel->last_name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="timeReturned" class="form-label">Time Arrival on Scene</label>
-                                    <input type="text" placeholder="Eg. 1900h"
-                                        class="form-control" id="timeReturnedInput" required>
+                                    <input type="text" placeholder="Eg. 1900h" name="time_arrival_on_scene"
+                                        class="form-control" id="timeReturnedInput" >
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="waterTank" class="form-label">Alarm Status</label>
-                                    <select class="form-select alarmStatus" aria-label="" required>
+                                    <select class="form-select alarmStatus" aria-label="" name="alarm_status_time" >
                                         <option selected>Select alarm status</option>
                                         <option value="1">1st Alarm</option>
                                         <option value="2">2nd Alarm</option>
@@ -164,8 +186,8 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gasConsumed" class="form-label">Time Fire Out</label>
-                                    <input type="text" placeholder="Eg. 0200H" class="form-control"
-                                        id="gasConsumedInput"required>
+                                    <input type="text" placeholder="Eg. 0200H" class="form-control" name="time_fire_out"
+                                        id="gasConsumedInput">
                                 </div>
                             </div>
                         </div>
@@ -177,12 +199,12 @@
                             <div class="row time-alarm-status-declared-div m-0 p-0">
                                 <div class="col-lg-6 mb-6">
                                     <label for="timeAlarmStatusDeclared" class="form-label">Owner of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. Mr. Tomas Hilario" class="form-control"
-                                        id="timeAlarmStatusDeclaredTime" required>
+                                    <input type="text" placeholder="Eg. Mr. Tomas Hilario" class="form-control" name="property_owner"
+                                        id="timeAlarmStatusDeclaredTime" >
                                 </div>
                                 <div class="col-lg-6 mb-6">
                                     <label for="timeAlarmStatusDeclaredTime" class="form-label">Occupant of Property/Establishment</label>
-                                    <input type="text" placeholder="Eg. James Padilla" class="form-control"
+                                    <input type="text" placeholder="Eg. James Padilla" class="form-control" name="property_occupant"
                                         id="timeAlarmStatusDeclaredTime">
                                 </div>
                             </div>
@@ -240,13 +262,13 @@
                                             <button class="ql-clean"></button>
                                           </span>
                                     </div>
-                                    <div id="first">
+                                    <div id="first">  
                                      
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <input type="hidden" name="details" id="details">
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
@@ -371,11 +393,11 @@
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-12 mb-12 pb-2 mb-3">
                                 <label for="dateTime" class="form-label"></label>
-                                <input type="file" placeholder="Eg. pedro villa" class="form-control text-uppercase" id="dateTime" required>
+                                <input type="file" placeholder="Eg. pedro villa" class="form-control text-uppercase" id="dateTime" >
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
 
                     </form>
                 </div>
@@ -396,12 +418,18 @@
             this.value = this.value.slice(0, 11);
         }
     });
+    var hiddenInput = document.getElementById('editorContent');
+    
+    $("#submit").click(function() {
+      $("#details").val = $("#first").text(); 
+      console.log($("#details").val);
+      $("#minimalCreate").submit();
+    });
     </script>
 
 <script>
     const quillFirst = new Quill('#first', {
         modules: {
-        syntax: true,
         toolbar: '#toolbar1',
         },
       theme: 'snow',            
@@ -414,7 +442,6 @@
     const quillSecond = new Quill('#second', {
       theme: 'snow',
       modules: {
-        syntax: true,
         toolbar: '#toolbar2',
         },
             
@@ -425,7 +452,6 @@
     const quillThird = new Quill('#third', {
       theme: 'snow',
       modules: {
-        syntax: true,
         toolbar: '#toolbar3',
         },
             
