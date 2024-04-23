@@ -66,6 +66,7 @@ class OperationController extends Controller
             'problem_encounter' => $request->input('problem_encounter') ?? '',
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
+            'first_responder' => $request->input('first_responder') ?? '',
         ]);
         $afor->save();
         $afor_id = $afor->id;
@@ -232,7 +233,9 @@ class OperationController extends Controller
 
         if ($request->hasFile('sketch_of_fire_operation')) {
             foreach ($files as $file) {
-                $sketch_format .= ',' . $file->getClientOriginalName();
+                $fileName = $file->getClientOriginalName();
+                $file->move(public_path('operation_image'), $fileName);
+                $sketch_format .= ',' . $fileName;
             }
 
             $afor->sketch_of_fire_operation = $sketch_format;
