@@ -58,7 +58,7 @@
                     </div> --}}
                 </li>
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush" href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}" id="accordionExample">
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" id="accordionExample">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
@@ -76,13 +76,13 @@
                                 <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
                                     Minimal
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('investigation.spot.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                    Spot
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('investigation.progress.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     Progress
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('investigation.final.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     Final
                                 </a>
                             
