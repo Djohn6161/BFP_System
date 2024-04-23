@@ -5,6 +5,8 @@ $(document).ready(function () {
     $(".crew-name").select2();
     $(".barangay").select2();
 
+    
+    $(".caller").select2({tags: true});
     $(".officeAddressCaller").select2();
     $(".personnelReceive").select2();
     $(".barangayApor").select2();
