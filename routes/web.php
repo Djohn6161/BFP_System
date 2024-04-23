@@ -98,6 +98,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reports/investigation/Spot/index', [InvestigationController::class, 'spot'])->name('investigation.spot.index');
     Route::get('/reports/investigation/progress/index', [InvestigationController::class, 'progress'])->name('investigation.progress.index');
     Route::get('/reports/investigation/final/index', [InvestigationController::class, 'final'])->name('investigation.final.index');
+    
     Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
 
 
