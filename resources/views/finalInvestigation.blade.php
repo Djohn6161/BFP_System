@@ -88,11 +88,11 @@
                                 <label for="barangay" class="form-label">FIRE VICTIM/S</label>
                                     <input type="text" placeholder=" Eg. Romy nabas" class="form-control" id="barangay" required>
                             </div>
-                            <div class="col-lg-6 mb-3 form-check ps-3">
+                            <div class="col-lg-12 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">ORIGIN OF FIRE</label>
                                 <textarea class="form-control" placeholder=" Eg. was at the room located at the right-side portion of the residential structure" name="" id=""></textarea>
                             </div>
-                            <div class="col-lg-6 mb-3 form-check ps-3">
+                            <div class="col-lg-12 mb-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">CAUSE OF FIRE</label>
                                 <textarea class="form-control" placeholder="Eg. Electrical Igniton cause by Loose Connection" name="" id=""></textarea>
                             </div>
