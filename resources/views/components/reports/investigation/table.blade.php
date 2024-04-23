@@ -25,6 +25,7 @@
                             <x-reports.view-modal :report=$investigation></x-reports.view-modal>
                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                             <tr>
+                                {{-- {{dd($investigation)}} --}}
                                 <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
                                 </td>

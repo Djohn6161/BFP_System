@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Progress extends Model
 {
+    protected $table = 'progresses';
     use HasFactory;
     public function spot(){
         return $this->belongsTo(Spot::class, 'spot_id');
