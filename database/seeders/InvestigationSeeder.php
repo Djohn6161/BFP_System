@@ -17,70 +17,95 @@ class InvestigationSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 5) as $index) {
+        foreach (range(1, 10) as $index) {
 
-            $attributes = [
-                'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . 'BFP Acting City Fire Marshal',
-                'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                'date' => $faker->date(),
-            ];
+            if ($index <= 5) {
+                # code...
+                $attributes = [
+                    'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
+                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'date' => $faker->date(),
+                ];
+                $reportID = DB::table('investigations')->insertGetId($attributes);
+                $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
+                $time = ["1400", "1800", "1600", "0800"];
+                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
+                $minimals = [
+                    'investigation_id' => $reportID,
+                    'dt_actual_occurence' => $faker->date(),
+                    'dt_reported' => $faker->date(),
+                    'incident_location' => $faker->city . " " . $faker->streetname,
+                    'involved_property' => $properties[$faker->numberBetween(0, 3)],
+                    'property_data' => $faker->firstName . ' ' . $faker->lastName,
+                    'receiver' => $faker->numberBetween(1, 15),
+                    'caller_name' => $faker->firstName . ' ' . $faker->lastName,
+                    'caller_address' => $faker->city . " " . $faker->streetname,
+                    'caller_number' => $faker->phoneNumber,
+                    'notification_originator' => 'Chief Operation',
+                    'first_responding_engine' => $faker->numberBetween(1, 4),
+                    'first_responding_leader' => $faker->numberBetween(1, 10),
+                    'time_arrival_on_scene' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'alarm_status_time' => $alarm[$faker->numberBetween(0, 4)],
+                    'time_fire_out' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'property_owner' => $faker->firstName . ' ' . $faker->lastName,
+                    'property_occupant' => $faker->firstName . ' ' . $faker->lastName,
+                    'details' => $faker->paragraph(5),
+                    'findings' => $faker->paragraph(5),
+                    'recommendation' => $faker->paragraph(5),
+                ];
+                DB::table('minimals')->insertGetId($minimals);
+            } else if ($index <= 10) {
+                $attributes = [
+                    'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
+                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'date' => $faker->date(),
+                ];
+                $reportID = DB::table('investigations')->insertGetId($attributes);
+                $time = ["1400", "1800", "1600", "0800"];
+                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
+                $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
+                $spot = [
+                    'investigation_id' => $reportID,
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    'time' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'address' => $faker->city . " " . $faker->streetname,
+                    'involved' => $properties[$faker->numberBetween(0, 3)],
+                    'name_of_establishment' => "N/A",
+                    'owner' => $faker->firstName . ' ' . $faker->lastName,
+                    'occupant' => $faker->firstName . ' ' . $faker->lastName,
+                    'estimate_damage' => $faker->numberBetween(10000, 100000),
+                    'time_fire_start' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'time_fire_out' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'details' => $faker->paragraph(5),
+                    'disposition' => $faker->sentence(10),
+                ];
+                $spotid = DB::table('spots')->insertGetId($spot);
 
-            $reportID = DB::table('investigations')->insertGetId($attributes);
+                $progress = [
+                    "spot_id" => $spotid,
+                    "authority" => $faker->paragraph(5),
+                    "facts_of_the_case" => $faker->paragraph(5),
+                    "disposition" => $faker->paragraph(2),
+                ];
+                DB::table('progresses')->insertGetId($progress);
 
-            // $date = $faker->dateTime();
-            // $formatted_date = $date->format('Y-m-d H:i') . 'H';
+                $final = [
+                    "spot_id" => $spotid,
+                    "place_of_fire" => $faker->city . " " . $faker->streetname,
+                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H" . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    "establishment_burned" => $properties[$faker->numberBetween(0, 3)],
+                    "damage_to_property" => $faker->numberBetween(10000, 100000),
+                    "origin_of_fire" => $faker->sentence(10),
+                    "cause_of_fire" => $faker->sentence(5),
+                    "subtantiating_documents" => $faker->paragraph(5),
+                    "facts_of_the_case" => $faker->paragraph(5),
+                    "discussion" => $faker->paragraph(5),
+                    "findings" => $faker->paragraph(5),
+                    "recommendation" => $faker->paragraph(5),
+                ];
+                DB::table('ifinals')->insertGetId($final);
 
-            // foreach (range(1, 3) as $index) {
-
-            //     $formatted_added_date = clone $date;
-            //     $formatted_added_date->modify('+1 hour');
-            //     $formatted_added_date_string = date('Y-m-d H:i', $formatted_added_date->getTimestamp());
-
-
-            //     $return_date = clone $formatted_added_date;
-            //     $return_date->modify('+2 hour');
-            //     $return_date_string = date('Y-m-d H:i', $return_date->getTimestamp());
-                
-            //     $response_duration = $formatted_added_date_string . '-' . 
-            //     $return_date_string;
-
-            //     $attributes = [
-            //         'afor_id' => $reportID,
-            //         'engine_dispatched' => $index,
-            //         'time_dispatched' => $formatted_date,
-            //         'time_arrived_at_scene' => $formatted_added_date,
-            //         'response_duration' => $response_duration,
-            //         'time_return_to_base' => $return_date,
-            //         'water_tank_refilled' => '1000',
-            //         'gas_consumed' => '50L'
-            //     ];
-
-            //     DB::table('responses')->insert($attributes);
-
-            // }
-
-            // foreach (range(1, 3) as $index) {
-            //     $attributes = [
-            //         'afor_id' => $reportID,
-            //         'quantity' => $faker->numberBetween(1,3),
-            //         'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
-            //         'type' => $faker->word(),
-            //         'length' => '5 feet',
-            //     ];
-                
-            //     DB::table('used_equipments')->insert($attributes);
-            // }
-            
-            // $attributes = [
-            //     'afor_id' => $reportID,
-            //     'quantity' => $faker->numberBetween(1,3),
-            //     'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
-            //     'type' => $faker->word(),
-            //     'length' => '5 feet',
-            // ];
-            
-            // DB::table('used_equipments')->insert($attributes);
-
+            } 
         }
     }
 }

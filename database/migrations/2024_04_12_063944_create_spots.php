@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->date('date');
             $table->string('time');
             $table->string('address');
             $table->string('involved');
