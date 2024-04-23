@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('occupancies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('afor_id')->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
             $table->string('occupancy_name');
             $table->string('specify');
             $table->string('distance');

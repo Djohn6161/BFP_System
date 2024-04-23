@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('afor_id')->constrained('afors')->onUpdate('cascade');
             $table->foreignId('personnels_id')->constrained('personnels')->onUpdate('cascade');
             $table->string('designation');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

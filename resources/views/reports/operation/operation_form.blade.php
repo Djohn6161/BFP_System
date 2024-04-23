@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create.submit') }}">
+                    <form method="POST" action="{{ route('operation.create.submit') }}" enctype="multipart/form-data">
                         @csrf
 
                         @if ($errors->any())
@@ -46,14 +46,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <select class="form-select caller" aria-label="" name="transmitted_by">
-                                    <option value="" selected>Select caller</option>
-                                    @foreach ($personnels as $personnel)
-                                        <option value="{{ $personnel->id }}">
-                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                            {{ $personnel->last_name }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" placeholder="Eg. Juan Cruz" class="form-control"
+                                name="transmitted_by">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
@@ -262,7 +256,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="typeOfOccupancy" class="form-label">Type of
                                     Occupancy</label>
-                                <select class="form-select typeOccupancy" aria-label="" name="occupancy">
+                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select type of occupancy</option>
                                     <option value="Places of Assembly">Places of Assembly</option>
                                     <option value="Educational Occupancy">Educational Occupancy</option>
@@ -298,7 +292,7 @@
                             </div>
                         </div>
 
-                        <!-- Victim -->
+                        <!-- Casulaties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
@@ -309,12 +303,12 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="civilianInjured" class="form-label">Injured</label>
                                         <input type="number" placeholder="No. of injured" class="form-control"
-                                            id="firstResponderInput">
+                                            name="civilian_injured">
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="civilianDeath" class="form-label">Death</label>
                                         <input type="number" placeholder="No. of deaths" class="form-control"
-                                            id="firstResponderInput">
+                                            name="civillian_deaths">
                                     </div>
                                 </div>
                             </div>
@@ -324,12 +318,12 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="firefighterInjured" class="form-label">Injured</label>
                                         <input type="number" placeholder="No. of injured" class="form-control"
-                                            id="firstResponderInput">
+                                            name="firefighter_injured">
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="firefighterDeath" class="form-label">Death</label>
                                         <input type="number" placeholder="No. of deaths" class="form-control"
-                                            id="firstResponderInput">
+                                            name="firefighter_deaths">
                                     </div>
                                 </div>
                             </div>
@@ -394,7 +388,7 @@
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="firefighterDeath" class="form-label">Length</label>
-                                    <input type="number" placeholder="Enter length" class="form-control"
+                                    <input type="text" placeholder="Enter length" class="form-control"
                                         id="firstResponderInput" name="rope_ladder_length[]">
                                 </div>
                             </div>
@@ -411,19 +405,19 @@
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">No.</label>
                                     <input type="number" placeholder="No." class="form-control"
-                                        id="firstResponderInput" name="no_hose">
+                                        id="firstResponderInput" name="no_hose[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">Type /
                                         Kind</label>
                                     <input type="text" placeholder="Type / kind" class="form-control"
-                                        id="firstResponderInput" name="type_hose">
+                                        id="firstResponderInput" name="type_hose[]">
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="firefighterDeath" class="form-label">Total
                                         ft.</label>
-                                    <input type="number" placeholder="Enter total feet" class="form-control"
-                                        id="firstResponderInput" name="hose_feet">
+                                    <input type="text" placeholder="Enter total feet" class="form-control"
+                                        id="firstResponderInput" name="hose_feet[]">
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -443,7 +437,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="fundCommander" class="form-label">Rank /
                                             Name</label>
-                                        <select class="form-select rankName" aria-label="">
+                                        <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
                                             <option selected>Select Fund Commander</option>
                                             @foreach ($personnels as $personnel)
                                                 <option value="{{ $personnel->id }}">
@@ -455,11 +449,11 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="firefighterDeath" class="form-label">Designation</label>
                                         <input type="text" placeholder="Designation" class="form-control"
-                                            id="firstResponderInput">
+                                            name="duty_designation[]">
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <label for="firefighterDeath" class="form-label">Remarks</label>
-                                        <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput"></textarea>
+                                        <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
                                     </div>
                                 </div>
                                 <hr>
@@ -478,7 +472,7 @@
                             </h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" value="" id="photos"
-                                name="sketch_of_fire_operation">
+                                name="sketch_of_fire_operation[]" multiple>
 
                             <div id="preview-container"></div>
                         </div>
@@ -576,7 +570,7 @@
             $('#addNewDutyPersonnelAtFireScene').click(function() {
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label=""> <option selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" id="firstResponderInput"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" name="duty_designation[]"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
