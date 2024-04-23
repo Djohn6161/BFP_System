@@ -47,7 +47,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
                                 <input type="text" placeholder="Eg. Juan Cruz" class="form-control"
-                                name="transmitted_by">
+                                    name="transmitted_by">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
@@ -164,22 +164,16 @@
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
-                                <select class="form-select alarmStatus" aria-label="" name="clear
-                                ">
+                                <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
                                     <option value="" selected>Select alarm status</option>
-                                    <option value="1st Alarm">1st Alarm</option>
-                                    <option value="2nd Alarm">2nd Alarm</option>
-                                    <option value="3rd Alarm">3rd Alarm</option>
-                                    <option value="4th Alarm">4th Alarm</option>
-                                    <option value="5th Alarm">5th Alarm</option>
-                                    <option value="Task Force Alpha">Task Force Alpha</option>
-                                    <option value="Task Force Bravo">Task Force Bravo</option>
-                                    <option value="Task Force Charlie">Task Force Charlie</option>
-                                    <option value="Task Force Delta">Task Force Delta</option>
-                                    <option value="Task Force Echo">Task Force Echo</option>
-                                    <option value="Task Force Hotel">Task Force Hotel</option>
-                                    <option value="Task Force India">Task Force India</option>
-                                    <option value="General Alarm">General Alarm</option>
+                                    @foreach ($alarm_list as $list)
+                                        @if ($list == $operation->alarm_status_arrival)
+                                            <option selected value="{{ $list }}" selected>{{ $list }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $list }}">{{ $list }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
@@ -552,7 +546,7 @@
             $('#addTimeAlarmStatusDeclared').click(function() {
                 var newDiv = $('#secondAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . " " . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
+                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
                 );
 
                 console.log(mnewDiv);

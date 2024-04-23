@@ -54,7 +54,10 @@ class OperationController extends Controller
             'transmitted_by' => $request->input('transmitted_by') ?? '',
             'caller_address' => $request->input('caller_address') ?? '',
             'received_by' => $request->input('received_by') ?? '',
-            'location' => $location,
+            'barangay_name' =>  $request->input('barangay_name') ?? '',
+            'zone' =>  $request->input('zone') ?? '',
+            'location' => $request->input('location') ?? '',
+            'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'occupancy' => $request->input('occupancy') ?? '',
@@ -250,10 +253,13 @@ class OperationController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $personnels = Personnel::all();
-        $barangays = Barangay::where('id', '>', 1)->get();
+        $barangays = Barangay::all();
         $trucks = Truck::all();
         $operation = Afor::findOrFail($id);
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation'));
+        $responses = Response::where('afor_id', $id)->get();
+        $declared_alarms = Declared_alarm::where('afor_id', $id)->get();
+        $alarm_list = ['1st Alarm', '2nd Alarm','3rd Alarm','4th Alarm','5th Alarm','Task Force Alpha','Task Force Bravo','Task Force Charlie','Task Force Delta','Task Force Echo','Task Force Hotel','Task Force India','General Alarm'];
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation','responses','alarm_list','declared_alarms'));
     }
 
     public function operationEditSubmit(Request $request)

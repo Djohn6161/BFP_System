@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('alarm_received');
             $table->string('transmitted_by');
             $table->string('caller_address');
+            $table->string('barangay_name');
+            $table->string('zone');
             $table->string('location');
+            $table->string('full_location');
             $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
             $table->dateTime('td_under_control')->nullable();
             $table->dateTime('td_declared_fireout')->nullable();
