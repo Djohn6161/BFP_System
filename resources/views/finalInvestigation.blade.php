@@ -140,7 +140,7 @@ input.addEventListener('input', function() {
       
       
     });
-    
+
     
   </script>
 @endsection

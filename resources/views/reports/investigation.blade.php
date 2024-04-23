@@ -55,7 +55,8 @@
                                                     <p class="mb-0 fw-normal">{{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewInvestigation">View</button>
+                                                    <a class="btn btn-primary w-100 mb-1" data-bs-toggle="modal" data-bs-target="#viewInvestigation">View</a>
+                                                    <br>
                                                     {{-- <x-reports.view-investigation></x-reports.view-investigation> --}}
                                                     <a href="{{route('operation.edit.form', $investigation->id)}}" class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
