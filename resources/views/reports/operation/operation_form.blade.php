@@ -238,25 +238,14 @@
                                     Occupancy</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select type of occupancy</option>
-                                    <option value="Places of Assembly">Places of Assembly</option>
-                                    <option value="Educational Occupancy">Educational Occupancy</option>
-                                    <option value="Day Care Occupancy">Day Care Occupancy</option>
-                                    <option value="Health Care Occupancy">Health Care Occupancy</option>
-                                    <option value="Residential Board and Care">Residential Board and Care</option>
-                                    <option value="Detention and Correctional Occupancy">Detention and Correctional
-                                        Occupancy</option>
-                                    <option value="Residential Occupancy">Residential Occupancy</option>
-                                    <option value="Mercantile Occupancy">Mercantile Occupancy</option>
-                                    <option value="Business Occupancy">Business Occupancy</option>
-                                    <option value="Industrial Occupancy">Industrial Occupancy</option>
-                                    <option value="Storage Occupancy">Storage Occupancy</option>
-                                    <option value="Special Structures">Special Structures</option>
+                                    @foreach ($occupancy_names as $names)
+                                        <option value="{{$names->name}}">{{$names->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control"
-                                    name="occupancy_specify">
+                                <input type="text" placeholder="Enter the office or address" class="form-control" name="occupancy_specify">
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">

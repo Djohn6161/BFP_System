@@ -204,11 +204,11 @@
                                 <select class="form-select alarmStatus" aria-label="" name="clear">
                                     <option value="" selected>Select alarm status</option>
                                     @foreach ($alarm_list as $list)
-                                        @if ($list == $operation->alarm_status_arrival)
-                                            <option selected value="{{ $list }}" selected>{{ $list }}
+                                        @if ($list->name == $operation->alarm_status_arrival)
+                                            <option selected value="{{ $list->name }}" selected>{{ $list->name }}
                                             </option>
                                         @else
-                                            <option value="{{ $list }}">{{ $list }}</option>
+                                            <option value="{{ $list->name }}">{{ $list->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -238,46 +238,58 @@
                             <div class="row m-0 p-0" id="secondDivApor">
                                 <div class="row m-0 p-0" id="secondAddApor">
                                     <h5>Time Alarm Status Declared</h5>
-                                    <div class="row second-remove-button-container m-0 p-0">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5></h5> <button type="button"
-                                                class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button>
-                                        </div>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                        <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
-                                            <option value="" selected>Select alarm status</option>
-                                            @foreach ($declared_alarms as $alarms)
-                                                @foreach ($alarm_list as $list)
-                                                    @if ($list == $alarms->name)
-                                                        <option selected value="{{ $list }}" selected>{{ $list }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $list }}">{{ $list }}</option>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
+                                    @foreach ($declared_alarms as $declared)
+                                        <div class="row second-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="timeAlarmStatusDeclared" class="form-label">Alarm
+                                                    Status</label>
+                                                <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
+                                                    <option value="" selected>Select alarm status</option>
+                                                    @foreach ($alarm_list as $list)
+                                                        @if ($list->name == $declared->alarm_name)
+                                                            <option selected value="{{ $list->name }}" selected>
+                                                                {{ $list->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $list->name }}">{{ $list->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
 
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
-                                        <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                            id="timeAlarmStatusDeclaredTime" name="alarm_time[]">
-                                    </div>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="fundCommander" class="form-label">Fund
-                                            Commander</label>
-                                        <select class="form-select fundCommander" aria-label="" name="fund_commander[]">
-                                            <option value="" selected>Select Fund Commanders</option>
-                                            @foreach ($personnels as $personnel)
-                                                <option value="{{ $personnel->id }}">
-                                                    {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                    {{ $personnel->last_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    </div>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
+                                                <input type="text" placeholder="Eg. 2300h"
+                                                    class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime"
+                                                    name="alarm_time[]" value="{{ $declared->time }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="fundCommander" class="form-label">Fund
+                                                    Commander</label>
+                                                <select class="form-select fundCommander" aria-label=""
+                                                    name="fund_commander[]">
+                                                    <option value="" selected>Select Fund Commanders</option>
+                                                    @foreach ($personnels as $personnel)
+                                                        @if ($personnel->id == $declared->ground_commander)
+                                                            <option selected value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @else
+                                                            <option value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
                                 </div>
                                 <hr>
                             </div>
@@ -296,20 +308,14 @@
                                 <label for="typeOfOccupancy" class="form-label">Type of
                                     Occupancy</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
-                                    <option value="" selected>Select type of occupancy</option>
-                                    <option value="Places of Assembly">Places of Assembly</option>
-                                    <option value="Educational Occupancy">Educational Occupancy</option>
-                                    <option value="Day Care Occupancy">Day Care Occupancy</option>
-                                    <option value="Health Care Occupancy">Health Care Occupancy</option>
-                                    <option value="Residential Board and Care">Residential Board and Care</option>
-                                    <option value="Detention and Correctional Occupancy">Detention and Correctional
-                                        Occupancy</option>
-                                    <option value="Residential Occupancy">Residential Occupancy</option>
-                                    <option value="Mercantile Occupancy">Mercantile Occupancy</option>
-                                    <option value="Business Occupancy">Business Occupancy</option>
-                                    <option value="Industrial Occupancy">Industrial Occupancy</option>
-                                    <option value="Storage Occupancy">Storage Occupancy</option>
-                                    <option value="Special Structures">Special Structures</option>
+                                    <option value="">Select type of occupancy</option>
+                                    @foreach ($occupancy_names as $names)
+                                        @if ($names->name == $operation->occupancy_name)
+                                            <option selected value="{{ $names->name }}">{{ $names->name }}</option>
+                                        @else
+                                            <option value="{{ $names->name }}">{{ $names->name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
