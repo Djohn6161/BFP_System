@@ -74,15 +74,27 @@
                                     All
                                 </a>
                                 <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
                                     Minimal
                                 </a>
                                 <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                   Spot
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
+                                    Spot
                                 </a>
                                 <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
                                     Progress
                                 </a>
                                 <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
                                     Final
                                 </a>
                             
