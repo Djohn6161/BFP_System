@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             TruckSeeder::class,
             AlarmNamesSeeder::class,
+            occupancyNameSeeder::class,
             RankSeeder::class,
             PersonnelSeeder::class,
             BarangaySeeder::class,

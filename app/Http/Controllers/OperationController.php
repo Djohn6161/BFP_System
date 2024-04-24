@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
+use App\Models\Alarm_name;
 use App\Models\AlarmName;
 use App\Models\Duty_personnel;
+use App\Models\Occupancy_name;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
@@ -36,15 +38,15 @@ class OperationController extends Controller
         $personnels = Personnel::all();
         $barangays = Barangay::all();
         $trucks = Truck::all();
-        $alarm_list = AlarmName::all();
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks','alarm_list'));
+        $alarm_list = Alarm_name::all();
+        $occupancy_names = Occupancy_name::all();
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks','alarm_list','occupancy_names'));
     }
 
     public function operationStore(Request $request)
     {
         //Afor
         $afor = new Afor();
-
         if ($request->has('barangay_name')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
         } else {
@@ -133,7 +135,7 @@ class OperationController extends Controller
         $civillian_casualties = new Afor_casualties();
 
         $civillian_casualties->fill([
-            'afor_id' => 1,
+            'afor_id' => $afor_id,
             'type' => 1,
             'injured' => $request->input('civilian_injured') ?? 0,
             'death' => $request->input('civillian_deaths') ?? 0,
@@ -144,7 +146,7 @@ class OperationController extends Controller
         $firefighter_casualties = new Afor_casualties();
 
         $firefighter_casualties->fill([
-            'afor_id' => 1,
+            'afor_id' => $afor_id,
             'type' => 2,
             'injured' => $request->input('firefighter_injured') ?? 0,
             'death' => $request->input('firefighter_deaths') ?? 0,
@@ -234,17 +236,16 @@ class OperationController extends Controller
 
         // Photos
         $files = $request->file('sketch_of_fire_operation');
-        $sketch_format = '';
 
         if ($request->hasFile('sketch_of_fire_operation')) {
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
                 $file->move(public_path('operation_image'), $fileName);
-                $sketch_format .= ',' . $fileName;
+                $sketch_format[] = $fileName;
             }
-
-            $afor->sketch_of_fire_operation = $sketch_format;
-            $afor->save();
+            $sketch = implode(',', $sketch_format);
+            $afor->sketch_of_fire_operation = $sketch;
+            $afor->save();  
         }
 
         return redirect()->back()->with('success', "Operation report added successfully.");
@@ -260,8 +261,15 @@ class OperationController extends Controller
         $operation = Afor::findOrFail($id);
         $responses = Response::where('afor_id', $id)->get();
         $declared_alarms = Declared_alarm::where('afor_id', $id)->get();
-        $alarm_list = ['1st Alarm', '2nd Alarm','3rd Alarm','4th Alarm','5th Alarm','Task Force Alpha','Task Force Bravo','Task Force Charlie','Task Force Delta','Task Force Echo','Task Force Hotel','Task Force India','General Alarm'];
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation','responses','alarm_list','declared_alarms'));
+        $alarm_list = Alarm_name::all();
+        $occupancy = Occupancy::where('afor_id', $id)->first();     
+        $occupancy_names = Occupancy_name::all();
+        $casualties = Afor_casualties::where('afor_id', $id)->get();
+        $used_equipments = Used_equipment::where('afor_id', $id)->get();
+        $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
+        $sketch = $operation->sketch_of_fire_operation;
+        $photos = explode(',', $sketch);  
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation','responses','alarm_list','declared_alarms','occupancy_names','occupancy','casualties','used_equipments','duty_personnels','photos'));
     }
 
     public function operationEditSubmit(Request $request)
