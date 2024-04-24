@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('afors', function (Blueprint $table) {
             $table->id();
             $table->string('alarm_received');
-            $table->foreignid('transmitted_by')->constrained('personnels')->onUpdate('cascade');
+            $table->string('transmitted_by');
             $table->string('caller_address');
+            $table->string('barangay_name');
+            $table->string('zone');
             $table->string('location');
+            $table->string('full_location');
             $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
-            $table->dateTime('td_under_control');
-            $table->dateTime('td_declared_fireout');
+            $table->dateTime('td_under_control')->nullable();
+            $table->dateTime('td_declared_fireout')->nullable();
             $table->string('occupancy');
             $table->string('occupancy_specify');
             $table->string('distance_to_fire_incident');

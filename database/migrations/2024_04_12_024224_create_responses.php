@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('time_arrived_at_scene');
             $table->string('response_duration');
             $table->string('time_return_to_base');
-            $table->float('water_tank_refilled');
+            $table->string('water_tank_refilled');
             $table->string('gas_consumed');
             $table->timestamps();
         });

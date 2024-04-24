@@ -35,7 +35,7 @@ class InvestigationController extends Controller
         // $personnels = Personnel::all();
         // $barangays = Barangay::all();
         // $trucks = Truck::all();
-        return view('reports.investigaiton.investigation_form', compact('active', 'user', ));
+        return view('reports.investigation.minimal_form', compact('active', 'user', ));
     }
     
     public function Spot(){
