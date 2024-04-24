@@ -102,14 +102,43 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="personnelAccordion">
+                            <div class="accordion-item p-0">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapsePersonnel" aria-expanded="true" aria-controls="collapseOne">
+                                        <span> <i class="ti ti-users"></i></span>
+                                        <span class="hide-menu">Personnel</span>
+                                    </button>
+                                </h2>
+                                <div id="collapsePersonnel" class="accordion-collapse collapse show"
+                                    data-bs-parent="#personnelAccordion">
+                                    
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        Task 
+                                    </a>
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        Sample1
+                                    </a>
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        Sample2
+                                    </a>
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        Sample3
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>    
+
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-users"></i>
                             </span>
                             <span class="hide-menu">Personnel</span>
                         </a>
-                    </li>
-
+                    </li> --}}
 
                     {{-- Bottom --}}
                     <li class="sidebar-item">
