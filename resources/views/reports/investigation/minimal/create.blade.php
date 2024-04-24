@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="telephone" class="form-label">Telephone</label>
-                                    <input type="number" placeholder="Eg. 09xxxxxxxxx" name="caller_number"
+                                    <input type="text" placeholder="Eg. 09xxxxxxxxx" name="caller_number"
                                         id="telephone"
                                         class="form-control {{ $errors->has('caller_number') != '' ? 'is-invalid' : '' }}"
                                         value="{{ old('caller_number') }}" required>

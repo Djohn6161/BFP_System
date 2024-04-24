@@ -11,12 +11,12 @@
 @endif
 
 @if (session('status'))
-    <div class="alert alert-info alert-dismissible fade show flast-pos" role="alert">
-        {{ session('status') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    
 @endif
-
+<div class="alert alert-info alert-dismissible fade show flast-pos" role="alert">
+    Created Successfully
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show flast-pos" role="alert">
         {{ session('success') }}
