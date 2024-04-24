@@ -247,19 +247,17 @@
                                         <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
                                         <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
                                             <option value="" selected>Select alarm status</option>
-                                            <option value="1st Alarm">1st Alarm</option>
-                                            <option value="2nd Alarm">2nd Alarm</option>
-                                            <option value="3rd Alarm">3rd Alarm</option>
-                                            <option value="4th Alarm">4th Alarm</option>
-                                            <option value="5th Alarm">5th Alarm</option>
-                                            <option value="Task Force Alpha">Task Force Alpha</option>
-                                            <option value="Task Force Bravo">Task Force Bravo</option>
-                                            <option value="Task Force Charlie">Task Force Charlie</option>
-                                            <option value="Task Force Delta">Task Force Delta</option>
-                                            <option value="Task Force Echo">Task Force Echo</option>
-                                            <option value="Task Force Hotel">Task Force Hotel</option>
-                                            <option value="Task Force India">Task Force India</option>
-                                            <option value="General Alarm">General Alarm</option>
+                                            @foreach ($declared_alarms as $alarms)
+                                                @foreach ($alarm_list as $list)
+                                                    @if ($list == $alarms->name)
+                                                        <option selected value="{{ $list }}" selected>{{ $list }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $list }}">{{ $list }}</option>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="col-lg-4 mb-3">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
+use App\Models\AlarmName;
 use App\Models\Duty_personnel;
 use App\Models\Truck;
 use App\Models\Barangay;
@@ -35,7 +36,8 @@ class OperationController extends Controller
         $personnels = Personnel::all();
         $barangays = Barangay::all();
         $trucks = Truck::all();
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks'));
+        $alarm_list = AlarmName::all();
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks','alarm_list'));
     }
 
     public function operationStore(Request $request)

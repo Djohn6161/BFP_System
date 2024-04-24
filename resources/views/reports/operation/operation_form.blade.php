@@ -167,12 +167,7 @@
                                 <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
                                     <option value="" selected>Select alarm status</option>
                                     @foreach ($alarm_list as $list)
-                                        @if ($list == $operation->alarm_status_arrival)
-                                            <option selected value="{{ $list }}" selected>{{ $list }}
-                                            </option>
-                                        @else
-                                            <option value="{{ $list }}">{{ $list }}</option>
-                                        @endif
+                                        <option value="{{ $list->name }}">{{ $list->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -202,19 +197,9 @@
                                         <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
                                         <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
                                             <option value="" selected>Select alarm status</option>
-                                            <option value="1st Alarm">1st Alarm</option>
-                                            <option value="2nd Alarm">2nd Alarm</option>
-                                            <option value="3rd Alarm">3rd Alarm</option>
-                                            <option value="4th Alarm">4th Alarm</option>
-                                            <option value="5th Alarm">5th Alarm</option>
-                                            <option value="Task Force Alpha">Task Force Alpha</option>
-                                            <option value="Task Force Bravo">Task Force Bravo</option>
-                                            <option value="Task Force Charlie">Task Force Charlie</option>
-                                            <option value="Task Force Delta">Task Force Delta</option>
-                                            <option value="Task Force Echo">Task Force Echo</option>
-                                            <option value="Task Force Hotel">Task Force Hotel</option>
-                                            <option value="Task Force India">Task Force India</option>
-                                            <option value="General Alarm">General Alarm</option>
+                                            @foreach ($alarm_list as $list)
+                                                <option value="{{ $list->name }}">{{ $list->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-lg-4 mb-3">
