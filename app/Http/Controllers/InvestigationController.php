@@ -48,7 +48,58 @@ class InvestigationController extends Controller
         ]);
     }
     public function storeMinimal(Request $request){
-        dd($request->all());
+        // dd($request->all());
+        // $validatedData = $request->validate([
+        //     'for' => 'required',
+        //     'subject' => 'required',
+        //     'date' => 'required|date',
+        //     'dt_actual_occurence' => 'required',
+        //     'dt_reported' => 'required',
+        //     'barangay' => 'nullable',
+        //     'zone' => 'nullable',
+        //     'landmark' => 'nullable',
+        //     'involved_property' => 'required',
+        //     'property_data' => 'required',
+        //     'receiver' => 'required',
+        //     'caller_name' => 'required',
+        //     'caller_address' => 'required',
+        //     'caller_number' => 'required',
+        //     'notification_originator' => 'required',
+        //     'first_responding_engine' => 'required',
+        //     'first_responding_leader' => 'required',
+        //     'time_arrival_on_scene' => 'required',
+        //     'alarm_status_time' => 'required',
+        //     'Time_Fire_out' => 'required',
+        //     'property_owner' => 'required',
+        //     'property_occupant' => 'required',
+        //     'details' => 'nullable',
+        //     'findings' => 'nullable',
+        //     'recommendation' => 'nullable',
+        //     'photos' => 'nullable',
+        // ]);
+        $investigation = new Investigation();
+        $minimal = new Minimal();
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = "Brgy " . $request->input('barangay') . ' ' . $request->input('zone') . " " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+        $investigation->fill([
+            'for' => $request->input('for') ?? '',
+            'subject' => $request->input('subject') ?? '',
+            'date' =>  date('Y-m-d', strtotime($request->input('date') ?? '')),
+        ]);
+        // $investigation->save(); 
+        dd($investigation);
+        $minimal->fill([
+
+        ]);
+        
+        
+        
     }
 
     public function Spot()

@@ -110,6 +110,9 @@
                     </div>
                 </div>
             </div>
+            
+            <x-flash-message></x-flash-message>
+
             @include('partials.header')
             <!--  Header End -->
             @yield('content')
