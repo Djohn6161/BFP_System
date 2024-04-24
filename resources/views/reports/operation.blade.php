@@ -53,8 +53,7 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{-- {{dd}} --}}
-                                                        {{ $operation->personRank($operation->transmittedBy->ranks_id)->slug . ' ' . $operation->transmittedBy->last_name }}
+                                                        {{ $operation->transmitted_by }}
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
