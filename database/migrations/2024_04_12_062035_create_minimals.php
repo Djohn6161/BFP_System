@@ -34,7 +34,7 @@ return new class extends Migration
             $table->longText('details');
             $table->longText('findings');
             $table->longText('recommendation');
-            $table->longText('photos');
+            $table->longText('photos')->nullable();
             $table->timestamps();
         });
     }
