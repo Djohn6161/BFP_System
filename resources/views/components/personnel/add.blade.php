@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" data-bs-backdrop="static" id="addPersonnelModal" tabindex="-1"
     aria-labelledby="addPersonnelModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addPersonnelModalLabel">Add Personnel</h1>

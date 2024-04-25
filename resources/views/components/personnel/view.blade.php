@@ -3,7 +3,6 @@
     .editing td {
         background-color: #ffffff;
         border: 1px solid #4d90fe;
-        /* border-radius: 4px; */
         transition: background-color 0.3s, border-color 0.3s;
     }
 
@@ -15,8 +14,7 @@
 </style>
 
 <!-- Modal -->
-<div class="modal fade" data-bs-backdrop="static" id="viewPersonnelModal" tabindex="-1"
-    aria-labelledby="viewPersonnelModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" id="viewPersonnelModal" tabindex="-1" aria-labelledby="viewPersonnelModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,15 +24,12 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Alert -->
-                    <div class="alert alert-success d-none position-absolute top-0 end-0 z-5 w-40" role="alert"
-                        id="successAlert">
+                    <div class="alert alert-success d-none position-absolute top-0 end-0 z-5 w-40" role="alert" id="successAlert">
                         Information saved successfully.
                     </div>
                     <div class="row">
-                        <div class="col-md-4 d-flex justify-content-center align-items-center">
-                            <img src="{{ asset('assets/images/logos/Tin.jpg') }}"
-                                class="object-fit-cover p-2 g-col-6 img-fluid" style="width: 300px; height: 400px;"
-                                alt="Personnel Picture">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center" id="photoSection">
+                            <img src="{{ asset('assets/images/logos/Tin.jpg') }}" class="object-fit-cover p-2 g-col-6 img-fluid" style="width: 300px; height: 400px;" alt="Personnel Picture">
                         </div>
                         <div class="col-md-8" id="content">
                             <table class="table table-bordered" id="infoTable">
@@ -46,7 +41,6 @@
                                     <tr>
                                         <th scope="row">Rank</th>
                                         <td contenteditable="false">Sergeant</td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Name</th>
@@ -54,21 +48,31 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Date of Birth</th>
-                                        <td contenteditable="false">January 10, 2000</td>
+                                        <td contenteditable="false" type="date">January 10, 2000</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Gender</th>
                                         <td contenteditable="false">Male</td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Address</th>
                                         <td contenteditable="false">Santiago Old Nabua, Camarines Sur</td>
                                     </tr>
+                                    <!-- Additional Fields -->
+                                    <tr>
+                                        <th scope="row">Account Number</th>
+                                        <td contenteditable="false"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Item Number</th>
+                                        <td contenteditable="false"></td>
+                                    </tr>
+                                    <!-- Add more fields as needed -->
                                 </tbody>
                             </table>
                             <form id="editForm" class="d-none"></form>
                         </div>
+                        <button type="button" class="btn btn-primary" id="uploadPhotoButton">Upload Photo</button>
                     </div>
                 </div>
             </div>
@@ -79,37 +83,32 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function() {
         function replaceTableWithForm() {
             $('#infoTable').addClass('d-none');
             $('#editForm').removeClass('d-none');
-    
-            var dateOptions = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var departmentOptions = ['IT Department', 'HR Department', 'Finance Department', 'Marketing Department', 'Operations Department'];
-            var genderOptions = ['Male', 'Female', 'Other'];
-            var rankOptions = ['Private', 'Corporal', 'Sergeant', 'Lieutenant', 'Captain', 'Major', 'Colonel'];
-    
-            var dateSelectOptions = '';
-            $.each(dateOptions, function(index, option) {
-                dateSelectOptions += `<option value="${option}">${option}</option>`;
-            });
-    
+            $('#uploadPhotoButton').removeClass('d-none');
+
+            var departmentOptions = ['IT Department', 'FSES'];
+            var genderOptions = ['Male', 'Female'];
+            var rankOptions = ['Private', 'Corporal'];
             var departmentSelectOptions = '';
             $.each(departmentOptions, function(index, option) {
                 departmentSelectOptions += `<option value="${option}">${option}</option>`;
             });
-    
+
             var genderSelectOptions = '';
             $.each(genderOptions, function(index, option) {
                 genderSelectOptions += `<option value="${option}">${option}</option>`;
             });
-    
+
             var rankSelectOptions = '';
             $.each(rankOptions, function(index, option) {
                 rankSelectOptions += `<option value="${option}">${option}</option>`;
             });
-    
+
             var formFields = '';
             $('#infoTable tbody tr').each(function(index, row) {
                 var label = $(row).find('th').text();
@@ -130,9 +129,7 @@
                         <div class="row mb-3">
                             <label for="${label.toLowerCase().replace(/\s/g, '_')}" class="col-sm-2 col-form-label">${label}</label>
                             <div class="col-sm-10">
-                                <select class="form-select" id="${label.toLowerCase().replace(/\s/g, '_')}">
-                                    ${dateSelectOptions}
-                                </select>
+                                <input type="date" class="form-control" id="${label.toLowerCase().replace(/\s/g, '_')}" value="${value}">
                             </div>
                         </div>
                     `;
@@ -169,26 +166,32 @@
                     `;
                 }
             });
-    
+
             $('#editForm').html(formFields);
-    
-            $('#editButton').text('Save Changes').removeClass('btn-primary').addClass('btn-success').attr('id', 'saveChangesButton').attr('type', 'submit');
-    
-            $('#closeButton').text('Cancel').removeAttr('data-bs-dismiss').attr('id', 'cancelButton').attr('type', 'button').off('click').on('click', function() {
+
+            $('#editButton').text('Save Changes').removeClass('btn-primary').addClass('btn-success').attr('id',
+                'saveChangesButton').attr('type', 'submit');
+
+            $('#closeButton').text('Cancel').removeAttr('data-bs-dismiss').attr('id', 'cancelButton').attr(
+                'type', 'button').off('click').on('click', function() {
                 $('#editForm').addClass('d-none');
                 $('#infoTable').removeClass('d-none');
-    
-                $('#saveChangesButton').text('Edit Information').removeClass('btn-success').addClass('btn-primary').attr('id', 'editButton').attr('type', 'button');
-    
-                var closeButton = $('<button>').attr('type', 'button').addClass('btn btn-secondary').attr('data-bs-dismiss', 'modal').attr('id', 'closeButton').text('Close');
+
+                $('#saveChangesButton').text('Edit Information').removeClass('btn-success').addClass(
+                    'btn-primary').attr('id', 'editButton').attr('type', 'button');
+
+                var closeButton = $('<button>').attr('type', 'button').addClass('btn btn-secondary')
+                    .attr('data-bs-dismiss', 'modal').attr('id', 'closeButton').text('Close');
                 $('#cancelButton').replaceWith(closeButton);
+
+                $('#uploadPhotoButton').addClass('d-none'); // Hide the Upload Photo button when canceling
             });
         }
-    
+
         $('#editButton').on('click', function() {
             replaceTableWithForm();
         });
-    
+
         var saveChangesButton = $('#saveChangesButton');
         if (saveChangesButton.length) {
             saveChangesButton.on('click', function() {
@@ -196,5 +199,4 @@
             });
         }
     });
-    </script>
-    
+</script>

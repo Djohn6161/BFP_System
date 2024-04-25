@@ -18,8 +18,14 @@ class AdminController extends Controller
     public function accountIndex(){
         $users = User::where('type', 'user')->get();
         $active = 'account';
-        return view('admin.account', compact('users','active'));
+        return view('admin.account.create', compact('users','active'));
         
+    }
+
+    public function viewPersonnel(){
+        return view('admin.personnel.index',[
+            'active' => 'index',
+        ]);
     }
 
     public function createAccount(Request $request){
