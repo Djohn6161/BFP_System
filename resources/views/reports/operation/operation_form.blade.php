@@ -1,10 +1,13 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <div class="col d-flex justify-content-start mb-2">
+            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create.submit') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data">
                         @csrf
 
                         @if ($errors->any())
@@ -15,7 +18,8 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         @endif
 
@@ -239,13 +243,14 @@
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select type of occupancy</option>
                                     @foreach ($occupancy_names as $names)
-                                        <option value="{{$names->name}}">{{$names->name}}</option>
+                                        <option value="{{ $names->name }}">{{ $names->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control" name="occupancy_specify">
+                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                    name="occupancy_specify">
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">

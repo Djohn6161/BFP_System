@@ -98,8 +98,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Afor
     Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
     Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreateForm'])->name('operation.create.form');
-    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create.submit');
-    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationUpdate'])->name('operation.edit.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create');
+    Route::get('/reports/operation/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('operation.update.form');
+    Route::post('/reports/operation/update/submit', [OperationController::class, 'operationUpdate'])->name('operation.update');
 
     // Investigation
     Route::get('/reports/investigation/index', [InvestigationController::class, 'index'])->name('investigation.index');

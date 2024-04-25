@@ -1,10 +1,13 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <div class="col d-flex justify-content-start mb-2">
+            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create.submit') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
                         @csrf
 
                         @if ($errors->any())
@@ -41,6 +44,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
+                                <input type="hidden" name="operation_id" value="{{$operation->id}}">
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>

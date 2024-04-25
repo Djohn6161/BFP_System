@@ -40,7 +40,7 @@ class OperationController extends Controller
         $trucks = Truck::all();
         $alarm_list = Alarm_name::all();
         $occupancy_names = Occupancy_name::all();
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks','alarm_list','occupancy_names'));
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names'));
     }
 
     public function operationStore(Request $request)
@@ -58,8 +58,8 @@ class OperationController extends Controller
             'transmitted_by' => $request->input('transmitted_by') ?? '',
             'caller_address' => $request->input('caller_address') ?? '',
             'received_by' => $request->input('received_by') ?? '',
-            'barangay_name' =>  $request->input('barangay_name') ?? '',
-            'zone' =>  $request->input('zone') ?? '',
+            'barangay_name' => $request->input('barangay_name') ?? '',
+            'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
@@ -245,13 +245,13 @@ class OperationController extends Controller
             }
             $sketch = implode(',', $sketch_format);
             $afor->sketch_of_fire_operation = $sketch;
-            $afor->save();  
+            $afor->save();
         }
 
         return redirect()->back()->with('success', "Operation report added successfully.");
     }
 
-    public function operationUpdate($id)
+    public function operationUpdateForm($id)
     {
         $user = Auth::user();
         $active = 'operation';
@@ -262,48 +262,58 @@ class OperationController extends Controller
         $responses = Response::where('afor_id', $id)->get();
         $declared_alarms = Declared_alarm::where('afor_id', $id)->get();
         $alarm_list = Alarm_name::all();
-        $occupancy = Occupancy::where('afor_id', $id)->first();     
+        $occupancy = Occupancy::where('afor_id', $id)->first();
         $occupancy_names = Occupancy_name::all();
         $casualties = Afor_casualties::where('afor_id', $id)->get();
         $used_equipments = Used_equipment::where('afor_id', $id)->get();
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $sketch = $operation->sketch_of_fire_operation;
-        $photos = explode(',', $sketch);  
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation','responses','alarm_list','declared_alarms','occupancy_names','occupancy','casualties','used_equipments','duty_personnels','photos'));
+        $photos = explode(',', $sketch);
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos'));
     }
 
-    public function operationEditSubmit(Request $request)
+    public function operationUpdate(Request $request)
     {
+        if ($request->has('barangay_name')) {
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
+        } else {
+            $location = 'Location: ' . $request->input('location');
+        }
+
         $InfoUpdatedData = [
-            'alarm_received' => $request->input('alarm_received'),
-            'transmitted_by' => $request->input('transmitted_by'),
-            'caller_address' => $request->input('caller_address'),
-            'received_by' => $request->input('received_by'),
-            'barangay_id' => $request->input('barangay'),
-            'zone' => $request->input('zone'),
-            'location' => $request->input('location'),
-            'td_under_control' => $request->input('td_under_control'),
-            'td_declared_fireout' => $request->input('td_declared_fireout'),
-            'occupancy' => $request->input('occupancy'),
-            'occupancy_specify' => $request->input('occupancy_specify'),
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident'),
-            'structure_description' => $request->input('structure_description'),
-            'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation'),
-            'details' => $request->input('details'),
-            'problem_encounter' => $request->input('problem_encounter'),
-            'observation_recommendation' => $request->input('observation_recommendation'),
-            'alarm_status_arrival' => $request->input('alarm_status_arrival'),
-            'first_responder' => $request->input('first_responder'),
+            'alarm_received' => $request->input('alarm_received') ?? '',
+            'transmitted_by' => $request->input('transmitted_by') ?? '',
+            'caller_address' => $request->input('caller_address') ?? '',
+            'received_by' => $request->input('received_by') ?? '',
+            'barangay_name' => $request->input('barangay_name') ?? '',
+            'zone' => $request->input('zone') ?? '',
+            'location' => $request->input('location') ?? '',
+            'full_location' => $location,
+            'td_under_control' => $request->input('td_under_control') ?? null,
+            'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
+            'occupancy' => $request->input('occupancy') ?? '',
+            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
+            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
+            'structure_description' => $request->input('structure_description') ?? '',
+            // 'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
+            'details' => $request->input('details') ?? '',
+            'problem_encounter' => $request->input('problem_encounter') ?? '',
+            'observation_recommendation' => $request->input('observation_recommendation') ?? '',
+            'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
+            'first_responder' => $request->input('first_responder') ?? '',
         ];
 
         $operation = AFor::findOrFail($request['operation_id']);
+
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
+
+        // dd($operationChange);
 
         if (!$operationChange) {
             return redirect()->back()->with('status', 'No changes were made.');
         }
 
-        $operation->update($InfoUpdatedData);
+        // $operation->update($InfoUpdatedData);
 
         return redirect()->back()->with('success', 'Operation updated successfully.');
 
