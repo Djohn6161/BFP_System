@@ -81,18 +81,18 @@ class AforSeeder extends Seeder
 
             // Responses
             $date = $faker->dateTime();
-            $formatted_date = $date->format('Y-m-d H:i') . 'H';
+            $formatted_date = $date->format('H:i') . 'H';
 
             foreach (range(1, 2) as $index) {
 
                 $formatted_added_date = clone $date;
                 $formatted_added_date->modify('+1 hour');
-                $formatted_added_date_string = date('Y-m-d H:i', $formatted_added_date->getTimestamp());
+                $formatted_added_date_string = date('H:i', $formatted_added_date->getTimestamp());
 
 
                 $return_date = clone $formatted_added_date;
                 $return_date->modify('+2 hour');
-                $return_date_string = date('Y-m-d H:i', $return_date->getTimestamp());
+                $return_date_string = date('H:i', $return_date->getTimestamp());
 
                 $response_duration = $formatted_added_date_string . '-' .
                     $return_date_string;
@@ -101,7 +101,7 @@ class AforSeeder extends Seeder
                     'afor_id' => $reportID,
                     'engine_dispatched' => $index,
                     'time_dispatched' => $formatted_date,
-                    'time_arrived_at_scene' => $formatted_added_date,
+                    'time_arrived_at_scene' => $formatted_added_date_string,
                     'response_duration' => $response_duration,
                     'time_return_to_base' => $return_date,
                     'water_tank_refilled' => '1000',

@@ -306,12 +306,69 @@ class OperationController extends Controller
 
         $operation = AFor::findOrFail($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
+        $status = false;
 
         if (!$operationChange) {
-            return redirect()->back()->with('status', 'No changes were made.');
+            $status = false;
+            // return redirect()->back()->with('status', 'No changes were made.');
         }
 
-        $operation->update($InfoUpdatedData);
+
+        $engine_dispatched = $request->input('engine_dispatched', []);
+        $time_dispatched = $request->input('time_dispatched', []);
+        $time_arrived_at_scene = $request->input('time_arrived_at_scene', []);
+        $response_duration = $request->input('response_duration', []);
+        $time_return_to_base = $request->input('time_return_to_base', []);
+        $water_tank_refilled = $request->input('water_tank_refilled', []);
+        $gas_consumed = $request->input('gas_consumed', []);
+
+        // Retrieve the existing data from the database
+        $existingResponses = Response::where('afor_id', $request->operation_id)->get();
+
+        foreach ($engine_dispatched as $index => $newDispatched) {
+            // Check if there's an existing record at this index
+            $existingResponse = $existingResponses->get($index);
+
+            $new_time_dispatched = $time_dispatched[$index];
+            $new_time_arrived_at_scene = $time_arrived_at_scene[$index];
+            $new_response_duration = $response_duration[$index];
+            $new_time_return_to_base = $time_return_to_base[$index];
+            $new_water_tank_refilled = $water_tank_refilled[$index];
+            $new_gas_consumed = $gas_consumed[$index];
+
+            // Check if an existing record exists for this index
+            if ($existingResponse) {
+                // Check if any field has changed
+                $changes = [
+                    'engine_dispatched' => $newDispatched,
+                    'time_dispatched' => $new_time_dispatched,
+                    'time_arrived_at_scene' => $new_time_arrived_at_scene,
+                    'response_duration' => $new_response_duration,
+                    'time_return_to_base' => $new_time_return_to_base,
+                    'water_tank_refilled' => $new_water_tank_refilled,
+                    'gas_consumed' => $new_gas_consumed,
+                ];
+
+                if ($this->hasChanges($existingResponse, $changes)) {
+                    // At least one of the fields has been updated
+                    $status = true;
+                    // You can log or perform other actions here
+
+                    // Update the existing record with the new data
+                    $existingResponse->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newResponse = new Response($changes);
+                $newResponse->afor_id = $request->operation_id; // Assuming afor_id needs to be set
+                $newResponse->save(); // Save the new record
+                $status = true;
+            }
+        }
+
+        dd($status);
+
+        // $operation->update($InfoUpdatedData);
 
         return redirect()->back()->with('success', 'Operation updated successfully.');
 
