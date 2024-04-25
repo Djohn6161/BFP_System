@@ -7,6 +7,7 @@
 @section('content')
     <div class="container-fluid">
         <!--  Row 1 -->
+        {{-- <x-flash-message></x-flash-message> --}}
 
         <div class="col-lg-12">
             <!-- Monthly Earnings -->

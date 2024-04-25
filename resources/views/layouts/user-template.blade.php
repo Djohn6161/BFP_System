@@ -112,7 +112,11 @@
                     </div>
                 </div>
             </div>
+            
+            
+
             @include('partials.header')
+            <x-flash-message></x-flash-message>
             <!--  Header End -->
             @yield('content')
             {{-- @include('partials.footer') --}}
