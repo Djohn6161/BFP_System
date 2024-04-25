@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                {{-- <form action="" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -60,7 +60,7 @@
                         <button type="submit" class="btn btn-success">Update</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>

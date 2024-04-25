@@ -21,11 +21,13 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DepartmentSeeder::class,
             TruckSeeder::class,
+            AlarmNamesSeeder::class,
             RankSeeder::class,
             PersonnelSeeder::class,
             BarangaySeeder::class,
-            ReportSeeder::class,
+            AforSeeder::class,
             StationSeeder::class,
+            InvestigationSeeder::class,
         ]);
     }
 }

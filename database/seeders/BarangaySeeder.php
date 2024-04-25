@@ -14,15 +14,11 @@ class BarangaySeeder extends Seeder
      */
     public function run(): void
     {
-        $brgys = [
+        $brgys = [   
             [
                 'name' => 'Amtic',
                 'unit' => 'Mayon Unit',
             ],      
-            [
-                'name' => 'Baligang',
-                'unit' => 'Mayon Unit',
-            ],
             [
                 'name' => 'Baligang',
                 'unit' => 'Mayon Unit',
