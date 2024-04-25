@@ -19,15 +19,19 @@ class AforSeeder extends Seeder
             $date = $faker->dateTime();
             $stringDate = $date->format('Y-m-d H:i:s');
             $td_declared_fireout = clone $date;
+            $zone = 'Zone 1';
+            $barangay = 'Amtic';
+            $location = 'Mayon';
+            $full_location = 'Location: ' . $zone . ' ' . 'Brgy: ' . $barangay . ' Ligao City ' . 'Landmark / Other location: ' . $location;
 
             $attributes = [
                 'alarm_received' => $faker->time('H:i') . 'H',
                 'transmitted_by' => $faker->numberBetween(1, 16),
-                'caller_address' => $faker->address(),
+                'caller_address' => 'Ligao City',
                 'barangay_name' => 'Amtic',
                 'zone' => 'Zone 1',
                 'location' => 'Mayon',
-                'full_location' => $faker->address(),
+                'full_location' => $full_location,
                 'received_by' => $faker->numberBetween(1, 16),
                 'td_under_control' => $stringDate,
                 'td_declared_fireout' => $td_declared_fireout,

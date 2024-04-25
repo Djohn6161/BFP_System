@@ -274,10 +274,11 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
+
         if ($request->has('barangay_name')) {
-            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
         } else {
-            $location = 'Location: ' . $request->input('location');
+            $location = $request->input('location');
         }
 
         $InfoUpdatedData = [
@@ -304,16 +305,13 @@ class OperationController extends Controller
         ];
 
         $operation = AFor::findOrFail($request['operation_id']);
-
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
-
-        // dd($operationChange);
 
         if (!$operationChange) {
             return redirect()->back()->with('status', 'No changes were made.');
         }
 
-        // $operation->update($InfoUpdatedData);
+        $operation->update($InfoUpdatedData);
 
         return redirect()->back()->with('success', 'Operation updated successfully.');
 
