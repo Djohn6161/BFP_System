@@ -96,7 +96,7 @@ class InvestigationController extends Controller
         // dd($investigation);
         $photos = implode(", ", $validatedData['photos']);
         foreach ($validatedData['photos'] as $photo) {
-            $photo->store('report', 'public');
+            $photo->store('minimal', 'public');
         }
         $minimal->fill([
             'investigation_id' => $investigation->id,
@@ -124,7 +124,7 @@ class InvestigationController extends Controller
         ]);
         $minimal->save();
         
-        return redirect('/reports/investigation/minimal')->with("success", "Report Created Successfully!");
+        return redirect('/reports/investigation/minimal/index')->with("success", "Report Created Successfully!");
         
     }
 
