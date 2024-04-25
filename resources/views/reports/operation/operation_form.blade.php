@@ -239,13 +239,14 @@
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select type of occupancy</option>
                                     @foreach ($occupancy_names as $names)
-                                        <option value="{{$names->name}}">{{$names->name}}</option>
+                                        <option value="{{ $names->name }}">{{ $names->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control" name="occupancy_specify">
+                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                    name="occupancy_specify">
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">
@@ -436,14 +437,11 @@
 
                         <!-- Photos -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14
-                            </h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
-                            <input type="file" class="form-control uncheable" value="" id="photos"
+                            <input type="file" class="form-control uncheable" id="photos"
                                 name="sketch_of_fire_operation[]" multiple>
-
-                            <div id="preview-container"></div>
+                            <div id="image-preview-container" class="mt-3"></div>
                         </div>
 
                         <!-- Details narrative -->
@@ -550,33 +548,66 @@
                 mnewDiv.find('.rankName').select2();
             });
 
-            // Target the file input
             $('#photos').on('change', function() {
-                // Get the selected files
-                var files = $(this)[0].files;
+                var files = $(this)[0].files; // Get the files selected
+                var container = $('#image-preview-container'); // Get the preview container
 
-                // Clear any existing previews
-                $('#preview-container').empty();
+                // Clear previous previews
+                container.empty();
 
-                // Loop through each selected file
+                // Loop through each file
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     var reader = new FileReader();
 
-                    // Closure to capture the file information
+                    // Closure to capture the file information.
                     reader.onload = (function(file) {
                         return function(e) {
-                            // Create a new image element
-                            var imgElement = $(
-                                '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
-                            ).addClass('preview-image').attr('src', e.target.result);
+                            // Create image preview
+                            var imgPreview = $(
+                                '<div class="image-preview mb-1">' +
+                                '<img class="img-thumbnail" src="' + e.target.result +
+                                '" alt="' + file.name + '">' +
+                                '</div>'
+                            );
 
-                            // Append the image to the preview container
-                            $('#preview-container').append(imgElement);
+                            // Append image preview to the container
+                            container.append(imgPreview);
+
+                            // Create filename container with flex layout
+                            var fileInfoContainer = $(
+                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                            );
+
+                            // Filename element
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                                .name + '</div>');
+
+                            // Remove button
+                            var removeBtn = $(
+                                '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                            );
+
+                            // Append filename and remove button to container
+                            fileInfoContainer.append(fileInfo);
+                            fileInfoContainer.append(removeBtn);
+
+                            // Append the filename container to the preview container
+                            container.append(fileInfoContainer);
+
+                            // Remove button click event
+                            removeBtn.click(function() {
+                                imgPreview.remove(); // Remove the image preview
+                                $(this).closest('.d-flex')
+                                    .remove(); // Remove the flex container
+                                $('#photos').val(
+                                    ''); // Clear the file input (if needed)
+                            });
                         };
                     })(file);
 
-                    // Read the file as a data URL
+                    // Read in the image file as a data URL
                     reader.readAsDataURL(file);
                 }
             });
