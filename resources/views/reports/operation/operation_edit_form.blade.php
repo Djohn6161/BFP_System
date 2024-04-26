@@ -205,7 +205,7 @@
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
-                                <select class="form-select alarmStatus" aria-label="" name="clear">
+                                <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
                                     <option value="" selected>Select alarm status</option>
                                     @foreach ($alarm_list as $list)
                                         @if ($list->name == $operation->alarm_status_arrival)
@@ -514,7 +514,7 @@
                                                     <label for="firefighterDeath" class="form-label">No.</label>
                                                     <input type="number" placeholder="No." class="form-control"
                                                         id="firstResponderInput" name="no_hose[]"
-                                                        value="{{ $equipment->nr }}">
+                                                        value="{{ $equipment->quantity }}">
                                                 </div>
                                                 <div class="col-lg-4 mb-3">
                                                     <label for="firefighterDeath" class="form-label">Type /

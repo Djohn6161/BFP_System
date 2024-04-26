@@ -87,12 +87,11 @@ class AforSeeder extends Seeder
 
                 $formatted_added_date = clone $date;
                 $formatted_added_date->modify('+1 hour');
-                $formatted_added_date_string = date('H:i', $formatted_added_date->getTimestamp());
-
+                $formatted_added_date_string = date('H:i', $formatted_added_date->getTimestamp()) . 'H';
 
                 $return_date = clone $formatted_added_date;
                 $return_date->modify('+2 hour');
-                $return_date_string = date('H:i', $return_date->getTimestamp());
+                $return_date_string = date('H:i', $return_date->getTimestamp()) . 'H';
 
                 $response_duration = $formatted_added_date_string . '-' .
                     $return_date_string;
@@ -103,7 +102,7 @@ class AforSeeder extends Seeder
                     'time_dispatched' => $formatted_date,
                     'time_arrived_at_scene' => $formatted_added_date_string,
                     'response_duration' => $response_duration,
-                    'time_return_to_base' => $return_date,
+                    'time_return_to_base' => $return_date_string,
                     'water_tank_refilled' => '1000',
                     'gas_consumed' => '50L'
                 ];
@@ -124,7 +123,6 @@ class AforSeeder extends Seeder
                 DB::table('declared_alarms')->insert($attributes);
             }
 
-            // ['extinguishing agent', 'rope and ladder', 'breathing apparatus', 'hose line']),
             // Breathing equipment
             foreach (range(1, 2) as $index) {
                 $attributes = [

@@ -296,7 +296,6 @@ class OperationController extends Controller
             'occupancy_specify' => $request->input('occupancy_specify') ?? '',
             'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
             'structure_description' => $request->input('structure_description') ?? '',
-            // 'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
@@ -308,12 +307,12 @@ class OperationController extends Controller
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
         $status = false;
 
-        if (!$operationChange) {
-            $status = false;
-            // return redirect()->back()->with('status', 'No changes were made.');
+        if ($operationChange) {
+            $status = true;
+            $operation->update($InfoUpdatedData);
         }
 
-
+        // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
         $time_arrived_at_scene = $request->input('time_arrived_at_scene', []);
@@ -324,6 +323,17 @@ class OperationController extends Controller
 
         // Retrieve the existing data from the database
         $existingResponses = Response::where('afor_id', $request->operation_id)->get();
+        $requestIndexes = array_keys($engine_dispatched);
+
+        // Loop through existing responses
+        foreach ($existingResponses as $index => $existingResponse) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $existingResponse->delete();
+                $status = true;
+            }
+        }
 
         foreach ($engine_dispatched as $index => $newDispatched) {
             // Check if there's an existing record at this index
@@ -360,15 +370,176 @@ class OperationController extends Controller
             } else {
                 // No existing record for this index, create a new one
                 $newResponse = new Response($changes);
-                $newResponse->afor_id = $request->operation_id; // Assuming afor_id needs to be set
+                $newResponse->afor_id = $request->operation_id;
+                $newResponse->engine_dispatched = $newDispatched;
+                $newResponse->time_dispatched = $new_time_dispatched;
+                $newResponse->time_arrived_at_scene = $new_time_arrived_at_scene;
+                $newResponse->response_duration = $new_response_duration;
+                $newResponse->time_return_to_base = $new_time_return_to_base;
+                $newResponse->water_tank_refilled = $new_water_tank_refilled;
+                $newResponse->gas_consumed = $new_gas_consumed;
+
                 $newResponse->save(); // Save the new record
                 $status = true;
             }
         }
 
+        // Declared Alarm 
+        $alarm_names = $request->input('alarm_name', []);
+        $time = $request->input('alarm_time', []);
+        $ground_commander = $request->input('fund_commander', []);
+
+        // Retrieve the existing data from the database
+        $existingAlarms = Declared_alarm::where('afor_id', $request->operation_id)->get();
+        $requestIndexes = array_keys($alarm_names);
+
+        // Delete existing alarms that are not present in the request
+        foreach ($existingAlarms as $index => $existingAlarm) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $existingAlarm->delete();
+                $status = true;
+            }
+        }
+
+        // Iterate through the request data to update or create alarms
+        foreach ($alarm_names as $index => $newAlarmName) {
+            // Check if there's an existing record at this index
+            $existingAlarm = $existingAlarms->get($index);
+
+            $new_alarm_name = $alarm_names[$index];
+            $new_time = $time[$index];
+            $new_ground_commander = $ground_commander[$index];
+
+            if ($existingAlarm) {
+
+                $changes = [
+                    'alarm_name' => $new_alarm_name,
+                    'time' => $new_time,
+                    'ground_commander' => $new_ground_commander,
+                ];
+
+                if ($this->hasChanges($existingAlarm, $changes)) {
+                    $existingAlarm->update($changes);
+                    $status = true;
+                }
+            } else {
+                // Create a new alarm
+                $newAlarm = new Declared_alarm();
+                $newAlarm->afor_id = $request->operation_id;
+                $newAlarm->alarm_name = $new_alarm_name;
+                $newAlarm->time = $new_time;
+                $newAlarm->ground_commander = $new_ground_commander;
+                $newAlarm->save(); // Save the new record
+                $status = true;
+            }
+        }
+
+        // Occupancy
+        $InfoUpdatedData = [
+            'occupancy_name' => $request->input('occupancy_name') ?? '',
+            'specify' => $request->input('occupancy_specify') ?? '',
+            'distance' => $request->input('distance_to_fire_incident') ?? '',
+            'description' => $request->input('structure_description') ?? '',
+        ];
+
+        $occupancy = Occupancy::where('afor_id', $request->operation_id)->first();
+        $occupancyChange = $this->hasChanges($occupancy, $InfoUpdatedData);
+
+        if ($occupancyChange) {
+            $occupancy->update($InfoUpdatedData);
+            $status = true;
+        }
+
+        // Casualties
+        $casualties = Afor_casualties::where('afor_id', $request->operation_id)->get();
+
+        foreach ($casualties as $casualty) {
+            $casualtyType = $casualty->type;
+
+            if ($casualtyType == 'civillian') {
+                $infoUpdatedData = [
+                    'injured' => $request->input('civilian_injured', 0),
+                    'death' => $request->input('civilian_deaths', 0),
+                ];
+            } else {
+                $infoUpdatedData = [
+                    'injured' => $request->input('firefighter_injured', 0),
+                    'death' => $request->input('firefighter_deaths', 0),
+                ];
+            }
+
+            // Check if any field has changed
+            $hasChanges = $this->hasChanges($casualty, $infoUpdatedData);
+
+            if ($hasChanges) {
+                $casualty->update($infoUpdatedData);
+                $status = true;
+            }
+        }
+
+
+        // Breathing equipment 
+        // $numbers = $request->input('no_breathing', []);
+        // $types = $request->input('breathing', []);
+
+        // // Retrieve the existing data from the database
+        // $existingBreathings = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'breathing apparatus')->get();
+        // $requestIndexes = array_keys($types);
+
+        // foreach ($existingBreathings as $index => $breathing) {
+        //     // Check if the index of the existing response is not present in the request
+        //     if (!in_array($index, $breathing)) {
+        //         // Delete the existing response
+        //         $breathing->delete();
+        //         $status = true;
+        //     }
+        // }
+
+        // foreach ($types as $index => $type) {
+        //     // Check if there's an existing record at this index
+        //     $breathing = $existingBreathings->get($index);
+
+        //     $new_alarm_names = $alarm_names[$index];
+        //     $new_time = $time[$index];
+        //     $new_ground_commander = $ground_commander[$index];
+
+
+        //     // Check if an existing record exists for this index
+        //     if ($existingAlarm) {
+        //         // Check if any field has changed
+        //         $changes = [
+        //             'alarm_name' => $new_alarm_names,
+        //             'time' => $new_time,
+        //             'ground_commander' => $new_ground_commander,
+        //         ];
+
+        //         if ($this->hasChanges($existingAlarm, $changes)) {
+        //             // At least one of the fields has been updated
+        //             $status = true;
+        //             // You can log or perform other actions here
+
+        //             // Update the existing record with the new data
+        //             $existingResponse->update($changes);
+        //         }
+        //     } else {
+        //         // No existing record for this index, create a new one
+        //         $newAlarm = new Declared_alarm($changes);
+        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
+        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
+        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
+        //         $newAlarm->save(); // Save the new record
+        //         $status = true;
+        //     }
+        // }
+
+
+
+
         dd($status);
 
-        // $operation->update($InfoUpdatedData);
+
 
         return redirect()->back()->with('success', 'Operation updated successfully.');
 
