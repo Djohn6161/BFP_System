@@ -15,60 +15,94 @@ class AforSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 5) as $index) {
             $date = $faker->dateTime();
             $stringDate = $date->format('Y-m-d H:i:s');
             $td_declared_fireout = clone $date;
+            $zone = 'Zone 1';
+            $barangay = 'Amtic';
+            $location = 'Mayon';
+            $full_location = 'Location: ' . $zone . ' ' . 'Brgy: ' . $barangay . ' Ligao City ' . 'Landmark / Other location: ' . $location;
 
             $attributes = [
                 'alarm_received' => $faker->time('H:i') . 'H',
                 'transmitted_by' => $faker->numberBetween(1, 16),
-                'caller_address' => $faker->address(),
-                'barangay_name' => '',
-                'zone' => '',
-                'location' => '',
-                'full_location' => $faker->address(),
+                'caller_address' => 'Ligao City',
+                'barangay_name' => 'Amtic',
+                'zone' => 'Zone 1',
+                'location' => 'Mayon',
+                'full_location' => $full_location,
                 'received_by' => $faker->numberBetween(1, 16),
                 'td_under_control' => $stringDate,
                 'td_declared_fireout' => $td_declared_fireout,
                 'occupancy' => $faker->randomElement(['s', 'ns', 'v']),
                 'occupancy_specify' => '',
                 'distance_to_fire_incident' => '7 kilometers',
-                'structure_description' => $faker->paragraph(2),
-                'sketch_of_fire_operation' => '',
-                'details' => $faker->paragraph(2),
-                'problem_encounter' => $faker->paragraph(2),
-                'observation_recommendation' => $faker->paragraph(3),
-                'alarm_status_arrival' => '',
-                'first_responder' => '',
+                'structure_description' => '',
+                'sketch_of_fire_operation' => 'sample - Copy.jpg,sample.jpg',
+                'details' => $faker->paragraph(),
+                'problem_encounter' => $faker->paragraph(),
+                'observation_recommendation' => $faker->paragraph(),
+                'alarm_status_arrival' => '1st Alarm',
+                'first_responder' => 'First',
             ];
 
             $reportID = DB::table('afors')->insertGetId($attributes);
 
-            $date = $faker->dateTime();
-            $formatted_date = $date->format('Y-m-d H:i') . 'H';
+            // Occupancies
+            $attributes = [
+                'afor_id' => $reportID,
+                'occupancy_name' => 'Places of Assembly',
+                'specify' => 'park',
+                'distance' => '1km',
+                'description' => 'description',
+            ];
 
-            foreach (range(1, 3) as $index) {
+            DB::table('occupancies')->insert($attributes);
+
+            // Afor Casualties
+            $attributes = [
+                'afor_id' => $reportID,
+                'type' => 1,
+                'injured' => 1,
+                'death' => 1,
+            ];
+
+            DB::table('afor_casualties')->insert($attributes);
+
+            $attributes = [
+                'afor_id' => $reportID,
+                'type' => 2,
+                'injured' => 1,
+                'death' => 1,
+            ];
+
+            DB::table('afor_casualties')->insert($attributes);
+
+            // Responses
+            $date = $faker->dateTime();
+            $formatted_date = $date->format('H:i') . 'H';
+
+            foreach (range(1, 2) as $index) {
 
                 $formatted_added_date = clone $date;
                 $formatted_added_date->modify('+1 hour');
-                $formatted_added_date_string = date('Y-m-d H:i', $formatted_added_date->getTimestamp());
-
+                $formatted_added_date_string = date('H:i', $formatted_added_date->getTimestamp()) . 'H';
 
                 $return_date = clone $formatted_added_date;
                 $return_date->modify('+2 hour');
-                $return_date_string = date('Y-m-d H:i', $return_date->getTimestamp());
-                
-                $response_duration = $formatted_added_date_string . '-' . 
-                $return_date_string;
+                $return_date_string = date('H:i', $return_date->getTimestamp()) . 'H';
+
+                $response_duration = $formatted_added_date_string . '-' .
+                    $return_date_string;
 
                 $attributes = [
                     'afor_id' => $reportID,
                     'engine_dispatched' => $index,
                     'time_dispatched' => $formatted_date,
-                    'time_arrived_at_scene' => $formatted_added_date,
+                    'time_arrived_at_scene' => $formatted_added_date_string,
                     'response_duration' => $response_duration,
-                    'time_return_to_base' => $return_date,
+                    'time_return_to_base' => $return_date_string,
                     'water_tank_refilled' => '1000',
                     'gas_consumed' => '50L'
                 ];
@@ -77,27 +111,79 @@ class AforSeeder extends Seeder
 
             }
 
-            foreach (range(1, 3) as $index) {
+            // Declared Alarms
+            foreach (range(1, 2) as $index) {
                 $attributes = [
                     'afor_id' => $reportID,
-                    'quantity' => $faker->numberBetween(1,3),
-                    'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
-                    'type' => $faker->word(),
-                    'length' => '5 feet',
+                    'alarm_name' => $faker->randomElement(['1st Alarm', '2nd Alarm', '3rd Alarm', '4th Alarm', '5th Alarm']),
+                    'time' => '2400H',
+                    'ground_commander' => $faker->numberBetween(1, 16),
                 ];
-                
+
+                DB::table('declared_alarms')->insert($attributes);
+            }
+
+            // Breathing equipment
+            foreach (range(1, 2) as $index) {
+                $attributes = [
+                    'afor_id' => $reportID,
+                    'quantity' => 1,
+                    'category' => 'breathing apparatus',
+                    'type' => $faker->word(),
+                ];
+
                 DB::table('used_equipments')->insert($attributes);
             }
-            
-            // $attributes = [
-            //     'afor_id' => $reportID,
-            //     'quantity' => $faker->numberBetween(1,3),
-            //     'category' => $faker->randomElement(['extinguishing agent','rope and ladder','breathing apparatus','hose line']),
-            //     'type' => $faker->word(),
-            //     'length' => '5 feet',
-            // ];
-            
-            // DB::table('used_equipments')->insert($attributes);
+
+            // Extinguishing Agent
+            foreach (range(1, 2) as $index) {
+                $attributes = [
+                    'afor_id' => $reportID,
+                    'quantity' => 1,
+                    'category' => 'extinguishing agent',
+                    'type' => $faker->word(),
+                ];
+
+                DB::table('used_equipments')->insert($attributes);
+            }
+
+            // Rope and Ladder
+            foreach (range(1, 2) as $index) {
+                $attributes = [
+                    'afor_id' => $reportID,
+                    'category' => 'rope and ladder',
+                    'type' => $faker->word(),
+                    'length' => '1ft'
+                ];
+
+                DB::table('used_equipments')->insert($attributes);
+            }
+
+            // Hose line
+            foreach (range(1, 2) as $index) {
+                $attributes = [
+                    'afor_id' => $reportID,
+                    'category' => 'hose line',
+                    'quantity' => 1,
+                    'type' => $faker->word(),
+                    'length' => '1ft'
+                ];
+
+                DB::table('used_equipments')->insert($attributes);
+            }
+
+            // Duty Personnel
+            foreach (range(1, 2) as $index) {
+                $attributes = [
+                    'afor_id' => $reportID,
+                    'personnels_id' => $faker->numberBetween(1, 16),
+                    'designation' => 'commander',
+                    'remarks' => 'remarks'
+                ];
+
+                DB::table('afor_duty_personnels')->insert($attributes);
+            }
+
 
         }
     }
