@@ -605,15 +605,18 @@
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
                                 name="sketch_of_fire_operation[]" multiple>
-
-                            @foreach ($photos as $photo)
-                                <img class="img-fluid m-2 object-fit-cover rounded shadow" src="/operation_image/{{$photo}}">
-                            @endforeach
-
-
-                            <div id="preview-container">
-                            </div>
                             <div id="image-preview-container" class="mt-3"></div>
+                            @foreach ($photos as $photo)
+                                <div class="mt-3">
+                                    <div class="image-preview mb-1">
+                                        <img class="img-thumbnail w-100" src="/operation_image/{{$photo}}">
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                                        <div class="file-info flex-grow-1 me-2 text-break">{{$photo}}</div>
+                                        <button type="button" class="btn btn-sm btn-danger">Remove</button>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         <!-- Details narrative -->
