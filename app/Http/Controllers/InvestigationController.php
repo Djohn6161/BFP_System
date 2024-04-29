@@ -23,7 +23,7 @@ class InvestigationController extends Controller
             'active' => 'investigation',
             'user' => Auth::user(),
             // 'minimals' => Minimal::all(),
-            'investigations' => Investigation::all(),
+            'investigations' => Investigation::latest()->get(),
             'spots' => Spot::all(),
         ]);
     }
@@ -33,7 +33,7 @@ class InvestigationController extends Controller
         $user = Auth::user();
         $active = 'minimal';
         $minimals = Minimal::all();
-        $investigations = Minimal::all();
+        $investigations = Minimal::latest()->get();
         $spots = Spot::all();
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
     }
@@ -134,7 +134,7 @@ class InvestigationController extends Controller
             'active' => 'spot',
             'user' => Auth::user(),
             'minimals' => Minimal::all(),
-            'investigations' => Spot::all(),
+            'investigations' => Spot::latest()->get(),
             'spots' => Spot::all(),
         ]);
     }
@@ -217,7 +217,7 @@ class InvestigationController extends Controller
             'active' => 'progress',
             'user' => Auth::user(),
             'minimals' => Minimal::all(),
-            'investigations' => Progress::all(),
+            'investigations' => Progress::latest()->get(),
             'spots' => Spot::all(),
         ]);
     }
@@ -240,7 +240,27 @@ class InvestigationController extends Controller
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
         ]);
-        dd($request->all(), $validatedData);
+        $investigation = new Investigation();
+        $progress = new Progress();
+        $investigation->fill([
+            'for' => $request->input('for') ?? '',
+            'subject' => $request->input('subject') ?? '',
+            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+        ]);
+        $investigation->save(); 
+        // dd($investigation);
+        $progress->fill([
+            'investigation_id' => $investigation->id,
+            'spot_id' => $spot->id,
+            'authority' => $request->input('authority') ?? '',
+            'matters_investigated' => $request->input('matters_investigated') ?? '',
+            'facts_of_the_case' => $request->input('facts_of_the_case') ?? '',
+            'disposition' => $request->input('disposition') ?? '',
+        ]);
+        $progress->save();
+        
+        return redirect('/reports/investigation/progress/index')->with("success", "Report Created Successfully!");
+        // dd($request->all(), $validatedData);
     }
     public function final()
     {
@@ -249,7 +269,7 @@ class InvestigationController extends Controller
             'active' => 'final',
             'user' => Auth::user(),
             'minimals' => Minimal::all(),
-            'investigations' => Ifinal::all(),
+            'investigations' => Ifinal::latest()->get(),
             'spots' => Spot::all(),
         ]);
     }
