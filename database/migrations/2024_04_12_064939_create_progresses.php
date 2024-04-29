@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('progresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
             $table->longText('authority');
+            $table->longText('matters_investigated');
             $table->longText('facts_of_the_case');
             $table->string('disposition');
             $table->timestamps();

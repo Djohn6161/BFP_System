@@ -36,40 +36,8 @@
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">MEMORANDUM</h3>
-                            {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="for" class="form-label">FOR:</label>
-                                {{-- {{dd($errors->for('for')->has())}} --}}
-                                <input type="text" placeholder="Eg. pedro villa"
-                                    class="form-control text-uppercase {{ $errors->has('for') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('for') }}" required id="for" name="for">
-                                @error('for')
-                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
 
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="subject" class="form-label">SUBJECT:</label>
-                                <input type="text" placeholder="Eg. fire incident report " name="subject" id="subject"
-                                    class="form-control text-uppercase {{ $errors->has('subject') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('subject') }}" required>
-                                @error('subject')
-                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="province" class="form-label">DATE:</label>
-                                <input type="text" placeholder=" Eg. march 02, 2013" id="date" name="date"
-                                    class="form-control {{ $errors->has('date') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('date') }}" required>
-                                @error('date')
-                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -147,8 +115,7 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Property Data</label>
-                                <input type="text" placeholder=" Eg. Juan Dela Cruz" id="province"
-                                    name="property_data"
+                                <input type="text" placeholder=" Eg. Juan Dela Cruz" id="province" name="property_data"
                                     class="form-control {{ $errors->has('property_data') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('property_data') }}" required>
                                 @error('property_data')
@@ -223,7 +190,7 @@
                                     <label for="timeReturned" class="form-label">Truck Deployed</label>
                                     <select class="form-select alarmStatus" aria-label=""
                                         name="first_responding_engine">
-                                        <option value="" >Select truck</option>
+                                        <option value="">Select truck</option>
                                         @foreach ($engines as $truck)
                                             <option {{ old('first_responding_engine') == $truck->id ? 'selected' : '' }}
                                                 value="{{ $truck->id }}">{{ $truck->name }}</option>
@@ -454,7 +421,7 @@
                                         </span>
                                     </div>
                                     <div id="second">
-                                      {!! old('findings') !!}
+                                        {!! old('findings') !!}
                                     </div>
                                 </div>
                             </div>
@@ -516,13 +483,13 @@
                                         </span>
                                     </div>
                                     <div id="third">
-                                      {!! old('details') !!}
+                                        {!! old('details') !!}
                                     </div>
                                 </div>
                             </div>
                             @error('recommendation')
-                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                    @enderror
+                                <span class="text-danger alert" role="alert">{{ $message }}</span>
+                            @enderror
                         </div>
                         <input type="hidden" name="recommendation" id="recommendation">
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -535,8 +502,8 @@
                                     id="photo" name="photos[]" multiple>
                             </div>
                             @error('photo')
-                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                    @enderror
+                                <span class="text-danger alert" role="alert">{{ $message }}</span>
+                            @enderror
 
                         </div>
                         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
