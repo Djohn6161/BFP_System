@@ -12,7 +12,10 @@ use App\Models\Personnel;
 use App\Models\Progress;
 use App\Models\Spot;
 use App\Models\Truck;
+use App\Models\Victim;
 use Illuminate\Support\Facades\Auth;
+
+use function Symfony\Component\String\b;
 
 class InvestigationController extends Controller
 {
@@ -124,7 +127,7 @@ class InvestigationController extends Controller
         ]);
         $minimal->save();
         
-        return redirect('/reports/investigation/minimal/index')->with("success", "Report Created Successfully!");
+        return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
         
     }
 
@@ -209,7 +212,7 @@ class InvestigationController extends Controller
         // dd($spot);
         $spot->save();
         
-        return redirect('/reports/investigation/Spot/index')->with("success", "Report Created Successfully!");
+        return redirect('/reports/investigation/Spot/index')->with("success", "Investigation Created Successfully!");
     }
     public function Progress()
     {
@@ -259,7 +262,7 @@ class InvestigationController extends Controller
         ]);
         $progress->save();
         
-        return redirect('/reports/investigation/progress/index')->with("success", "Report Created Successfully!");
+        return redirect('/reports/investigation/progress/index')->with("success", "Investigation Created Successfully!");
         // dd($request->all(), $validatedData);
     }
     public function final()
@@ -273,10 +276,97 @@ class InvestigationController extends Controller
             'spots' => Spot::all(),
         ]);
     }
-    public function createFinal(){
+    public function createFinal(Spot $spot){
         return view('reports.investigation.final.create', [
             'active' => 'final',
             'user' => Auth::user(),
+            'spot' => $spot,
+            'barangay' => Barangay::all(),
         ]);
+    }
+    public function storeFinal(Request $request, Spot $spot){
+        // dd($request->input('victim'));
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'intelligence_unit' => 'required',
+            'barangay' => 'nullable',
+            'zone_street' => 'nullable',
+            'landmark' => 'nullable',
+            'time_alarm' => 'required',
+            'date_alarm' => 'required',
+            'establishment_burned' => 'required',
+            'damage_to_property' => 'required',
+            'victim' => 'nullable',
+            'origin_of_fire' => 'required',
+            'cause_of_fire' => 'required',
+            'substantiating_documents' => 'required',
+            'facts_of_the_case' => 'required',
+            'discussion' => 'required',
+            'findings' => 'required',
+            'recommendation' => 'required',
+        ]);
+        // dd($validatedData);
+        $investigation = new Investigation();
+        $final = new Ifinal();
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone') . " " . $request->input('barangay') . ', Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+        $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
+        $investigation->fill([
+            'for' => $request->input('for') ?? '',
+            'subject' => $request->input('subject') ?? '',
+            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+        ]);
+        $investigation->save(); 
+        if ($request->input('victim')) {
+            foreach ($request->input('victim') as $victim) {
+                # code...
+                $victim = new Victim();
+                $victim->investigation_id = $investigation->id;
+                $victim->name = $victim;
+            }
+        }
+        
+        // dd($investigation);
+        $final->fill([
+            'investigation_id' => $investigation->id,
+            'spot_id' => $spot->id,
+            'intelligence_unit' => $request->input('intelligence_unit') ?? '',
+            'place_of_fire' => $location ?? '',
+            'td_alarm' => $td ?? '',
+            'establishment_burned' => $request->input('establishment_burned') ?? '',
+            'damage_to_property' => $request->input('damage_to_property') ?? '',
+            'origin_of_fire' => $request->input('origin_of_fire') ?? '',
+            'cause_of_fire' => $request->input('cause_of_fire') ?? '',
+            'substantiating_documents' => $request->input('substantiating_documents') ?? '',
+            'facts_of_the_case' => $request->input('facts_of_the_case') ?? '',
+            'discussion' => $request->input('discussion') ?? '',
+            'findings' => $request->input('findings') ?? '',
+            'recommendation' => $request->input('recommendation') ?? '',
+        ]);
+        // dd($spot);
+        $final->save();
+        
+        return redirect('/reports/investigation/final/index')->with("success", "Investigation Created Successfully!");
+    }
+
+    public function updateMinimal(Request $request, Minimal $minimal){
+        dd($request);
+    }
+    public function updateSpot(Request $request, Spot $spot){
+        dd($request);
+    }
+    public function updateProgress(Request $request, Progress $progress){
+        dd($request);
+    }
+    public function updateFinal(Request $request, Ifinal $final){
+        dd($request);
     }
 }

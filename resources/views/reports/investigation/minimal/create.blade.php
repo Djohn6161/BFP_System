@@ -36,7 +36,7 @@
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate ></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
