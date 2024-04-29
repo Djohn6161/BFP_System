@@ -609,6 +609,7 @@
                             @foreach ($photos as $photo)
                                 <div class="mt-3">
                                     <div class="image-preview mb-1">
+                                        <input type="hidden" name="default_photos[]" value="{{$photo}}">
                                         <img class="img-thumbnail w-100" src="/operation_image/{{$photo}}">
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">

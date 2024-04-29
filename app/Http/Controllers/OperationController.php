@@ -720,12 +720,52 @@ class OperationController extends Controller
                 $newPersonnel->personnels_id = $new_personnel;
                 $newPersonnel->designation = $new_desgination;
                 $newPersonnel->remarks = $new_remarks;
-                $newPersonnel->save(); 
+                $newPersonnel->save();
                 $status = true;
             }
         }
 
+        $sketch_of_fire_operation = $request->input('sketch_of_fire_operation', []);
+        $default_photos = $request->input('default_photos', []);
+        $existOperation = Afor::findOrFail($request['operation_id']);
+        $sketchArray = explode(',', $existOperation->sketch_of_fire_operation);
+        $requestIndexes = array_keys($default_photos);
+        $existIndex = array_keys($sketchArray);
+        $change = false;
 
+        foreach ($sketchArray as $index => $array) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                unset($sketchArray[$index]);
+                $status = true;
+                $change = true;
+            }
+        }
+
+        if ($change) {
+            $sketch = implode(',', $sketchArray);
+            $existOperation->sketch_of_fire_operation = $sketch;
+            $existOperation->save();
+        }
+
+        $files = $request->file('sketch_of_fire_operation');
+
+        if ($request->hasFile('sketch_of_fire_operation')) {
+            foreach ($files as $file) {
+
+                $fileName = $file->getClientOriginalName();
+
+                if (!in_array($fileName, $sketchArray)) {
+                    $file->move(public_path('operation_image'), $fileName);
+                    array_push($sketchArray, $fileName);
+                    $status = true;
+                }
+            }
+            $sketch = implode(',', $sketchArray);
+            $existOperation->sketch_of_fire_operation = $sketch;
+            $existOperation->save();
+        }
 
 
         dd($status);
