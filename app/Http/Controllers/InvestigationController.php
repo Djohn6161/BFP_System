@@ -142,7 +142,74 @@ class InvestigationController extends Controller
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
+            'barangay' => Barangay::all(),
+
         ]);
+    }
+    public function storeSpot(Request $request){
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'date_occurence' => 'required',
+            'time_occurence' => 'required',
+            'barangay' => 'nullable',
+            'zone_street' => 'nullable',
+            'landmark' => 'nullable',
+            'involved' => 'required',
+            'name_of_establishment' => 'required',
+            'owner' => 'required',
+            'alarm' => 'required',
+            'occupant' => 'required',
+            'fatality' => 'required',
+            'injured' => 'required',
+            'estimate_damage' => 'required',
+            'time_fire_start' => 'required',
+            'time_fire_out' => 'required',
+            'details' => 'required',
+            'disposition' => 'required',
+        ]);
+        // dd($validatedData);
+        $investigation = new Investigation();
+        $spot = new Spot();
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone') . " " . $request->input('barangay') . ', Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+        $investigation->fill([
+            'for' => $request->input('for') ?? '',
+            'subject' => $request->input('subject') ?? '',
+            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+        ]);
+        $investigation->save(); 
+        // dd($investigation);
+        $spot->fill([
+            'investigation_id' => $investigation->id,
+            'date_occurence' => $request->input('date_occurence') ?? '',
+            'time_occurence' => $request->input('time_occurence') ?? '',
+            'address_occurence' => $location ?? '',
+            'involved' => $request->input('involved') ?? '',
+            'name_of_establishment' => $request->input('name_of_establishment') ?? '',
+            'owner' => $request->input('owner') ?? '',
+            'occupant' => $request->input('occupant') ?? '',
+            'fatality' => $request->input('fatality') ?? '',
+            'injured' => $request->input('injured') ?? '',
+            'estimate_damage' => $request->input('estimate_damage') ?? '',
+            'time_fire_start' => $request->input('time_fire_start') ?? '',
+            'time_fire_out' => $request->input('time_fire_out') ?? '',
+            'alarm' => $request->input('alarm') ?? '',
+            'details' => $request->input('details') ?? '',
+            'disposition' => $request->input('disposition') ?? '',
+        ]);
+        // dd($spot);
+        $spot->save();
+        
+        return redirect('/reports/investigation/Spot/index')->with("success", "Report Created Successfully!");
     }
     public function Progress()
     {
@@ -154,14 +221,20 @@ class InvestigationController extends Controller
             'spots' => Spot::all(),
         ]);
     }
-    public function createProgress(){
+    public function createProgress(Spot $spot){
+        // dd($spot);
         return view('reports.investigation.progress.create', [
             'active' => 'progress',
             'user' => Auth::user(),
+            'spot' => $spot,
         ]);
     }
-    public function Final()
+    public function storeProgress(Request $request, Spot $spot){
+        dd($request, $spot);
+    }
+    public function final()
     {
+        
         return view('reports.investigation.final', [
             'active' => 'final',
             'user' => Auth::user(),

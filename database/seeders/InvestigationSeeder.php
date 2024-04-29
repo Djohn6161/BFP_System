@@ -66,9 +66,9 @@ class InvestigationSeeder extends Seeder
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $spot = [
                     'investigation_id' => $reportID,
-                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
-                    'time' => $time[$faker->numberBetween(0, 3)] . "H",
-                    'address' => $faker->city . " " . $faker->streetname,
+                    'date_occurence' => $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    'time_occurence' => $time[$faker->numberBetween(0, 3)] . "H",
+                    'address_occurence' => $faker->city . " " . $faker->streetname,
                     'involved' => $properties[$faker->numberBetween(0, 3)],
                     'name_of_establishment' => "N/A",
                     'owner' => $faker->firstName . ' ' . $faker->lastName,
@@ -77,6 +77,7 @@ class InvestigationSeeder extends Seeder
                     'time_fire_start' => $time[$faker->numberBetween(0, 3)] . "H",
                     'time_fire_out' => $time[$faker->numberBetween(0, 3)] . "H",
                     'details' => $faker->paragraph(5),
+                    'alarm' => 1,
                     'disposition' => $faker->sentence(10),
                 ];
                 $spotid = DB::table('spots')->insertGetId($spot);
@@ -84,6 +85,7 @@ class InvestigationSeeder extends Seeder
                 $progress = [
                     "spot_id" => $spotid,
                     "authority" => $faker->paragraph(5),
+                    "matters_investigated" => $faker->paragraph(5),
                     "facts_of_the_case" => $faker->paragraph(5),
                     "disposition" => $faker->paragraph(2),
                 ];

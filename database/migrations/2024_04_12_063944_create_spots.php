@@ -14,16 +14,19 @@ return new class extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
-            $table->date('date');
-            $table->string('time');
-            $table->string('address');
+            $table->date('date_occurence');
+            $table->string('time_occurence');
+            $table->string('address_occurence');
             $table->string('involved');
             $table->string('name_of_establishment');
             $table->string('owner');
             $table->string('occupant');
+            $table->integer('fatality')->default(0);
+            $table->integer('injured')->default(0);
             $table->float('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
+            $table->integer('alarm');
             $table->longText('details');
             $table->longText('disposition');
             $table->timestamps();

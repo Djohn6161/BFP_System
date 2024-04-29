@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
             $table->longText('authority');
+            $table->longText('matters_investigated');
             $table->longText('facts_of_the_case');
             $table->string('disposition');
             $table->timestamps();
