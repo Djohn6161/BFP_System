@@ -29,6 +29,9 @@
         height: auto;
         margin: 10px;
     } */
+    .hidden-label {
+        color: transparent; /* Make label content transparent */
+    }
 
 </style>
 @extends('layouts.user-template')
@@ -84,11 +87,20 @@
                                 <label for="municipality" class="form-label">DAMAGE TO PROPERTY</label>
                                     <input type="text" placeholder=" Eg. Php 20,000.00" class="form-control" id="municipality" required>
                             </div>
-                            <div class="col-lg-6 mb-4">
-                                <label for="barangay" class="form-label">FIRE VICTIM/S</label>
-                                    <input type="text" placeholder=" Eg. Romy nabas" class="form-control" id="barangay" required>
+                            <div class="col-lg-12">
+                                <div class="row m-0 p-0">
+                                    <div class="col-lg-6 m-0 p-0">
+                                        <label for="fireVictims" class="form-label me-2">FIRE VICTIM/S</label>
+                                        <button type="button" class="btn btn-sm btn-primary mb-1" id="addFireVictims">+ ADD</button>
+                                        <input type="text" placeholder=" Eg. Php 20,000.00" class="form-control" id="municipality" required hidden>
+                                    </div>
+                                </div>
+                                
                             </div>
-                            <div class="col-lg-12 mb-3 form-check ps-3">
+                            <div class="row m-0 p-0" id="fireVictimsContainer">
+                                <!-- Input fields will be appended here -->
+                            </div>
+                            <div class="col-lg-12 mb-3 mt-3 form-check ps-3">
                                 <label class="form-label" for="exampleCheck1">ORIGIN OF FIRE</label>
                                 <textarea class="form-control" placeholder=" Eg. was at the room located at the right-side portion of the residential structure" name="" id=""></textarea>
                             </div>
@@ -118,19 +130,30 @@
         </div>
     </div>
     <script>
+        $(document).ready(function(){
+            $("#addFireVictims").click(function(){
+                var inputField = '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control" name="fireVictims[]" required><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
+                $("#fireVictimsContainer").append(inputField);
+            });
+
+            // Remove dynamically added input field
+            $(document).on('click', '.removeInput', function(){
+                $(this).closest('.col-lg-6').remove();
+            });
+        });
         // Get the input element
     var input = document.getElementById('telephone');
 
-// Listen for input events
-input.addEventListener('input', function() {
-    // Remove any non-numeric characters
-    this.value = this.value.replace(/\D/g, '');
+        // Listen for input events
+        input.addEventListener('input', function() {
+            // Remove any non-numeric characters
+            this.value = this.value.replace(/\D/g, '');
 
-    // Limit the input to exactly 11 digits
-    if (this.value.length > 11) {
-        this.value = this.value.slice(0, 11);
-    }
-});
+            // Limit the input to exactly 11 digits
+            if (this.value.length > 11) {
+                this.value = this.value.slice(0, 11);
+            }
+        });
     </script>
 
 <script>
