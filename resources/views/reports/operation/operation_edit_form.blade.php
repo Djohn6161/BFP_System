@@ -743,9 +743,9 @@
             });
 
             $('.remove-photo').on('click', function() {
-        // Find the parent div with class "mt-3" and remove it
-        $(this).closest('.mt-3').remove();
-    });
+                // Find the parent div with class "mt-3" and remove it
+                $(this).closest('.mt-3').remove();
+            });
             $('#photos').on('change', function() {
                 var files = $(this)[0].files; // Get the files selected
                 var container = $('#image-preview-container'); // Get the preview container
