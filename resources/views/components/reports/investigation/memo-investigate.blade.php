@@ -1,0 +1,32 @@
+    <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+        {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
+        <h3 class="border-bottom border-4 border-warning pb-2 mb-3">MEMORANDUM</h3>
+        <div class="col-lg-12 mb-12 pb-2 mb-3">
+            <label for="for" class="form-label">FOR:</label>
+            <input type="text" placeholder="Eg. pedro villa" id="for" name="for"
+                class="form-control {{ $errors->has('for') != '' ? 'is-invalid' : '' }}"
+                value="{{ $spot->investigation->for ?? old('for') }}" required>
+            @error('for')
+                <span class="text-danger alert" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="col-lg-12 mb-12 pb-2 mb-3">
+            <label for="subject" class="form-label">SUBJECT:</label>
+            <input type="text" placeholder="Eg. fire incident report " id="subject" name="subject"
+                class="form-control {{ $errors->has('subject') != '' ? 'is-invalid' : '' }}"
+                value="{{ $spot->investigation->subject ?? old('subject') }}" required>
+            @error('subject')
+                <span class="text-danger alert" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="col-lg-12 mb-12 pb-2 mb-3">
+            <label for="date" class="form-label">DATE:</label>
+            <input type="date" placeholder=" Eg. march 02, 2013" id="date" name="date"
+                class="form-control {{ $errors->has('date') != '' ? 'is-invalid' : '' }}"
+                value="{{ $spot->investigation->date ?? old('date') }}" required>
+            @error('date')
+                <span class="text-danger alert" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>

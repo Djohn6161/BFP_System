@@ -9,7 +9,7 @@ class Spot extends Model
 {
     use HasFactory;
     
-    public function Investigation(){
+    public function investigation(){
         return $this->belongsTo(Investigation::class, 'investigation_id');
     }
     public function Progress(){
