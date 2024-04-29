@@ -458,7 +458,7 @@ class OperationController extends Controller
         foreach ($casualties as $casualty) {
             $casualtyType = $casualty->type;
 
-            if ($casualtyType == 'civillian') {
+            if ($casualtyType == 'civilian') {
                 $infoUpdatedData = [
                     'injured' => $request->input('civilian_injured', 0),
                     'death' => $request->input('civilian_deaths', 0),
@@ -479,60 +479,251 @@ class OperationController extends Controller
             }
         }
 
-
         // Breathing equipment 
-        // $numbers = $request->input('no_breathing', []);
-        // $types = $request->input('breathing', []);
+        $numbers = $request->input('no_breathing', []);
+        $types = $request->input('breathing', []);
 
-        // // Retrieve the existing data from the database
-        // $existingBreathings = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'breathing apparatus')->get();
-        // $requestIndexes = array_keys($types);
+        // Retrieve the existing data from the database
+        $existingBreathings = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'breathing apparatus')->get();
+        $requestIndexes = array_keys($types);
 
-        // foreach ($existingBreathings as $index => $breathing) {
-        //     // Check if the index of the existing response is not present in the request
-        //     if (!in_array($index, $breathing)) {
-        //         // Delete the existing response
-        //         $breathing->delete();
-        //         $status = true;
-        //     }
-        // }
+        foreach ($existingBreathings as $index => $breathing) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $breathing->delete();
+                $status = true;
+            }
+        }
 
-        // foreach ($types as $index => $type) {
-        //     // Check if there's an existing record at this index
-        //     $breathing = $existingBreathings->get($index);
+        foreach ($types as $index => $type) {
+            // Check if there's an existing record at this index
+            $breathing = $existingBreathings->get($index);
 
-        //     $new_alarm_names = $alarm_names[$index];
-        //     $new_time = $time[$index];
-        //     $new_ground_commander = $ground_commander[$index];
+            $new_number = $numbers[$index];
+            $new_type = $types[$index];
 
+            // Check if an existing record exists for this index
+            if ($breathing) {
+                // Check if any field has changed
+                $changes = [
+                    'quantity' => $new_number,
+                    'type' => $new_type,
+                ];
 
-        //     // Check if an existing record exists for this index
-        //     if ($existingAlarm) {
-        //         // Check if any field has changed
-        //         $changes = [
-        //             'alarm_name' => $new_alarm_names,
-        //             'time' => $new_time,
-        //             'ground_commander' => $new_ground_commander,
-        //         ];
+                if ($this->hasChanges($breathing, $changes)) {
+                    $status = true;
+                    $breathing->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newbreathing = new Used_equipment();
+                $newbreathing->afor_id = $request->operation_id;
+                $newbreathing->quantity = $new_number;
+                $newbreathing->type = $new_type;
+                $newbreathing->category = 'breathing apparatus';
+                $newbreathing->save(); // Save the new record
+                $status = true;
+            }
+        }
 
-        //         if ($this->hasChanges($existingAlarm, $changes)) {
-        //             // At least one of the fields has been updated
-        //             $status = true;
-        //             // You can log or perform other actions here
+        // extinguishing agent equipment 
+        $numbers = $request->input('quantity_extinguishing', []);
+        $types = $request->input('extinguishing', []);
 
-        //             // Update the existing record with the new data
-        //             $existingResponse->update($changes);
-        //         }
-        //     } else {
-        //         // No existing record for this index, create a new one
-        //         $newAlarm = new Declared_alarm($changes);
-        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
-        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
-        //         $newAlarm->afor_id = $request->operation_id; // Assuming afor_id needs to be set
-        //         $newAlarm->save(); // Save the new record
-        //         $status = true;
-        //     }
-        // }
+        // Retrieve the existing data from the database
+        $existExtinguishing = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'extinguishing agent')->get();
+        $requestIndexes = array_keys($types);
+
+        foreach ($existExtinguishing as $index => $extinguishing) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $extinguishing->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($types as $index => $type) {
+            // Check if there's an existing record at this index
+            $extinguishing = $existExtinguishing->get($index);
+
+            $new_number = $numbers[$index];
+            $new_type = $types[$index];
+
+            // Check if an existing record exists for this index
+            if ($extinguishing) {
+                // Check if any field has changed
+                $changes = [
+                    'quantity' => $new_number,
+                    'type' => $new_type,
+                ];
+
+                if ($this->hasChanges($extinguishing, $changes)) {
+                    $status = true;
+                    $extinguishing->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newExtinguishing = new Used_equipment();
+                $newExtinguishing->afor_id = $request->operation_id;
+                $newExtinguishing->quantity = $new_number;
+                $newExtinguishing->type = $new_type;
+                $newExtinguishing->category = 'extinguishing agent';
+                $newExtinguishing->save(); // Save the new record
+                $status = true;
+            }
+        }
+
+        // extinguishing agent equipment 
+        $length = $request->input('rope_ladder_length', []);
+        $types = $request->input('rope_ladder', []);
+
+        // Retrieve the existing data from the database
+        $existRopeLadder = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'rope and ladder')->get();
+        $requestIndexes = array_keys($types);
+
+        foreach ($existRopeLadder as $index => $ropeLadder) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $ropeLadder->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($types as $index => $type) {
+            // Check if there's an existing record at this index
+            $ropeLadder = $existRopeLadder->get($index);
+
+            $new_length = $length[$index];
+            $new_type = $types[$index];
+
+            // Check if an existing record exists for this index
+            if ($ropeLadder) {
+                // Check if any field has changed
+                $changes = [
+                    'length' => $new_length,
+                    'type' => $new_type,
+                ];
+
+                if ($this->hasChanges($ropeLadder, $changes)) {
+                    $status = true;
+                    $ropeLadder->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newRopeLadder = new Used_equipment();
+                $newRopeLadder->afor_id = $request->operation_id;
+                $newRopeLadder->length = $new_length;
+                $newRopeLadder->type = $new_type;
+                $newRopeLadder->category = 'rope and ladder';
+                $newRopeLadder->save(); // Save the new record
+                $status = true;
+            }
+        }
+
+        // extinguishing agent equipment 
+        $length = $request->input('hose_feet', []);
+        $quantity = $request->input('no_hose', []);
+        $types = $request->input('type_hose', []);
+
+        // Retrieve the existing data from the database
+        $existHose = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'hose line')->get();
+        $requestIndexes = array_keys($types);
+
+        foreach ($existHose as $index => $hose) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $hose->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($types as $index => $type) {
+            // Check if there's an existing record at this index
+            $hose = $existHose->get($index);
+
+            $new_length = $length[$index];
+            $new_quantity = $quantity[$index];
+            $new_type = $types[$index];
+
+            // Check if an existing record exists for this index
+            if ($hose) {
+                // Check if any field has changed
+                $changes = [
+                    'length' => $new_length,
+                    'quantity' => $new_quantity,
+                    'type' => $new_type,
+                ];
+
+                if ($this->hasChanges($hose, $changes)) {
+                    $status = true;
+                    $hose->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newHose = new Used_equipment();
+                $newHose->afor_id = $request->operation_id;
+                $newHose->length = $new_length;
+                $newHose->quantity = $new_quantity;
+                $newHose->type = $new_type;
+                $newHose->category = 'hose line';
+                $newHose->save(); // Save the new record
+                $status = true;
+            }
+        }
+        // Duty Personnel
+        $personnels = $request->input('duty_personnel_id', []);
+        $designations = $request->input('duty_designation', []);
+        $remarks = $request->input('duty_remarks', []);
+
+        // Retrieve the existing data from the database
+        $existDutyPersonnels = Afor_duty_personnel::where('afor_id', $request->operation_id)->get();
+        $requestIndexes = array_keys($personnels);
+
+        foreach ($existDutyPersonnels as $index => $personnel) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $personnel->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($personnels as $index => $personnel) {
+            // Check if there's an existing record at this index
+            $personnel = $existDutyPersonnels->get($index);
+
+            $new_personnel = $personnels[$index];
+            $new_desgination = $designations[$index];
+            $new_remarks = $remarks[$index];
+
+            // Check if an existing record exists for this index
+            if ($personnel) {
+                // Check if any field has changed
+                $changes = [
+                    'personnels_id' => $new_personnel,
+                    'designation' => $new_desgination,
+                    'remarks' => $new_remarks,
+                ];
+
+                if ($this->hasChanges($personnel, $changes)) {
+                    $status = true;
+                    $personnel->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newPersonnel = new Afor_duty_personnel();
+                $newPersonnel->afor_id = $request->operation_id;
+                $newPersonnel->personnels_id = $new_personnel;
+                $newPersonnel->designation = $new_desgination;
+                $newPersonnel->remarks = $new_remarks;
+                $newPersonnel->save(); 
+                $status = true;
+            }
+        }
 
 
 

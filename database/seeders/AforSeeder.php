@@ -63,7 +63,7 @@ class AforSeeder extends Seeder
             // Afor Casualties
             $attributes = [
                 'afor_id' => $reportID,
-                'type' => 'civillian',
+                'type' => 1,
                 'injured' => 1,
                 'death' => 1,
             ];
@@ -72,7 +72,7 @@ class AforSeeder extends Seeder
 
             $attributes = [
                 'afor_id' => $reportID,
-                'type' => 'firefighters',
+                'type' => 2,
                 'injured' => 1,
                 'death' => 1,
             ];

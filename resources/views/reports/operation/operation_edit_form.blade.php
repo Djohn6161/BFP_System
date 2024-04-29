@@ -347,7 +347,7 @@
                             </h3>
 
                             @foreach ($casualties as $casualty)
-                                @if ($casualty->type == 'civillian')
+                                @if ($casualty->type == 'civilian')
                                     <div class="col-lg-6">
                                         <div class="row">
                                             <h5>Civilian</h5>
@@ -359,7 +359,7 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label for="civilianDeath" class="form-label">Death</label>
                                                 <input type="number" placeholder="No. of deaths" class="form-control"
-                                                    name="civillian_deaths" value="{{ $casualty->death }}">
+                                                    name="civilian_deaths" value="{{ $casualty->death }}">
                                             </div>
                                         </div>
                                     </div>
