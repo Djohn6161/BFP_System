@@ -613,7 +613,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
                                         <div class="file-info flex-grow-1 me-2 text-break">{{$photo}}</div>
-                                        <button type="button" class="btn btn-sm btn-danger">Remove</button>
+                                        <button type="button" class="btn btn-sm btn-danger remove-photo" id="remove-photo">Remove</button>
                                     </div>
                                 </div>
                             @endforeach
@@ -742,6 +742,10 @@
                 // mnewDiv.find('.rankName').select2();
             });
 
+            $('.remove-photo').on('click', function() {
+        // Find the parent div with class "mt-3" and remove it
+        $(this).closest('.mt-3').remove();
+    });
             $('#photos').on('change', function() {
                 var files = $(this)[0].files; // Get the files selected
                 var container = $('#image-preview-container'); // Get the preview container
@@ -760,7 +764,7 @@
                             // Create image preview
                             var imgPreview = $(
                                 '<div class="image-preview mb-1">' +
-                                '<img class="img-thumbnail" src="' + e.target.result +
+                                '<img class="img-thumbnail w-100" src="' + e.target.result +
                                 '" alt="' + file.name + '">' +
                                 '</div>'
                             );
@@ -779,7 +783,7 @@
 
                             // Remove button
                             var removeBtn = $(
-                                '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                                '<button type="button" class="btn btn-sm btn-danger remove-photo">Remove</button>'
                             );
 
                             // Append filename and remove button to container
