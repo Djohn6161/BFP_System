@@ -230,7 +230,17 @@ class InvestigationController extends Controller
         ]);
     }
     public function storeProgress(Request $request, Spot $spot){
-        dd($request, $spot);
+        
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'authority' => 'required',
+            'matters_investigated' => 'required',
+            'facts_of_the_case' => 'required',
+            'disposition' => 'required',
+        ]);
+        dd($request->all(), $validatedData);
     }
     public function final()
     {

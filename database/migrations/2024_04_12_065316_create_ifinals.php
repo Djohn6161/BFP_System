@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ifinals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
             $table->string('place_of_fire');
             $table->string('td_alarm');
             $table->string('establishment_burned');

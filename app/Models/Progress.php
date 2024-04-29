@@ -12,4 +12,7 @@ class Progress extends Model
     public function spot(){
         return $this->belongsTo(Spot::class, 'spot_id');
     }
+    public function investigation(){
+        return $this->belongsTo(Investigation::class, 'investigation_id');
+    }
 }

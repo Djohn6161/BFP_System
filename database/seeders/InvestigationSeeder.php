@@ -84,6 +84,7 @@ class InvestigationSeeder extends Seeder
 
                 $progress = [
                     "spot_id" => $spotid,
+                    "investigation_id" => $reportID,
                     "authority" => $faker->paragraph(5),
                     "matters_investigated" => $faker->paragraph(5),
                     "facts_of_the_case" => $faker->paragraph(5),
@@ -93,6 +94,7 @@ class InvestigationSeeder extends Seeder
 
                 $final = [
                     "spot_id" => $spotid,
+                    'investigation_id' => $reportID,
                     "place_of_fire" => $faker->city . " " . $faker->streetname,
                     "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H" . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
                     "establishment_burned" => $properties[$faker->numberBetween(0, 3)],
