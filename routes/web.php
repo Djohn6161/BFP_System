@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
+use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
@@ -81,7 +82,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
         Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
         Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
-        
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
@@ -91,18 +91,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
     });
 
-    // Reports
-
-
-    // Route::get('/report/create/{id}/{type}/{category}', [ReportController::class, 'createReport'])->name('report.create');
-    // Route::post('/report/store/{category}', [ReportController::class, 'storeReport'])->name('report.store');
-
-    // Afor
-    Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
-    Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreateForm'])->name('operation.create.form');
-    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create');
-    Route::get('/reports/operation/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('operation.update.form');
-    Route::post('/reports/operation/update/submit', [OperationController::class, 'operationUpdate'])->name('operation.update');
+    // Operation
+    Route::prefix('reports/operation')->name('operation.')->group(function () {
+        Route::get('/index', [OperationController::class, 'operationIndex'])->name('index');
+        Route::get('/create/form', [OperationController::class, 'operationCreateForm'])->name('create.form');
+        Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
+        Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+        Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+    });
 
     // Investigation
     Route::prefix('reports/investigation')->name('investigation.')->group(function () {
@@ -125,6 +121,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
+    });
+
+    // Personnel    
+    Route::prefix('personnel/')->name('personnel.')->group(function () {
+        Route::get('/index', [PersonnelController::class, 'personnelIndex'])->name('index');
+        Route::get('/update/{id}', [PersonnelController::class, 'personnelView'])->name('view');
+        // Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
+        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
 
 
