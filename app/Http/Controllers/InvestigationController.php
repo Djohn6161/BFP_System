@@ -85,7 +85,7 @@ class InvestigationController extends Controller
 
         if ($request->has('barangay')) {
             # code...
-            $location = "Brgy " . $request->input('barangay') . ' ' . $request->input('zone') . " " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
+            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
         } else {
             $location = $request->input('landmark');
             # code...
@@ -105,6 +105,9 @@ class InvestigationController extends Controller
             'investigation_id' => $investigation->id,
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
             'incident_location' => $location ?? '',
             'involved_property' => $request->input('involved_property') ?? '',
             'property_data' => $request->input('property_data') ?? '',
@@ -179,7 +182,7 @@ class InvestigationController extends Controller
 
         if ($request->has('barangay')) {
             # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone') . " " . $request->input('barangay') . ', Ligao City, Albay';
+            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
         } else {
             $location = $request->input('landmark');
             # code...
@@ -195,6 +198,9 @@ class InvestigationController extends Controller
             'investigation_id' => $investigation->id,
             'date_occurence' => $request->input('date_occurence') ?? '',
             'time_occurence' => $request->input('time_occurence') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone_street') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
             'address_occurence' => $location ?? '',
             'involved' => $request->input('involved') ?? '',
             'name_of_establishment' => $request->input('name_of_establishment') ?? '',
@@ -313,7 +319,7 @@ class InvestigationController extends Controller
 
         if ($request->has('barangay')) {
             # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone') . " " . $request->input('barangay') . ', Ligao City, Albay';
+            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
         } else {
             $location = $request->input('landmark');
             # code...
@@ -340,6 +346,9 @@ class InvestigationController extends Controller
             'investigation_id' => $investigation->id,
             'spot_id' => $spot->id,
             'intelligence_unit' => $request->input('intelligence_unit') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone_street') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
             'place_of_fire' => $location ?? '',
             'td_alarm' => $td ?? '',
             'establishment_burned' => $request->input('establishment_burned') ?? '',
@@ -357,9 +366,26 @@ class InvestigationController extends Controller
         
         return redirect('/reports/investigation/final/index')->with("success", "Investigation Created Successfully!");
     }
-
+    public function editMinimal(Minimal $minimal){
+        dd($minimal);
+    }
     public function updateMinimal(Request $request, Minimal $minimal){
         dd($request);
+    }
+    public function editSpot(Spot $spot){
+        // dd($spot);
+        // $barangay = $spot->address_occurence;
+        // if($spot->barangay == null || $spot->barangay == ""){
+        //     $location = 
+        // }
+        // dd($barangay);
+        return view('reports.investigation.spot.edit', [
+            'active' => 'spot',
+            'user' => Auth::user(),
+            'barangay' => Barangay::all(),
+            'spot' => $spot,
+
+        ]);
     }
     public function updateSpot(Request $request, Spot $spot){
         dd($request);

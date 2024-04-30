@@ -16,7 +16,10 @@ return new class extends Migration
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
             $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
             $table->string('intelligence_unit');
-            $table->string('place_of_fire');
+            $table->string('barangay')->nullable();
+            $table->string('street')->nullable();
+            $table->string('landmark')->nullable();
+            $table->string('place_of_fire')->nullable();
             $table->string('td_alarm');
             $table->string('establishment_burned');
             $table->float('damage_to_property');
