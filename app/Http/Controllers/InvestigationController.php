@@ -326,11 +326,12 @@ class InvestigationController extends Controller
         ]);
         $investigation->save(); 
         if ($request->input('victim')) {
-            foreach ($request->input('victim') as $victim) {
+            foreach ($request->input('victim') as $victi) {
                 # code...
                 $victim = new Victim();
                 $victim->investigation_id = $investigation->id;
-                $victim->name = $victim;
+                $victim->name = $victi;
+                $victim->save();
             }
         }
         

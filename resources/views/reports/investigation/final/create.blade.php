@@ -30,12 +30,10 @@
         height: auto;
         margin: 10px;
     } */
-    <<<<<<< HEAD=======.hidden-label {
+    .hidden-label {
         color: transparent;
         /* Make label content transparent */
     }
-
-    >>>>>>>Frontend-Josh
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -149,58 +147,176 @@
                             </div>
                             {{-- {{dd(old('victim'))}} --}}
                             @if (old('victim') ?? false)
-                                @foreach (old('victim') as $victim)
-                                    {{-- {{dd($victim)}} --}}
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="" class="form-label">FIRE VICTIM/S</label>
-                                        <input type="text" placeholder=" Eg. Romy nabas" id="victim[]"
-                                            name="victim[]"
-                                            class="form-control {{ $errors->has('victim[]') != '' ? 'is-invalid' : '' }}"
-                                            value="{{ $victim }}" required>
-                                        @error('victim[]')
-                                            <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                        @enderror
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="fireVictims" class="form-label me-2">FIRE VICTIM/S</label>
+                                            <button type="button" class="btn btn-sm btn-primary mb-1"
+                                                id="addFireVictims">+ ADD</button>
+                                        </div>
                                     </div>
-                                @endforeach
+                                </div>
+                                <div class="row m-0 p-0" id="fireVictimsContainer">
+                                    @foreach (old('victim') as $victim)
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="input-group"><input type="text"
+                                                    placeholder="Enter victim name"
+                                                    class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}"
+                                                    name="victim[]" required value="{{ $victim }}"><button
+                                                    type="button" class="btn btn-outline-danger removeInput">x</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @error('victim')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
+                                {{-- {{dd($victim)}} --}}
                             @else
-                                <div class="col-lg-6 mb-4">
-                                    <label for="" class="form-label">FIRE VICTIM/S</label>
-                                    <input type="text" placeholder=" Eg. Romy nabas" id="victim[]" name="victim[]"
-                                        class="form-control {{ $errors->has('victim[]') != '' ? 'is-invalid' : '' }}"
-                                        value="" required>
-                                    @error('victim[]')
-                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                    @enderror
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="fireVictims" class="form-label me-2">FIRE VICTIM/S</label>
+                                            <button type="button" class="btn btn-sm btn-primary mb-1"
+                                                id="addFireVictims">+
+                                                ADD</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6 mb-4">
-                                    <label for="" class="form-label">FIRE VICTIM/S</label>
-                                    <input type="text" placeholder=" Eg. Romy nabas" id="victim[]" name="victim[]"
-                                        class="form-control {{ $errors->has('victim[]') != '' ? 'is-invalid' : '' }}"
-                                        value="" required>
-                                    @error('victim[]')
-                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                    @enderror
+                                <div class="row m-0 p-0" id="fireVictimsContainer">
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="input-group"><input type="text" placeholder="Enter victim name"
+                                                class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}"
+                                                name="victim[]" required value=""><button type="button"
+                                                class="btn btn-outline-danger removeInput">x</button></div>
+                                    </div>
+                                    <!-- Input fields will be appended here -->
                                 </div>
+
+                                @error('victim')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             @endif
-                            <div class="col-lg-12 mb-3 form-check ps-3">
-                                <label class="form-label" for="origin_of_fire">ORIGIN OF FIRE</label>
-                                <textarea placeholder=" Eg. was at the room located at the right-side portion of the residential structure"
-                                    id="origin_of_fire" name="origin_of_fire"
-                                    class="form-control {{ $errors->has('origin_of_fire') != '' ? 'is-invalid' : '' }}" required>{{ old('origin_of_fire') }}</textarea>
-                                @error('origin_of_fire')
-                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-12 mb-3 form-check ps-3">
-                                <label class="form-label" for="cause_of_fire">CAUSE OF FIRE</label>
-                                <textarea placeholder="Eg. Electrical Igniton cause by Loose Connection" id="cause_of_fire" name="cause_of_fire"
-                                    class="form-control {{ $errors->has('cause_of_fire') != '' ? 'is-invalid' : '' }}" required>{{ old('cause_of_fire') }}</textarea>
-                                @error('cause_of_fire')
-                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
                         </div>
                         <div class="mb-5"></div>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">ORIGIN OF FIRE:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div>
+                                    <div id="toolbar6">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="orig">
+                                        {!! old('origin_of_fire') !!}
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="origin_of_fire" name="origin_of_fire">
+                            </div>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">CAUSE OF FIRE:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div>
+                                    <div id="toolbar7">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="cause">
+                                        {!! old('cause_of_fire') !!}
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="cause_of_fire" name="cause_of_fire">
+                            </div>
+                        </div>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">SUBSTANTIATING DOCUMENTS:</h3>
                             {{-- <h5>Details</h5> --}}
@@ -317,240 +433,188 @@
 
                                 </div>
                                 <input type="hidden" id="facts_of_the_case" name="facts_of_the_case">
-                                <div class="col-lg-6 mb-3">
-                                    <label for="dateTime" class="form-label">INVESTIGATION AND INTELLIGENCE UNIT</label>
-                                    <input type="text" placeholder="Eg. Purok 5 Paubla, Ligao City"
-                                        class="form-control" id="dateTime" required>
-                                </div>
 
-                                <div class="col-lg-6 mb-3">
-                                    <label for="dateTime" class="form-label">PLACE OF FIRE</label>
-                                    <input type="text" placeholder="Eg. Purok 5 Paubla, Ligao City"
-                                        class="form-control" id="dateTime" required>
-                                </div>
-
-                                <div class="col-lg-6 mb-3">
-                                    <label for="reported" class="form-label">TIME AND DATE OF ALARM</label>
-                                    <input type="text" placeholder="Eg. 0034H 30 March 2024" class="form-control"
-                                        id="reported" required>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <label for="province" class="form-label">ESTABLISHMENT BURNED</label>
-                                    <input type="text" placeholder=" Eg. Romy Nabas Residence" class="form-control"
-                                        id="province" required>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <label for="municipality" class="form-label">DAMAGE TO PROPERTY</label>
-                                    <input type="text" placeholder=" Eg. Php 20,000.00" class="form-control"
-                                        id="municipality" required>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
-                                            <label for="fireVictims" class="form-label me-2">FIRE VICTIM/S</label>
-                                            <button type="button" class="btn btn-sm btn-primary mb-1"
-                                                id="addFireVictims">+ ADD</button>
-                                            <input type="text" placeholder=" Eg. Php 20,000.00" class="form-control"
-                                                id="municipality" required hidden>
-                                        </div>
+                            </div>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DISCUSSION:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div>
+                                    <div id="toolbar3">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="discus">
+                                        {!! old('discussion') !!}
                                     </div>
 
                                 </div>
-                                <div class="row m-0 p-0" id="fireVictimsContainer">
-                                    <!-- Input fields will be appended here -->
-                                </div>
-                                <div class="col-lg-12 mb-3 mt-3 form-check ps-3">
-                                    <label class="form-label" for="exampleCheck1">ORIGIN OF FIRE</label>
-                                    <textarea class="form-control"
-                                        placeholder=" Eg. was at the room located at the right-side portion of the residential structure" name=""
-                                        id=""></textarea>
-                                </div>
-                                <div class="col-lg-12 mb-3 form-check ps-3">
-                                    <label class="form-label" for="exampleCheck1">CAUSE OF FIRE</label>
-                                    <textarea class="form-control" placeholder="Eg. Electrical Igniton cause by Loose Connection" name=""
-                                        id=""></textarea>
-                                </div>
+                                <input type="hidden" id="discussion" name="discussion">
                             </div>
-                            <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DISCUSSION:</h3>
-                                {{-- <h5>Details</h5> --}}
-                                <div class="col-lg-12 mb-12 pb-5 mb-3">
-                                    <label for="dateTime" class="form-label"></label>
-                                    <div>
-                                        <div id="toolbar3">
-                                            <span class="ql-formats">
-                                                <select class="ql-font"></select>
-                                                <select class="ql-size"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <select class="ql-color"></select>
-                                                <select class="ql-background"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-script" value="sub"></button>
-                                                <button class="ql-script" value="super"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-header" value="1"></button>
-                                                <button class="ql-header" value="2"></button>
-                                                <button class="ql-blockquote"></button>
-                                                <button class="ql-code-block"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-list" value="ordered"></button>
-                                                <button class="ql-list" value="bullet"></button>
-                                                <button class="ql-indent" value="-1"></button>
-                                                <button class="ql-indent" value="+1"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-direction" value="rtl"></button>
-                                                <select class="ql-align"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-link"></button>
-                                                <button class="ql-image"></button>
-                                                <button class="ql-video"></button>
-                                                <button class="ql-formula"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-clean"></button>
-                                            </span>
-                                        </div>
-                                        <div id="discus">
-                                            {!! old('discussion') !!}
-                                        </div>
-
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div>
+                                    <div id="toolbar4">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
                                     </div>
-                                    <input type="hidden" id="discussion" name="discussion">
-                                </div>
-                            </div>
-                            <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
-                                {{-- <h5>Details</h5> --}}
-                                <div class="col-lg-12 mb-12 pb-5 mb-3">
-                                    <label for="dateTime" class="form-label"></label>
-                                    <div>
-                                        <div id="toolbar4">
-                                            <span class="ql-formats">
-                                                <select class="ql-font"></select>
-                                                <select class="ql-size"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <select class="ql-color"></select>
-                                                <select class="ql-background"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-script" value="sub"></button>
-                                                <button class="ql-script" value="super"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-header" value="1"></button>
-                                                <button class="ql-header" value="2"></button>
-                                                <button class="ql-blockquote"></button>
-                                                <button class="ql-code-block"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-list" value="ordered"></button>
-                                                <button class="ql-list" value="bullet"></button>
-                                                <button class="ql-indent" value="-1"></button>
-                                                <button class="ql-indent" value="+1"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-direction" value="rtl"></button>
-                                                <select class="ql-align"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-link"></button>
-                                                <button class="ql-image"></button>
-                                                <button class="ql-video"></button>
-                                                <button class="ql-formula"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-clean"></button>
-                                            </span>
-                                        </div>
-                                        <div id="find">
-                                            {!! old('findings') !!}
-                                        </div>
-
+                                    <div id="find">
+                                        {!! old('findings') !!}
                                     </div>
-                                    <input type="hidden" id="findings" name="findings">
-                                </div>
-                            </div>
-                            <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
-                                {{-- <h5>Details</h5> --}}
-                                <div class="col-lg-12 pb-5 mb-3">
-                                    <label for="dateTime" class="form-label"></label>
-                                    <div>
-                                        <div id="toolbar5">
-                                            <span class="ql-formats">
-                                                <select class="ql-font"></select>
-                                                <select class="ql-size"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <select class="ql-color"></select>
-                                                <select class="ql-background"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-script" value="sub"></button>
-                                                <button class="ql-script" value="super"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-header" value="1"></button>
-                                                <button class="ql-header" value="2"></button>
-                                                <button class="ql-blockquote"></button>
-                                                <button class="ql-code-block"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-list" value="ordered"></button>
-                                                <button class="ql-list" value="bullet"></button>
-                                                <button class="ql-indent" value="-1"></button>
-                                                <button class="ql-indent" value="+1"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-direction" value="rtl"></button>
-                                                <select class="ql-align"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-link"></button>
-                                                <button class="ql-image"></button>
-                                                <button class="ql-video"></button>
-                                                <button class="ql-formula"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-clean"></button>
-                                            </span>
-                                        </div>
-                                        <div id="recom">
-                                            {!! old('recommendation') !!}
-                                        </div>
 
-                                    </div>
-                                    <input type="hidden" id="recommendation" name="recommendation">
                                 </div>
+                                <input type="hidden" id="findings" name="findings">
                             </div>
-                            <button type="submit" id="submit"
-                                class="btn btn-primary mb-4 float-start">Submit</button>
-                            <br>
+                        </div>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div>
+                                    <div id="toolbar5">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="recom">
+                                        {!! old('recommendation') !!}
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="recommendation" name="recommendation">
+                            </div>
+                        </div>
+                        <button type="submit" id="submit" class="btn btn-primary mb-4 float-start">Submit</button>
+                        <br>
                     </form>
                 </div>
             </div>
@@ -560,7 +624,7 @@
         $(document).ready(function() {
             $("#addFireVictims").click(function() {
                 var inputField =
-                    '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control" name="fireVictims[]" required><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
+                    '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}" name="victim[]" required value=""><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
                 $("#fireVictimsContainer").append(inputField);
             });
 
@@ -625,6 +689,26 @@
         });
     </script>
     <script>
+        const quill6 = new Quill('#orig', {
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar6',
+            },
+
+            placeholder: 'Compose an epic...',
+        });
+    </script>
+    <script>
+        const quill7 = new Quill('#cause', {
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar7',
+            },
+
+            placeholder: 'Compose an epic...',
+        });
+    </script>
+    <script>
         const quill5 = new Quill('#recom', {
             theme: 'snow',
             modules: {
@@ -639,6 +723,8 @@
             $("#discussion").val(quill3.root.innerHTML);
             $("#findings").val(quill4.root.innerHTML);
             $("#recommendation").val(quill5.root.innerHTML);
+            $("#origin_of_fire").val(quill6.root.innerHTML);
+            $("#cause_of_fire").val(quill7.root.innerHTML);
         });
     </script>
 @endsection
