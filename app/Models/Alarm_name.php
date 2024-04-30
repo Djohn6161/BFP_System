@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Duty_personnel extends Model
+class Alarm_name extends Model
 {
     use HasFactory;
     public function afor(){

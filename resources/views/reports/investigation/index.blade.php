@@ -26,7 +26,7 @@
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">
                                 {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100">
+                                <table class="table mb-0 align-middle w-100" id="investigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -61,7 +61,7 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="{{ route('operation.edit.form', $investigation->id) }}"
+                                                    <a href=""
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
                                                     <a href="#" data-bs-toggle="modal"

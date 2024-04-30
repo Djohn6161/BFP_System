@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}">
+                    <a class="sidebar-link"  href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}">
                         <span>
                             <i class="ti ti-report"></i>
                         </span> 
@@ -58,7 +58,7 @@
                     </div> --}}
                 </li>
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" id="accordionExample">
+                    <div class="accordion accordion-flush" href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
