@@ -102,8 +102,6 @@
 
                         </div>
 
-
-
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Educational Details</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
