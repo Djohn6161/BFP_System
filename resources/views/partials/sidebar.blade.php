@@ -76,7 +76,7 @@
                                     </span>
                                     All
                                 </a>
-                                <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" > 
+                                <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>

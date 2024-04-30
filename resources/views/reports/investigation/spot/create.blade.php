@@ -35,7 +35,7 @@
                 <div class="row">
                     <form action="{{ route('investigation.spot.store') }}" class="needs-validation" novalidate method="POST">
                         @csrf
-                        <x-reports.investigation.memo-investigate ></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-5 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -71,10 +71,10 @@
                             <div class="col-lg-6 mb-4">
                                 <label for="barangay-select" class="form-label">Barangay</label>
                                 <select class="form-select" id="barangay-select" name="barangay" required>
-                                    <option value="" >-- Select a Barangay --</option>
+                                    <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == 1 ? 'selected' : '' }}
-                                            value="{{ $barangay->name }}"> {{ $barangay->name }} </option>
+                                        <option {{ old('barangay') == 1 ? 'selected' : '' }} value="{{ $barangay->name }}">
+                                            {{ $barangay->name }} </option>
                                     @endforeach
 
                                 </select>
@@ -121,7 +121,8 @@
                             <!-- Corrected "Name of Establishment" -->
                             <div class="col-lg-6 mb-4">
                                 <label for="name_of_establishment" class="form-label">Name of Establishment</label>
-                                <input type="text" placeholder="Eg. Residential House" id="name_of_establishment" name="name_of_establishment"
+                                <input type="text" placeholder="Eg. Residential House" id="name_of_establishment"
+                                    name="name_of_establishment"
                                     class="form-control {{ $errors->has('name_of_establishment') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('name_of_establishment') }}" required>
                                 @error('name_of_establishment')
@@ -180,7 +181,8 @@
                             <!-- Corrected "Estimated Damage" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="estimate-damage" class="form-label">Estimated Damage</label>
-                                <input type="number" placeholder="Eg. 50000" id="estimate-damage" name="estimate_damage"
+                                <input type="number" placeholder="Eg. 50000" id="estimate-damage"
+                                    name="estimate_damage"
                                     class="form-control {{ $errors->has('estimate_damage') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('estimate_damage') }}" required>
                                 @error('estimate_damage')
@@ -191,7 +193,8 @@
                             <!-- Corrected "Time Fire Started" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="time-fire-started" class="form-label">Time Fire Started</label>
-                                <input type="text" placeholder="Eg. 2100H" id="time-fire-started" name="time_fire_start"
+                                <input type="text" placeholder="Eg. 2100H" id="time-fire-started"
+                                    name="time_fire_start"
                                     class="form-control {{ $errors->has('time_fire_start') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('time_fire_start') }}" required>
                                 @error('time_fire_start')
@@ -202,7 +205,8 @@
                             <!-- Corrected "Time Fire Out" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="time-fire-out" class="form-label">Time of Fire Out</label>
-                                <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out" name="time_fire_out"
+                                <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
+                                    name="time_fire_out"
                                     class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('time_fire_out') }}" required>
                                 @error('time_fire_out')
@@ -248,121 +252,123 @@
                             </div>
                             <div class="mb-5">
                                 <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS OF INVESTIGATION:</h3>
-                            {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
-                                <label for="dateTime" class="form-label"></label>
-                                <div>
-                                    <div id="toolbar1">
-                                        <span class="ql-formats">
-                                            <select class="ql-font"></select>
-                                            <select class="ql-size"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-bold"></button>
-                                            <button class="ql-italic"></button>
-                                            <button class="ql-underline"></button>
-                                            <button class="ql-strike"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <select class="ql-color"></select>
-                                            <select class="ql-background"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-script" value="sub"></button>
-                                            <button class="ql-script" value="super"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-header" value="1"></button>
-                                            <button class="ql-header" value="2"></button>
-                                            <button class="ql-blockquote"></button>
-                                            <button class="ql-code-block"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-list" value="ordered"></button>
-                                            <button class="ql-list" value="bullet"></button>
-                                            <button class="ql-indent" value="-1"></button>
-                                            <button class="ql-indent" value="+1"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-direction" value="rtl"></button>
-                                            <select class="ql-align"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-link"></button>
-                                            <button class="ql-image"></button>
-                                            <button class="ql-video"></button>
-                                            <button class="ql-formula"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-clean"></button>
-                                        </span>
-                                    </div>
-                                    <div id="detailsOfInvestigation">
+                                {{-- <h5>Details</h5> --}}
+                                <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                    <label for="dateTime" class="form-label"></label>
+                                    <div>
+                                        <div id="toolbar1">
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-size"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-color"></select>
+                                                <select class="ql-background"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-script" value="sub"></button>
+                                                <button class="ql-script" value="super"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-header" value="1"></button>
+                                                <button class="ql-header" value="2"></button>
+                                                <button class="ql-blockquote"></button>
+                                                <button class="ql-code-block"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <button class="ql-indent" value="-1"></button>
+                                                <button class="ql-indent" value="+1"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-direction" value="rtl"></button>
+                                                <select class="ql-align"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-link"></button>
+                                                <button class="ql-image"></button>
+                                                <button class="ql-video"></button>
+                                                <button class="ql-formula"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-clean"></button>
+                                            </span>
+                                        </div>
+                                        <div id="detailsOfInvestigation">
+                                        {!!old('details')!!}
+
+                                        </div>
 
                                     </div>
-
+                                    <input type="hidden" id="detail" name="details">
                                 </div>
-                                <input type="hidden" id="detail" name="details">
-                            </div>
                             </div>
 
                             <div class="mb-5"></div>
                             <div class="mb-5 mt-5">
                                 <h3 class="border-bottom border-4 border-warning pb-2 mb-3">Disposition:</h3>
-                            {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
-                                <label for="dateTime" class="form-label"></label>
-                                <div>
-                                    <div id="toolbar2">
-                                        <span class="ql-formats">
-                                            <select class="ql-font"></select>
-                                            <select class="ql-size"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-bold"></button>
-                                            <button class="ql-italic"></button>
-                                            <button class="ql-underline"></button>
-                                            <button class="ql-strike"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <select class="ql-color"></select>
-                                            <select class="ql-background"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-script" value="sub"></button>
-                                            <button class="ql-script" value="super"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-header" value="1"></button>
-                                            <button class="ql-header" value="2"></button>
-                                            <button class="ql-blockquote"></button>
-                                            <button class="ql-code-block"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-list" value="ordered"></button>
-                                            <button class="ql-list" value="bullet"></button>
-                                            <button class="ql-indent" value="-1"></button>
-                                            <button class="ql-indent" value="+1"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-direction" value="rtl"></button>
-                                            <select class="ql-align"></select>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-link"></button>
-                                            <button class="ql-image"></button>
-                                            <button class="ql-video"></button>
-                                            <button class="ql-formula"></button>
-                                        </span>
-                                        <span class="ql-formats">
-                                            <button class="ql-clean"></button>
-                                        </span>
+                                {{-- <h5>Details</h5> --}}
+                                <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                    <label for="dateTime" class="form-label"></label>
+                                    <div>
+                                        <div id="toolbar2">
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-size"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-color"></select>
+                                                <select class="ql-background"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-script" value="sub"></button>
+                                                <button class="ql-script" value="super"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-header" value="1"></button>
+                                                <button class="ql-header" value="2"></button>
+                                                <button class="ql-blockquote"></button>
+                                                <button class="ql-code-block"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <button class="ql-indent" value="-1"></button>
+                                                <button class="ql-indent" value="+1"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-direction" value="rtl"></button>
+                                                <select class="ql-align"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-link"></button>
+                                                <button class="ql-image"></button>
+                                                <button class="ql-video"></button>
+                                                <button class="ql-formula"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-clean"></button>
+                                            </span>
+                                        </div>
+                                        <div id="disposition">
+                                        {!!old('disposition')!!}
+                                            
+                                        </div>
+                                        <input type="hidden" id="dispo" name="disposition">
                                     </div>
-                                    <div id="disposition">
-
-                                    </div>
-                                    <input type="hidden" id="dispo" name="disposition">
-                                </div>
                                 </div>
 
                             </div>

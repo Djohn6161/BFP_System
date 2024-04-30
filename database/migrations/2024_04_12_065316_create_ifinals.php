@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
             $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->string('intelligence_unit');
             $table->string('place_of_fire');
             $table->string('td_alarm');
             $table->string('establishment_burned');
             $table->float('damage_to_property');
             $table->longText('origin_of_fire');
             $table->longText('cause_of_fire');
-            $table->longText('subtantiating_documents');
+            $table->longText('substantiating_documents');
             $table->longText('facts_of_the_case');
             $table->longText('discussion');
             $table->longText('findings');

@@ -11,12 +11,12 @@
                 <form id="addPersonnelForm" class="row g-3">
 
                     <div class="col-lg-4">
-                        <div class="mb-3"> <!-- Photo column -->
-                            <img src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
-                                class="object-fit-cover img-fluid" style="width: 100%; height: auto;"
-                                alt="Personnel Picture">
+                        <div class="mb-3">
+                            <img id="previewPersonnelImage" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}" class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
-                                <button class="btn btn-primary w-100" onclick="changePhoto()">Change Photo</button>
+                                <label for="imagePersonnelInput" class="btn btn-primary w-100">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" style="display:none;">
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -105,14 +105,42 @@
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Educational Details</h3>
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
-                                <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
-                                <input type="text" placeholder="Enter tertiary course/s" class="form-control"
-                                    id="tertiaryCourses">
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
+                                            <button type="button" class="btn btn-sm btn-primary ms-3" id="addTertiaryCourse">+ ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0" id="tertiaryCourseContainer">
+                                    <div class="col-lg-12 px-0 mb-3">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses">
+                                            <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button>
+                                        </div>
+                                    </div>
+                                    <!-- Input fields will be appended here -->
+                                </div>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
-                                <input type="text" placeholder="Enter post graduate course/s" class="form-control"
-                                    id="postGraduateCourses">
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
+                                            <button type="button" class="btn btn-sm btn-primary ms-3" id="addpostGraduateCourses">+ ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0" id="postGraduateCoursesContainer">
+                                    <div class="col-lg-12 px-0 mb-3">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses">
+                                            <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button>
+                                        </div>
+                                    </div>
+                                    <!-- Input fields will be appended here -->
+                                </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestEligibility" class="form-label">Highest Eligibility</label>
@@ -218,3 +246,39 @@
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#addTertiaryCourse").click(function() {
+            var inputField =
+                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses"> <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button> </div> </div>';
+            $("#tertiaryCourseContainer").append(inputField);
+        });
+
+        // Remove dynamically added input field
+        $(document).on('click', '.removeTertiaryInput', function() {
+            $(this).closest('.col-lg-12').remove();
+        });
+
+        $("#addpostGraduateCourses").click(function() {
+            var inputField =
+                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
+            $("#postGraduateCoursesContainer").append(inputField);
+        });
+
+        // Remove dynamically added input field
+        $(document).on('click', '.removePostGraduateInput', function() {
+            $(this).closest('.col-lg-12').remove();
+        });
+
+        $('#imagePersonnelInput').change(function(){
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewPersonnelImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
