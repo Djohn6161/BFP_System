@@ -109,7 +109,7 @@
                                 <div class="row m-0 p-0" id="tertiaryCourseContainer">
                                     <div class="col-lg-12 px-0 mb-3">
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses">
+                                            <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses" name="tertiary[]">
                                             <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                 <div class="row m-0 p-0" id="postGraduateCoursesContainer">
                                     <div class="col-lg-12 px-0 mb-3">
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses">
+                                            <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="postGraduateCourse">
                                             <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button>
                                         </div>
                                     </div>
@@ -137,41 +137,34 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestEligibility" class="form-label">Highest Eligibility</label>
-                                <input type="text" placeholder="Enter highest eligibility" class="form-control"
-                                    id="highestEligibility">
+                                <input type="text" placeholder="Enter highest eligibility" class="form-control" id="highestEligibility" name="highest_eligibility">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestTraining" class="form-label">Highest Training</label>
-                                <input type="text" placeholder="Enter highest training" class="form-control"
-                                    id="highestTraining">
+                                <input type="text" placeholder="Enter highest training" class="form-control" id="highestTraining" name="highest_training">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specializedTraining" class="form-label">Specialized Training</label>
-                                <input type="text" placeholder="Enter specialized training" class="form-control"
-                                    id="specializedTraining">
+                                <input type="text" placeholder="Enter specialized training" class="form-control" id="specializedTraining" name="specialized_training">
                             </div>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government Files </h3>
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
                                 <label for="tin" class="form-label">TIN</label>
-                                <input type="text" placeholder="Enter TIN" class="form-control" id="tin"
-                                    onblur="formatID('tin')">
+                                <input type="text" placeholder="Enter TIN" class="form-control" id="tin" onblur="formatID('tin')" name="tin">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
-                                <input type="text" placeholder="Enter PAGIBIG" class="form-control"
-                                    id="pagibig" onblur="formatID('pagibig')">
+                                <input type="text" placeholder="Enter PAGIBIG" class="form-control" id="pagibig" onblur="formatID('pagibig')" name="pagibig">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
-                                <input type="text" placeholder="Enter GSIS" class="form-control" id="gsis"
-                                    onblur="formatID('gsis')">
+                                <input type="text" placeholder="Enter GSIS" class="form-control" id="gsis" onblur="formatID('gsis')" name="gsis">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
-                                <input type="text" placeholder="Enter PHILHEALTH" class="form-control"
-                                    id="philhealth" onblur="formatID('philhealth')">
+                                <input type="text" placeholder="Enter PHILHEALTH" class="form-control" id="philhealth" onblur="formatID('philhealth')" name="philhealth">
                             </div>
                         </div>
                        
@@ -181,46 +174,40 @@
                                 <label for="dateEnteredOtherGovtService" class="form-label">Date Entered Other
                                     Government
                                     Service</label>
-                                <input type="date" class="form-control" id="dateEnteredOtherGovtService">
+                                <input type="date" class="form-control" id="dateEnteredOtherGovtService" name="date_entered_other_government_service">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="dateEnteredFireService" class="form-label">Date Entered Fire
                                     Service</label>
-                                <input type="date" class="form-control" id="dateEnteredFireService">
+                                <input type="date" class="form-control" id="dateEnteredFireService" name="date_entered_fire_service">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="modeOfEntry" class="form-label">Mode of Entry</label>
-                                <input type="text" placeholder="Enter mode of entry" class="form-control"
-                                    id="modeOfEntry">
+                                <input type="text" placeholder="Enter mode of entry" class="form-control" id="modeOfEntry" name="mode_of_entry">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="dateOfLastPromotion" class="form-label">Date of Last Promotion</label>
-                                <input type="date" class="form-control" id="dateOfLastPromotion">
+                                <input type="date" class="form-control" id="dateOfLastPromotion" name="last_date_promotion">
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
-                                <input type="text" placeholder="Enter appointment status" class="form-control"
-                                    id="appointmentStatus">
+                                <input type="text" placeholder="Enter appointment status" class="form-control" id="appointmentStatus" name="appointment_status">
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
-                                <input type="text" placeholder="Enter unit code" class="form-control"
-                                    id="unitCode">
+                                <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode" name="unit_code">
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
-                                <input type="text" placeholder="Enter unit assignment" class="form-control"
-                                    id="unitAssignment">
+                                <input type="text" placeholder="Enter unit assignment" class="form-control" id="unitAssignment" name="unit_assignment">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation">
+                                <input type="text" placeholder="Enter designation" class="form-control" id="designation" name="designation">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="adminOperation" class="form-label">Admin/Operation</label>
-                                <input type="text" placeholder="Enter admin/operation" class="form-control"
-                                    id="adminOperation">
+                                <input type="text" placeholder="Enter admin/operation" class="form-control" id="adminOperation" name="admin_operation_remarks">
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="remarks" class="form-label">Remarks</label>
