@@ -13,14 +13,18 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <a href="{{route('investigation.minimal.create.form')}}" class="btn btn-primary">Create</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">Create</button>
+                    <x-reports.create-investigation></x-reports.create-investigation>
                 </div>
+                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal
+                  </button> --}}
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <h5 class="card-title fw-semibold mb-4">Investigation Minimal Reports</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100">
+                                <table class="table mb-0 align-middle w-100" id="investigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -40,7 +44,7 @@
                                     <tbody>
                                         @foreach ($investigations as $investigation)
                                             <x-reports.view-modal :report=$investigation></x-reports.view-modal>
-                                            <x-reports.update :report=$investigation></x-reports.update>
+                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
@@ -67,5 +71,13 @@
                     </div>
                 </div>
             </div>
-
+            <script>
+                function progress(btn){
+                     // Show the Yes modal
+                     $('#spotTable').modal('show');
+                                    // Hide the current modal
+                     $('#chooseInvestigation').modal('hide');
+                }
+            </script>
         @endsection
+

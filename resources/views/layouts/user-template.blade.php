@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="{{ asset('assets/DataTables/datatables.css') }}">
     <link rel="stylesheet" href="{{asset('assets/quill/quill.snow.css')  }}">
     <link rel="stylesheet" href="{{ asset('assets/select2/dist/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/quill/quill.snow.css') }}">
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{asset('assets/quill/quill.js')}}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/DataTables/datatables.js') }}"></script>
     <script src="{{ asset('assets/select2/dist/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/quill/quill.js') }}"></script>
 </head>
 
 <body>

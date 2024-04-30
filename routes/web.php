@@ -37,12 +37,34 @@ Route::get('/form', function () {
     ]);
 });
 
+// TEMPORARY ROUTES
 Route::get('/minimalInvestigation', function () {
     return view('minimalInvestigation', [
-        'active' => 'minimalInvestigation'
+        'active' => 'minimalInvestigation',
+        'user' => auth()->user(),
+    ]);
+});
+Route::get('/spotInvestigation', function () {
+    return view('spotInvestigation', [
+        'active' => 'spotInvestigation',
+        'user' => auth()->user(),
     ]);
 });
 
+Route::get('/progressInvestigation', function () {
+    return view('progressInvestigation', [
+        'active' => 'progressInvestigation',
+        'user' => auth()->user(),
+    ]);
+});
+
+Route::get('/finalInvestigation', function () {
+    return view('finalInvestigation', [
+        'active' => 'finalInvestigation',
+        'user' => auth()->user(),
+    ]);
+});
+//
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');
@@ -80,11 +102,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Afor
     Route::get('/reports/Operation/index', [OperationController::class, 'operationIndex'])->name('operation.index');
     Route::get('/reports/operation/create/form', [OperationController::class, 'operationCreateForm'])->name('operation.create.form');
-    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create.submit');
-    Route::get('/reports/operation/edit/form/{id}', [OperationController::class, 'operationUpdate'])->name('operation.edit.form');
+    Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create');
+    Route::get('/reports/operation/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('operation.update.form');
+    Route::post('/reports/operation/update/submit', [OperationController::class, 'operationUpdate'])->name('operation.update');
 
     // Investigation
-    Route::get('/reports/investigation/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.index');
+    Route::get('/reports/investigation/index', [InvestigationController::class, 'index'])->name('investigation.index');
+    Route::get('/reports/investigation/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.minimal.index');
+    Route::get('/reports/investigation/Spot/index', [InvestigationController::class, 'spot'])->name('investigation.spot.index');
+    Route::get('/reports/investigation/progress/index', [InvestigationController::class, 'progress'])->name('investigation.progress.index');
+    Route::get('/reports/investigation/final/index', [InvestigationController::class, 'final'])->name('investigation.final.index');
     Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
 
 

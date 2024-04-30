@@ -13,14 +13,14 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <a href="{{route('operation.create.form')}}" class="btn btn-primary">Create</a>
+                    <a href="{{ route('operation.create.form') }}" class="btn btn-primary">Create</a>
                 </div>
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <h5 class="card-title fw-semibold mb-4">Investigation Reports</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100">
+                                <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -46,7 +46,7 @@
                                     <tbody>
                                         @foreach ($operations as $operation)
                                             <x-reports.view-modal :report=$operation></x-reports.view-modal>
-                                            <x-reports.update :report=$operation></x-reports.update>
+                                            {{-- <x-reports.update :report=$operation></x-reports.update> --}}
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
@@ -66,7 +66,8 @@
                                                     <p class="mb-0 fw-normal">{{ $operation->td_declared_fireout }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="{{route('operation.edit.form', $operation->id)}}" class="btn btn-success w-100 mb-1">Update</a>
+                                                    <a href="{{ route('operation.update.form', $operation->id) }}"
+                                                        class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
                                                     <a href="#" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $operation->id }}"
