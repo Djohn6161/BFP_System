@@ -16,7 +16,7 @@
                                 class="object-fit-cover img-fluid" style="width: 100%; height: auto;"
                                 alt="Personnel Picture">
                             <div class="mt-2">
-                                <button class="btn btn-primary w-100" onclick="changePhoto()">Change Photo</button>
+                                <button class="btn btn-primary w-100" onclick="changePhoto()">Upload Photo</button>
                             </div>
                         </div>
                     </div>
