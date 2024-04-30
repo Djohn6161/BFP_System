@@ -45,7 +45,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($operations as $operation)
-                                            <x-reports.view-modal :report=$operation></x-reports.view-modal>
+                                            {{-- <x-reports.view-modal :report=$operation></x-reports.view-modal> --}}
                                             {{-- <x-reports.update :report=$operation></x-reports.update> --}}
                                             <tr>
                                                 <td class="border-bottom-0">
