@@ -11,7 +11,8 @@
                 <div class="row">
                     <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                         <div class="col d-flex justify-content-end mb-2">
-                            <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                            <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal">Delete</button>
                             <a href="{{ route('admin.personnel.edit') }}" class="btn btn-primary">Update Information</a>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
@@ -126,42 +127,23 @@
                             <input type="text" placeholder="Enter specialized training" class="form-control"
                                 id="specializedTraining" readonly>
                         </div>
-                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government Files </h3>
+                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government ID Number</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="tin" class="form-label">TIN</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control me-2" id="tin_filename" readonly>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#filePreviewPersonnelModal">Preview</button>
-                            </div>
+                            <input class="form-control" type="text" id="tin" placeholder="XXX-XXX-XXX" readonly>
                         </div>
-
                         <div class="col-lg-6 mb-3">
                             <label for="pagibig" class="form-label">PAGIBIG</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control me-2" id="pagibig_filename" readonly>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#filePreviewPersonnelModal">Preview</button>
-                            </div>
+                            <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX" readonly>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="gsis" class="form-label">GSIS</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control me-2" id="gsis_filename" readonly>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#filePreviewPersonnelModal">Preview</button>
-                            </div>
-
+                            <input class="form-control" type="text" id="gsis" placeholder="XX-XX-XXXXXXX" readonly>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="philhealth" class="form-label">PHILHEALTH</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control me-2" id="philhealth_filename" readonly>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#filePreviewPersonnelModal">Preview</button>
-                            </div>
+                            <input class="form-control" type="text" id="philhealth" placeholder="XX-XXXXXXXXX-X" readonly>
                         </div>
-
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Service Details</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="dateEnteredOtherGovtService" class="form-label">Date Entered Other Government
@@ -203,8 +185,7 @@
                         </div>
                         <div class="col-lg-12 mb-3">
                             <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
-                            <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks"
-                                readonly></textarea>
+                            <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" readonly></textarea>
                         </div>
 
                     </div>

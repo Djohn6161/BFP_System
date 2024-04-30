@@ -108,15 +108,18 @@
                                 <div class="row m-0 p-0">
                                     <div class="col-lg-6 m-0 p-0">
                                         <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
-                                        <button type="button" class="btn btn-sm btn-primary ms-3" id="editTertiaryCourse">+ ADD</button>
+                                        <button type="button" class="btn btn-sm btn-primary ms-3"
+                                            id="editTertiaryCourse">+ ADD</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row m-0 p-0" id="editTertiaryCourseContainer">
                                 <div class="col-lg-12 px-0 mb-3">
                                     <div class="input-group">
-                                        <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses">
-                                        <button type="button" class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
+                                        <input type="text" placeholder="Enter tertiary course/s" class="form-control"
+                                            id="tertiaryCourses">
+                                        <button type="button"
+                                            class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
                                     </div>
                                 </div>
                                 <!-- Input fields will be appended here -->
@@ -127,15 +130,18 @@
                                 <div class="row m-0 p-0">
                                     <div class="col-lg-6 m-0 p-0">
                                         <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
-                                        <button type="button" class="btn btn-sm btn-primary ms-3" id="editPostGraduateCourses">+ ADD</button>
+                                        <button type="button" class="btn btn-sm btn-primary ms-3"
+                                            id="editPostGraduateCourses">+ ADD</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row m-0 p-0" id="editPostGraduateCoursesContainer">
                                 <div class="col-lg-12 px-0 mb-3">
                                     <div class="input-group">
-                                        <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses">
-                                        <button type="button" class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
+                                        <input type="text" placeholder="Enter post graduate course/s"
+                                            class="form-control" id="postGraduateCourses">
+                                        <button type="button"
+                                            class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
                                     </div>
                                 </div>
                                 <!-- Input fields will be appended here -->
@@ -156,23 +162,22 @@
                             <input type="text" placeholder="Enter specialized training" class="form-control"
                                 id="specializedTraining">
                         </div>
-                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government Files </h3>
+                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government ID Number</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="tin" class="form-label">TIN</label>
-                            <input class="form-control" type="file" id="tin" multiple>
+                            <input class="form-control" type="text" id="tin" placeholder="XXX-XXX-XXX">
                         </div>
                         <div class="col-lg-6 mb-3">
-
                             <label for="pagibig" class="form-label">PAGIBIG</label>
-                            <input class="form-control" type="file" id="pagibig" multiple>
+                            <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="gsis" class="form-label">GSIS</label>
-                            <input class="form-control" type="file" id="gsis" multiple>
+                            <input class="form-control" type="text" id="gsis" placeholder="XX-XX-XXXXXXX">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="philhealth" class="form-label">PHILHEALTH</label>
-                            <input class="form-control" type="file" id="philhealth" multiple>
+                            <input class="form-control" type="text" id="philhealth" placeholder="XX-XXXXXXXXX-X">
                         </div>
 
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Service Details</h3>
@@ -274,6 +279,49 @@
         // Attach click event listener to the button
         document.getElementById("saveChangesBtn").addEventListener("click", function() {
             saveDataAndRedirect();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const tinInput = document.getElementById('tin');
+            const pagibigInput = document.getElementById('pagibig');
+            const gsisInput = document.getElementById('gsis');
+            const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                    ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+        inputElement.addEventListener('input', function(event) {
+            const inputValue = event.target.value;
+            const cleanedValue = inputValue.replace(/[^0-9]/g, ''); // Remove any characters that are not numbers
+            let formattedValue = '';
+            if (format === 'TIN') {
+                formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+            } else if (format === 'PAGIBIG') {
+                formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+            } else if (format === 'GSIS') {
+                formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+            } else if (format === 'PHILHEALTH') {
+                formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+            }
+            event.target.value = formattedValue;
+        });
+    };
+    
+    formatGovernmentID(tinInput, 'TIN');
+    formatGovernmentID(pagibigInput, 'PAGIBIG');
+    formatGovernmentID(gsisInput, 'GSIS');
+    formatGovernmentID(philhealthInput, 'PHILHEALTH');
         });
     </script>
 @endsection
