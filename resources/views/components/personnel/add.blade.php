@@ -105,14 +105,42 @@
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Educational Details</h3>
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
-                                <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
-                                <input type="text" placeholder="Enter tertiary course/s" class="form-control"
-                                    id="tertiaryCourses">
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
+                                            <button type="button" class="btn btn-sm btn-primary ms-3" id="addTertiaryCourse">+ ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0" id="tertiaryCourseContainer">
+                                    <div class="col-lg-12 px-0 mb-3">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses">
+                                            <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button>
+                                        </div>
+                                    </div>
+                                    <!-- Input fields will be appended here -->
+                                </div>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
-                                <input type="text" placeholder="Enter post graduate course/s" class="form-control"
-                                    id="postGraduateCourses">
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
+                                            <button type="button" class="btn btn-sm btn-primary ms-3" id="addpostGraduateCourses">+ ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0" id="postGraduateCoursesContainer">
+                                    <div class="col-lg-12 px-0 mb-3">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses">
+                                            <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button>
+                                        </div>
+                                    </div>
+                                    <!-- Input fields will be appended here -->
+                                </div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestEligibility" class="form-label">Highest Eligibility</label>
@@ -218,3 +246,28 @@
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#addTertiaryCourse").click(function() {
+            var inputField =
+                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses"> <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button> </div> </div>';
+            $("#tertiaryCourseContainer").append(inputField);
+        });
+
+        // Remove dynamically added input field
+        $(document).on('click', '.removeTertiaryInput', function() {
+            $(this).closest('.col-lg-12').remove();
+        });
+
+        $("#addpostGraduateCourses").click(function() {
+            var inputField =
+                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
+            $("#postGraduateCoursesContainer").append(inputField);
+        });
+
+        // Remove dynamically added input field
+        $(document).on('click', '.removePostGraduateInput', function() {
+            $(this).closest('.col-lg-12').remove();
+        });
+    });
+</script>
