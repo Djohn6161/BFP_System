@@ -410,20 +410,31 @@
         </div>
     </div>
     <script>
-// Get the input element
-var input = document.getElementById('telephone');
+        $(document).ready(function(){
+            $("#addFireVictims").click(function(){
+                var inputField = '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control" name="fireVictims[]" required><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
+                $("#fireVictimsContainer").append(inputField);
+            });
+
+            // Remove dynamically added input field
+            $(document).on('click', '.removeInput', function(){
+                $(this).closest('.col-lg-6').remove();
+            });
+        });
+        // Get the input element
+    var input = document.getElementById('telephone');
 
         // Listen for input events
         input.addEventListener('input', function() {
             // Remove any non-numeric characters
             this.value = this.value.replace(/\D/g, '');
 
-    // Limit the input to exactly 11 digits
-    if (this.value.length > 11) {
-        this.value = this.value.slice(0, 11);
-    }
-});
-var hiddenInput = document.getElementById('editorContent');
+            // Limit the input to exactly 11 digits
+            if (this.value.length > 11) {
+                this.value = this.value.slice(0, 11);
+            }
+        });
+    </script>
 
 $("#submit").click(function() {
     $("#details").val($("#first").text());
