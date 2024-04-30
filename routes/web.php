@@ -113,6 +113,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
         Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
         Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
+        Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
 
         Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
         Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');

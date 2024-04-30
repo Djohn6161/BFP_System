@@ -373,22 +373,83 @@ class InvestigationController extends Controller
         dd($request);
     }
     public function editSpot(Spot $spot){
-        // dd($spot);
-        // $barangay = $spot->address_occurence;
-        // if($spot->barangay == null || $spot->barangay == ""){
-        //     $location = 
-        // }
-        // dd($barangay);
+        if ($spot->landmark == null || $spot->landmark == "") {
+           $location = $spot->address_occurence;
+        }else{
+            $location = $spot->landmark;
+        }
         return view('reports.investigation.spot.edit', [
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'spot' => $spot,
+            'location' => $location,
 
         ]);
     }
     public function updateSpot(Request $request, Spot $spot){
-        dd($request);
+        // dd($request, $spot);
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'date_occurence' => 'required',
+            'time_occurence' => 'required',
+            'barangay' => 'nullable',
+            'zone_street' => 'nullable',
+            'landmark' => 'nullable',
+            'involved' => 'required',
+            'name_of_establishment' => 'required',
+            'owner' => 'required',
+            'alarm' => 'required',
+            'occupant' => 'required',
+            'fatality' => 'required',
+            'injured' => 'required',
+            'estimate_damage' => 'required',
+            'time_fire_start' => 'required',
+            'time_fire_out' => 'required',
+            'details' => 'required',
+            'disposition' => 'required',
+        ]);
+        
+        $investigation = Investigation::findOrFail($spot->investigation_id);
+        $updateInve = [
+            'for' => $validatedData['for'],
+            'subject' => $validatedData['subject'],
+            'date' => $validatedData['date'],
+        ];
+        $investigation->touch();
+        $investigation->update($updateInve);
+
+        if ($request->has('barangay')) {
+            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+        }
+        $updatedSpot = [
+            'date_occurence' => $validatedData['date_occurence'] ?? '',
+            'time_occurence' => $validatedData['time_occurence'] ?? '',
+            'barangay' => $validatedData['barangay'] ?? '',
+            'street' => $validatedData['zone_street'] ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
+            'address_occurence' => $location ?? '',
+            'involved' => $validatedData['involved'] ?? '',
+            'name_of_establishment' => $validatedData['name_of_establishment'] ?? '',
+            'owner' => $validatedData['owner'] ?? '',
+            'occupant' => $validatedData['occupant'] ?? '',
+            'fatality' => $validatedData['fatality'] ?? '',
+            'injured' => $validatedData['injured'] ?? '',
+            'estimate_damage' => $validatedData['estimate_damage'] ?? '',
+            'time_fire_start' => $validatedData['time_fire_start'] ?? '',
+            'time_fire_out' => $validatedData['time_fire_out'] ?? '',
+            'alarm' => $validatedData['alarm'] ?? '',
+            'details' => $validatedData['details'] ?? '',
+            'disposition' => $validatedData['disposition'] ?? '',
+        ];
+        $spot->touch();
+        $spot->update($updatedSpot);
+        return redirect('/reports/investigation/Spot/index')->with("success", $spot->investigation->subject . " Updated Successfully!");
+
     }
     public function updateProgress(Request $request, Progress $progress){
         dd($request);
