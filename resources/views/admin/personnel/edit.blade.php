@@ -2,6 +2,16 @@
     .btn-reports {
         width: 200px
     }
+      /* Styles for file list container */
+      #file-list-container {
+        margin-top: 20px;
+    }
+    .file-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -222,11 +232,30 @@
                             <label for="remarks" class="form-label">Admin/Operation Remarks</label>
                             <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks"></textarea>
                         </div>
-
+                        {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Data Sheet</h3>
+                        <div>
+                            <input class="form-control" type="file" id="tin" multiple>
+                        </div> --}}
+                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                         <div>
+                            <label for="file-input" class="form-label"></label>
+                            <input class="form-control" type="file" id="file-input" style="display: none;" multiple>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
+                                <p id="file-count">No files selected</p>
+                            </div>
+                        </div>
+                    
+                        <!-- File List Container -->
+                        <div id="file-list-container">
+                            <div id="file-list"></div>
+                        </div>
+                    </div>
                     </div>
                     <div class="col d-flex justify-content-end mb-2">
                         <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -323,5 +352,51 @@
     formatGovernmentID(gsisInput, 'GSIS');
     formatGovernmentID(philhealthInput, 'PHILHEALTH');
         });
+
+        $(document).ready(function(){
+            $('#file-input').change(handleFileSelect);
+        });
+
+        function handleFileSelect(event) {
+            var fileList = $('#file-list');
+            fileList.html('');
+
+            var files = event.target.files;
+
+            // Update file count
+            var fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $('<div class="file-item"></div>');
+
+                var fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
+                var fileList = $('#file-list');
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
+                    }
+                }
+
+                // Update file count after deletion
+                var remainingFiles = fileList.find('.file-item').length;
+                fileCountSpan.text(remainingFiles + ' file(s)');
+            };
+        }
     </script>
 @endsection
