@@ -14,7 +14,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="./index.html" class="text-nowrap logo-img">
+            <a href="{{route('admin.dashboard')}}" class="text-nowrap logo-img">
                 <h2>BFP</h2>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -70,31 +70,19 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
                                 
-                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" > 
                                     All
                                 </a>
-                                <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
-                                    <span>
-                                        <i class="ti ti-caret-right"></i>
-                                    </span>
+                                <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" > 
                                     Minimal
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                    <span>
-                                        <i class="ti ti-caret-right"></i>
-                                    </span>
-                                    Spot
+                                <a href="{{route('investigation.spot.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'spot' ? 'active' : ''}}">
+                                   Spot
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                    <span>
-                                        <i class="ti ti-caret-right"></i>
-                                    </span>
+                                <a href="{{route('investigation.progress.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'progress' ? 'active' : ''}}">
                                     Progress
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                    <span>
-                                        <i class="ti ti-caret-right"></i>
-                                    </span>
+                                <a href="{{route('investigation.final.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'final' ? 'active' : ''}}">
                                     Final
                                 </a>
                             

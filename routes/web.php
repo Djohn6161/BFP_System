@@ -6,6 +6,7 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
+use App\Models\Investigation;
 use App\Models\Report;
 use Illuminate\Support\Facades\Route;
 use App\Models\Operation;
@@ -71,7 +72,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['role:user'])->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
-
     });
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
@@ -89,8 +89,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
-        
-
     });
 
     // Reports
@@ -107,12 +105,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reports/operation/update/submit', [OperationController::class, 'operationUpdate'])->name('operation.update');
 
     // Investigation
-    Route::get('/reports/investigation/index', [InvestigationController::class, 'index'])->name('investigation.index');
-    Route::get('/reports/investigation/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('investigation.minimal.index');
-    Route::get('/reports/investigation/Spot/index', [InvestigationController::class, 'spot'])->name('investigation.spot.index');
-    Route::get('/reports/investigation/progress/index', [InvestigationController::class, 'progress'])->name('investigation.progress.index');
-    Route::get('/reports/investigation/final/index', [InvestigationController::class, 'final'])->name('investigation.final.index');
-    Route::get('/reports/investigation/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('investigation.minimal.create.form');
+    Route::prefix('reports/investigation')->name('investigation.')->group(function () {
+        Route::get('/index', [InvestigationController::class, 'index'])->name('index');
+
+        Route::get('/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('minimal.index');
+        Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
+        Route::post('minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
+
+        Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
+        Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
+        Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
+
+        Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
+        Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');
+        Route::post('/propress/store/{spot}', [InvestigationController::class, 'storeProgress'])->name('progress.store');
+
+        Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
+        Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
+
+
+        // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
+    });
+
 
 
     // Account

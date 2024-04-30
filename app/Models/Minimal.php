@@ -9,7 +9,7 @@ class Minimal extends Model
 {
     use HasFactory;
     public function Investigation(){
-        return $this->belongsTo(Investigation::class, 'investigation');
+        return $this->belongsTo(Investigation::class, 'investigation_id');
     }
     public function receiver(){
         return $this->belongsTo(Personnel::class, 'receiver');

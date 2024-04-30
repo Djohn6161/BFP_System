@@ -33,29 +33,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">MEMORANDUM</h3>
-                            {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="dateTime" class="form-label">FOR:</label>
-                                <input type="text" placeholder="Eg. pedro villa" class="form-control text-uppercase"
-                                    id="dateTime" required>
-                            </div>
-
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="reported" class="form-label">SUBJECT:</label>
-                                <input type="text" placeholder="Eg. fire incident report "
-                                    class="form-control text-uppercase" id="reported" required>
-
-                            </div>
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="province" class="form-label">DATE:</label>
-                                <input type="text" placeholder=" Eg. march 02, 2013" class="form-control" id="province"
-                                    required>
-                            </div>
-                        </div>
+                    <form action="{{ route('investigation.spot.store') }}" class="needs-validation" novalidate method="POST">
+                        @csrf
+                        <x-reports.investigation.memo-investigate ></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-5 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -64,15 +44,24 @@
                             {{-- <h5>Details</h5> --}}
                             <!-- Corrected "Date of Occurrence" -->
                             <div class="col-lg-6 mb-3">
-                                <label for="date-of-occurrence" class="form-label">Date of Occurrence</label>
-                                <input type="date" class="form-control" id="date-of-occurrence" required>
+                                <label for="date_occurence" class="form-label">Date of Occurrence</label>
+                                <input type="date" id="date_occurence" name="date_occurence"
+                                    class="form-control {{ $errors->has('date_occurence') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('date_occurence') }}" required>
+                                @error('date_occurence')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Time of Occurrence" -->
                             <div class="col-lg-6 mb-3">
-                                <label for="time-of-occurrence" class="form-label">Time of Occurrence</label>
-                                <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-of-occurrence"
-                                    required>
+                                <label for="time_occurence" class="form-label">Time of Occurrence</label>
+                                <input type="text" placeholder="Eg. 2300H" id="time_occurence" name="time_occurence"
+                                    class="form-control {{ $errors->has('time_occurence') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('time_occurence') }}" required>
+                                @error('time_occurence')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <hr>
@@ -81,27 +70,39 @@
                             <h5><i>Place of Occurrence</i></h5>
                             <div class="col-lg-6 mb-4">
                                 <label for="barangay-select" class="form-label">Barangay</label>
-                                <select class="form-select" id="barangay-select" required>
-                                    <option value="" disabled selected>-- Select a Barangay --</option>
-                                    <option value="barangay_1">Barangay 1</option>
-                                    <option value="barangay_2">Barangay 2</option>
-                                    <option value="barangay_3">Barangay 3</option>
-                                    <!-- Add more barangay options as needed -->
+                                <select class="form-select" id="barangay-select" name="barangay" required>
+                                    <option value="" >-- Select a Barangay --</option>
+                                    @foreach ($barangay as $barangay)
+                                        <option {{ old('barangay') == 1 ? 'selected' : '' }}
+                                            value="{{ $barangay->name }}"> {{ $barangay->name }} </option>
+                                    @endforeach
+
                                 </select>
+                                @error('barangay')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Zone/Street" -->
                             <div class="col-lg-6 mb-4">
-                                <label for="zone-street" class="form-label">Zone/Street</label>
-                                <input type="text" placeholder="Eg. Zone 4" class="form-control" id="zone-street"
-                                    required>
+                                <label for="zone_street" class="form-label">Zone/Street</label>
+                                <input type="text" placeholder="Eg. Zone 4" id="zone_street" name="zone_street"
+                                    class="form-control {{ $errors->has('zone_street') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('zone_street') }}" required>
+                                @error('zone_street')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Other Location/Landmark" -->
                             <div class="col-lg-12 mb-4">
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
-                                <input type="text" placeholder="Eg. LCC Mall" class="form-control" id="landmark"
-                                    required>
+                                <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
+                                    class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('landmark') }}" required>
+                                @error('landmark')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <hr>
@@ -109,29 +110,45 @@
                             <!-- Corrected "Involved" -->
                             <div class="col-lg-6 mb-4">
                                 <label for="involved" class="form-label">Involved</label>
-                                <input type="text" placeholder="Eg. Residential House" class="form-control"
-                                    id="involved" required>
+                                <input type="text" placeholder="Eg. Residential House" id="involved" name="involved"
+                                    class="form-control {{ $errors->has('involved') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('involved') }}" required>
+                                @error('involved')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Name of Establishment" -->
                             <div class="col-lg-6 mb-4">
-                                <label for="establishment" class="form-label">Name of Establishment</label>
-                                <input type="text" placeholder="Eg. Residential House" class="form-control"
-                                    id="establishment" required>
+                                <label for="name_of_establishment" class="form-label">Name of Establishment</label>
+                                <input type="text" placeholder="Eg. Residential House" id="name_of_establishment" name="name_of_establishment"
+                                    class="form-control {{ $errors->has('name_of_establishment') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('name_of_establishment') }}" required>
+                                @error('name_of_establishment')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Owner" -->
                             <div class="col-lg-6 mb-4">
                                 <label for="owner" class="form-label">Owner</label>
-                                <input type="text" placeholder="Eg. John Doe" class="form-control" id="owner"
-                                    required>
+                                <input type="text" placeholder="Eg. John Doe" id="owner" name="owner"
+                                    class="form-control {{ $errors->has('owner') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('owner') }}" required>
+                                @error('owner')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Occupant" -->
                             <div class="col-lg-6 mb-4">
                                 <label for="occupant" class="form-label">Occupant</label>
-                                <input type="text" placeholder="Eg. Jane Doe" class="form-control" id="occupant"
-                                    required>
+                                <input type="text" placeholder="Eg. Jane Doe" id="occupant" name="occupant"
+                                    class="form-control {{ $errors->has('occupant') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('occupant') }}" required>
+                                @error('occupant')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <hr>
@@ -140,50 +157,100 @@
                             <h5><i>Casualty</i></h5>
                             <div class="col-lg-6 mb-4">
                                 <label for="fatality" class="form-label">Fatality</label>
-                                <input type="number" placeholder="Eg. 1" class="form-control" id="fatality" required>
+                                <input type="number" placeholder="Eg. 1" id="fatality" name="fatality"
+                                    class="form-control {{ $errors->has('fatality') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('fatality') }}" required min="0">
+                                @error('fatality')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="col-lg-6 mb-4">
                                 <label for="injured" class="form-label">Injured</label>
-                                <input type="number" placeholder="Eg. 3" class="form-control" id="injured" required>
+                                <input type="number" placeholder="Eg. 3" id="injured" name="injured"
+                                    class="form-control {{ $errors->has('injured') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('injured') }}" required min="0">
+                                @error('injured')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <hr>
 
                             <!-- Corrected "Estimated Damage" -->
                             <div class="col-lg-3 mb-4">
-                                <label for="estimated-damage" class="form-label">Estimated Damage</label>
-                                <input type="number" placeholder="Eg. 50000" class="form-control" id="estimated-damage"
-                                    required>
+                                <label for="estimate-damage" class="form-label">Estimated Damage</label>
+                                <input type="number" placeholder="Eg. 50000" id="estimate-damage" name="estimate_damage"
+                                    class="form-control {{ $errors->has('estimate_damage') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('estimate_damage') }}" required>
+                                @error('estimate_damage')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Time Fire Started" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="time-fire-started" class="form-label">Time Fire Started</label>
-                                <input type="text" placeholder="Eg. 2100H" class="form-control"
-                                    id="time-fire-started" required>
+                                <input type="text" placeholder="Eg. 2100H" id="time-fire-started" name="time_fire_start"
+                                    class="form-control {{ $errors->has('time_fire_start') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('time_fire_start') }}" required>
+                                @error('time_fire_start')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Time Fire Out" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="time-fire-out" class="form-label">Time of Fire Out</label>
-                                <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
-                                    required>
+                                <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out" name="time_fire_out"
+                                    class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
+                                    value="{{ old('time_fire_out') }}" required>
+                                @error('time_fire_out')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Corrected "Alarm" -->
                             <div class="col-lg-3 mb-4">
                                 <label for="alarm" class="form-label">Alarm</label>
-                                <select class="form-select spotAlarmSelect" id="alarm" required>
-                                    <option value="" disabled selected>-- Select an Alarm --</option>
-                                    <option value="alarm_1">Alarm 1</option>
-                                    <option value="alarm_2">Alarm 2</option>
-                                    <option value="alarm_3">Alarm 3</option>
-                                    <!-- Add more alarm options as needed -->
+                                <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
+                                    <option value="">-- Select an Alarm --</option>
+                                    <option {{ old('alarm') == 1 ? 'selected' : '' }} value="1">1st
+                                        Alarm</option>
+                                    <option {{ old('alarm') == 2 ? 'selected' : '' }} value="2">2nd
+                                        Alarm</option>
+                                    <option {{ old('alarm') == 3 ? 'selected' : '' }} value="3">3rd
+                                        Alarm</option>
+                                    <option {{ old('alarm') == 4 ? 'selected' : '' }} value="4">4th
+                                        Alarm</option>
+                                    <option {{ old('alarm') == 5 ? 'selected' : '' }} value="5">5th
+                                        Alarm</option>
+                                    <option {{ old('alarm') == 6 ? 'selected' : '' }} value="6">Task
+                                        Force Alpha</option>
+                                    <option {{ old('alarm') == 7 ? 'selected' : '' }} value="7">Task
+                                        Force Bravo</option>
+                                    <option {{ old('alarm') == 8 ? 'selected' : '' }} value="8">Task
+                                        Force Charlie</option>
+                                    <option {{ old('alarm') == 9 ? 'selected' : '' }} value="9">Task
+                                        Force Delta</option>
+                                    <option {{ old('alarm') == 10 ? 'selected' : '' }} value="10">Task
+                                        Force Echo</option>
+                                    <option {{ old('alarm') == 11 ? 'selected' : '' }} value="11">Task
+                                        Force Hotel</option>
+                                    <option {{ old('alarm') == 12 ? 'selected' : '' }} value="12">Task
+                                        Force India</option>
+                                    <option {{ old('alarm') == 13 ? 'selected' : '' }} value="13">
+                                        General Alarm</option>
                                 </select>
+                                @error('alarm')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="mb-5">
-                                <label for="dateTime" class="form-label">Details of Investigation</label>
+                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS OF INVESTIGATION:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
                                         <span class="ql-formats">
@@ -235,11 +302,16 @@
                                     </div>
 
                                 </div>
-
+                                <input type="hidden" id="detail" name="details">
                             </div>
+                            </div>
+
                             <div class="mb-5"></div>
-                            <div class="mb-5 mt-4">
-                                <label for="dateTime" class="form-label">Disposition</label>
+                            <div class="mb-5 mt-5">
+                                <h3 class="border-bottom border-4 border-warning pb-2 mb-3">Disposition:</h3>
+                            {{-- <h5>Details</h5> --}}
+                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
                                         <span class="ql-formats">
@@ -289,17 +361,18 @@
                                     <div id="disposition">
 
                                     </div>
-
+                                    <input type="hidden" id="dispo" name="disposition">
+                                </div>
                                 </div>
 
                             </div>
                             <div class="mb-5"></div>
                         </div>
 
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -313,7 +386,6 @@
         const quillThird = new Quill('#detailsOfInvestigation', {
             theme: 'snow',
             modules: {
-                syntax: true,
                 toolbar: '#toolbar1',
             },
 
@@ -324,11 +396,14 @@
         const quillFourth = new Quill('#disposition', {
             theme: 'snow',
             modules: {
-                syntax: true,
                 toolbar: '#toolbar2',
             },
 
             placeholder: 'Compose an epic...',
+        });
+        $("#submit").click(function() {
+            $("#detail").val(quillThird.root.innerHTML);
+            $("#dispo").val(quillFourth.root.innerHTML);
         });
     </script>
 @endsection
