@@ -17,16 +17,14 @@
                         data-bs-target="#chooseInvestigation">Create</button>
                     <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
                 </div>
-                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
-                  </button> --}}
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">
                                 {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="investigationTable">
+                                <x-reports.view-investigation></x-reports.view-investigation>
+                                <table class="table mb-0 align-middle w-100">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -44,8 +42,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
                                         @foreach ($investigations as $investigation)
-                                            <x-reports.view-modal :report=$investigation></x-reports.view-modal>
+                                            
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}

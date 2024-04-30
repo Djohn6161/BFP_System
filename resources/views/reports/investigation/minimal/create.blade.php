@@ -514,6 +514,37 @@
         </div>
     </div>
     <script>
+      $(document).ready(function(){
+        $('#photos').on('change', function() {
+                // Get the selected files
+                var files = $(this)[0].files;
+
+                // Clear any existing previews
+                $('#preview-container').empty();
+
+                // Loop through each selected file
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var reader = new FileReader();
+
+                    // Closure to capture the file information
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            // Create a new image element
+                            var imgElement = $(
+                                '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
+                            ).addClass('preview-image').attr('src', e.target.result);
+
+                            // Append the image to the preview container
+                            $('#preview-container').append(imgElement);
+                        };
+                    })(file);
+
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                }
+            });
+      });
         // Get the input element
         var input = document.getElementById('telephone');
 

@@ -2,7 +2,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="noModalLabel">Choose which type of incident:</h3>
+                    <h3 class="modal-title" id="noModalLabel">Choose Investigation Report</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
