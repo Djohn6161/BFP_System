@@ -78,6 +78,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
         Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
+        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
+        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
+        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
+        
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
