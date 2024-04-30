@@ -10,7 +10,7 @@
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
                         @csrf
 
-                        @if ($errors->any())
+                        {{-- @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>Oops!</strong> There were some errors with your submission:
                                 <ul>
@@ -36,7 +36,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                        @endif
+                        @endif --}}
 
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
