@@ -129,11 +129,8 @@
                                 <div id="collapsePersonnel" class="accordion-collapse collapse show"
                                     data-bs-parent="#personnelAccordion">
                                     
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Task 
+                                    <a href="{{route('personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        Personnel Info
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         <span>

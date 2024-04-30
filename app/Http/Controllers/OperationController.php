@@ -28,7 +28,7 @@ class OperationController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $operations = Afor::all();
-        return view('reports.operation', compact('active', 'operations', 'user'));
+        return view('reports.operation.operation', compact('active', 'operations', 'user'));
     }
 
     public function operationCreateForm()
@@ -767,18 +767,7 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-
-        dd($status);
-
-
-
         return redirect()->back()->with('success', 'Operation updated successfully.');
-
-
-
-        // $savedId = $afor->id;
-
-        // $afor = new Response();
     }
 
     private function hasValues($array)
