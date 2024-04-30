@@ -40,17 +40,19 @@ class InvestigationController extends Controller
         $spots = Spot::all();
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
     }
-    public function createMinimal(){
+    public function createMinimal()
+    {
         return view('reports.investigation.minimal.create', [
             'active' => 'minimal',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
-        
+
         ]);
     }
-    public function storeMinimal(Request $request){
+    public function storeMinimal(Request $request)
+    {
         // dd($request->all());
         $validatedData = $request->validate([
             'for' => 'required',
@@ -95,7 +97,7 @@ class InvestigationController extends Controller
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
-        $investigation->save(); 
+        $investigation->save();
         // dd($investigation);
         $photos = implode(", ", $validatedData['photos']);
         foreach ($validatedData['photos'] as $photo) {
@@ -129,9 +131,8 @@ class InvestigationController extends Controller
             'photos' => $photos ?? '',
         ]);
         $minimal->save();
-        
+
         return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
-        
     }
 
     public function Spot()
@@ -144,7 +145,8 @@ class InvestigationController extends Controller
             'spots' => Spot::all(),
         ]);
     }
-    public function createSpot(){
+    public function createSpot()
+    {
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
@@ -152,7 +154,8 @@ class InvestigationController extends Controller
 
         ]);
     }
-    public function storeSpot(Request $request){
+    public function storeSpot(Request $request)
+    {
         // dd($request->all());
         $validatedData = $request->validate([
             'for' => 'required',
@@ -192,7 +195,7 @@ class InvestigationController extends Controller
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
-        $investigation->save(); 
+        $investigation->save();
         // dd($investigation);
         $spot->fill([
             'investigation_id' => $investigation->id,
@@ -217,7 +220,7 @@ class InvestigationController extends Controller
         ]);
         // dd($spot);
         $spot->save();
-        
+
         return redirect('/reports/investigation/Spot/index')->with("success", "Investigation Created Successfully!");
     }
     public function Progress()
@@ -230,7 +233,8 @@ class InvestigationController extends Controller
             'spots' => Spot::all(),
         ]);
     }
-    public function createProgress(Spot $spot){
+    public function createProgress(Spot $spot)
+    {
         // dd($spot);
         return view('reports.investigation.progress.create', [
             'active' => 'progress',
@@ -238,8 +242,9 @@ class InvestigationController extends Controller
             'spot' => $spot,
         ]);
     }
-    public function storeProgress(Request $request, Spot $spot){
-        
+    public function storeProgress(Request $request, Spot $spot)
+    {
+
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -256,7 +261,7 @@ class InvestigationController extends Controller
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
-        $investigation->save(); 
+        $investigation->save();
         // dd($investigation);
         $progress->fill([
             'investigation_id' => $investigation->id,
@@ -267,13 +272,13 @@ class InvestigationController extends Controller
             'disposition' => $request->input('disposition') ?? '',
         ]);
         $progress->save();
-        
+
         return redirect('/reports/investigation/progress/index')->with("success", "Investigation Created Successfully!");
         // dd($request->all(), $validatedData);
     }
     public function final()
     {
-        
+
         return view('reports.investigation.final', [
             'active' => 'final',
             'user' => Auth::user(),
@@ -282,7 +287,8 @@ class InvestigationController extends Controller
             'spots' => Spot::all(),
         ]);
     }
-    public function createFinal(Spot $spot){
+    public function createFinal(Spot $spot)
+    {
         return view('reports.investigation.final.create', [
             'active' => 'final',
             'user' => Auth::user(),
@@ -290,7 +296,8 @@ class InvestigationController extends Controller
             'barangay' => Barangay::all(),
         ]);
     }
-    public function storeFinal(Request $request, Spot $spot){
+    public function storeFinal(Request $request, Spot $spot)
+    {
         // dd($request->input('victim'));
         $validatedData = $request->validate([
             'for' => 'required',
@@ -330,7 +337,7 @@ class InvestigationController extends Controller
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
-        $investigation->save(); 
+        $investigation->save();
         if ($request->input('victim')) {
             foreach ($request->input('victim') as $victi) {
                 # code...
@@ -340,7 +347,7 @@ class InvestigationController extends Controller
                 $victim->save();
             }
         }
-        
+
         // dd($investigation);
         $final->fill([
             'investigation_id' => $investigation->id,
@@ -363,19 +370,22 @@ class InvestigationController extends Controller
         ]);
         // dd($spot);
         $final->save();
-        
+
         return redirect('/reports/investigation/final/index')->with("success", "Investigation Created Successfully!");
     }
-    public function editMinimal(Minimal $minimal){
+    public function editMinimal(Minimal $minimal)
+    {
         dd($minimal);
     }
-    public function updateMinimal(Request $request, Minimal $minimal){
+    public function updateMinimal(Request $request, Minimal $minimal)
+    {
         dd($request);
     }
-    public function editSpot(Spot $spot){
+    public function editSpot(Spot $spot)
+    {
         if ($spot->landmark == null || $spot->landmark == "") {
-           $location = $spot->address_occurence;
-        }else{
+            $location = $spot->address_occurence;
+        } else {
             $location = $spot->landmark;
         }
         return view('reports.investigation.spot.edit', [
@@ -384,10 +394,10 @@ class InvestigationController extends Controller
             'barangay' => Barangay::all(),
             'spot' => $spot,
             'location' => $location,
-
         ]);
     }
-    public function updateSpot(Request $request, Spot $spot){
+    public function updateSpot(Request $request, Spot $spot)
+    {
         // dd($request, $spot);
         $validatedData = $request->validate([
             'for' => 'required',
@@ -411,7 +421,7 @@ class InvestigationController extends Controller
             'details' => 'required',
             'disposition' => 'required',
         ]);
-        
+
         $investigation = Investigation::findOrFail($spot->investigation_id);
         $updateInve = [
             'for' => $validatedData['for'],
@@ -449,12 +459,51 @@ class InvestigationController extends Controller
         $spot->touch();
         $spot->update($updatedSpot);
         return redirect('/reports/investigation/Spot/index')->with("success", $spot->investigation->subject . " Updated Successfully!");
+    }
+    public function editProgress(Request $request, Progress $progress)
+    {
+        // dd($request, $progress);
+        return view('reports.investigation.progress.edit', [
+            'active' => 'progress',
+            'user' => Auth::user(),
+            'barangay' => Barangay::all(),
+            'progress' => $progress,
+        ]);
+    }
+    public function updateProgress(Request $request, Progress $progress)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'authority' => 'required',
+            'matters_investigated' => 'required',
+            'facts_of_the_case' => 'required',
+            'disposition' => 'required',
+        ]);
+        $investigation = Investigation::findOrFail($progress->investigation_id);
+        $updateInve = [
+            'for' => $validatedData['for'],
+            'subject' => $validatedData['subject'],
+            'date' => $validatedData['date'],
+        ];
+        $investigation->touch();
+        $investigation->update($updateInve);
+        // dd($investigation);
+        $updatedProg = [
+            'authority' => $validatedData['authority'] ?? "",
+            'matters_investigated' => $validatedData['matters_investigated'] ?? "",
+            'facts_of_the_case' => $validatedData['facts_of_the_case'] ?? "",
+            'disposition' => $validatedData['disposition'] ?? "",
+        ];
+        $progress->touch();
+        $progress->update($updatedProg);
 
+        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject .  " Updated Successfully!");
     }
-    public function updateProgress(Request $request, Progress $progress){
-        dd($request);
-    }
-    public function updateFinal(Request $request, Ifinal $final){
+    public function updateFinal(Request $request, Ifinal $final)
+    {
         dd($request);
     }
 }
