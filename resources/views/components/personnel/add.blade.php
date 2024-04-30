@@ -24,13 +24,11 @@
                         <div class="row g-3">
                             <div class="col-lg-6">
                                 <label for="accountNumber" class="form-label">Account Number</label>
-                                <input type="text" placeholder="Enter account number" class="form-control"
-                                    id="accountNumber">
+                                <input type="text" placeholder="Enter account number" class="form-control" id="accountNumber" name="account_number">
                             </div>
                             <div class="col-lg-6">
                                 <label for="itemNumber" class="form-label">Item Number</label>
-                                <input type="text" placeholder="Enter item number" class="form-control"
-                                    id="itemNumber">
+                                <input type="text" placeholder="Enter item number" class="form-control" id="itemNumber" name="item_number">
                             </div>
                         </div>
 
@@ -38,18 +36,16 @@
                             <label class="form-label">Name</label>
                             <div class="row g-3">
                                 <div class="col">
-                                    <input type="text" placeholder="First Name" class="form-control" id="firstName">
+                                    <input type="text" placeholder="First Name" class="form-control" id="firstName" name="first_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Middle Name" class="form-control"
-                                        id="middleName">
+                                    <input type="text" placeholder="Middle Name" class="form-control" id="middleName" name="middle_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Last Name" class="form-control" id="lastName">
+                                    <input type="text" placeholder="Last Name" class="form-control" id="lastName" name="last_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Suffix Name" class="form-control"
-                                        id="suffixName">
+                                    <input type="text" placeholder="Suffix Name" class="form-control" id="suffixName" name="extension">
                                 </div>
                             </div>
                         </div>
@@ -58,19 +54,18 @@
 
                                 <div class="col-lg-6">
                                     <label for="contactNumber" class="form-label">Contact Number</label>
-                                    <input type="text" placeholder="Enter contact number" class="form-control"
-                                        id="contactNumber">
+                                    <input type="text" placeholder="Enter contact number" class="form-control" id="contactNumber" name="contact_number">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dateOfBirth">
+                                    <input type="date" class="form-control" id="dateOfBirth" value="date_of_birth">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-4">
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
-                                    <select class="form-select" id="maritalStatus">
+                                    <select class="form-select" id="maritalStatus" name="marital_status">
                                         <option selected>Select marital status</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -80,7 +75,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender">
+                                    <select class="form-select" id="gender" name="gender">
                                         <option selected>Select gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -88,15 +83,13 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="religion" class="form-label">Religion</label>
-                                    <input type="text" placeholder="Enter religion" class="form-control"
-                                        id="religion">
+                                    <input type="text" placeholder="Enter religion" class="form-control" id="religion" name="religion">
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="completeAddress" class="form-label">Complete Address</label>
-                                <input type="text" placeholder="Enter complete address" class="form-control"
-                                    id="completeAddress">
+                                <input type="text" placeholder="Enter complete address" class="form-control" id="completeAddress" name="address">
                             </div>
                         </div>
 
