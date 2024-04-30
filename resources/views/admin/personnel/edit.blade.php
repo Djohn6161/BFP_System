@@ -256,20 +256,19 @@
             });
         });
 
+        // Function to preview photo using jQuery
         function previewPhoto(event) {
             var file = event.target.files[0];
             var reader = new FileReader();
 
             reader.onload = function(e) {
-                var personnelPicture = document.getElementById('personnel-picture');
-                personnelPicture.src = e.target.result;
-                personnelPicture.alt = "Selected Image";
+                $('#personnel-picture').attr('src', e.target.result).attr('alt', 'Selected Image');
             }
 
             reader.readAsDataURL(file);
         }
 
-        // Function to save data
+        // Function to save data and redirect using jQuery
         function saveDataAndRedirect() {
             // Perform saving data here (e.g., AJAX request)
             // After data is successfully saved, redirect to another page

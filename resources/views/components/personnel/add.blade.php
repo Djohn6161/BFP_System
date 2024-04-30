@@ -11,12 +11,12 @@
                 <form id="addPersonnelForm" class="row g-3">
 
                     <div class="col-lg-4">
-                        <div class="mb-3"> <!-- Photo column -->
-                            <img src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
-                                class="object-fit-cover img-fluid" style="width: 100%; height: auto;"
-                                alt="Personnel Picture">
+                        <div class="mb-3">
+                            <img id="previewPersonnelImage" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}" class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
-                                <button class="btn btn-primary w-100" onclick="changePhoto()">Upload Photo</button>
+                                <label for="imagePersonnelInput" class="btn btn-primary w-100">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" style="display:none;">
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -268,6 +268,17 @@
         // Remove dynamically added input field
         $(document).on('click', '.removePostGraduateInput', function() {
             $(this).closest('.col-lg-12').remove();
+        });
+
+        $('#imagePersonnelInput').change(function(){
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewPersonnelImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
         });
     });
 </script>
