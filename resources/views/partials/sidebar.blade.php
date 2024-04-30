@@ -71,6 +71,9 @@
                                 data-bs-parent="#accordionExample">
                                 
                                 <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" > 
+                                    <span>
+                                        <i class="ti ti-category"></i>
+                                    </span>
                                     All
                                 </a>
                                 <a href="{{route('investigation.minimal.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'minimal' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}"> 
@@ -127,15 +130,27 @@
                                     data-bs-parent="#personnelAccordion">
                                     
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
                                         Task 
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
                                         Sample1
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
                                         Sample2
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
                                         Sample3
                                     </a>
                                 </div>
