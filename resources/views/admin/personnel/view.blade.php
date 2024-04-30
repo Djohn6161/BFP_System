@@ -181,17 +181,17 @@
                             <label for="dateOfLastPromotion" class="form-label">Date of Last Promotion</label>
                             <input type="date" class="form-control" id="dateOfLastPromotion" readonly>
                         </div>
-                        <div class="col-lg-4 mb-3">
+                        <div class="col-lg-6 mb-3">
                             <label for="appointmentStatus" class="form-label">Appointment Status</label>
                             <input type="text" placeholder="Enter appointment status" class="form-control"
                                 id="appointmentStatus" readonly>
                         </div>
-                        <div class="col-lg-4 mb-3">
+                        <div class="col-lg-6 mb-3">
                             <label for="unitCode" class="form-label">Unit Code</label>
                             <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode"
                                 readonly>
                         </div>
-                        <div class="col-lg-4 mb-3">
+                        <div class="col-lg-6 mb-3">
                             <label for="unitAssignment" class="form-label">Unit Assignment</label>
                             <input type="text" placeholder="Enter unit assignment" class="form-control"
                                 id="unitAssignment" readonly>
@@ -201,13 +201,8 @@
                             <input type="text" placeholder="Enter designation" class="form-control" id="designation"
                                 readonly>
                         </div>
-                        <div class="col-lg-6 mb-3">
-                            <label for="adminOperation" class="form-label">Admin/Operation</label>
-                            <input type="text" placeholder="Enter admin/operation" class="form-control"
-                                id="adminOperation" readonly>
-                        </div>
                         <div class="col-lg-12 mb-3">
-                            <label for="remarks" class="form-label">Remarks</label>
+                            <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
                             <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks"
                                 readonly></textarea>
                         </div>
