@@ -11,8 +11,6 @@
         <!--  Row 1 -->
 
         <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
@@ -68,10 +66,12 @@
                                                 <h6 class="mb-0 fw-normal">joker123</h6>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <a href="" class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</a>
-                                                
+                                                <a href="" class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
+                                                    data-bs-target="#editAccountModal">Edit</a>
+
                                                 <br>
-                                                <a href="#" class="btn btn-danger w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</a>
+                                                <a href="#" class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteAccountModal">Delete</a>
                                             </td>
                                         </tr>
                                         <!-- Add more static data rows as needed -->
@@ -85,9 +85,9 @@
             <!-- Removed custom blade components -->
         </div>
     </div>
-    <x-account.create :category=$active > </x-account.create>
-    <x-account.edit :category=$active > </x-account.edit>
-    <x-account.delete :category=$active > </x-account.delete>
+    <x-account.create :category=$active> </x-account.create>
+    <x-account.edit :category=$active> </x-account.edit>
+    <x-account.delete :category=$active> </x-account.delete>
     <script>
         // Wait for the document to load
         document.addEventListener("DOMContentLoaded", function() {

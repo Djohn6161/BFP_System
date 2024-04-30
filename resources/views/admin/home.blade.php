@@ -1,13 +1,14 @@
 @extends('layouts.user-template')
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid vh-100 py-0">
     <!--  Row 1 -->
-    <div class="col-lg-12 ">
+    <div class="d-flex justify-content-center align-items-center h-100">
+     <div class="col-lg-12 mb-5">
       <!-- Monthly Earnings -->
       <div class="row">
           <div class="col text-center">
             <img src="../assets/images/logos/BFP_Ligao_logo.png" width="170" alt="">
-              <h1>NOOOOOOOOOOOOOOOOOOOO</h1>
+              <h1>BFP Ligao City</h1>
           </div>
           
       </div>
@@ -19,6 +20,7 @@
               <a href="{{route('investigation.index')}}" type="button" class="btn btn-lg btn-outline-secondary btn-width">Investigation</a>
           </div>
       </div>
-  </div>
+    </div>
+</div>
   
 @endsection

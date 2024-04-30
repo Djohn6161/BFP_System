@@ -25,6 +25,7 @@ class PersonnelSeeder extends Seeder
             'date_of_birth' => $faker->date(),
             'gender' => $faker->numberBetween(0,1),
             'address' => 'Ligao City',
+            'picture' => 'Ligao City',
             ];
 
             DB::table('personnels')->insert($attributes);
