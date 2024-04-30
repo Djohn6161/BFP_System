@@ -24,7 +24,7 @@ class PersonnelSeeder extends Seeder
             'middle_name' => $faker->lastName,
             'last_name' => $faker->lastName,
             'date_of_birth' => $faker->date(),
-            'gender' => $faker->numberBetween(0,1),
+            'gender' => 'male',
             'address' => 'Ligao City',
             'picture' => 'sir sample.jpg',
             'maritam_status' => '',

@@ -22,7 +22,6 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $personnel = Personnel::findOrFail($id);
-        // dd($personnel);
-        return view('admin.personnel.view', compact('active', 'active', 'user')); 
+        return view('admin.personnel.view', compact('active', 'active', 'user','personnel')); 
     }
 }
