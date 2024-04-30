@@ -24,7 +24,7 @@
 
                         <div class="col-lg-4">
                             <div class="col-lg-12 mb-3"> <!-- Photo column -->
-                                <img id="personnel-picture" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
+                                <img id="personnel-picture" src="{{ asset('assets/images/backgrounds/{{}}') }}"
                                     class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                                 <div class="row px-2">
                                     <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
