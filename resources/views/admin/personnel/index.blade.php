@@ -18,29 +18,7 @@
                 <div class="col-lg-12">
                     <div class="card w-100">
                         <div class="card-body p-4">
-                            <!-- Retrieve Personnel Data and Process -->
-                            @php
-                                // Sample personnel data (replace this with actual data retrieval)
-                                $personnelData = [
-                                    ['name' => 'Juan Luna', 'rank' => 'Fire Officer 1'],
-                                    ['name' => 'Maria Garcia', 'rank' => 'Fire Officer 2'],
-                                    ['name' => 'Maria Pontillas', 'rank' => 'Fire Officer 2'],
-                                    ['name' => 'Gina Pontillas', 'rank' => 'Fire Officer 2'],
-                                    ['name' => 'Ngaran Sana Sadi', 'rank' => 'Fire Officer 1'],
-                                    // Add more personnel data as needed
-                                ];
-
-                                // Process data to count personnel in each rank
-                                $personnelCountByRank = [];
-                                foreach ($personnelData as $person) {
-                                    $rank = $person['rank'];
-                                    if (!isset($personnelCountByRank[$rank])) {
-                                        $personnelCountByRank[$rank] = 0;
-                                    }
-                                    $personnelCountByRank[$rank]++;
-                                }
-                            @endphp
-
+                            
                             <!-- Display Total Personnel -->
                             <h5 class="fw-semibold mb-4">BFP - Personnel
                                 <span class=" ms-3 badge rounded-pill bg-secondary">{{ $personnelCount }}</span>
