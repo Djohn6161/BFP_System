@@ -9,8 +9,8 @@ class Victim extends Model
 {
     use HasFactory;
 
-    public function report(){
-        return $this->belongsTo(Report::class, 'report_id');
+    public function investigation(){
+        return $this->belongsTo(Investigation::class, 'investigation_id');
     }
 
 }

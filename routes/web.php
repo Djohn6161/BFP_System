@@ -118,6 +118,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
         Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
+        Route::post('/final/store/{spot}', [InvestigationController::class, 'storeFinal'])->name('final.store');
 
 
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
