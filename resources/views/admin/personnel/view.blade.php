@@ -211,7 +211,15 @@
                             <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks"
                                 readonly></textarea>
                         </div>
-
+                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                        
+                            <div class="file-item d-flex justify-content-between align-items-center mb-1">
+                                {{-- dito ang file name na ididisplay na inupload --}}
+                                <span>sample file</span>
+                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#filePreviewPersonnelModal">Preview</button>
+                            </div>
+                            <hr>
                     </div>
                 </div>
             </div>
