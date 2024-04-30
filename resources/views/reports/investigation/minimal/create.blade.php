@@ -492,15 +492,13 @@
                             @enderror
                         </div>
                         <input type="hidden" name="recommendation" id="recommendation">
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">PHOTOGRAPH OF ETHE FIRE SCENE</h3>
-                            {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-2 mb-3">
-                                <label for="dateTime" class="form-label"></label>
-                                <input type="file" placeholder="Eg. pedro villa" class="form-control text-uppercase"
-                                    id="photo" name="photos[]" multiple>
-                            </div>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">14</h3>
+                            <label class="form-label" for="exampleCheck1">Photos</label>
+                            <input type="file" class="form-control uncheable" id="photos"
+                                name="photos[]" multiple>
+                            <div id="photo" class="mt-3"></div>
+                        </div>
                             @error('photo')
                                 <span class="text-danger alert" role="alert">{{ $message }}</span>
                             @enderror
@@ -593,5 +591,69 @@
             $("#findings").val(quillSecond.root.innerHTML);
             $("#recommendation").val(quillThird.root.innerHTML);
         });
+
+        $('#photos').on('change', function() {
+                var files = $(this)[0].files; // Get the files selected
+                var container = $('#photo'); // Get the preview container
+
+                // Clear previous previews
+                container.empty();
+
+                // Loop through each file
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var reader = new FileReader();
+
+                    // Closure to capture the file information.
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            // Create image preview
+                            var imgPreview = $(
+                                '<div class="image-preview mb-1">' +
+                                '<img class="img-thumbnail" src="' + e.target.result +
+                                '" alt="' + file.name + '">' +
+                                '</div>'
+                            );
+
+                            // Append image preview to the container
+                            container.append(imgPreview);
+
+                            // Create filename container with flex layout
+                            var fileInfoContainer = $(
+                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                            );
+
+                            // Filename element
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                                .name + '</div>');
+
+                            // Remove button
+                            var removeBtn = $(
+                                '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                            );
+
+                            // Append filename and remove button to container
+                            fileInfoContainer.append(fileInfo);
+                            fileInfoContainer.append(removeBtn);
+
+                            // Append the filename container to the preview container
+                            container.append(fileInfoContainer);
+
+                            // Remove button click event
+                            removeBtn.click(function() {
+                                imgPreview.remove(); // Remove the image preview
+                                $(this).closest('.d-flex')
+                                    .remove(); // Remove the flex container
+                                $('#photos').val(
+                                    ''); // Clear the file input (if needed)
+                            });
+                        };
+                    })(file);
+
+                    // Read in the image file as a data URL
+                    reader.readAsDataURL(file);
+                }
+            });
     </script>
 @endsection

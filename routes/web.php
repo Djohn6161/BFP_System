@@ -22,6 +22,7 @@ use App\Models\Operation;
 |
 */
 
+
 Route::get('/', function () {
     return view('index');
 })->middleware(['guest'])->name('index');
@@ -103,6 +104,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reports/operation/create/submit', [OperationController::class, 'operationStore'])->name('operation.create');
     Route::get('/reports/operation/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('operation.update.form');
     Route::post('/reports/operation/update/submit', [OperationController::class, 'operationUpdate'])->name('operation.update');
+
 
     // Investigation
     Route::prefix('reports/investigation')->name('investigation.')->group(function () {
