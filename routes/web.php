@@ -124,6 +124,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
         Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
         Route::post('/final/store/{spot}', [InvestigationController::class, 'storeFinal'])->name('final.store');
+        Route::get('final/edit/{final}', [InvestigationController::class, 'editFinal'])->name('final.edit');
+        Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
 
 
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');

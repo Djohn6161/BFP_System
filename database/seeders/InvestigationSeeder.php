@@ -97,7 +97,7 @@ class InvestigationSeeder extends Seeder
                     'investigation_id' => $reportID,
                     'intelligence_unit' => "Ligao City Fire Station, Ligao City Albay",
                     "place_of_fire" => $faker->city . " " . $faker->streetname,
-                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H" . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H " . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
                     "establishment_burned" => $properties[$faker->numberBetween(0, 3)],
                     "damage_to_property" => $faker->numberBetween(10000, 100000),
                     "origin_of_fire" => $faker->sentence(10),

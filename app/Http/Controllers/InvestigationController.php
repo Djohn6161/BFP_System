@@ -502,8 +502,101 @@ class InvestigationController extends Controller
 
         return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject .  " Updated Successfully!");
     }
+    public function editFinal(Ifinal $final)
+    {
+        if ($final->landmark == null || $final->landmark == "") {
+            $location = $final->place_of_fire;
+        } else {
+            $location = $final->landmark;
+        }
+        $td = explode(" ", $final->td_alarm);
+        $victims = Victim::get()->where('investigation_id', $final->investigation_id);
+        // dd($victims);
+        return view('reports.investigation.final.edit', [
+            'active' => 'final',
+            'user' => Auth::user(),
+            'final' => $final,
+            'barangay' => Barangay::all(),
+            'location' => $location,
+            'td' => $td,
+            'victims' => $victims,
+        ]);
+    }
     public function updateFinal(Request $request, Ifinal $final)
     {
-        dd($request);
+        // dd($request);
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'intelligence_unit' => 'required',
+            'barangay' => 'nullable',
+            'zone_street' => 'nullable',
+            'landmark' => 'nullable',
+            'time_alarm' => 'required',
+            'date_alarm' => 'required',
+            'establishment_burned' => 'required',
+            'damage_to_property' => 'required',
+            'victim' => 'nullable',
+            'origin_of_fire' => 'required',
+            'cause_of_fire' => 'required',
+            'substantiating_documents' => 'required',
+            'facts_of_the_case' => 'required',
+            'discussion' => 'required',
+            'findings' => 'required',
+            'recommendation' => 'required',
+        ]);
+        // dd($validatedData);
+        $investigation = Investigation::find($final->investigation_id);
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+        $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
+        $updateInve = [
+            'for' => $validatedData['for'] ?? '',
+            'subject' => $validatedData['subject'] ?? '',
+            'date' =>  $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',
+        ];
+        $investigation->touch();
+        $investigation->update($updateInve);
+        Victim::where('investigation_id', $final->investigation_id)->delete();
+        if ($request->input('victim')) {
+            foreach ($request->input('victim') as $victi) {
+                # code...
+                $victim = new Victim();
+                $victim->investigation_id = $investigation->id;
+                $victim->name = $victi;
+                $victim->save();
+            }
+        }
+        // dd(Victim::all());
+        // dd($investigation);
+        $updateFinal = [
+            'investigation_id' => $investigation->id,
+            'intelligence_unit' => $request->input('intelligence_unit') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone_street') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
+            'place_of_fire' => $location ?? '',
+            'td_alarm' => $td ?? '',
+            'establishment_burned' => $request->input('establishment_burned') ?? '',
+            'damage_to_property' => $request->input('damage_to_property') ?? '',
+            'origin_of_fire' => $request->input('origin_of_fire') ?? '',
+            'cause_of_fire' => $request->input('cause_of_fire') ?? '',
+            'substantiating_documents' => $request->input('substantiating_documents') ?? '',
+            'facts_of_the_case' => $request->input('facts_of_the_case') ?? '',
+            'discussion' => $request->input('discussion') ?? '',
+            'findings' => $request->input('findings') ?? '',
+            'recommendation' => $request->input('recommendation') ?? '',
+        ];
+        // dd($spot);
+        $final->update($updateFinal);
+
+        return redirect('/reports/investigation/final/index')->with("success", $final->investigation->subject . " Updated Successfully!");
     }
 }
