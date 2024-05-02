@@ -112,18 +112,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('minimal.index');
         Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
-        Route::post('minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
+        Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
+        Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
 
         Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
         Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
         Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
+        Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
+        Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
 
         Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
         Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');
         Route::post('/propress/store/{spot}', [InvestigationController::class, 'storeProgress'])->name('progress.store');
+        Route::get('/progress/edit/{progress}', [InvestigationController::class, 'editProgress'])->name('progress.edit');
+        Route::put('/progress/update/{progress}', [InvestigationController::class, 'updateProgress'])->name('progress.update');
 
         Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
         Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
+        Route::post('/final/store/{spot}', [InvestigationController::class, 'storeFinal'])->name('final.store');
+        Route::get('final/edit/{final}', [InvestigationController::class, 'editFinal'])->name('final.edit');
+        Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
 
 
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');

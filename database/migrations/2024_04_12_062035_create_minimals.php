@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignid('investigation_id')->constrained('investigations')->onUpdate('cascade');
             $table->string('dt_actual_occurence');
             $table->string('dt_reported');
+            $table->string('barangay')->nullable();
+            $table->string('street')->nullable();
+            $table->string('landmark')->nullable();
             $table->string('incident_location');
             $table->string('involved_property');
             $table->longText('property_data');

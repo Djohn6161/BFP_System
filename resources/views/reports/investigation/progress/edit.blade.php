@@ -32,10 +32,12 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
+                <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize"><b>{{$progress->investigation->subject}}</b></h1>
                 <div class="row">
-                    <form method="POST" action="{{ route('investigation.progress.store', ['spot' => $spot->id]) }}">
+                    <form method="POST" action="{{ route('investigation.progress.update', ['progress' => $progress->id]) }}">
                         @csrf
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
+                        @method('PUT')
+                        <x-reports.investigation.memo-investigate :spot=$progress></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -92,7 +94,7 @@
                                         </span>
                                     </div>
                                     <div id="authority" style="border: 1px solid lightgray; height: 200px;">
-                                        {!! old('authority') !!}
+                                        {!! old('authority') ?? $progress->authority !!}
 
                                     </div>
                                 </div>
@@ -155,7 +157,7 @@
                                         </span>
                                     </div>
                                     <div id="matters-investigated" style="border: 1px solid lightgray; height: 200px;">
-                                        {!! old('matters_investigated') !!}
+                                        {!! old('matters_investigated') ?? $progress->matters_investigated !!}
                                     </div>
                                 </div>
                                 <input type="hidden" name="matters_investigated" id="matters">
@@ -217,7 +219,7 @@
                                         </span>
                                     </div>
                                     <div id="facts-of-the-case" style="border: 1px solid lightgray; height: 200px;">
-                                        {!! old('facts_of_the_case') !!}
+                                        {!! old('facts_of_the_case') ?? $progress->facts_of_the_case !!}
 
                                     </div>
                                 </div>
@@ -278,14 +280,14 @@
                                         </span>
                                     </div>
                                     <div id="disposition" style="border: 1px solid lightgray; height: 200px;">
-                                        {!! old('disposition') !!}
+                                        {!! old('disposition') ?? $progress->disposition !!}
                                     </div>
                                 </div>
                                 <input type="hidden" name="disposition" id="dispo">
                             </div>
                         </div>
 
-                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="submit" type="submit" class="btn btn-primary w-100">Update</button>
 
                     </form>
                 </div>

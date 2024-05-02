@@ -23,4 +23,7 @@ class Investigation extends Model
     public function Casualties(){
         return $this->hasMany(Investigation_casualties::class, 'investigations_id');
     }
+    public function victims(){
+        return $this->hasMany(Victim::class, 'investigation_id');
+    }
 }
