@@ -17,8 +17,7 @@
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
-                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image"
-                                        style="display:none;">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image" style="display:none;">
                                 </label>
                             </div>
                         </div>
@@ -39,10 +38,9 @@
                                 <label for="rank" class="form-label">Rank</label>
                                 <select class="form-select" id="rank" name="rank">
                                     <option selected>Select Rank</option>
-                                    <option value="Single">FO1</option>
-                                    <option value="Married">FO2</option>
-                                    <option value="Divorced">fo3</option>
-
+                                    @foreach ($ranks as $rank)
+                                        <option value="{{$rank->id}}">{{$rank->slug}} - {{$rank->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -87,7 +85,7 @@
                                 <div class="col-lg-4">
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
                                     <select class="form-select" id="maritalStatus" name="marital_status">
-                                        <option selected>Select marital status</option>
+                                        <option value="" selected>Select marital status</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
                                         <option value="Divorced">Divorced</option>
@@ -97,7 +95,7 @@
                                 <div class="col-lg-4">
                                     <label for="gender" class="form-label">Gender</label>
                                     <select class="form-select" id="gender" name="gender">
-                                        <option selected>Select gender</option>
+                                        <option value="" selected>Select gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
@@ -258,7 +256,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
                             <div>
                                 <label for="file-input" class="form-label"></label>
-                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple>
+                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="file[]">
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
                                     <p id="file-count">No files selected</p>
@@ -267,23 +265,6 @@
                             <div id="file-list-container">
                                 <div id="file-list"></div>
                             </div>
-                        </div>
-                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
-                        <div>
-                            <label for="file-input" class="form-label"></label>
-                            <input class="form-control" type="file" id="file-input" style="display: none;"
-                                multiple>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-primary"
-                                    onclick="document.getElementById('file-input').click();">+
-                                    Choose File</button>
-                                <p id="file-count">No files selected</p>
-                            </div>
-                        </div>
-
-                        <!-- File List Container -->
-                        <div id="file-list-container">
-                            <div id="file-list"></div>
                         </div>
                     </div>
                     <div class="modal-footer">

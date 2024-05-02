@@ -18,7 +18,7 @@
                 <div class="col-lg-12">
                     <div class="card w-100">
                         <div class="card-body p-4">
-                            
+
                             <!-- Display Total Personnel -->
                             <h5 class="fw-semibold mb-4">BFP - Personnel
                                 <span class=" ms-3 badge rounded-pill bg-secondary">{{ $personnelCount }}</span>
@@ -59,7 +59,8 @@
                                                                         height="300" alt="personnel picture">
                                                                     <div class="card-body">
                                                                         <h5 class="card-title text-center fw-bold fs-5">
-                                                                            {{ $personnel->first_name }} {{$personnel->last_name}}</h5>
+                                                                            {{ $personnel->first_name }}
+                                                                            {{ $personnel->last_name }}</h5>
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -117,6 +118,6 @@
     </div>
 
 
-    <x-personnel.add :category="$active"> </x-personnel.add>
+    <x-personnel.add :category="$active" :ranks="$ranks"> </x-personnel.add>
     {{-- <x-personnel.preview :category="$active"> </x-personnel.preview> --}}
 @endsection

@@ -18,7 +18,7 @@ class PersonnelSeeder extends Seeder
         foreach (range(1, 16) as $index) {
 
             $attributes = [
-                'departments_id' => $faker->numberBetween(1, 3),
+                // 'departments_id' => $faker->numberBetween(1, 3),
                 'ranks_id' => $faker->numberBetween(1, 13),
                 'account_number' => 101010,
                 'first_name' => $faker->firstName,
