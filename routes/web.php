@@ -114,6 +114,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
         Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
         Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
+        Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
+
 
         Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
         Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');

@@ -33,10 +33,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
-                        method="POST" id="minimalCreate" enctype="multipart/form-data">
+                    <form action="{{ route('investigation.minimal.update', ['minimal' => $minimal->id]) }}"
+                        class="needs-validation" novalidate method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        <x-reports.investigation.memo-investigate ></x-reports.investigation.memo-investigate>
+                        @method("PUT")
+                        <x-reports.investigation.memo-investigate :spot=$minimal></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -48,7 +49,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="dt_actual_occurence"
                                     name="dt_actual_occurence"
                                     class="form-control {{ $errors->has('dt_actual_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_actual_occurence') }}" required>
+                                    value="{{ old('dt_actual_occurence') ?? $minimal->dt_actual_occurence }}" required>
                                 @error('dt_actual_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -59,7 +60,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="reported"
                                     name="dt_reported"
                                     class="form-control {{ $errors->has('dt_reported') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_reported') }}" required>
+                                    value="{{ old('dt_reported') ?? $minimal->dt_reported }}" required>
                                 @error('dt_reported')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -72,7 +73,8 @@
                                     value="{{ old('dt_reported') }}">
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }}
+                                        <option
+                                            {{ old('barangay') ?? ($minimal->barangay ?? '') == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">{{ $barangay->name }}</option>
                                     @endforeach
                                     <!-- Add more barangay options as needed -->
@@ -87,7 +89,7 @@
                                 <label for="zone-street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone-street"
                                     name="zone"class="form-control {{ $errors->has('zone') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone') }}" required>
+                                    value="{{ old('zone') ?? $minimal->street }}" required>
                                 @error('zone')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -98,7 +100,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? $location }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -108,7 +110,7 @@
                                 <input type="text" placeholder=" Eg. Vacant Lot " id="involved_property"
                                     name="involved_property"
                                     class="form-control {{ $errors->has('involved_property') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('involved_property') }}" required>
+                                    value="{{ old('involved_property') ?? $minimal->involved_property }}" required>
                                 @error('involved_property')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -117,7 +119,7 @@
                                 <label for="officeAddress" class="form-label">Property Data</label>
                                 <input type="text" placeholder=" Eg. Juan Dela Cruz" id="province" name="property_data"
                                     class="form-control {{ $errors->has('property_data') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('property_data') }}" required>
+                                    value="{{ old('property_data') ?? $minimal->property_data }}" required>
                                 @error('property_data')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -133,7 +135,8 @@
                                     <select class="form-select alarmStatus" aria-label="" name="receiver">
                                         <option value="">Select Personnel</option>
                                         @foreach ($personnels as $personnel)
-                                            <option {{ old('receiver') == $personnel->id ? 'selected' : '' }}
+                                            <option
+                                                {{ old('receiver') ?? ($minimal->receiver ?? '') == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
@@ -149,7 +152,7 @@
                                     <input type="text" placeholder="Eg. SPO1 joseph d. Santos" name="caller_name"
                                         id="caller_name"
                                         class="form-control {{ $errors->has('caller_name') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_name') }}" required>
+                                        value="{{ old('caller_name') ?? $minimal->caller_name }}" required>
                                     @error('caller_name')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -160,7 +163,7 @@
                                     <input type="text" placeholder="Eg. Guinobatan Albay" name="caller_address"
                                         id="caller_address"
                                         class="form-control {{ $errors->has('caller_address') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_address') }}" required>
+                                        value="{{ old('caller_address') ?? $minimal->caller_address }}" required>
                                     @error('caller_address')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -170,7 +173,7 @@
                                     <input type="text" placeholder="Eg. 09xxxxxxxxx" name="caller_number"
                                         id="telephone"
                                         class="form-control {{ $errors->has('caller_number') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_number') }}" required>
+                                        value="{{ old('caller_number') ?? $minimal->caller_number }}" required>
                                     @error('caller_number')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -180,7 +183,8 @@
                                     <input type="text" placeholder="Eg. Chief Operation"
                                         name="notification_originator" id="chief"
                                         class="form-control {{ $errors->has('notification_originator') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('notification_originator') }}" required>
+                                        value="{{ old('notification_originator') ?? $minimal->notification_originator }}"
+                                        required>
                                     @error('notification_originator')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -192,7 +196,8 @@
                                         name="first_responding_engine">
                                         <option value="">Select truck</option>
                                         @foreach ($engines as $truck)
-                                            <option {{ old('first_responding_engine') == $truck->id ? 'selected' : '' }}
+                                            <option
+                                                {{ old('first_responding_engine') ?? ($minimal->first_responding_engine ?? '') == $truck->id ? 'selected' : '' }}
                                                 value="{{ $truck->id }}">{{ $truck->name }}</option>
                                         @endforeach
                                     </select>
@@ -207,7 +212,7 @@
                                         <option value="">Select Team Leader</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                {{ old('first_responding_leader') == $personnel->id ? 'selected' : '' }}
+                                                {{ old('first_responding_leader') ?? ($minimal->first_responding_leader ?? '') == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
@@ -222,7 +227,8 @@
                                     <input type="text" placeholder="Eg. 1900h" name="time_arrival_on_scene"
                                         id="timeReturnedInput"
                                         class="form-control {{ $errors->has('time_arrival_on_scene') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('time_arrival_on_scene') }}" required>
+                                        value="{{ old('time_arrival_on_scene') ?? $minimal->time_arrival_on_scene }}"
+                                        required>
                                     @error('time_arrival_on_scene')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -231,31 +237,57 @@
                                     <label for="waterTank" class="form-label">Alarm Status</label>
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
-                                        <option {{ old('alarm_status_time') == 1 ? 'selected' : '' }} value="1">1st
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 1 ? 'selected' : '' }}
+                                            value="1">1st
                                             Alarm</option>
-                                        <option {{ old('alarm_status_time') == 2 ? 'selected' : '' }} value="2">2nd
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 2 ? 'selected' : '' }}
+                                            value="2">2nd
                                             Alarm</option>
-                                        <option {{ old('alarm_status_time') == 3 ? 'selected' : '' }} value="3">3rd
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 3 ? 'selected' : '' }}
+                                            value="3">3rd
                                             Alarm</option>
-                                        <option {{ old('alarm_status_time') == 4 ? 'selected' : '' }} value="4">4th
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 4 ? 'selected' : '' }}
+                                            value="4">4th
                                             Alarm</option>
-                                        <option {{ old('alarm_status_time') == 5 ? 'selected' : '' }} value="5">5th
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 5 ? 'selected' : '' }}
+                                            value="5">5th
                                             Alarm</option>
-                                        <option {{ old('alarm_status_time') == 6 ? 'selected' : '' }} value="6">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 6 ? 'selected' : '' }}
+                                            value="6">Task
                                             Force Alpha</option>
-                                        <option {{ old('alarm_status_time') == 7 ? 'selected' : '' }} value="7">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 7 ? 'selected' : '' }}
+                                            value="7">Task
                                             Force Bravo</option>
-                                        <option {{ old('alarm_status_time') == 8 ? 'selected' : '' }} value="8">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 8 ? 'selected' : '' }}
+                                            value="8">Task
                                             Force Charlie</option>
-                                        <option {{ old('alarm_status_time') == 9 ? 'selected' : '' }} value="9">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 9 ? 'selected' : '' }}
+                                            value="9">Task
                                             Force Delta</option>
-                                        <option {{ old('alarm_status_time') == 10 ? 'selected' : '' }} value="10">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 10 ? 'selected' : '' }}
+                                            value="10">Task
                                             Force Echo</option>
-                                        <option {{ old('alarm_status_time') == 11 ? 'selected' : '' }} value="11">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 11 ? 'selected' : '' }}
+                                            value="11">Task
                                             Force Hotel</option>
-                                        <option {{ old('alarm_status_time') == 12 ? 'selected' : '' }} value="12">Task
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 12 ? 'selected' : '' }}
+                                            value="12">Task
                                             Force India</option>
-                                        <option {{ old('alarm_status_time') == 13 ? 'selected' : '' }} value="13">
+                                        <option
+                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 13 ? 'selected' : '' }}
+                                            value="13">
                                             General Alarm</option>
                                     </select>
                                     @error('alarm_status_time')
@@ -266,7 +298,7 @@
                                     <label for="timeFireOut" class="form-label">Time Fire Out</label>
                                     <input type="text" placeholder="Eg. 0200H" name="Time_Fire_out" id="timeFireOut"
                                         class="form-control {{ $errors->has('Time_Fire_out') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('Time_Fire_out') }}" required>
+                                        value="{{ old('Time_Fire_out') ?? $minimal->Time_Fire_out }}" required>
                                     @error('Time_Fire_out')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -284,7 +316,7 @@
                                     <input type="text" placeholder="Eg. Mr. Tomas Hilario" name="property_owner"
                                         id="property_owner"
                                         class="form-control {{ $errors->has('property_owner') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('property_owner') }}" required>
+                                        value="{{ old('property_owner') ?? $minimal->property_owner }}" required>
                                     @error('property_owner')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -295,7 +327,7 @@
                                     <input type="text" placeholder="Eg. James Padilla" name="property_occupant"
                                         id="property_occupant"
                                         class="form-control {{ $errors->has('property_occupant') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('property_occupant') }}" required>
+                                        value="{{ old('property_occupant') ?? $minimal->property_occupant }}" required>
                                     @error('property_occupant')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -356,7 +388,7 @@
                                         </span>
                                     </div>
                                     <div id="first">
-                                        {!! old('details') !!}
+                                        {!! old('details') ?? $minimal->details !!}
                                     </div>
 
                                 </div>
@@ -421,7 +453,7 @@
                                         </span>
                                     </div>
                                     <div id="second">
-                                        {!! old('findings') !!}
+                                        {!! old('findings') ?? $minimal->findings !!}
                                     </div>
                                 </div>
                             </div>
@@ -483,7 +515,7 @@
                                         </span>
                                     </div>
                                     <div id="third">
-                                        {!! old('details') !!}
+                                        {!! old('recommendation') ?? $minimal->recommendation !!}
                                     </div>
                                 </div>
                             </div>
@@ -495,25 +527,50 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
-                            <input type="file" class="form-control uncheable" id="photos"
-                                name="photos[]" multiple  >
-                            <div id="photo" class="mt-3"></div>
-                        </div>
-                            @error('photos')
-                                <span class="text-danger alert" role="alert">{{ $message }}</span>
-                            @enderror
 
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                            {{-- {{dd($minimal->photos)}} --}}
+                            @unless (count($photos) == 0)
 
-                    </form>
+                                    <h3 class="text-dark text-bold text-center border-bottom border-4 border-primary">Current
+                                        Photos</h3>
+
+                                    {{-- {{ dd('hi') }} --}}
+                                    @foreach ($photos as $photo)
+                                        <div class="image-preview mb-1 col-sm-4" id="photo{{ $loop->index }}">
+                                            <img class="img-thumbnail" src="{{ asset('storage/minimal/' . $photo) }}"
+                                                alt="sample Image">
+                                            <div class="d-flex justify-content-end align-items-center mb-2 border-bottom pb-2">
+                                                <button data-id="photo{{ $loop->index }}" type="button"
+                                                    class="btn btn-sm btn-danger float-end"
+                                                    onclick="removePic(this)">Remove</button>
+                                            </div>
+                                            <input type="hidden" name="curPhoto[]" value="{{ $photo }}">
+                                        </div>
+                                    @endforeach
+                            @endunless
+                            <h3 class="text-dark text-bold text-center border-bottom border-4 border-primary mt-5">Add New
+                                Photos</h3>
+
+                            <input type="file" class="form-control uncheable" id="photos" name="photos[]"
+                                multiple>
+                            <div id="photo" class="mt-3 row">
+                            </div>
+                        </div>
+                        @error('photos')
+                            <span class="text-danger alert" role="alert">{{ $message }}</span>
+                        @enderror
+
                 </div>
+                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+
+                </form>
             </div>
         </div>
     </div>
+    </div>
     <script>
-      $(document).ready(function(){
-        $('#photos').on('change', function() {
+        $(document).ready(function() {
+            $('#photos').on('change', function() {
                 // Get the selected files
                 var files = $(this)[0].files;
 
@@ -542,7 +599,7 @@
                     reader.readAsDataURL(file);
                 }
             });
-      });
+        });
         // Get the input element
         var input = document.getElementById('telephone');
 
@@ -593,67 +650,74 @@
         });
 
         $('#photos').on('change', function() {
-                var files = $(this)[0].files; // Get the files selected
-                var container = $('#photo'); // Get the preview container
+            var files = $(this)[0].files; // Get the files selected
+            var container = $('#photo'); // Get the preview container
 
-                // Clear previous previews
-                container.empty();
+            // Clear previous previews
+            container.empty();
 
-                // Loop through each file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
+            // Loop through each file
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
 
-                    // Closure to capture the file information.
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create image preview
-                            var imgPreview = $(
-                                '<div class="image-preview mb-1">' +
-                                '<img class="img-thumbnail" src="' + e.target.result +
-                                '" alt="' + file.name + '">' +
-                                '</div>'
-                            );
+                // Closure to capture the file information.
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Create image preview
+                        var mainContainer = $('<div class="image-preview mb-1  col-sm-4"></div>')
+                        var imgPreview = $('<img class="img-thumbnail" src="' + e.target.result +
+                            '" alt="' + file.name + '">'
+                        );
+                        mainContainer.append(imgPreview);
 
-                            // Append image preview to the container
-                            container.append(imgPreview);
+                        // Append image preview to the container
+                        // container.append(imgPreview);
 
-                            // Create filename container with flex layout
-                            var fileInfoContainer = $(
-                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                            );
+                        // Create filename container with flex layout
+                        var fileInfoContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                        );
 
-                            // Filename element
-                            var fileInfo = $(
-                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
-                                .name + '</div>');
+                        // Filename element
+                        var fileInfo = $(
+                            '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                            .name + '</div>');
 
-                            // Remove button
-                            // var removeBtn = $(
-                            //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                            // );
+                        // Remove button
+                        // var removeBtn = $(
+                        //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                        // );
 
-                            // Append filename and remove button to container
-                            fileInfoContainer.append(fileInfo);
-                            // fileInfoContainer.append(removeBtn);
+                        // Append filename and remove button to container
+                        fileInfoContainer.append(fileInfo);
+                        // fileInfoContainer.append(removeBtn);
+                        mainContainer.append(fileInfoContainer);
+                        // Append the filename container to the preview container
+                        container.append(mainContainer);
 
-                            // Append the filename container to the preview container
-                            container.append(fileInfoContainer);
+                        // Remove button click event
+                        // removeBtn.click(function() {
+                        //     imgPreview.remove(); // Remove the image preview
+                        //     $(this).closest('.d-flex')
+                        //         .remove(); // Remove the flex container
+                        //     $('#photos').val(
+                        //         ''); // Clear the file input (if needed)
+                        // });
+                    };
+                })(file);
 
-                            // Remove button click event
-                            // removeBtn.click(function() {
-                            //     imgPreview.remove(); // Remove the image preview
-                            //     $(this).closest('.d-flex')
-                            //         .remove(); // Remove the flex container
-                            //     $('#photos').val(
-                            //         ''); // Clear the file input (if needed)
-                            // });
-                        };
-                    })(file);
+                // Read in the image file as a data URL
+                reader.readAsDataURL(file);
+            }
+        });
 
-                    // Read in the image file as a data URL
-                    reader.readAsDataURL(file);
-                }
-            });
+        function removePic(btn) {
+            const photo = $("#" + $(btn).data('id'));
+            photo.remove();
+            console.log(photo);
+
+
+        }
     </script>
 @endsection

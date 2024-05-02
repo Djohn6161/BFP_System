@@ -48,7 +48,6 @@ class InvestigationController extends Controller
             'barangay' => Barangay::all(),
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
-
         ]);
     }
     public function storeMinimal(Request $request)
@@ -99,10 +98,16 @@ class InvestigationController extends Controller
         ]);
         $investigation->save();
         // dd($investigation);
-        $photos = implode(", ", $validatedData['photos']);
-        foreach ($validatedData['photos'] as $photo) {
-            $photo->store('minimal', 'public');
+        if($validatedData['photos'] ?? false){
+            
+            foreach ($validatedData['photos'] as $photo) {
+                $filePath = baseName($photo->store('minimal', 'public'));
+                $fileNames[] = $filePath;
+                // $fileName = baseName($file)
+            }
         }
+        $photos = implode(", ", $fileNames);
+        
         $minimal->fill([
             'investigation_id' => $investigation->id,
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
@@ -375,11 +380,30 @@ class InvestigationController extends Controller
     }
     public function editMinimal(Minimal $minimal)
     {
-        dd($minimal);
+        // dd($minimal);
+        if ($minimal->landmark == null || $minimal->landmark == "") {
+            $location = $minimal->address_occurence;
+        } else {
+            $location = $minimal->landmark;
+        }
+        if ($minimal->photos != '') {
+            $photos = explode(", ", $minimal->photos);
+        }
+        // dd($photos);
+        return view('reports.investigation.minimal.edit', [
+            'active' => 'minimal',
+            'user' => Auth::user(),
+            'barangay' => Barangay::all(),
+            'personnels' => Personnel::all(),
+            'engines' => Truck::all(),
+            'minimal' => $minimal,
+            'location' => $location,
+            'photos' => $photos,
+        ]);
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-        dd($request);
+        dd($request->all());
     }
     public function editSpot(Spot $spot)
     {
