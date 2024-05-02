@@ -24,15 +24,25 @@
                     </div>
                     <div class="col-lg-8">
                         <div class="row g-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4 mb-3">
                                 <label for="accountNumber" class="form-label">Account Number</label>
                                 <input type="text" placeholder="Enter account number" class="form-control"
                                     id="accountNumber" name="account_number">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4 mb-3">
                                 <label for="itemNumber" class="form-label">Item Number</label>
                                 <input type="text" placeholder="Enter item number" class="form-control"
                                     id="itemNumber" name="item_number">
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="rank" class="form-label">Rank</label>
+                                <select class="form-select" id="rank" name="rank">
+                                    <option selected>Select Rank</option>
+                                    <option value="Single">FO1</option>
+                                    <option value="Married">FO2</option>
+                                    <option value="Divorced">fo3</option>
+                                    
+                                </select>
                             </div>
                         </div>
 
@@ -118,17 +128,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row m-0 p-0" id="tertiaryCourseContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="Enter tertiary course/s"
-                                                class="form-control" id="tertiaryCourses">
-                                            <button type="button"
-                                                class="btn btn-outline-danger removeTertiaryInput">x</button>
-                                        </div>
-                                    </div>
-                                    <!-- Input fields will be appended here -->
-                                </div>
+                                <div class="row m-0 p-0" id="tertiaryCourseContainer"></div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
@@ -141,17 +141,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row m-0 p-0" id="postGraduateCoursesContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="Enter post graduate course/s"
-                                                class="form-control" id="postGraduateCourses">
-                                            <button type="button"
-                                                class="btn btn-outline-danger removePostGraduateInput">x</button>
-                                        </div>
-                                    </div>
-                                    <!-- Input fields will be appended here -->
-                                </div>
+                                <div class="row m-0 p-0" id="postGraduateCoursesContainer"></div>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestEligibility" class="form-label">Highest Eligibility</label>
@@ -173,21 +163,21 @@
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
                                 <label for="tin" class="form-label">TIN</label>
-                                <input class="form-control" type="text" id="tin" placeholder="XXX-XXX-XXX">
+                                <input class="form-control government-id" type="text" id="tin" placeholder="XXX-XXX-XXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
-                                <input class="form-control" type="text" id="pagibig"
+                                <input class="form-control government-id" type="text" id="pagibig"
                                     placeholder="XXXX-XXXX-XXXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
-                                <input class="form-control" type="text" id="gsis"
+                                <input class="form-control government-id" type="text" id="gsis"
                                     placeholder="XX-XX-XXXXXXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
-                                <input class="form-control" type="text" id="philhealth"
+                                <input class="form-control government-id" type="text" id="philhealth"
                                     placeholder="XX-XXXXXXXXX-X">
                             </div>
                         </div>
@@ -243,7 +233,8 @@
                                 <label for="remarks" class="form-label">Remarks</label>
                                 <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks"></textarea>
                             </div>
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                        </div>
+                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
                         <div>
                             <label for="file-input" class="form-label"></label>
                             <input class="form-control" type="file" id="file-input" style="display: none;" multiple>
@@ -258,140 +249,125 @@
                         <div id="file-list-container">
                             <div id="file-list"></div>
                         </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Personnel</button>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>
-</div>
+
 <script>
     $(document).ready(function() {
-        $("#addTertiaryCourse").click(function() {
-            var inputField =
-                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses"> <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button> </div> </div>';
-            $("#tertiaryCourseContainer").append(inputField);
+        $('#addTertiaryCourse').click(function() {
+            addInputField('#tertiaryCourseContainer');
         });
 
-        // Remove dynamically added input field
-        $(document).on('click', '.removeTertiaryInput', function() {
-            $(this).closest('.col-lg-12').remove();
-        });
-
-        $("#addpostGraduateCourses").click(function() {
-            var inputField =
-                '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
-            $("#postGraduateCoursesContainer").append(inputField);
-        });
-
-        // Remove dynamically added input field
-        $(document).on('click', '.removePostGraduateInput', function() {
-            $(this).closest('.col-lg-12').remove();
+        $('#addpostGraduateCourses').click(function() {
+            addInputField('#postGraduateCoursesContainer');
         });
 
         $('#imagePersonnelInput').change(function() {
-            var file = this.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewPersonnelImage').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
+            displayPreviewImage(this);
+        });
+
+        $('#file-input').change(handleFileSelect);
+
+        $('.government-id').each(function() {
+            restrictToNumbers(this);
+            const idType = $(this).attr('id');
+            formatGovernmentID(this, idType.toUpperCase());
         });
     });
-    document.addEventListener('DOMContentLoaded', function() {
-            const tinInput = document.getElementById('tin');
-            const pagibigInput = document.getElementById('pagibig');
-            const gsisInput = document.getElementById('gsis');
-            const philhealthInput = document.getElementById('philhealth');
 
-            const restrictToNumbers = function(inputElement) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
-                        ''); // Remove any characters that are not numbers or hyphens
-                    event.target.value = cleanedValue;
-                });
+    function addInputField(containerId) {
+        const inputField = `
+            <div class="col-lg-12 px-0 mb-3">
+                <div class="input-group">
+                    <input type="text" placeholder="Enter course" class="form-control">
+                    <button type="button" class="btn btn-outline-danger removeInputField">x</button>
+                </div>
+            </div>`;
+        $(containerId).append(inputField);
+    }
+
+    function displayPreviewImage(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewPersonnelImage').attr('src', e.target.result);
             };
-
-            restrictToNumbers(tinInput);
-            restrictToNumbers(pagibigInput);
-            restrictToNumbers(gsisInput);
-            restrictToNumbers(philhealthInput);
-
-            const formatGovernmentID = function(inputElement, format) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9]/g,
-                    ''); // Remove any characters that are not numbers
-                    let formattedValue = '';
-                    if (format === 'TIN') {
-                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-                    } else if (format === 'PAGIBIG') {
-                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-                    } else if (format === 'GSIS') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-                    } else if (format === 'PHILHEALTH') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-                    }
-                    event.target.value = formattedValue;
-                });
-            };
-
-            formatGovernmentID(tinInput, 'TIN');
-            formatGovernmentID(pagibigInput, 'PAGIBIG');
-            formatGovernmentID(gsisInput, 'GSIS');
-            formatGovernmentID(philhealthInput, 'PHILHEALTH');
-        });
-        $(document).ready(function() {
-            $('#file-input').change(handleFileSelect);
-        });
-
-        function handleFileSelect(event) {
-            var fileList = $('#file-list');
-            fileList.html('');
-
-            var files = event.target.files;
-
-            // Update file count
-            var fileCountSpan = $('#file-count');
-            fileCountSpan.text(files.length + ' file(s)');
-
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var listItem = $('<div class="file-item"></div>');
-
-                var fileName = $('<span></span>').text(file.name);
-                listItem.append(fileName);
-
-                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
-                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-                listItem.append(deleteButton);
-
-                fileList.append(listItem);
-            }
+            reader.readAsDataURL(file);
         }
+    }
 
-        function createDeleteHandler(file, fileCountSpan) {
-            return function() {
-                var fileList = $('#file-list');
-                var fileItems = fileList.find('.file-item');
-                for (var i = 0; i < fileItems.length; i++) {
-                    if ($(fileItems[i]).find('span').text() === file.name) {
-                        $(fileItems[i]).remove();
-                        break;
-                    }
+    function handleFileSelect(event) {
+        const fileList = $('#file-list');
+        fileList.html('');
+
+        const files = event.target.files;
+
+        const fileCountSpan = $('#file-count');
+        fileCountSpan.text(files.length + ' file(s)');
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const listItem = $('<div class="file-item"></div>');
+
+            const fileName = $('<span></span>').text(file.name);
+            listItem.append(fileName);
+
+            const deleteButton = $('<button class="btn btn-danger">Delete</button>');
+            deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+            listItem.append(deleteButton);
+
+            fileList.append(listItem);
+        }
+    }
+
+    function createDeleteHandler(file, fileCountSpan) {
+        return function() {
+            const fileList = $('#file-list');
+            const fileItems = fileList.find('.file-item');
+            for (let i = 0; i < fileItems.length; i++) {
+                if ($(fileItems[i]).find('span').text() === file.name) {
+                    $(fileItems[i]).remove();
+                    break;
                 }
+            }
 
-                // Update file count after deletion
-                var remainingFiles = fileList.find('.file-item').length;
-                fileCountSpan.text(remainingFiles + ' file(s)');
-            };
-        }
+            const remainingFiles = fileList.find('.file-item').length;
+            fileCountSpan.text(remainingFiles + ' file(s)');
+        };
+    }
+
+    function restrictToNumbers(inputElement) {
+        inputElement.addEventListener('input', function(event) {
+            const inputValue = event.target.value;
+            const cleanedValue = inputValue.replace(/[^0-9\-]/g, '');
+            event.target.value = cleanedValue;
+        });
+    }
+
+    function formatGovernmentID(inputElement, format) {
+        inputElement.addEventListener('input', function(event) {
+            const inputValue = event.target.value;
+            const cleanedValue = inputValue.replace(/[^0-9]/g, '');
+            let formattedValue = '';
+            if (format === 'TIN') {
+                formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+            } else if (format === 'PAGIBIG') {
+                formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+            } else if (format === 'GSIS') {
+                formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+            } else if (format === 'PHILHEALTH') {
+                formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+            }
+            event.target.value = formattedValue;
+        });
+    }
 </script>
