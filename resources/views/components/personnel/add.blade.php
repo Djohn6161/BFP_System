@@ -17,7 +17,8 @@
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
-                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image" style="display:none;">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image"
+                                        style="display:none;">
                                 </label>
                             </div>
                         </div>
@@ -38,9 +39,10 @@
                                 <label for="rank" class="form-label">Rank</label>
                                 <select class="form-select" id="rank" name="rank">
                                     <option selected>Select Rank</option>
-                                    @foreach ($ranks as $rank)
-                                        <option value="{{$rank->id}}">{{$rank->slug}} - {{$rank->name}}</option>
-                                    @endforeach
+                                    <option value="Single">FO1</option>
+                                    <option value="Married">FO2</option>
+                                    <option value="Divorced">fo3</option>
+
                                 </select>
                             </div>
                         </div>
@@ -85,7 +87,7 @@
                                 <div class="col-lg-4">
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
                                     <select class="form-select" id="maritalStatus" name="marital_status">
-                                        <option value="" selected>Select marital status</option>
+                                        <option selected>Select marital status</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
                                         <option value="Divorced">Divorced</option>
@@ -95,7 +97,7 @@
                                 <div class="col-lg-4">
                                     <label for="gender" class="form-label">Gender</label>
                                     <select class="form-select" id="gender" name="gender">
-                                        <option value="" selected>Select gender</option>
+                                        <option selected>Select gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
@@ -253,18 +255,24 @@
                                 <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
                                 <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" name="remarks"></textarea>
                             </div>
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
-                            <div>
-                                <label for="file-input" class="form-label"></label>
-                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="file[]">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
-                                    <p id="file-count">No files selected</p>
-                                </div>
+                            
+                        </div>
+                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                        <div>
+                            <label for="file-input" class="form-label"></label>
+                            <input class="form-control" type="file" id="file-input" style="display: none;"
+                                multiple>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary"
+                                    onclick="document.getElementById('file-input').click();">+
+                                    Choose File</button>
+                                <p id="file-count">No files selected</p>
                             </div>
-                            <div id="file-list-container">
-                                <div id="file-list"></div>
-                            </div>
+                        </div>
+
+                        <!-- File List Container -->
+                        <div id="file-list-container">
+                            <div id="file-list"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -325,4 +333,50 @@
                 fileCountSpan.text(remainingFiles + ' file(s)');
             };
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            const tinInput = document.getElementById('tin');
+            const pagibigInput = document.getElementById('pagibig');
+            const gsisInput = document.getElementById('gsis');
+            const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        });
+
+
 </script>

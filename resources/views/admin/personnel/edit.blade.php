@@ -2,8 +2,9 @@
     .btn-reports {
         width: 200px
     }
-      /* Styles for file list container */
-      /* #file-list-container {
+
+    /* Styles for file list container */
+    /* #file-list-container {
         margin-top: 20px;
     }
 
@@ -29,7 +30,8 @@
                                     class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                                 <div class="row px-2">
                                     <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
-                                    <input type="file" id="photo-upload" style="display: none;" accept="image/*" onchange="previewPhoto(event)">
+                                    <input type="file" id="photo-upload" style="display: none;" accept="image/*"
+                                        onchange="previewPhoto(event)">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +55,7 @@
                                         <option value="Single">FO1</option>
                                         <option value="Married">FO2</option>
                                         <option value="Divorced">fo3</option>
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -109,7 +111,8 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="religion" class="form-label">Religion</label>
-                                    <input type="text" placeholder="Enter religion" class="form-control" id="religion">
+                                    <input type="text" placeholder="Enter religion" class="form-control"
+                                        id="religion">
                                 </div>
                             </div>
 
@@ -309,25 +312,65 @@
             reader.readAsDataURL(file);
         }
 
-        // Function to save data and redirect using jQuery
-        function saveDataAndRedirect() {
-            // Perform saving data here (e.g., AJAX request)
-            // After data is successfully saved, redirect to another page
-            window.location.href = "{{ route('admin.personnel.view') }}";
-        }
+        // // Function to save data and redirect using jQuery
+        // function saveDataAndRedirect() {
+        //     // Perform saving data here (e.g., AJAX request)
+        //     // After data is successfully saved, redirect to another page
+        //     window.location.href = "{{ route('admin.personnel.view') }}";
+        // }
 
-        // Attach click event listener to the button
-        document.getElementById("saveChangesBtn").addEventListener("click", function() {
-            saveDataAndRedirect();
-        });
+        // // Attach click event listener to the button
+        // document.getElementById("saveChangesBtn").addEventListener("click", function() {
+        //     saveDataAndRedirect();
+        // });
+        //Gov Numbers validation
         document.addEventListener('DOMContentLoaded', function() {
             const tinInput = document.getElementById('tin');
             const pagibigInput = document.getElementById('pagibig');
             const gsisInput = document.getElementById('gsis');
             const philhealthInput = document.getElementById('philhealth');
 
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        });
+
         //personnel file upload
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#file-input').change(handleFileSelect);
         });
 
