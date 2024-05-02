@@ -11,15 +11,13 @@
                 <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('personnel.store') }}">
                     @csrf
                     <div class="col-lg-4">
-                        <div class="mb-3">
-                            <img id="previewPersonnelImage"
-                                src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
+                        <div class="col-lg-12 mb-3"> <!-- Photo column -->
+                            <img id="personnel-picture" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
-                            <div class="mt-2">
-                                <label for="imagePersonnelInput" class="btn btn-primary w-100">
-                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image"
-                                        style="display:none;">
-                                </label>
+                            <div class="row px-2">
+                                <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
+                                <input type="file" id="photo-upload" style="display: none;" accept="image/*"
+                                    onchange="previewPhoto(event)">
                             </div>
                         </div>
                     </div>
@@ -377,6 +375,17 @@
             formatGovernmentID(gsisInput, 'GSIS');
             formatGovernmentID(philhealthInput, 'PHILHEALTH');
         });
+
+        function previewPhoto(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#personnel-picture').attr('src', e.target.result).attr('alt', 'Selected Image');
+            }
+
+            reader.readAsDataURL(file);
+        }
 
 
 </script>
