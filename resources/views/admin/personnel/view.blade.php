@@ -95,8 +95,6 @@
                                 <input type="text" placeholder="Enter complete address" class="form-control"
                                     id="completeAddress" readonly value="{{$personnel->address}}">
                             </div>
-
-
                         </div>
 
 

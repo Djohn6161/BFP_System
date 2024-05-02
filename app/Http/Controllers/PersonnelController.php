@@ -24,4 +24,8 @@ class PersonnelController extends Controller
         $personnel = Personnel::findOrFail($id);
         return view('admin.personnel.view', compact('active', 'active', 'user','personnel')); 
     }
+
+    public function personnelStore(Request $request){
+        dd($request->all());
+    }
 }

@@ -128,7 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('personnel/')->name('personnel.')->group(function () {
         Route::get('/index', [PersonnelController::class, 'personnelIndex'])->name('index');
         Route::get('/update/{id}', [PersonnelController::class, 'personnelView'])->name('view');
-        // Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
+        Route::post('/create/submit', [PersonnelController::class, 'personnelStore'])->name('store');
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
