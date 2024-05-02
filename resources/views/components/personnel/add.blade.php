@@ -255,6 +255,18 @@
                                 <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
                                 <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" name="remarks"></textarea>
                             </div>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                            <div>
+                                <label for="file-input" class="form-label"></label>
+                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
+                                    <p id="file-count">No files selected</p>
+                                </div>
+                            </div>
+                            <div id="file-list-container">
+                                <div id="file-list"></div>
+                            </div>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
                         <div>
@@ -283,78 +295,32 @@
         </div>
     </div>
 </div>
+</div>
 
 <script>
-    $(document).ready(function() {
-        $('#addTertiaryCourse').click(function() {
-            addInputField('#tertiaryCourseContainer');
+     //personnel file upload
+     $(document).ready(function(){
+            $('#file-input').change(handleFileSelect);
         });
-
-        $('#addpostGraduateCourses').click(function() {
-            addInputField('#postGraduateCoursesContainer');
-        });
-
-        $('#imagePersonnelInput').change(function() {
-            displayPreviewImage(this);
-        });
-
-        $('#file-input').change(handleFileSelect);
-
-        $('#imagePersonnelInput').change(function() {
-            var file = this.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewPersonnelImage').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
-            $('.government-id').each(function() {
-                restrictToNumbers(this);
-                const idType = $(this).attr('id');
-                formatGovernmentID(this, idType.toUpperCase());
-            });
-        });
-
-        function addInputField(containerId) {
-            const inputField = `
-            <div class="col-lg-12 px-0 mb-3">
-                <div class="input-group">
-                    <input type="text" placeholder="Enter course" class="form-control">
-                    <button type="button" class="btn btn-outline-danger removeInputField">x</button>
-                </div>
-            </div>`;
-            $(containerId).append(inputField);
-        }
-
-        function displayPreviewImage(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewPersonnelImage').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
 
         function handleFileSelect(event) {
-            const fileList = $('#file-list');
+            var fileList = $('#file-list');
             fileList.html('');
 
-            const files = event.target.files;
+            var files = event.target.files;
 
-            const fileCountSpan = $('#file-count');
+            // Update file count
+            var fileCountSpan = $('#file-count');
             fileCountSpan.text(files.length + ' file(s)');
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const listItem = $('<div class="file-item"></div>');
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
 
-                const fileName = $('<span></span>').text(file.name);
+                var fileName = $('<span></span>').text(file.name);
                 listItem.append(fileName);
 
-                const deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
                 deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
                 listItem.append(deleteButton);
 
@@ -364,44 +330,18 @@
 
         function createDeleteHandler(file, fileCountSpan) {
             return function() {
-                const fileList = $('#file-list');
-                const fileItems = fileList.find('.file-item');
-                for (let i = 0; i < fileItems.length; i++) {
+                var fileList = $('#file-list');
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
                     if ($(fileItems[i]).find('span').text() === file.name) {
                         $(fileItems[i]).remove();
                         break;
                     }
                 }
 
-                const remainingFiles = fileList.find('.file-item').length;
+                // Update file count after deletion
+                var remainingFiles = fileList.find('.file-item').length;
                 fileCountSpan.text(remainingFiles + ' file(s)');
             };
         }
-
-        function restrictToNumbers(inputElement) {
-            inputElement.addEventListener('input', function(event) {
-                const inputValue = event.target.value;
-                const cleanedValue = inputValue.replace(/[^0-9\-]/g, '');
-                event.target.value = cleanedValue;
-            });
-        }
-
-        function formatGovernmentID(inputElement, format) {
-            inputElement.addEventListener('input', function(event) {
-                const inputValue = event.target.value;
-                const cleanedValue = inputValue.replace(/[^0-9]/g, '');
-                let formattedValue = '';
-                if (format === 'TIN') {
-                    formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-                } else if (format === 'PAGIBIG') {
-                    formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-                } else if (format === 'GSIS') {
-                    formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-                } else if (format === 'PHILHEALTH') {
-                    formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-                }
-                event.target.value = formattedValue;
-            });
-        }
-    });
 </script>

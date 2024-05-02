@@ -2,9 +2,8 @@
     .btn-reports {
         width: 200px
     }
-
-    /* Styles for file list container */
-    #file-list-container {
+      /* Styles for file list container */
+      /* #file-list-container {
         margin-top: 20px;
     }
 
@@ -13,7 +12,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 5px;
-    }
+    } */
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -327,46 +326,8 @@
             const gsisInput = document.getElementById('gsis');
             const philhealthInput = document.getElementById('philhealth');
 
-            const restrictToNumbers = function(inputElement) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
-                        ''); // Remove any characters that are not numbers or hyphens
-                    event.target.value = cleanedValue;
-                });
-            };
-
-            restrictToNumbers(tinInput);
-            restrictToNumbers(pagibigInput);
-            restrictToNumbers(gsisInput);
-            restrictToNumbers(philhealthInput);
-
-            const formatGovernmentID = function(inputElement, format) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9]/g,
-                    ''); // Remove any characters that are not numbers
-                    let formattedValue = '';
-                    if (format === 'TIN') {
-                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-                    } else if (format === 'PAGIBIG') {
-                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-                    } else if (format === 'GSIS') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-                    } else if (format === 'PHILHEALTH') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-                    }
-                    event.target.value = formattedValue;
-                });
-            };
-
-            formatGovernmentID(tinInput, 'TIN');
-            formatGovernmentID(pagibigInput, 'PAGIBIG');
-            formatGovernmentID(gsisInput, 'GSIS');
-            formatGovernmentID(philhealthInput, 'PHILHEALTH');
-        });
-
-        $(document).ready(function() {
+        //personnel file upload
+        $(document).ready(function(){
             $('#file-input').change(handleFileSelect);
         });
 
@@ -382,7 +343,7 @@
 
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                var listItem = $('<div class="file-item"></div>');
+                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
 
                 var fileName = $('<span></span>').text(file.name);
                 listItem.append(fileName);
