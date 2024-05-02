@@ -27,15 +27,20 @@
 
                         <div class="col-lg-8">
                             <div class="row">
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-lg-4 mb-3">
                                     <label for="accountNumber" class="form-label">Account Number</label>
                                     <input type="text" placeholder="Enter account number" class="form-control"
                                         id="accountNumber" readonly value="{{$personnel->account_number}}">
                                 </div>
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-lg-4 mb-3">
                                     <label for="itemNumber" class="form-label">Item Number</label>
                                     <input type="text" class="form-control"
                                         id="itemNumber" readonly value="{{$personnel->item_number}}">
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label for="rank" class="form-label">Rank</label>
+                                    <input type="text" class="form-control"
+                                        id="itemNumber" readonly value="">
                                 </div>
                             </div>
 
