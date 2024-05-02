@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-5">
-                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{route('personnel.store')}}">
+                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('personnel.store') }}">
                     @csrf
                     <div class="col-lg-4">
                         <div class="mb-3">
@@ -17,7 +17,8 @@
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
-                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image" style="display:none;">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image"
+                                        style="display:none;">
                                 </label>
                             </div>
                         </div>
@@ -41,7 +42,7 @@
                                     <option value="Single">FO1</option>
                                     <option value="Married">FO2</option>
                                     <option value="Divorced">fo3</option>
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -77,7 +78,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dateOfBirth" value="date_of_birth">
+                                    <input type="date" class="form-control" id="dateOfBirth"
+                                        value="date_of_birth">
                                 </div>
                             </div>
 
@@ -171,18 +173,21 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestTraining" class="form-label">Highest Training</label>
-                                <input type="text" placeholder="Enter highest training" class="form-control" id="highestTraining" name="highest_training">
+                                <input type="text" placeholder="Enter highest training" class="form-control"
+                                    id="highestTraining" name="highest_training">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specializedTraining" class="form-label">Specialized Training</label>
-                                <input type="text" placeholder="Enter specialized training" class="form-control" id="specializedTraining" name="specialized_training">
+                                <input type="text" placeholder="Enter specialized training" class="form-control"
+                                    id="specializedTraining" name="specialized_training">
                             </div>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government Issued ID's </h3>
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
                                 <label for="tin" class="form-label">TIN</label>
-                                <input class="form-control government-id" type="text" id="tin" placeholder="XXX-XXX-XXX">
+                                <input class="form-control government-id" type="text" id="tin"
+                                    placeholder="XXX-XXX-XXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
@@ -207,7 +212,8 @@
                                 <label for="dateEnteredOtherGovtService" class="form-label">Date Entered Other
                                     Government
                                     Service</label>
-                                <input type="date" class="form-control" id="dateEnteredOtherGovtService" name="date_entered_other_government_service">
+                                <input type="date" class="form-control" id="dateEnteredOtherGovtService"
+                                    name="date_entered_other_government_service">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="dateEnteredFireService" class="form-label">Date Entered Fire
@@ -217,7 +223,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="modeOfEntry" class="form-label">Mode of Entry</label>
-                                <input type="text" placeholder="Enter mode of entry" class="form-control" id="modeOfEntry" name="mode_of_entry">
+                                <input type="text" placeholder="Enter mode of entry" class="form-control"
+                                    id="modeOfEntry" name="mode_of_entry">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="dateOfLastPromotion" class="form-label">Date of Last Promotion</label>
@@ -231,15 +238,18 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
-                                <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode" name="unit_code">
+                                <input type="text" placeholder="Enter unit code" class="form-control"
+                                    id="unitCode" name="unit_code">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
-                                <input type="text" placeholder="Enter unit assignment" class="form-control" id="unitAssignment" name="unit_assignment"> 
+                                <input type="text" placeholder="Enter unit assignment" class="form-control"
+                                    id="unitAssignment" name="unit_assignment">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control" id="designation" name="designation">
+                                <input type="text" placeholder="Enter designation" class="form-control"
+                                    id="designation" name="designation">
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
@@ -249,9 +259,11 @@
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
                         <div>
                             <label for="file-input" class="form-label"></label>
-                            <input class="form-control" type="file" id="file-input" style="display: none;" multiple>
+                            <input class="form-control" type="file" id="file-input" style="display: none;"
+                                multiple>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary" onclick="document.getElementById('file-input').click();">+
+                                <button type="button" class="btn btn-primary"
+                                    onclick="document.getElementById('file-input').click();">+
                                     Choose File</button>
                                 <p id="file-count">No files selected</p>
                             </div>
@@ -297,98 +309,99 @@
                 }
                 reader.readAsDataURL(file);
             }
-        $('.government-id').each(function() {
-            restrictToNumbers(this);
-            const idType = $(this).attr('id');
-            formatGovernmentID(this, idType.toUpperCase());
+            $('.government-id').each(function() {
+                restrictToNumbers(this);
+                const idType = $(this).attr('id');
+                formatGovernmentID(this, idType.toUpperCase());
+            });
         });
-    });
 
-    function addInputField(containerId) {
-        const inputField = `
+        function addInputField(containerId) {
+            const inputField = `
             <div class="col-lg-12 px-0 mb-3">
                 <div class="input-group">
                     <input type="text" placeholder="Enter course" class="form-control">
                     <button type="button" class="btn btn-outline-danger removeInputField">x</button>
                 </div>
             </div>`;
-        $(containerId).append(inputField);
-    }
-
-    function displayPreviewImage(input) {
-        const file = input.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                $('#previewPersonnelImage').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(file);
+            $(containerId).append(inputField);
         }
-    }
 
-    function handleFileSelect(event) {
-        const fileList = $('#file-list');
-        fileList.html('');
-
-        const files = event.target.files;
-
-        const fileCountSpan = $('#file-count');
-        fileCountSpan.text(files.length + ' file(s)');
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const listItem = $('<div class="file-item"></div>');
-
-            const fileName = $('<span></span>').text(file.name);
-            listItem.append(fileName);
-
-            const deleteButton = $('<button class="btn btn-danger">Delete</button>');
-            deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-            listItem.append(deleteButton);
-
-            fileList.append(listItem);
+        function displayPreviewImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewPersonnelImage').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
         }
-    }
 
-    function createDeleteHandler(file, fileCountSpan) {
-        return function() {
+        function handleFileSelect(event) {
             const fileList = $('#file-list');
-            const fileItems = fileList.find('.file-item');
-            for (let i = 0; i < fileItems.length; i++) {
-                if ($(fileItems[i]).find('span').text() === file.name) {
-                    $(fileItems[i]).remove();
-                    break;
+            fileList.html('');
+
+            const files = event.target.files;
+
+            const fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const listItem = $('<div class="file-item"></div>');
+
+                const fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                const deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
+                const fileList = $('#file-list');
+                const fileItems = fileList.find('.file-item');
+                for (let i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
+                    }
                 }
-            }
 
-            const remainingFiles = fileList.find('.file-item').length;
-            fileCountSpan.text(remainingFiles + ' file(s)');
-        };
-    }
+                const remainingFiles = fileList.find('.file-item').length;
+                fileCountSpan.text(remainingFiles + ' file(s)');
+            };
+        }
 
-    function restrictToNumbers(inputElement) {
-        inputElement.addEventListener('input', function(event) {
-            const inputValue = event.target.value;
-            const cleanedValue = inputValue.replace(/[^0-9\-]/g, '');
-            event.target.value = cleanedValue;
-        });
-    }
+        function restrictToNumbers(inputElement) {
+            inputElement.addEventListener('input', function(event) {
+                const inputValue = event.target.value;
+                const cleanedValue = inputValue.replace(/[^0-9\-]/g, '');
+                event.target.value = cleanedValue;
+            });
+        }
 
-    function formatGovernmentID(inputElement, format) {
-        inputElement.addEventListener('input', function(event) {
-            const inputValue = event.target.value;
-            const cleanedValue = inputValue.replace(/[^0-9]/g, '');
-            let formattedValue = '';
-            if (format === 'TIN') {
-                formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-            } else if (format === 'PAGIBIG') {
-                formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-            } else if (format === 'GSIS') {
-                formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-            } else if (format === 'PHILHEALTH') {
-                formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-            }
-            event.target.value = formattedValue;
-        });
-    }
+        function formatGovernmentID(inputElement, format) {
+            inputElement.addEventListener('input', function(event) {
+                const inputValue = event.target.value;
+                const cleanedValue = inputValue.replace(/[^0-9]/g, '');
+                let formattedValue = '';
+                if (format === 'TIN') {
+                    formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                } else if (format === 'PAGIBIG') {
+                    formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                } else if (format === 'GSIS') {
+                    formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                } else if (format === 'PHILHEALTH') {
+                    formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                }
+                event.target.value = formattedValue;
+            });
+        }
+    });
 </script>
