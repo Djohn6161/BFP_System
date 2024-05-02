@@ -3,7 +3,7 @@
         width: 200px
     }
       /* Styles for file list container */
-      #file-list-container {
+      /* #file-list-container {
         margin-top: 20px;
     }
     .file-item {
@@ -11,7 +11,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 5px;
-    }
+    } */
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -260,6 +260,7 @@
             saveDataAndRedirect();
         });
 
+        //personnel file upload
         $(document).ready(function(){
             $('#file-input').change(handleFileSelect);
         });
@@ -276,7 +277,7 @@
 
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                var listItem = $('<div class="file-item"></div>');
+                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
 
                 var fileName = $('<span></span>').text(file.name);
                 listItem.append(fileName);
