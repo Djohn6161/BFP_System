@@ -54,7 +54,7 @@
                                                             <a href="{{ route('personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
                                                                     <!-- Display Personnel Details -->
-                                                                    <img src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
+                                                                    <img src="/assets/images/personnel_images/{{ $personnel->picture }}"
                                                                         class="card-img-top object-fit-cover rounded"
                                                                         height="300" alt="personnel picture">
                                                                     <div class="card-body">
