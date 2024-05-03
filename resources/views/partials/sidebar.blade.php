@@ -133,21 +133,12 @@
                                         Personnel Info
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
                                         Sample1
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
                                         Sample2
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
                                         Sample3
                                     </a>
                                 </div>
