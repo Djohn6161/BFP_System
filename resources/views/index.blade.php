@@ -23,17 +23,17 @@
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0">
               <div class="card-body">
-                <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="../assets/images/logos/logo3.png" width="170" alt="">
-                </a>
-                <p class="text-center"><b>Bureau of Fire Protection<br> Ligao City<b></p>
-                
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    @if ($errors->any())
-                    <div class="alert alert-danger text-center py-2" role="">
-                        Invalid Credentials 
-                    </div>
+              <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
+    <img src="../assets/images/logos/bfp.gif" width="150" height="auto" alt="">
+</a>
+<h4 class="text-center"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+
+<form method="POST" action="{{ route('login') }}">
+    @csrf
+    @if ($errors->any())
+    <div class="alert alert-danger text-center py-2" role="">
+        Invalid Credentials 
+    </div>
                     @endif
                     
                   <div class="mb-3 ">
