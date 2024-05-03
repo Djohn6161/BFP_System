@@ -17,7 +17,7 @@
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                         <div class="col-lg-4">
                             <div class="col-lg-12 mb-3">
-                                <img id="personnel-picture" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
+                                <img id="personnel-picture" src="/assets/images/backgrounds/{{$personnel->picture}}"
                                     class="object-fit-cover img-fluid" style="width: 300px; height: 400px;"
                                     alt="Personnel Picture">
                             </div>
@@ -29,12 +29,12 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="accountNumber" class="form-label">Account Number</label>
                                     <input type="text" placeholder="Enter account number" class="form-control"
-                                        id="accountNumber" readonly>
+                                        id="accountNumber" readonly value="{{$personnel->account_number}}">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="itemNumber" class="form-label">Item Number</label>
-                                    <input type="text" placeholder="Enter item number" class="form-control"
-                                        id="itemNumber" readonly>
+                                    <input type="text" class="form-control"
+                                        id="itemNumber" readonly value="{{$personnel->item_number}}">
                                 </div>
                             </div>
 
@@ -42,20 +42,20 @@
                                 <label class="form-label">Name</label>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <input type="text" placeholder="First Name" class="form-control" id="firstName"
-                                            readonly>
+                                        <input type="text" class="form-control" id="firstName"
+                                            readonly value="{{$personnel->first_name}}">
                                     </div>
                                     <div class="col-lg-3">
                                         <input type="text" placeholder="Middle Name" class="form-control" id="middleName"
-                                            readonly>
+                                            readonly value="{{$personnel->middle_name}}">
                                     </div>
                                     <div class="col-lg-3">
                                         <input type="text" placeholder="Last Name" class="form-control" id="lastName"
-                                            readonly>
+                                            readonly value="{{$personnel->last_name}}">
                                     </div>
                                     <div class="col-lg-3">
                                         <input type="text" placeholder="Suffix Name" class="form-control" id="suffixName"
-                                            readonly>
+                                            readonly value="{{$personnel->extension}}">
                                     </div>
                                 </div>
                             </div>
@@ -63,36 +63,36 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="contactNumber" class="form-label">Contact Number</label>
                                     <input type="text" placeholder="Enter contact number" class="form-control"
-                                        id="contactNumber" readonly>
+                                        id="contactNumber" readonly value="{{$personnel->contact_number}}">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dateOfBirth" readonly>
+                                    <input type="date" class="form-control" id="dateOfBirth" readonly value="{{$personnel->date_of_birth}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-4 mb-3">
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
-                                    <input class="form-select" id="maritalStatus" readonly>
+                                    <input class="form-select" id="maritalStatus" readonly value="{{$personnel->maritam_status}}">
 
                                     </input>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gender" class="form-label">Gender</label>
-                                    <input class="form-select" id="gender" readonly>
+                                    <input class="form-select" id="gender" readonly value="{{$personnel->gender}}">
                                     </input>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="religion" class="form-label">Religion</label>
-                                    <input type="text" placeholder="Enter religion" class="form-control" id="religion"
-                                        readonly>
+                                    <input type="text" class="form-control" id="religion"
+                                        readonly value="{{$personnel->religion}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-12 mb-3">
                                 <label for="completeAddress" class="form-label">Complete Address</label>
                                 <input type="text" placeholder="Enter complete address" class="form-control"
-                                    id="completeAddress" readonly>
+                                    id="completeAddress" readonly value="{{$personnel->address}}">
                             </div>
 
 

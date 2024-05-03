@@ -132,7 +132,7 @@
                                     </p>
                                 </td>
                                 <td class="border-bottom-0">
-                                    <a href="{{route('investigation.final.create', ['spot', $spot->id])}}" class="btn btn-primary w-100 mb-1">apply</a>
+                                    <a href="{{route('investigation.final.create', ['spot' => $spot->id])}}" class="btn btn-primary w-100 mb-1">apply</a>
                                 </td>
                             </tr>
                             @endforeach
