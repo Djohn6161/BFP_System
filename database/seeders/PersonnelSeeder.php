@@ -28,7 +28,7 @@ class PersonnelSeeder extends Seeder
                 'date_of_birth' => $faker->date(),
                 'gender' => 'male',
                 'address' => 'Ligao City',
-                'picture' => 'sir sample.jpg',
+                'picture' => 'default.png',
                 'maritam_status' => 'single',
                 'religion' => 'Catholic',
                 'tin' => '111',

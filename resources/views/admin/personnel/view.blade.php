@@ -19,7 +19,7 @@
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                         <div class="col-lg-4">
                             <div class="col-lg-12 mb-3">
-                                <img id="personnel-picture" src="/assets/images/backgrounds/{{$personnel->picture}}"
+                                <img id="personnel-picture" src="/assets/images/personnel_images/{{$personnel->picture}}"
                                     class="object-fit-cover img-fluid" style="width: 300px; height: 400px;"
                                     alt="Personnel Picture">
                             </div>

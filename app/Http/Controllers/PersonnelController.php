@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
+use App\Models\Post_graduate_course;
 use Illuminate\Http\Request;
-use Illuminate\Http\Post_graduate_course;
+// use Illuminate\Http\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
 
 class PersonnelController extends Controller
