@@ -317,6 +317,18 @@
                                 <div id="file-list"></div>
                             </div>
                         </div>
+
+                        <!-- File List Container -->
+                        <div id="file-list-container">
+                            <div class="file-item d-flex justify-content-between mb-2 align-items-center">
+                                <span>
+                                    {{-- sadi su file name naka butang --}}
+                                    jnhbgvsjfjsj
+                                </span>
+                                <button class="btn btn-danger">Delete</button>
+                            </div>
+                            <div id="file-list"></div>
+                        </div>
                     </div>
                     <div class="col d-flex justify-content-end mb-2">
                         <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
@@ -381,11 +393,11 @@
             const pagibigInput = document.getElementById('pagibig');
             const gsisInput = document.getElementById('gsis');
             const philhealthInput = document.getElementById('philhealth');
-
-            //personnel file upload
-            $(document).ready(function() {
-                $('#file-input').change(handleFileSelect);
-            });
+        });
+        //personnel file upload
+        $(document).ready(function(){
+            $('#file-input').change(handleFileSelect);
+        });
 
             function handleFileSelect(event) {
                 var fileList = $('#file-list');

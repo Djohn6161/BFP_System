@@ -45,7 +45,6 @@ class OperationController extends Controller
 
     public function operationStore(Request $request)
     {
-        dd($request->all());
         //Afor
         $afor = new Afor();
         if ($request->has('barangay_name')) {
@@ -76,7 +75,6 @@ class OperationController extends Controller
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
             'first_responder' => $request->input('first_responder') ?? '',
         ]);
-        
         $afor->save();
         $afor_id = $afor->id;
 
@@ -234,6 +232,7 @@ class OperationController extends Controller
                 $personnel->save();
             }
         }
+
 
         // Photos
         $files = $request->file('sketch_of_fire_operation');
