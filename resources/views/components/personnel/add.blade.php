@@ -8,16 +8,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-5">
-                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('personnel.store') }}">
+                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('personnel.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="col-lg-4">
                         <div class="col-lg-12 mb-3"> <!-- Photo column -->
                             <img id="personnel-picture" src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
-                            <div class="row px-2">
-                                <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
-                                <input type="file" id="photo-upload" style="display: none;" accept="image/*"
-                                    onchange="previewPhoto(event)">
+                            <div class="mt-2">
+                                <label for="imagePersonnelInput" class="btn btn-primary w-100">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" style="display:none;" name="image">
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -37,10 +37,10 @@
                                 <label for="rank" class="form-label">Rank</label>
                                 <select class="form-select" id="rank" name="rank">
                                     <option selected>Select Rank</option>
-                                    <option value="Single">FO1</option>
-                                    <option value="Married">FO2</option>
-                                    <option value="Divorced">fo3</option>
-
+                                    @foreach ($ranks as $rank)
+                                        <option value="{{ $rank->id }}">{{ $rank->slug }} - {{ $rank->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -185,22 +185,22 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="tin" class="form-label">TIN</label>
                                 <input class="form-control government-id" type="text" id="tin"
-                                    placeholder="XXX-XXX-XXX">
+                                    placeholder="XXX-XXX-XXX" name="tin">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
                                 <input class="form-control government-id" type="text" id="pagibig"
-                                    placeholder="XXXX-XXXX-XXXX">
+                                    placeholder="XXXX-XXXX-XXXX" name="pagibig">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
                                 <input class="form-control government-id" type="text" id="gsis"
-                                    placeholder="XX-XX-XXXXXXX">
+                                    placeholder="XX-XX-XXXXXXX" name="gsis">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
                                 <input class="form-control government-id" type="text" id="philhealth"
-                                    placeholder="XX-XXXXXXXXX-X">
+                                    placeholder="XX-XXXXXXXXX-X" name="philhealth">
                             </div>
                         </div>
 
@@ -253,18 +253,18 @@
                                 <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
                                 <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" name="remarks"></textarea>
                             </div>
-                            
-                        </div>
-                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
-                        <div>
-                            <label for="file-input" class="form-label"></label>
-                            <input class="form-control" type="file" id="file-input" style="display: none;"
-                                multiple>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-primary"
-                                    onclick="document.getElementById('file-input').click();">+
-                                    Choose File</button>
-                                <p id="file-count">No files selected</p>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                            <div>
+                                <label for="file-input" class="form-label"></label>
+                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="files[]">
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="document.getElementById('file-input').click();">+ Choose File</button>
+                                    <p id="file-count">No files selected</p>
+                                </div>
+                            </div>
+                            <div id="file-list-container">
+                                <div id="file-list"></div>
                             </div>
                         </div>
 
@@ -282,54 +282,87 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <script>
-     //personnel file upload
-     $(document).ready(function(){
-            $('#file-input').change(handleFileSelect);
-        });
+    //personnel file upload
+    $(document).ready(function() {
+        $('#file-input').change(handleFileSelect);
+    });
 
-        function handleFileSelect(event) {
-            var fileList = $('#file-list');
-            fileList.html('');
+    function handleFileSelect(event) {
+        var fileList = $('#file-list');
+        fileList.html('');
 
-            var files = event.target.files;
+        var files = event.target.files;
 
-            // Update file count
-            var fileCountSpan = $('#file-count');
-            fileCountSpan.text(files.length + ' file(s)');
+        // Update file count
+        var fileCountSpan = $('#file-count');
+        fileCountSpan.text(files.length + ' file(s)');
 
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
 
-                var fileName = $('<span></span>').text(file.name);
-                listItem.append(fileName);
+            var fileName = $('<span></span>').text(file.name);
+            listItem.append(fileName);
 
-                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
-                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-                listItem.append(deleteButton);
+            var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+            deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+            listItem.append(deleteButton);
 
-                fileList.append(listItem);
-            }
+            fileList.append(listItem);
         }
+    }
 
-        function createDeleteHandler(file, fileCountSpan) {
-            return function() {
-                var fileList = $('#file-list');
-                var fileItems = fileList.find('.file-item');
-                for (var i = 0; i < fileItems.length; i++) {
-                    if ($(fileItems[i]).find('span').text() === file.name) {
-                        $(fileItems[i]).remove();
-                        break;
-                    }
+    function createDeleteHandler(file, fileCountSpan) {
+        return function() {
+            var fileList = $('#file-list');
+            var fileItems = fileList.find('.file-item');
+            for (var i = 0; i < fileItems.length; i++) {
+                if ($(fileItems[i]).find('span').text() === file.name) {
+                    $(fileItems[i]).remove();
+                    break;
                 }
+            }
 
-                // Update file count after deletion
-                var remainingFiles = fileList.find('.file-item').length;
-                fileCountSpan.text(remainingFiles + ' file(s)');
-            };
+            // Update file count after deletion
+            var remainingFiles = fileList.find('.file-item').length;
+            fileCountSpan.text(remainingFiles + ' file(s)');
+        };
+    }
+
+    $("#addTertiaryCourse").click(function() {
+        var inputField =
+            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses" name="tertiary[]"> <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button> </div> </div>';
+        $("#tertiaryCourseContainer").append(inputField);
+    });
+
+    // Remove dynamically added input field
+    $(document).on('click', '.removeTertiaryInput', function() {
+        $(this).closest('.col-lg-12').remove();
+    });
+
+    $("#addpostGraduateCourses").click(function() {
+        var inputField =
+            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="postGraduateCourses[]"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
+        $("#postGraduateCoursesContainer").append(inputField);
+    });
+
+    // Remove dynamically added input field
+    $(document).on('click', '.removePostGraduateInput', function() {
+        $(this).closest('.col-lg-12').remove();
+    });
+
+    $('#imagePersonnelInput').change(function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewPersonnelImage').attr('src', e.target.result);
+                $('#previewPersonnelImage').val('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
         }
         document.addEventListener('DOMContentLoaded', function() {
             const tinInput = document.getElementById('tin');
@@ -388,4 +421,5 @@
         }
 
 
+    });
 </script>
