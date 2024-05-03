@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ifinals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('spot_id')->constrained('spots')->onUpdate('cascade');
-            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->foreignId('spot_id')->nullable()->constrained('spots')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
             $table->string('intelligence_unit');
             $table->string('barangay')->nullable();
             $table->string('street')->nullable();

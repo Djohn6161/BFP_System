@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Spot;
 use App\Models\Afors;
-use App\Models\Barangay;
+use App\Models\Truck;
 use App\Models\Ifinal;
+use App\Models\Victim;
 use App\Models\Minimal;
+use App\Models\Barangay;
+use App\Models\Progress;
+use App\Models\Personnel;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
-use App\Models\Personnel;
-use App\Models\Progress;
-use App\Models\Spot;
-use App\Models\Truck;
-use App\Models\Victim;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Storage;
 use function Symfony\Component\String\b;
 
 class InvestigationController extends Controller
@@ -50,95 +51,7 @@ class InvestigationController extends Controller
             'engines' => Truck::all(),
         ]);
     }
-    public function storeMinimal(Request $request)
-    {
-        // dd($request->all());
-        $validatedData = $request->validate([
-            'for' => 'required',
-            'subject' => 'required',
-            'date' => 'required|date',
-            'dt_actual_occurence' => 'required',
-            'dt_reported' => 'required',
-            'barangay' => 'nullable',
-            'zone' => 'nullable',
-            'landmark' => 'nullable',
-            'involved_property' => 'required',
-            'property_data' => 'required',
-            'receiver' => 'required',
-            'caller_name' => 'required',
-            'caller_address' => 'required',
-            'caller_number' => 'required',
-            'notification_originator' => 'required',
-            'first_responding_engine' => 'required',
-            'first_responding_leader' => 'required',
-            'time_arrival_on_scene' => 'required',
-            'alarm_status_time' => 'required',
-            'Time_Fire_out' => 'required',
-            'property_owner' => 'required',
-            'property_occupant' => 'required',
-            'details' => 'nullable',
-            'findings' => 'nullable',
-            'recommendation' => 'nullable',
-            'photos' => 'nullable',
-        ]);
-        $investigation = new Investigation();
-        $minimal = new Minimal();
 
-        if ($request->has('barangay')) {
-            # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
-        } else {
-            $location = $request->input('landmark');
-            # code...
-        }
-        $investigation->fill([
-            'for' => $request->input('for') ?? '',
-            'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
-        ]);
-        $investigation->save();
-        // dd($investigation);
-        if($validatedData['photos'] ?? false){
-            
-            foreach ($validatedData['photos'] as $photo) {
-                $filePath = baseName($photo->store('minimal', 'public'));
-                $fileNames[] = $filePath;
-                // $fileName = baseName($file)
-            }
-        }
-        $photos = implode(", ", $fileNames);
-        
-        $minimal->fill([
-            'investigation_id' => $investigation->id,
-            'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
-            'dt_reported' => $request->input('dt_reported') ?? '',
-            'barangay' => $request->input('barangay') ?? '',
-            'street' => $request->input('zone') ?? '',
-            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
-            'incident_location' => $location ?? '',
-            'involved_property' => $request->input('involved_property') ?? '',
-            'property_data' => $request->input('property_data') ?? '',
-            'property_occupant' => $request->input('property_occupant') ?? '',
-            'receiver' => $request->input('receiver') ?? '',
-            'caller_name' => $request->input('caller_name') ?? '',
-            'caller_address' => $request->input('caller_address') ?? '',
-            'caller_number' => $request->input('caller_number') ?? '',
-            'notification_originator' => $request->input('notification_originator') ?? '',
-            'first_responding_engine' => $request->input('first_responding_engine') ?? '',
-            'first_responding_leader' => $request->input('first_responding_leader') ?? '',
-            'time_arrival_on_scene' => $request->input('time_arrival_on_scene') ?? '',
-            'alarm_status_time' => $request->input('alarm_status_time') ?? '',
-            'Time_Fire_out' => $request->input('Time_Fire_out') ?? '',
-            'property_owner' => $request->input('property_owner') ?? '',
-            'details' => $request->input('details') ?? '',
-            'findings' => $request->input('findings') ?? '',
-            'recommendation' => $request->input('recommendation') ?? '',
-            'photos' => $photos ?? '',
-        ]);
-        $minimal->save();
-
-        return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
-    }
 
     public function Spot()
     {
@@ -398,12 +311,211 @@ class InvestigationController extends Controller
             'engines' => Truck::all(),
             'minimal' => $minimal,
             'location' => $location,
-            'photos' => $photos,
+            'photos' => $photos ?? [],
         ]);
+    }
+    public function storeMinimal(Request $request)
+    {
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'dt_actual_occurence' => 'required',
+            'dt_reported' => 'required',
+            'barangay' => 'nullable',
+            'zone' => 'nullable',
+            'landmark' => 'nullable',
+            'involved_property' => 'required',
+            'property_data' => 'required',
+            'receiver' => 'required',
+            'caller_name' => 'required',
+            'caller_address' => 'required',
+            'caller_number' => 'required',
+            'notification_originator' => 'required',
+            'first_responding_engine' => 'required',
+            'first_responding_leader' => 'required',
+            'time_arrival_on_scene' => 'required',
+            'alarm_status_time' => 'required',
+            'Time_Fire_out' => 'required',
+            'property_owner' => 'required',
+            'property_occupant' => 'required',
+            'details' => 'nullable',
+            'findings' => 'nullable',
+            'recommendation' => 'nullable',
+            'photos' => 'nullable',
+        ]);
+        $investigation = new Investigation();
+        $minimal = new Minimal();
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+        $investigation->fill([
+            'for' => $request->input('for') ?? '',
+            'subject' => $request->input('subject') ?? '',
+            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+        ]);
+        $investigation->save();
+        // dd($investigation);
+        if ($validatedData['photos'] ?? false) {
+
+            foreach ($validatedData['photos'] as $photo) {
+                $filePath = baseName($photo->store('minimal', 'public'));
+                $fileNames[] = $filePath;
+                // $fileName = baseName($file)
+            }
+        }
+        $photos = implode(", ", $fileNames);
+
+        $minimal->fill([
+            'investigation_id' => $investigation->id,
+            'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
+            'dt_reported' => $request->input('dt_reported') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
+            'incident_location' => $location ?? '',
+            'involved_property' => $request->input('involved_property') ?? '',
+            'property_data' => $request->input('property_data') ?? '',
+            'property_occupant' => $request->input('property_occupant') ?? '',
+            'receiver' => $request->input('receiver') ?? '',
+            'caller_name' => $request->input('caller_name') ?? '',
+            'caller_address' => $request->input('caller_address') ?? '',
+            'caller_number' => $request->input('caller_number') ?? '',
+            'notification_originator' => $request->input('notification_originator') ?? '',
+            'first_responding_engine' => $request->input('first_responding_engine') ?? '',
+            'first_responding_leader' => $request->input('first_responding_leader') ?? '',
+            'time_arrival_on_scene' => $request->input('time_arrival_on_scene') ?? '',
+            'alarm_status_time' => $request->input('alarm_status_time') ?? '',
+            'Time_Fire_out' => $request->input('Time_Fire_out') ?? '',
+            'property_owner' => $request->input('property_owner') ?? '',
+            'details' => $request->input('details') ?? '',
+            'findings' => $request->input('findings') ?? '',
+            'recommendation' => $request->input('recommendation') ?? '',
+            'photos' => $photos ?? '',
+        ]);
+        $minimal->save();
+
+        return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-        dd($request->all());
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'for' => 'required',
+            'subject' => 'required',
+            'date' => 'required|date',
+            'dt_actual_occurence' => 'required',
+            'dt_reported' => 'required',
+            'barangay' => 'nullable',
+            'zone' => 'nullable',
+            'landmark' => 'nullable',
+            'involved_property' => 'required',
+            'property_data' => 'required',
+            'receiver' => 'required',
+            'caller_name' => 'required',
+            'caller_address' => 'required',
+            'caller_number' => 'required',
+            'notification_originator' => 'required',
+            'first_responding_engine' => 'required',
+            'first_responding_leader' => 'required',
+            'time_arrival_on_scene' => 'required',
+            'alarm_status_time' => 'required',
+            'Time_Fire_out' => 'required',
+            'property_owner' => 'required',
+            'property_occupant' => 'required',
+            'details' => 'nullable',
+            'findings' => 'nullable',
+            'recommendation' => 'nullable',
+            'curPhoto' => 'nullable',
+            'photos' => 'nullable',
+        ]);
+        // dd($validatedData, $request->all());
+
+        $inves = Investigation::findOrFail($minimal->investigation_id);
+        $updateInve = [
+            'for' => $validatedData['for'],
+            'subject' => $validatedData['subject'],
+            'date' => $validatedData['date'],
+        ];
+        $inves->touch();
+        $inves->update($updateInve);
+
+        // dd($inves);
+
+        if ($request->has('barangay')) {
+            # code...
+            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
+        } else {
+            $location = $request->input('landmark');
+            # code...
+        }
+
+        $remainingPhotos = array();
+        // $photos = explode(", ", $minimal->photos);
+        // if ($request->has('curPhoto')) {
+        # code...
+        $photos = explode(", ", $minimal->photos);
+        $currentPhotos = $validatedData['curPhoto'] ?? [];
+        $photosToDelete = array_diff($photos, $currentPhotos);
+        $remainingPhotos = array_intersect($photos, $currentPhotos);
+        // dd($photos, $currentPhotos, $photosToDelete, $remainingPhotos);
+        foreach ($photosToDelete as $photoToDelete) {
+            if (Storage::disk('public')->exists('minimal/' . $photoToDelete)) {
+                // dd("photo is found: " . $photoToDelete);
+                try {
+                    Storage::disk('public')->delete('minimal/' . $photoToDelete);
+                } catch (\Throwable $th) {
+                    abort(404, "Page not found");
+                }
+            }
+        }
+        // }   
+        // dd("dead End");
+        if ($validatedData['photos'] ?? false) {
+
+            foreach ($validatedData['photos'] as $photo) {
+                $filePath = baseName($photo->store('minimal', 'public'));
+                $remainingPhotos[] = $filePath;
+                // $fileName = baseName($file)
+            }
+        }
+        $photos = implode(", ", $remainingPhotos);
+
+        $updatedMinimal = [
+            'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
+            'dt_reported' => $request->input('dt_reported') ?? '',
+            'barangay' => $request->input('barangay') ?? '',
+            'street' => $request->input('zone') ?? '',
+            'landmark' => $request->has('barangay') ? $request->input('landmark') : '',
+            'incident_location' => $location ?? '',
+            'involved_property' => $request->input('involved_property') ?? '',
+            'property_data' => $request->input('property_data') ?? '',
+            'property_occupant' => $request->input('property_occupant') ?? '',
+            'receiver' => $request->input('receiver') ?? '',
+            'caller_name' => $request->input('caller_name') ?? '',
+            'caller_address' => $request->input('caller_address') ?? '',
+            'caller_number' => $request->input('caller_number') ?? '',
+            'notification_originator' => $request->input('notification_originator') ?? '',
+            'first_responding_engine' => $request->input('first_responding_engine') ?? '',
+            'first_responding_leader' => $request->input('first_responding_leader') ?? '',
+            'time_arrival_on_scene' => $request->input('time_arrival_on_scene') ?? '',
+            'alarm_status_time' => $request->input('alarm_status_time') ?? '',
+            'Time_Fire_out' => $request->input('Time_Fire_out') ?? '',
+            'property_owner' => $request->input('property_owner') ?? '',
+            'details' => $request->input('details') ?? '',
+            'findings' => $request->input('findings') ?? '',
+            'recommendation' => $request->input('recommendation') ?? '',
+            'photos' => $photos ?? '',
+        ];
+        $minimal->touch();
+        $minimal->update($updatedMinimal);
+        return redirect('/reports/investigation/minimal/index')->with("success", $minimal->investigation->subject . " Updated Successfully!");
     }
     public function editSpot(Spot $spot)
     {
@@ -622,5 +734,55 @@ class InvestigationController extends Controller
         $final->update($updateFinal);
 
         return redirect('/reports/investigation/final/index')->with("success", $final->investigation->subject . " Updated Successfully!");
+    }
+
+    public function destroyMinimal(Request $request)
+    {
+        // dd($request->all());
+        $minimal = Minimal::findOrFail($request->input('id'));
+        $investigation = Investigation::findOrFail($minimal->investigation_id);
+        if ($minimal->photos !== null) {
+            $photos = explode(", ", $minimal->photos);
+            // dd($photos);
+            foreach ($photos as $photoToDelete) {
+                if (Storage::disk('public')->exists('minimal/' . $photoToDelete)) {
+                    // dd("photo is found: " . $photoToDelete);
+                    try {
+                        Storage::disk('public')->delete('minimal/' . $photoToDelete);
+                    } catch (\Throwable $th) {
+                        abort(404, "Page not found");
+                    }
+                }
+            }
+            // if (Storage::disk('public')->exists($thesis->file)) {
+            //     // dd("Thesis is found: " . $thesis->file);
+            //     Storage::disk('public')->delete($thesis->file);
+            // }
+        }
+        $minimal->delete();
+        $investigation->delete();
+        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        dd($minimal);
+    }
+    public function destroySpot(Request $request){
+        $spot = Spot::findOrFail($request->input('id'));
+        $investigation = Investigation::findOrFail($spot->investigation_id);
+        $spot->delete();
+        $investigation->delete();
+        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+    }
+    public function destroyProgress(Request $request){
+        $progress = Progress::findOrFail($request->input('id'));
+        $investigation = Investigation::findOrFail($progress->investigation_id);
+        $progress->delete();
+        $investigation->delete();
+        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+    }
+    public function destroyFinal(Request $request){
+        $final = Ifinal::findOrFail($request->input('id'));
+        $investigation = Investigation::findOrFail($final->investigation_id);
+        $final->delete();
+        $investigation->delete();
+        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
     }
 }

@@ -526,7 +526,7 @@
                         <input type="hidden" name="recommendation" id="recommendation">
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">14</h3>
-                            <label class="form-label" for="exampleCheck1">Photos</label>
+                            {{-- <label class="form-label" for="exampleCheck1">Photos</label> --}}
 
                             {{-- {{dd($minimal->photos)}} --}}
                             @unless (count($photos) == 0)

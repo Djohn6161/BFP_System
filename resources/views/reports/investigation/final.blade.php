@@ -46,27 +46,27 @@
                                     <tbody>
                                         @foreach ($investigations as $investigation)
                                             <x-reports.view-modal :report=$investigation></x-reports.view-modal>
-                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
+                                            <x-reports.investigation.investigation-delete :type="'final'" :investigation=$investigation></x-reports.investigation.investigation-delete>
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->spot->investigation->for }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $investigation->spot->investigation->subject }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">
-                                                        {{ \Carbon\Carbon::parse($investigation->spot->investigation->date)->format('F j, Y') }}
+                                                        {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <a href="{{route('investigation.final.edit', ['final' => $investigation->id])}}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
-                                                    <a href="#" data-bs-toggle="modal"
+                                                    <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</a>
+                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
                                                 </td>
                                             </tr>
                                         @endforeach
