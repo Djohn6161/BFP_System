@@ -9,11 +9,9 @@
             </div>
             <div class="modal-body">
                 <div class="ExternalFiles">
-                    @foreach ($files as $file)
-                        <iframe src="{{ asset('assets/images/personnel_files/' . $file) }}"
-                            style="width: 100%; height: 80vh;"></iframe>
-                    @endforeach
+                    <iframe src="{{ asset('assets/pdf/MJ.pdf')}}" style="width: 100%; height: 80vh;"></iframe>
                 </div>
+
             </div>
         </div>
     </div>
