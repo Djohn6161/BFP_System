@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rank;
-use App\Models\Personnel;
-use App\Models\Department;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class PersonnelSeeder extends Seeder
 {
@@ -15,85 +13,64 @@ class PersonnelSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        $fo1 = Rank::factory()->create([
-            'slug' => 'FO1',
-            'name' => 'Fire Officer 1',
-        ]);
-        $fses = Department::factory()->create([
-            'slug' => 'FSES',
-            'name' => 'FSES'
-        ]);
-        Department::factory()->create([
-            'slug' => 'Operation',
-            'name' => 'Operation'
-        ]);
-        Department::factory()->create([
-            'slug' => 'Admin',
-            'name' => 'Admin'
-        ]);
+        $faker = Faker::create();
 
-        Rank::factory()->create([
-            'slug' => 'FO2',
-            'name' => 'Fire Officer 2',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'FO3',
-            'name' => 'Fire Officer 3',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SO1',
-            'name' => 'Senior Officer 1',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SO2',
-            'name' => 'Senior Officer 2',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SO3',
-            'name' => 'Senior Officer 3',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SO4',
-            'name' => 'Senior Officer 4',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'I',
-            'name' => 'Inspector',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SI',
-            'name' => 'Senior Inspector',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'CI',
-            'name' => 'Chief Inspector',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'S',
-            'name' => 'Superintendent',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'SS',
-            'name' => 'Senior Superintendent',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'CS',
-            'name' => 'Chief Superintendent',
-        ]);
-        Rank::factory()->create([
-            'slug' => 'D',
-            'name' => 'Director',
-        ]);
-        Personnel::factory()->create([
-            'departments_id' => $fses->id,
-            'ranks_id' => $fo1->id,
-            'first_name'=> 'craig ben',
-            'last_name'=> 'Cadag',
-            'middle_name'=> 'Lana',
-            'date_of_birth'=> '2001-08-08',
-            'gender'=> 1,
-            'address'=> 'Iriga, Camarines Sur',
-        ]);
+        foreach (range(1, 16) as $index) {
+
+            $attributes = [
+                // 'departments_id' => $faker->numberBetween(1, 3),
+                'ranks_id' => $faker->numberBetween(1, 13),
+                'account_number' => 101010,
+                'first_name' => $faker->firstName,
+                'middle_name' => $faker->lastName,
+                'last_name' => $faker->lastName,
+                'date_of_birth' => $faker->date(),
+                'gender' => 'male',
+                'address' => 'Ligao City',
+                'picture' => 'sir sample.jpg',
+                'maritam_status' => '',
+                'religion' => '',
+                'tin' => '',
+                'gsis' => '',
+                'pagibig' => '',
+                'philhealth' => '',
+                'highest_eligibility' => '',
+                'highest_training' => '',
+                'specialized_training' => '',
+                'mode_of_entry' => '',
+                'appointment_status' => '',
+                'unit_code' => '',
+                'unit_assignment' => '',
+                'designation' => '',
+                'admin_operation_remarks' => '',
+            ];
+
+            $personnel_id = DB::table('personnels')->insertGetId($attributes);
+            $count = 0;
+
+            foreach (range(1, 2) as $index) {
+
+                $count++;
+                $attributes = [
+                    'personnel_id' => $personnel_id,
+                    'name' => 'tertiary' . $count,
+                ];
+
+                DB::table('tertiaries')->insert($attributes);
+
+            }
+
+            foreach (range(1, 2) as $index) {
+
+                $count++;
+                $attributes = [
+                    'personnel_id' => $personnel_id,
+                    'name' => 'course' . $count,
+                ];
+
+                DB::table('post_graduate_courses')->insert($attributes);
+
+            }
+        }
     }
 }

@@ -1,3 +1,41 @@
 .btn-width {
     width: 200px;
 }
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container img {
+    transition: filter 0.3s ease;
+}
+
+.remove-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover img {
+    filter: brightness(50%);
+}
+
+.image-container:hover .remove-button {
+    opacity: 1;
+}
+
+.flast-pos {
+    width: 50%;
+    top: 60px;
+    right: 30%;
+    z-index: 10;
+}
+.danger-flash {
+    width: 40%;
+    top: 60px;
+    right: 30%;
+    z-index: 10;
+    background-size: cover;
+}
