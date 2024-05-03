@@ -1,16 +1,17 @@
 <?php
 
+use App\Models\Report;
+use App\Models\Operation;
+use App\Models\Investigation;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\AlarmController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\UsersController;
-use App\Models\Investigation;
-use App\Models\Report;
-use Illuminate\Support\Facades\Route;
-use App\Models\Operation;
+use App\Http\Controllers\InvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        //Alarms
+        Route::get('/alarms/index', [AlarmController::class, 'alarmIndex'])->name('alarms.index');
+        Route::post('/alarm/create', [AlarmController::class, 'alarmCreate'])->name('alarms.create');
+        Route::put('/alarm/update/{id}', [AlarmController::class, 'alarmUpdate'])->name('alarms.update');
+        Route::delete('/alarm/delete/{id}', [AlarmController::class, 'alarmDelete'])->name('alarms.delete');
+
     });
 
     // Operation
@@ -99,7 +107,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+
     });
+
+
+
 
 
     // Investigation

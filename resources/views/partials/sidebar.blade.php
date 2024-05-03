@@ -58,6 +58,14 @@
                     </div> --}}
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('admin.alarms.index') }}" class="sidebar-link ccordion-body ms-2 reports-collapse {{$active == 'alarm' ? 'active' : ''}}">
+                        <span>
+                            <i class="ti ti-report"></i>
+                        </span> 
+                        <span class="hide-menu">Alarms</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <div class="accordion accordion-flush" href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
@@ -126,7 +134,7 @@
                                 <div id="collapsePersonnel" class="accordion-collapse collapse show"
                                     data-bs-parent="#personnelAccordion">
                                     
-                                    <a href="{{route('personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <a href="{{route('admin.personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         Personnel Info
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
