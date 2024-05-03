@@ -5,6 +5,7 @@ use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Models\Investigation;
@@ -82,6 +83,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
         Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
         Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
+
+        //Rank
+        Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
+        Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
+        Route::get('/rank/{id}/edit', [RankController::class, 'editRank'])->name('rank.edit');
+        Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
+        Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
