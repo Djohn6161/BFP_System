@@ -120,7 +120,7 @@
                             </h2>
                             <div id="collapseOperationdrop" class="accordion-collapse collapse show"
                                 data-bs-parent="#operationdropAccordion">
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('admin.occupancy.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>

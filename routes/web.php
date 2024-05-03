@@ -1,16 +1,17 @@
 <?php
 
+use App\Models\Report;
+use App\Models\Operation;
+use App\Models\Investigation;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\UsersController;
-use App\Models\Investigation;
-use App\Models\Report;
-use Illuminate\Support\Facades\Route;
-use App\Models\Operation;
+use App\Http\Controllers\InvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        //Occupancy
+        Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
+        Route::post('/occupancy/create', [OccupancyController::class, 'createOccupancyName'])->name('occupancy_name.create');
+        Route::put('/occupancy/update/{id}', [OccupancyController::class, 'updateOccupancyName'])->name('occupancy_name.update');
+        Route::delete('/occupancy/delete/{id}', [OccupancyController::class, 'deleteOccupancyName'])->name('occupancy_name.delete');
     });
 
     // Operation

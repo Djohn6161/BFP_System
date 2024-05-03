@@ -171,4 +171,12 @@ class AdminController extends Controller
         return false;
 
     }
+    // public function viewOccupancy(){
+    //     $user = Auth::user();
+    //     return view('admin.occupancy.index', [
+    //         'active' => 'index',
+    //         'user' => $user,
+    //     ]);
+    // }
+
 }
