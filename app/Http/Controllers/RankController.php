@@ -27,12 +27,6 @@ class RankController extends Controller
         return redirect()->back()->with('success', 'Rank created successfully.');
     }
 
-    public function editRank($id)
-    {
-        $rank = Rank::findOrFail($id);
-        return view('admin.rank.index', compact('rank'));
-    }
-
     public function updateRank(Request $request, $id)
     {
         $rank = Rank::findOrFail($id);

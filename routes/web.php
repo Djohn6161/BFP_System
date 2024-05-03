@@ -87,7 +87,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //Rank
         Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
         Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
-        Route::get('/rank/{id}/edit', [RankController::class, 'editRank'])->name('rank.edit');
         Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
         Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
 
