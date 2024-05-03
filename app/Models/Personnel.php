@@ -31,7 +31,7 @@ class Personnel extends Model
         return $this->hasMany(Declared_alarm::class, 'ground_commander');
     }
     public function aforDuty(){
-        return $this->hasMany(Duty_personnel::class, 'personnels_id');
+        return $this->hasMany(Afor_duty_personnel::class, 'personnels_id');
     }
     // public function crewReport(){
     //     return $this->hasMany(Crew::class, 'personnel_id');

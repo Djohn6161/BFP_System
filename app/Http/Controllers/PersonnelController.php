@@ -17,8 +17,10 @@ class PersonnelController extends Controller
         $active = 'personnel';
         $personnels = Personnel::all();
         $ranks = Rank::all();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
         $personnelCount = count($personnels);
-        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks'));
+        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'));
     }
 
     public function personnelView($id)
@@ -27,11 +29,12 @@ class PersonnelController extends Controller
         $active = 'personnel';
         $ranks = Rank::all();
         $personnel = Personnel::findOrFail($id);
-        $tertiaries = Tertiary::where('personnel_id',$personnel->id)->get();
-        $courses = Post_graduate_course::where('personnel_id',$personnel->id)->get();
-        $maritals = ['single','married','divorced','widowed'];
+        $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
         $files = explode(',', $personnel->files);
-        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks','maritals','tertiaries','courses','files'));
+        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
 
     public function personnelStore(Request $request)
@@ -128,6 +131,20 @@ class PersonnelController extends Controller
         }
 
         return redirect()->back()->with('success', "Operation report added successfully.");
+    }
+
+    public function personnelUpdateForm($id)
+    {
+        $user = Auth::user();
+        $active = 'personnel';
+        $ranks = Rank::all();
+        $personnel = Personnel::findOrFail($id);
+        $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $files = explode(',', $personnel->files);
+        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
 
     private function hasValues($array)

@@ -76,19 +76,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+        // Dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
-        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
-        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
-        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
-        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
-        // Account
+        // Accounts
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        // Personnel    
+        Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
+        Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
+        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update');
+        Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
+        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
 
     // Operation
@@ -124,18 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
 
-    // Personnel    
-    Route::prefix('personnel/')->name('personnel.')->group(function () {
-        Route::get('/index', [PersonnelController::class, 'personnelIndex'])->name('index');
-        Route::get('/update/{id}', [PersonnelController::class, 'personnelView'])->name('view');
-        Route::post('/create/submit', [PersonnelController::class, 'personnelStore'])->name('store');
-        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
-        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-    });
-
-
-
-    // Account
+    // User Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
     Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });
