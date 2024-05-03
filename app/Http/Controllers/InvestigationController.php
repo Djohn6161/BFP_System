@@ -39,6 +39,7 @@ class InvestigationController extends Controller
         $minimals = Minimal::all();
         $investigations = Minimal::latest()->get();
         $spots = Spot::all();
+       
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
     }
     public function createMinimal()
