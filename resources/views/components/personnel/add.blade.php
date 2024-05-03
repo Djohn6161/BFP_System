@@ -14,7 +14,7 @@
                     <div class="col-lg-4">
                         <div class="mb-3">
                             <img id="previewPersonnelImage"
-                                src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
+                                src="{{ asset('assets/images/personnel_images/default.png') }}"
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
@@ -79,8 +79,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dateOfBirth"
-                                        value="date_of_birth">
+                                    <input type="date" class="form-control" id="dateOfBirth" name="date_of_birth">
                                 </div>
                             </div>
 

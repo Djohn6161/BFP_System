@@ -13,7 +13,8 @@
                         <div class="col d-flex justify-content-end mb-2">
                             <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">Delete</button>
-                            <a href="{{ route('admin.personnel.update', $personnel->id) }}" class="btn btn-primary">Update Information</a>
+                            <a href="{{ route('admin.personnel.update.form', $personnel->id) }}"
+                                class="btn btn-primary">Update Information</a>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                         <div class="col-lg-4">
@@ -86,7 +87,7 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" id="dateOfBirth" readonly
-                                        value="{{ $personnel->date_of_birth }}">
+                                        value="{{ \Carbon\Carbon::parse($personnel->date_of_birth)->format('Y-m-d') }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -153,8 +154,7 @@
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="highestEligibility" class="form-label">Highest Eligibility</label>
-                            <input type="text" placeholder="Enter highest eligibility" class="form-control"
-                                id="highestEligibility" readonly {{ $personnel->highest_eligibility }}>
+                            <input type="text" placeholder="Enter highest eligibility" class="form-control" id="highestEligibility" readonly value="{{ $personnel->highest_eligibility }}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="highestTraining" class="form-label">Highest Training</label>
