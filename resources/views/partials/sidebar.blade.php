@@ -124,6 +124,12 @@
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
+                                    Occupancy
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
                                     Barangay
                                 </a>
                                 <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
