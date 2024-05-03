@@ -107,6 +107,41 @@
                         </div>
                     </div>
                 </li>
+                {{--balyuwan nasana ninyo a ngarans--}}
+                <li class="sidebar-item">
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="operationdropAccordion">
+                        <div class="accordion-item p-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOperationdrop" aria-expanded="true" aria-controls="collapseOne">
+                                    <span> <i class="ti ti-check"></i></span>
+                                    <span class="hide-menu">Operation</span>
+                                </button>
+                            </h2>
+                            <div id="collapseOperationdrop" class="accordion-collapse collapse show"
+                                data-bs-parent="#operationdropAccordion">
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
+                                    Occupancy
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
+                                    Barangay
+                                </a>
+                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
+                                    Alarming
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 @if (auth()->user()->type === 'admin')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{route(auth()->user()->type . '.account')}}" aria-expanded="false">
@@ -130,12 +165,11 @@
                                     data-bs-parent="#personnelAccordion">
                                     
                                     <a href="{{route('personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span> <i class="ti ti-user"></i></span>
                                         Personnel Info
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
+                                        <span><i class="ti ti-caret-right"></i></span>
                                         Sample1
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
