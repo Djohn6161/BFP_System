@@ -13,7 +13,7 @@
                         <div class="col d-flex justify-content-end mb-2">
                             <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">Delete</button>
-                            <a href="{{ route('admin.personnel.edit') }}" class="btn btn-primary">Update Information</a>
+                            <a href="{{ route('admin.personnel.update', $personnel->id) }}" class="btn btn-primary">Update Information</a>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                         <div class="col-lg-4">
@@ -39,8 +39,20 @@
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="rank" class="form-label">Rank</label>
-                                    <input type="text" class="form-control"
-                                        id="itemNumber" readonly value="">
+                                    <select class="form-select" id="rank" name="rank" disabled>
+                                        <option selected>Select Rank</option>
+                                        @foreach ($ranks as $rank)
+                                            @if ($rank->id == $personnel->ranks_id)
+                                                <option selected value="{{ $rank->id }}">{{ $rank->slug }} -
+                                                    {{ $rank->name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $rank->id }}">{{ $rank->slug }} -
+                                                    {{ $rank->name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -79,14 +91,32 @@
                             <div class="row">
                                 <div class="col-lg-4 mb-3">
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
-                                    <input class="form-select" id="maritalStatus" readonly value="{{$personnel->maritam_status}}">
-
-                                    </input>
+                                    <select class="form-select" id="maritalStatus" name="marital_status" disabled>
+                                        <option value="" selected>Select marital status</option>
+                                        @foreach ($maritals as $marital)
+                                            @if ($marital == $personnel->marital_status)
+                                                <option selected value="{{ $marital }}" selected>
+                                                    {{ ucwords($marital) }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $marital }}" selected>{{ ucwords($marital) }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="gender" class="form-label">Gender</label>
-                                    <input class="form-select" id="gender" readonly value="{{$personnel->gender}}">
-                                    </input>
+                                    <select class="form-select" id="gender" name="gender" disabled>
+                                        <option value="" selected>Select gender</option>
+                                        @foreach ($genders as $gender)
+                                            @if ($gender == $personnel->gender)
+                                                <option value="{{ $gender }}" selected>{{ $gender }}</option>
+                                            @else
+                                                <option value="{{ $gender }}">{{ $gender }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-lg-4 mb-3">
                                     <label for="religion" class="form-label">Religion</label>
@@ -191,14 +221,16 @@
                             <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" readonly></textarea>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
-                        
-                            <div class="file-item d-flex justify-content-between align-items-center mb-1">
-                                {{-- dito ang file name na ididisplay na inupload --}}
-                                <span>sample file</span>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#filePreviewPersonnelModal">Preview</button>
-                            </div>
-                            <hr>
+
+                        <div class="file-item d-flex justify-content-between align-items-center mb-1">
+                            @foreach ($files as $file)
+                                <span>{{ $file }}</span>
+                                <a class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#filePreviewPersonnelModal"
+                                    data-file="{{ $file }}">Preview</a>
+                            @endforeach
+                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -213,6 +245,15 @@
                 } else {
                     $('#pagibig_filename').val("No file selected");
                 }
+            });
+            $('#filePreviewPersonnelModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var file = button.data('file');
+
+                var modal = $(this);
+                var iframeSrc = "{{ asset('assets/images/personnel_files/') }}" + '/' + file;
+                modal.find('iframe').attr('src', iframeSrc);
+                // Update other modal fields similarly
             });
         });
     </script>

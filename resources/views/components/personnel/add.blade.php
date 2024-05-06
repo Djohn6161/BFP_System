@@ -8,7 +8,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-5">
-                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('personnel.store') }}">
+                <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('admin.personnel.store') }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="col-lg-4">
                         <div class="mb-3">
@@ -17,7 +18,8 @@
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
-                                    Upload Photo <input type="file" id="imagePersonnelInput" name="image" style="display:none;">
+                                    Upload Photo <input type="file" id="imagePersonnelInput" style="display:none;"
+                                        name="image">
                                 </label>
                             </div>
                         </div>
@@ -86,18 +88,18 @@
                                     <label for="maritalStatus" class="form-label">Marital Status</label>
                                     <select class="form-select" id="maritalStatus" name="marital_status">
                                         <option value="" selected>Select marital status</option>
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Divorced">Divorced</option>
-                                        <option value="Widowed">Widowed</option>
+                                        @foreach ($maritals as $marital)
+                                            <option value="{{ $marital }}">{{ucwords($marital)}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-4">
                                     <label for="gender" class="form-label">Gender</label>
                                     <select class="form-select" id="gender" name="gender">
                                         <option value="" selected>Select gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                        @foreach ($genders as $gender)
+                                            <option value="{{ $gender }}">{{ucwords($gender)}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-4">
@@ -256,7 +258,8 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
                             <div>
                                 <label for="file-input" class="form-label"></label>
-                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="file[]">
+                                <input class="form-control" type="file" id="file-input" style="display: none;"
+                                    multiple name="files[]">
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
                                     <p id="file-count">No files selected</p>

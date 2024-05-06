@@ -14,8 +14,10 @@ class PersonnelController extends Controller
         $active = 'personnel';
         $personnels = Personnel::all();
         $ranks = Rank::all();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
         $personnelCount = count($personnels);
-        return view('admin.personnel.index', compact('active', 'personnels', 'user','personnelCount','ranks'));    
+        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'));
     }
 
     public function personnelView($id){
@@ -23,11 +25,12 @@ class PersonnelController extends Controller
         $active = 'personnel';
         $ranks = Rank::all();
         $personnel = Personnel::findOrFail($id);
-        return view('admin.personnel.view', compact('active', 'active', 'user','personnel','ranks')); 
+        $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $files = explode(',', $personnel->files);
+        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
 
     public function personnelStore(Request $request){
-
         $personnel = new Personnel();
 
         $personnel->fill([
@@ -65,5 +68,38 @@ class PersonnelController extends Controller
         $personnel_id = $personnel->id;
 
         return redirect()->back()->with('success', "Operation report added successfully.");
+    }
+
+    public function personnelUpdateForm($id)
+    {
+        $user = Auth::user();
+        $active = 'personnel';
+        $ranks = Rank::all();
+        $personnel = Personnel::findOrFail($id);
+        $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $files = explode(',', $personnel->files);
+        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
+    }
+
+    private function hasValues($array)
+    {
+        return !empty($array) && count(array_filter($array, 'strlen')) > 0;
+    }
+
+    private function hasChanges($info, $updatedData)
+    {
+
+        foreach ($updatedData as $key => $value) {
+
+            if ($info->{$key} != $value) {
+
+                return $value;
+            }
+        }
+
+        return false;
     }
 }
