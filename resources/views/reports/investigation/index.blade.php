@@ -23,7 +23,6 @@
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">
                                 {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5>
                             <div class="table-responsive">
-                                <x-reports.view-investigation></x-reports.view-investigation>
                                 <table class="table mb-0 align-middle w-100">
                                     <thead class="text-dark fs-4">
                                         <tr>
