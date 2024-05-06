@@ -225,10 +225,12 @@
 
                         <div class="file-item d-flex justify-content-between align-items-center mb-1">
                             @foreach ($files as $file)
+                                @if ($file != '')
                                 <span>{{ $file }}</span>
                                 <a class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#filePreviewPersonnelModal"
                                     data-file="{{ $file }}">Preview</a>
+                                @endif
                             @endforeach
                         </div>
                         <hr>
