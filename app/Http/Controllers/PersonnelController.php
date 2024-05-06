@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post_graduate_course;
 use App\Models\Rank;
+use App\Models\Tertiary;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,10 +26,13 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $ranks = Rank::all();
-        $personnel = Personnel::findOrFail($id);
+        $personnel = Personnel::findOrFail($id);    
         $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
         $files = explode(',', $personnel->files);
-        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
 
     public function personnelStore(Request $request){

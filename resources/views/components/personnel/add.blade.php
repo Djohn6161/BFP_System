@@ -282,50 +282,83 @@
 </div>
 
 <script>
-     //personnel file upload
-     $(document).ready(function(){
-            $('#file-input').change(handleFileSelect);
-        });
+    //personnel file upload
+    $(document).ready(function() {
+        $('#file-input').change(handleFileSelect);
+    });
 
-        function handleFileSelect(event) {
+    function handleFileSelect(event) {
+        var fileList = $('#file-list');
+        fileList.html('');
+
+        var files = event.target.files;
+
+        // Update file count
+        var fileCountSpan = $('#file-count');
+        fileCountSpan.text(files.length + ' file(s)');
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+
+            var fileName = $('<span></span>').text(file.name);
+            listItem.append(fileName);
+
+            var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+            deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+            listItem.append(deleteButton);
+
+            fileList.append(listItem);
+        }
+    }
+
+    function createDeleteHandler(file, fileCountSpan) {
+        return function() {
             var fileList = $('#file-list');
-            fileList.html('');
-
-            var files = event.target.files;
-
-            // Update file count
-            var fileCountSpan = $('#file-count');
-            fileCountSpan.text(files.length + ' file(s)');
-
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
-
-                var fileName = $('<span></span>').text(file.name);
-                listItem.append(fileName);
-
-                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
-                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-                listItem.append(deleteButton);
-
-                fileList.append(listItem);
-            }
-        }
-
-        function createDeleteHandler(file, fileCountSpan) {
-            return function() {
-                var fileList = $('#file-list');
-                var fileItems = fileList.find('.file-item');
-                for (var i = 0; i < fileItems.length; i++) {
-                    if ($(fileItems[i]).find('span').text() === file.name) {
-                        $(fileItems[i]).remove();
-                        break;
-                    }
+            var fileItems = fileList.find('.file-item');
+            for (var i = 0; i < fileItems.length; i++) {
+                if ($(fileItems[i]).find('span').text() === file.name) {
+                    $(fileItems[i]).remove();
+                    break;
                 }
+            }
 
-                // Update file count after deletion
-                var remainingFiles = fileList.find('.file-item').length;
-                fileCountSpan.text(remainingFiles + ' file(s)');
-            };
+            // Update file count after deletion
+            var remainingFiles = fileList.find('.file-item').length;
+            fileCountSpan.text(remainingFiles + ' file(s)');
+        };
+    }
+
+    $("#addTertiaryCourse").click(function() {
+        var inputField =
+            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses" name="tertiary[]"> <button type="button" class="btn btn-outline-danger removeTertiaryInput">x</button> </div> </div>';
+        $("#tertiaryCourseContainer").append(inputField);
+    });
+
+    // Remove dynamically added input field
+    $(document).on('click', '.removeTertiaryInput', function() {
+        $(this).closest('.col-lg-12').remove();
+    });
+
+    $("#addpostGraduateCourses").click(function() {
+        var inputField =
+            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="postGraduateCourses[9]"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
+        $("#postGraduateCoursesContainer").append(inputField);
+    });
+
+    // Remove dynamically added input field
+    $(document).on('click', '.removePostGraduateInput', function() {
+        $(this).closest('.col-lg-12').remove();
+    });
+
+    $('#imagePersonnelInput').change(function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewPersonnelImage').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
         }
+    });
 </script>
