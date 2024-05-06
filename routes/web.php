@@ -89,8 +89,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Personnel    
         Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
         Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
-        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update');
+        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
         Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
+        Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
