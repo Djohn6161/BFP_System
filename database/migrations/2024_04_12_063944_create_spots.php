@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date_occurence');
             $table->string('time_occurence');
-            $table->string('address_occurence');
+            $table->string('barangay')->nullable();
+            $table->string('street')->nullable();
+            $table->string('landmark')->nullable();
+            $table->string('address_occurence')->nullable();
             $table->string('involved');
             $table->string('name_of_establishment');
             $table->string('owner');
