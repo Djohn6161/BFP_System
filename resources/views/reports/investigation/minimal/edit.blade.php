@@ -525,13 +525,13 @@
                         </div>
                         <input type="hidden" name="recommendation" id="recommendation">
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">14</h3>
+                            <h3 class="border-bottom border-4 border-warning pb-2 mb-3">Photos</h3>
                             {{-- <label class="form-label" for="exampleCheck1">Photos</label> --}}
 
                             {{-- {{dd($minimal->photos)}} --}}
                             @unless (count($photos) == 0)
-                                <h3 class="text-dark text-bold text-center border-bottom border-4 border-primary">Current
-                                    Photos</h3>
+                                <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary">Current
+                                    Photos</h5>
 
                                 {{-- {{ dd('hi') }} --}}
                                 @foreach ($photos as $photo)
@@ -547,8 +547,8 @@
                                     </div>
                                 @endforeach
                             @endunless
-                            <h3 class="text-dark text-bold text-center border-bottom border-4 border-primary mt-5">Add New
-                                Photos</h3>
+                            <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary mt-5">Add New
+                                Photos</h5>
 
                             <input type="file" class="form-control uncheable" id="photos" name="photos[]"
                                 multiple>
