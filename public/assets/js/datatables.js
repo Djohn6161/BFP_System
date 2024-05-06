@@ -1,5 +1,8 @@
 $('#myTable').DataTable();
-$('#spotJTable').DataTable();
 $("#operationTable").DataTable();
-$("#investigationTable").DataTable();
+$("#allInvestigation").DataTable();
+$("#spotInvestigationTable").DataTable();
+$("#minimalInvestigationTable").DataTable();
+$("#progressInvestigationTable").DataTable();
+$("#finalInvestigationTable").DataTable();
 $("#rankTable").DataTable();

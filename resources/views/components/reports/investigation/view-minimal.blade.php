@@ -1,4 +1,4 @@
-<div class="modal" tabindex="-1" id="viewModal{{ $investigation->id }}">
+<div class="modal fade" tabindex="-1" id="viewMinimalModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,19 +6,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row p-3">
+                <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>
                 </div>
-                <div class="row p-3">
+                <div class="row p-2">
                     <div class="col-sm-2 text-dark">Subject:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->subject }}</b></div>
                 </div>
-                <div class="row p-3">
+                <div class="row p-2">
                     <div class="col-sm-2 text-dark">Date:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div>
                 </div>
-                <table class="table table-striped table-dark my-5">
+                <hr>
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <td colspan="2" class="fw-bolder">DETAILS</td>
@@ -45,11 +46,18 @@
                             <td>Property Data:</td>
                             <td>{{ $investigation->property_data }}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td colspan="2" class="fw-bolder py-0">RESPONSE AND SUPRESSION DATA</td>
+                            <td colspan="2" class="fw-bolder">RESPONSE AND SUPRESSION DATA</td>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold py-1">Receiver</td>
+                            <td colspan="2" class="fw-bold">Receiver</td>
                         </tr>
                         <tr>
                             <td>Caller Information:</td>
@@ -92,9 +100,16 @@
                             <td>Time Fire Out:</td>
                             <td>{{ $investigation->Time_Fire_out }}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td colspan="2" class="py-0 fw-bolder">INVOLVED PARTIES</td>
+                            <td colspan="2" class="fw-bolder">INVOLVED PARTIES</td>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td>Owner of property/establishment:</td>
                             <td>{{ $investigation->property_owner }}</td>
@@ -112,23 +127,24 @@
                         {!! $investigation->details !!}
                     </p>
                 </div>
+                <hr>
                 <h3 class="my-4 fw-bolder">FINDINGS</h3>
                 <div class="ps-5">
                     <p class="text-dark">
                         {!! $investigation->findings !!}
                     </p>
                 </div>
-
+                <hr>
                 <h3 class="my-4 fw-bolder ">RECOMMENDATION</h3>
                 <div class="ps-5">
                     <p class="text-dark">
                         {!! $investigation->recommendation !!}
                     </p>
                 </div>
-
+                <hr>
                 <h3 class="my-4 fw-bolder ">PHOTOGRAPH OF FIRE SCENE</h3>
                 @if ($investigation->photos == '' || $investigation->photos == null)
-                    <div class="alert alert-secondary w-100 text-center fw-bolder">None Found</div>
+                    <div class="w-100 text-center fw-bolder">None photos found!</div>
                 @else
                     @php
                         if ($investigation->photos != '') {
@@ -139,10 +155,10 @@
                         @foreach ($photos as $photo)
                             <div class="col-sm-4">
                                 <div class="card">
-                                    <div class="card-body">
-
-                                        <img style="height: 400px; object-fit: cover;" class="img-thumbnail w-100" src="{{ asset('storage/minimal/' . $photo) }}"
-                                            alt="sample Image">
+                                    <div class="card-body p-1">
+                                        <a href="{{ asset('storage/minimal/' . $photo) }}" data-toggle="lightbox" data-gallery="example-gallery">
+                                            <img style="height: 350px; object-fit: cover;" class="w-100" src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
