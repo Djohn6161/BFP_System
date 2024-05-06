@@ -51,10 +51,10 @@
                                                     @if ($personnel->ranks_id == $rank->id)
                                                         <div class="card justify-content-center m-2"
                                                             style="width: calc(25% - 1rem); p-1;">
-                                                            <a href="{{ route('personnel.view', $personnel->id) }}">
+                                                            <a href="{{ route('admin.personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
                                                                     <!-- Display Personnel Details -->
-                                                                    <img src="/assets/images/personnel_images/{{ $personnel->picture }}"
+                                                                    <img src="{{ asset('assets/images/personnel_images/default.png') }}"
                                                                         class="card-img-top object-fit-cover rounded"
                                                                         height="300" alt="personnel picture">
                                                                     <div class="card-body">
@@ -118,6 +118,6 @@
     </div>
 
 
-    <x-personnel.add :category="$active" :ranks="$ranks"> </x-personnel.add>
+    <x-personnel.add :category="$active" :ranks="$ranks" :maritals="$maritals" :genders="$genders"> </x-personnel.add>
     {{-- <x-personnel.preview :category="$active"> </x-personnel.preview> --}}
 @endsection

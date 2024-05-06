@@ -5,15 +5,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="filePreviewPersonnelModalLabel">File upload testing preview</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
             </div>
             <div class="modal-body">
                 <div class="ExternalFiles">
-                    @foreach ($files as $file)
-                        <iframe src="{{ asset('assets/images/personnel_files/' . $file) }}"
-                            style="width: 100%; height: 80vh;"></iframe>
-                    @endforeach
+                    <iframe style="width: 100%; height: 80vh;"></iframe>
                 </div>
+
             </div>
         </div>
     </div>
