@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post_graduate_course;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
-use App\Models\Post_graduate_course;
 use Illuminate\Http\Request;
 // use Illuminate\Http\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
@@ -28,11 +28,14 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $ranks = Rank::all();
+
         $personnel = Personnel::findOrFail($id);
         $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
         $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $files = explode(',', $personnel->files);
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
+
         $files = explode(',', $personnel->files);
         return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
