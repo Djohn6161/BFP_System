@@ -21,11 +21,23 @@ class AdminController extends Controller
         ]);
     }
 
-    public function accountIndex()
+    public function adminAccountIndex()
+    {
+        $users = User::where('type', 'admin')->get();
+        $user = Auth::user();
+        $active = 'account';
+        $type = 'admin';
+        return view('admin.account.admin.index', compact('users', 'active', 'user','type'));
+
+    }
+
+    public function userAccountIndex()
     {
         $users = User::where('type', 'user')->get();
+        $user = Auth::user();
         $active = 'account';
-        return view('admin.account', compact('users', 'active'));
+        $type = 'user';
+        return view('admin.account.admin.index', compact('users', 'active', 'user','type'));
 
     }
 
@@ -33,21 +45,29 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'privilege' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'confirm_password' => 'required|string|min:8',
         ]);
 
-        $account = new User();
+        $account = new User();  
+
+        if ($request->input('type') == 'user') {
+            $account->privilege = $request['privilege'];
+            $account->type = 'user';    
+        } else {
+            $account->privilege = 'all';
+            $account->type = 'admin';
+        }
+
         $account->name = $request['name'];
-        $account->type = 'user';
-        $account->privilege = $request['privilege'];
         $account->email = $request['email'];
         $account->password = Hash::make($request['password']);
         $account->save();
 
-        return redirect()->route('admin.account')->with('success', 'Account created successfully');
+        return redirect()->back()->with('success', 'Account created successfully.');
     }
-
+    
     public function accountUpdate(Request $request)
     {
         $request->validate([
