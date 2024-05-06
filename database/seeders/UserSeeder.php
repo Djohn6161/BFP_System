@@ -45,5 +45,8 @@ class UserSeeder extends Seeder
 
         // Insert data into the 'users' table
         DB::table('users')->insert($users);
+
+        
+
     }
 }
