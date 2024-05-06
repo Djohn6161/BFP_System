@@ -344,7 +344,7 @@
 
     $("#addpostGraduateCourses").click(function() {
         var inputField =
-            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="postGraduateCourses[9]"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
+            '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="postGraduateCourses[]"> <button type="button" class="btn btn-outline-danger removePostGraduateInput">x</button> </div> </div>';
         $("#postGraduateCoursesContainer").append(inputField);
     });
 
