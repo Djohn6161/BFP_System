@@ -150,19 +150,8 @@
                             </div>
                         </div>
                     </li>    
-
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link" href="#" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-users"></i>
-                            </span>
-                            <span class="hide-menu">Personnel</span>
-                        </a>
-                    </li> --}}
-
-                    {{-- Bottom --}}
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+                        <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-file-description"></i>
                             </span>
@@ -170,12 +159,26 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-trash"></i>
-                            </span>
-                            <span class="hide-menu">Trash</span>
-                        </a>
+                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
+                            <div class="accordion-item p-0">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTrash" aria-expanded="true" aria-controls="collapseOne">
+                                        <span> <i class="ti ti-users"></i></span>
+                                        <span class="hide-menu">Trash</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseTrash" class="accordion-collapse collapse show"
+                                    data-bs-parent="#trashAccordion">
+                                    <a href="{{route('admin.trash.operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        Operation
+                                    </a>
+                                    <a href="{{route('admin.trash.investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        Investigation
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 @endif
 
