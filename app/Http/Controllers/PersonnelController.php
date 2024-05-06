@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post_graduate_course;
+use Carbon\Carbon;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use App\Models\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class PersonnelController extends Controller
 {
@@ -255,6 +257,32 @@ class PersonnelController extends Controller
             return redirect()->back()->with('status', "Nothing's change.");
         }
 
+    }
+
+    public function personnelDelete($id, Request $request)
+    {
+
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $personnel = Personnel::find($id);
+        $user = Auth::user();
+        $user = Auth::user();
+        $active = 'personnel';
+        $personnels = Personnel::all();
+        $ranks = Rank::all();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $personnelCount = count($personnels);
+
+
+        if (Hash::check($request->input('password'), $user->password)) {
+            $personnel->delete();
+            return redirect()->route('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'))->with('success', 'Personnel deleted successfully.');
+        } else {
+            return redirect()->back()->with('status', 'Admin password is not correct.');
+        }
     }
 
     private function hasValues($array)

@@ -261,5 +261,5 @@
         });
     </script>
     <x-personnel.preview :category="$active"> </x-personnel.preview>
-    <x-personnel.delete :category="$active"> </x-personnel.delete>
+    <x-personnel.delete :category="$active" :personnel="$personnel->id"> </x-personnel.delete>
 @endsection
