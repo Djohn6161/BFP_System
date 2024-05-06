@@ -26,20 +26,15 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body px-2">
-                            <a data-bs-toggle="modal" data-bs-target="#profileModal" class="d-flex align-items-center gap-2 dropdown-item">
+                            <button data-bs-toggle="modal" data-bs-target="#profileModal" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-user fs-6"></i>
                                 <p class="mb-0 fs-3">My Profile</p>
-                            </a>
-                            <a data-bs-toggle="modal" data-bs-target="#userPasswordModal" class="d-flex align-items-center gap-2 dropdown-item">
+                            </button>
+                            <button data-bs-toggle="modal" data-bs-target="#userPasswordModal" class="d-flex align-items-center gap-2 dropdown-item mb-2">
                                 <i class="ti ti-mail fs-6"></i>
                                 <p class="mb-0 fs-3">My Password</p>
-                            </a>
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                <i class="ti ti-list-check fs-6"></i>
-                                <p class="mb-0 fs-3">My Task</p>
-                            </a>
-
-                            <button class="btn btn-outline-primary mx-3 mt-2 d-block"
+                            </button>
+                            <button class="btn btn-outline-danger text-center w-100"
                                 data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
                         </div>
                     </div>
