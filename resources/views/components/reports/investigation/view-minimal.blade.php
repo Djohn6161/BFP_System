@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" id="viewModal{{ $investigation->id }}">
+<div class="modal fade" tabindex="-1" id="viewMinimalModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">

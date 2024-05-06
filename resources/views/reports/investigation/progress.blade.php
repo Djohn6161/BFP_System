@@ -45,7 +45,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($investigations as $investigation)
-                                            <x-reports.view-modal :report=$investigation></x-reports.view-modal>
                                             <x-reports.investigation.investigation-delete :type="'progress'" :investigation=$investigation></x-reports.investigation.investigation-delete>
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
@@ -61,6 +60,10 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
+                                                    <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#viewProgressModal{{ $investigation->id }}" class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                    <x-reports.Investigation.view-progress :investigation=$investigation></x-reports.Investigation.view-progress>
+
                                                     <a href="{{route('investigation.progress.edit', ['progress' => $investigation->id])}}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
