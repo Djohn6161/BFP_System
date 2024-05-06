@@ -199,13 +199,42 @@
 
                     {{-- Bottom --}}
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-file-description"></i>
-                            </span>
-                            <span class="hide-menu">Logs</span>
-                        </a>
-                    </li>
+                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
+                            <div class="accordion-item p-0">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLogs" aria-expanded="true" aria-controls="collapseOne">
+                                        <span> <i class="ti ti-file-description"></i></span>
+                                        <span class="hide-menu">Logs</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseLogs" class="accordion-collapse collapse show"
+                                    data-bs-parent="#logsAccordion">
+                                    
+                                    <a href="" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span> <i class="ti ti-caret-right"></i></span>
+                                        Operation
+                                    </a>
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span><i class="ti ti-caret-right"></i></span>
+                                        Investigation
+                                    </a>
+                                    {{-- <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
+                                        Sample2
+                                    </a>
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        <span>
+                                            <i class="ti ti-caret-right"></i>
+                                        </span>
+                                        Sample3
+                                    </a> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </li> 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
                             <span>
