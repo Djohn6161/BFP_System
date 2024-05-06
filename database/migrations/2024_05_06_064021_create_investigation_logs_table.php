@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('investigation_id')->nullable()->constrained('investigations')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');;
-            $table->string('details');
+            $table->longText('details');
             $table->string('action');
             $table->timestamps();
         });

@@ -47,6 +47,6 @@ class User extends Authenticatable
         return $this->hasMany(AforLog::class, 'user_id');
     }
     public function investigationLogs(){
-        return $this->hasMany(InvestigationLog::class, 'user_id')
+        return $this->hasMany(InvestigationLog::class, 'user_id');
     }
 }

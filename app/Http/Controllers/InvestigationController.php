@@ -13,6 +13,7 @@ use App\Models\Progress;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
+use App\Models\InvestigationLog;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
@@ -139,7 +140,15 @@ class InvestigationController extends Controller
         ]);
         // dd($spot);
         $spot->save();
+        $log = new InvestigationLog();
 
+        $log->fill([
+            'investigation_id' => $spot->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created a spot investigation with a subject of " . $spot->investigation->subject,
+            'action' => "Store",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/Spot/index')->with("success", "Investigation Created Successfully!");
     }
     public function Progress()
@@ -191,7 +200,14 @@ class InvestigationController extends Controller
             'disposition' => $request->input('disposition') ?? '',
         ]);
         $progress->save();
-
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $progress->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created a Progress Investigation of " . $spot->investigation->subject . " with a subject of " . $progress->investigation->subject,
+            'action' => "Store",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/progress/index')->with("success", "Investigation Created Successfully!");
         // dd($request->all(), $validatedData);
     }
@@ -289,7 +305,14 @@ class InvestigationController extends Controller
         ]);
         // dd($spot);
         $final->save();
-
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $final->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created a Final Investigation of " . $spot->investigation->subject . " with a subject of " . $final->investigation->subject,
+            'action' => "Store",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/final/index')->with("success", "Investigation Created Successfully!");
     }
     public function editMinimal(Minimal $minimal)
@@ -402,7 +425,14 @@ class InvestigationController extends Controller
             'photos' => $photos ?? '',
         ]);
         $minimal->save();
-
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $minimal->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created a Minimal Investigation with a subject of " . $minimal->investigation->subject,
+            'action' => "Store",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
     }
     public function updateMinimal(Request $request, Minimal $minimal)
@@ -517,6 +547,14 @@ class InvestigationController extends Controller
         ];
         $minimal->touch();
         $minimal->update($updatedMinimal);
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $minimal->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated a Minimal Investigation with a subject of " . $minimal->investigation->subject,
+            'action' => "Update",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/minimal/index')->with("success", $minimal->investigation->subject . " Updated Successfully!");
     }
     public function editSpot(Spot $spot)
@@ -596,6 +634,14 @@ class InvestigationController extends Controller
         ];
         $spot->touch();
         $spot->update($updatedSpot);
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $spot->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated a Spot Investigation with a subject of " . $spot->investigation->subject,
+            'action' => "Update",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/Spot/index')->with("success", $spot->investigation->subject . " Updated Successfully!");
     }
     public function editProgress(Request $request, Progress $progress)
@@ -637,7 +683,14 @@ class InvestigationController extends Controller
         ];
         $progress->touch();
         $progress->update($updatedProg);
-
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $progress->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated a Progress Investigation with a subject of " . $progress->investigation->subject,
+            'action' => "Update",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject .  " Updated Successfully!");
     }
     public function editFinal(Ifinal $final)
@@ -734,7 +787,14 @@ class InvestigationController extends Controller
         ];
         // dd($spot);
         $final->update($updateFinal);
-
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $final->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated a Final Investigation with a subject of " . $final->investigation->subject,
+            'action' => "Update",
+        ]);
+        $log->save();
         return redirect('/reports/investigation/final/index')->with("success", $final->investigation->subject . " Updated Successfully!");
     }
 
@@ -761,7 +821,16 @@ class InvestigationController extends Controller
             //     Storage::disk('public')->delete($thesis->file);
             // }
         }
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $minimal->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Permanently Deleted a Minimal Investigation with a subject of " . $minimal->investigation->subject . ", Created on " . $minimal->investigation->date,
+            'action' => "Delete",
+        ]);
+        $log->save();
         $minimal->delete();
+        
         $investigation->delete();
         return redirect()->back()->with('message', 'Investigation Deleted Successfully');
         dd($minimal);
@@ -769,6 +838,14 @@ class InvestigationController extends Controller
     public function destroySpot(Request $request){
         $spot = Spot::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($spot->investigation_id);
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $spot->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Permanently Deleted a Spot Investigation with a subject of " . $spot->investigation->subject . ", Created on " . $spot->investigation->date,
+            'action' => "Delete",
+        ]);
+        $log->save();
         $spot->delete();
         $investigation->delete();
         return redirect()->back()->with('message', 'Investigation Deleted Successfully');
@@ -776,6 +853,14 @@ class InvestigationController extends Controller
     public function destroyProgress(Request $request){
         $progress = Progress::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($progress->investigation_id);
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $progress->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Permanently Deleted a Progress Investigation with a subject of " . $progress->investigation->subject . ", Created on " . $progress->investigation->date,
+            'action' => "Delete",
+        ]);
+        $log->save();
         $progress->delete();
         $investigation->delete();
         return redirect()->back()->with('message', 'Investigation Deleted Successfully');
@@ -783,6 +868,14 @@ class InvestigationController extends Controller
     public function destroyFinal(Request $request){
         $final = Ifinal::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($final->investigation_id);
+        $log = new InvestigationLog();
+        $log->fill([
+            'investigation_id' => $final->investigation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Permanently Deleted a Final Investigation with a subject of " . $final->investigation->subject . ", Created on " . $final->investigation->date,
+            'action' => "Delete",
+        ]);
+        $log->save();
         $final->delete();
         $investigation->delete();
         return redirect()->back()->with('message', 'Investigation Deleted Successfully');
