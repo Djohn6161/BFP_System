@@ -311,7 +311,7 @@
                                             <input type="hidden" name="default_files[]" value="{{$file}}">
                                             {{$file}}
                                         </span>
-                                        <button type="button" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteFile(this)">Delete</button>
                                     </div>
                                 @endforeach
 
@@ -451,5 +451,11 @@
                 fileCountSpan.text(remainingFiles + ' file(s)');
             };
         }
+
+        // uploaded personal file delete button
+        function deleteFile(button) {
+        var fileItem = button.parentNode;
+        fileItem.parentNode.removeChild(fileItem);
+    }
     </script>
 @endsection
