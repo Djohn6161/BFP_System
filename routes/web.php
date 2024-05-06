@@ -1,17 +1,19 @@
 <?php
 
+use App\Models\Report;
+use App\Models\Operation;
+use App\Models\Investigation;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RankController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\UsersController;
-use App\Models\Investigation;
-use App\Models\Report;
-use Illuminate\Support\Facades\Route;
-use App\Models\Operation;
+use App\Http\Controllers\InvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,12 +80,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+        // Dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
-        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
-        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
-        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
-        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
         //Rank
         Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
@@ -97,6 +95,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        //Occupancy
+        Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
+        Route::post('/occupancy/create', [OccupancyController::class, 'createOccupancyName'])->name('occupancy_name.create');
+        Route::put('/occupancy/update/{id}', [OccupancyController::class, 'updateOccupancyName'])->name('occupancy_name.update');
+        Route::delete('/occupancy/delete/{id}', [OccupancyController::class, 'deleteOccupancyName'])->name('occupancy_name.delete');
+        // Personnel    
+        Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
+        Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
+        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
+        Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
+        Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
+        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+
+        //Logs 
+        Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
+        Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
+        
     });
 
     // Operation
@@ -148,18 +165,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
 
-    // Personnel    
-    Route::prefix('personnel/')->name('personnel.')->group(function () {
-        Route::get('/index', [PersonnelController::class, 'personnelIndex'])->name('index');
-        Route::get('/update/{id}', [PersonnelController::class, 'personnelView'])->name('view');
-        // Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
-        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
-        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-    });
-
-
-
-    // Account
+    // User Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
     Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });
