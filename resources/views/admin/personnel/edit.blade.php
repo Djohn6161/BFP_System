@@ -308,8 +308,8 @@
                                 @foreach ($files as $file)
                                     <div class="file-item d-flex justify-content-between mb-2 align-items-center">
                                         <span>
-                                            <input type="hidden" name="default_files[]" value="{{$file}}">
-                                            {{$file}}
+                                            <input type="hidden" name="default_files[]" value="{{ $file }}">
+                                            {{ $file }}
                                         </span>
                                         <button type="button" class="btn btn-danger">Delete</button>
                                     </div>
@@ -329,19 +329,14 @@
                                 <p id="file-count">No files selected</p>
                             </div>
                         </div>
-
-
                         <!-- File List Container -->
                         <div id="file-list-container">
                             <div id="file-list"></div>
                         </div>
-
+                        <div class="col d-flex justify-content-end mb-2">
+                            <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
                     </div>
-
-
-            </div>
-            <div class="col d-flex justify-content-end mb-2">
-                <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
             </div>
             </form>
         </div>

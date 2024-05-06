@@ -28,7 +28,8 @@ class OperationController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $operations = Afor::all();
-        return view('reports.operation.operation', compact('active', 'operations', 'user'));
+        $personnels = Personnel::all();
+        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels'));
     }
 
     public function operationCreateForm()
@@ -274,7 +275,6 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
-
         if ($request->has('barangay_name')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
         } else {
@@ -770,6 +770,16 @@ class OperationController extends Controller
         return redirect()->back()->with('success', 'Operation updated successfully.');
     }
 
+    public function operationDelete($id)
+    {
+        $data = Afor::find($id);
+        if (!$data) {
+            return redirect()->back()->with('error', 'Data not found.');
+        }
+        $data->delete();    
+        return redirect()->back()->with('success', 'Data deleted successfully.');
+    }
+
     private function hasValues($array)
     {
         return !empty($array) && count(array_filter($array, 'strlen')) > 0;
@@ -777,15 +787,11 @@ class OperationController extends Controller
 
     private function hasChanges($info, $updatedData)
     {
-
         foreach ($updatedData as $key => $value) {
-
             if ($info->{$key} != $value) {
-
                 return $value;
             }
         }
-
         return false;
     }
 }
