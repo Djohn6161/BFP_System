@@ -99,6 +99,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
         Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
         Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
+
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
 
@@ -115,6 +116,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+        Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
     });
 
     // Investigation

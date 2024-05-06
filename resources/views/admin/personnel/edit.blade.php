@@ -217,7 +217,9 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestTraining" class="form-label">Highest Training</label>
-                                <input type="text" placeholder="Enter highest training" class="form-control" id="highestTraining" value="{{ $personnel->highest_training }}" name="highest_training">
+                                <input type="text" placeholder="Enter highest training" class="form-control"
+                                    id="highestTraining" value="{{ $personnel->highest_training }}"
+                                    name="highest_training">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specializedTraining" class="form-label">Specialized Training</label>
@@ -300,42 +302,45 @@
                             </div>
 
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                            <br>
+                            <!-- File List Container -->
+                            <div id="file-list-container mb-3">
+                                @foreach ($files as $file)
+                                    <div class="file-item d-flex justify-content-between mb-2 align-items-center">
+                                        <span>
+                                            <input type="hidden" name="default_files[]" value="{{ $file }}">
+                                            {{ $file }}
+                                        </span>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Added Personal File</h3>
+                            <div id="file-list"></div>
+
                             <div>
                                 <label for="file-input" class="form-label"></label>
                                 <input class="form-control" type="file" id="file-input" style="display: none;"
                                     multiple>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary" type="button"
-                                        onclick="document.getElementById('file-input').click();">+
-                                        Choose File</button>
-                                    <p id="file-count">No files selected</p>
-                                </div>
-                            </div>
-
-                            <!-- File List Container -->
-                            <div id="file-list-container">
-                                <div id="file-list"></div>
+                                <button class="btn btn-primary" type="button"
+                                    onclick="document.getElementById('file-input').click();">+
+                                    Choose File</button>
+                                <p id="file-count">No files selected</p>
                             </div>
                         </div>
-
                         <!-- File List Container -->
                         <div id="file-list-container">
-                            <div class="file-item d-flex justify-content-between mb-2 align-items-center">
-                                <span>
-                                    {{-- sadi su file name naka butang --}}
-                                    jnhbgvsjfjsj
-                                </span>
-                                <button class="btn btn-danger">Delete</button>
-                            </div>
                             <div id="file-list"></div>
                         </div>
+                        <div class="col d-flex justify-content-end mb-2">
+                            <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-end mb-2">
-                        <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 
     </div>
@@ -438,48 +443,47 @@
             $('#file-input').change(handleFileSelect);
         });
 
-            function handleFileSelect(event) {
+        function handleFileSelect(event) {
+            var fileList = $('#file-list');
+            fileList.html('');
+
+            var files = event.target.files;
+
+            // Update file count
+            var fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $(
+                    '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+
+                var fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
                 var fileList = $('#file-list');
-                fileList.html('');
-
-                var files = event.target.files;
-
-                // Update file count
-                var fileCountSpan = $('#file-count');
-                fileCountSpan.text(files.length + ' file(s)');
-
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var listItem = $(
-                        '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
-
-                    var fileName = $('<span></span>').text(file.name);
-                    listItem.append(fileName);
-
-                    var deleteButton = $('<button class="btn btn-danger">Delete</button>');
-                    deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-                    listItem.append(deleteButton);
-
-                    fileList.append(listItem);
-                }
-            }
-
-            function createDeleteHandler(file, fileCountSpan) {
-                return function() {
-                    var fileList = $('#file-list');
-                    var fileItems = fileList.find('.file-item');
-                    for (var i = 0; i < fileItems.length; i++) {
-                        if ($(fileItems[i]).find('span').text() === file.name) {
-                            $(fileItems[i]).remove();
-                            break;
-                        }
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
                     }
+                }
 
-                    // Update file count after deletion
-                    var remainingFiles = fileList.find('.file-item').length;
-                    fileCountSpan.text(remainingFiles + ' file(s)');
-                };
-            }
-        });
+                // Update file count after deletion
+                var remainingFiles = fileList.find('.file-item').length;
+                fileCountSpan.text(remainingFiles + ' file(s)');
+            };
+        }
     </script>
 @endsection
