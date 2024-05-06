@@ -4,6 +4,7 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
@@ -100,6 +101,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+
+        //Logs 
+        Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
+        Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
+        
     });
 
     // Operation

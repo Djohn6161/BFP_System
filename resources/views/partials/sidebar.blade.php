@@ -211,11 +211,11 @@
                                 <div id="collapseLogs" class="accordion-collapse collapse show"
                                     data-bs-parent="#logsAccordion">
                                     
-                                    <a href="" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <a href="{{route('admin.logs.operation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         <span> <i class="ti ti-caret-right"></i></span>
                                         Operation
                                     </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <a href="{{route('admin.logs.investigation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
                                     </a>
