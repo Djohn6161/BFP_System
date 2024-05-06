@@ -32,10 +32,13 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
+                <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize"><b>{{$spot->investigation->subject}}</b></h1>
                 <div class="row">
-                    <form action="{{ route('investigation.spot.store') }}" class="needs-validation" novalidate method="POST">
+                    <form action="{{ route('investigation.spot.update', ['spot' => $spot->id]) }}" class="needs-validation" novalidate method="POST">
                         @csrf
-                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
+                        @method('PUT')
+                        {{-- {{dd($spot->investigation->date)}} --}}
+                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-5 mb-4">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -47,7 +50,7 @@
                                 <label for="date_occurence" class="form-label">Date of Occurrence</label>
                                 <input type="date" id="date_occurence" name="date_occurence"
                                     class="form-control {{ $errors->has('date_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('date_occurence') }}" required>
+                                    value="{{ old('date_occurence') ?? ($spot->date_occurence ?? '') }}" required>
                                 @error('date_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -58,7 +61,7 @@
                                 <label for="time_occurence" class="form-label">Time of Occurrence</label>
                                 <input type="text" placeholder="Eg. 2300H" id="time_occurence" name="time_occurence"
                                     class="form-control {{ $errors->has('time_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_occurence') }}" required>
+                                    value="{{ old('time_occurence') ?? ($spot->time_occurence ?? '') }}" required>
                                 @error('time_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -73,7 +76,7 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }} value="{{ $barangay->name }}">
+                                        <option {{ old('barangay') ?? ($spot->barangay ?? "") == $barangay->name ? 'selected' : '' }} value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
 
@@ -88,7 +91,7 @@
                                 <label for="zone_street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone_street" name="zone_street"
                                     class="form-control {{ $errors->has('zone_street') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone_street') }}" required>
+                                    value="{{ old('zone_street') ?? ($spot->street ?? "") }}" required>
                                 @error('zone_street')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -99,7 +102,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? $location }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -112,7 +115,7 @@
                                 <label for="involved" class="form-label">Involved</label>
                                 <input type="text" placeholder="Eg. Residential House" id="involved" name="involved"
                                     class="form-control {{ $errors->has('involved') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('involved') }}" required>
+                                    value="{{ old('involved') ?? $spot->involved }}" required>
                                 @error('involved')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -124,7 +127,7 @@
                                 <input type="text" placeholder="Eg. Residential House" id="name_of_establishment"
                                     name="name_of_establishment"
                                     class="form-control {{ $errors->has('name_of_establishment') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('name_of_establishment') }}" required>
+                                    value="{{ old('name_of_establishment') ?? $spot->name_of_establishment }}" required>
                                 @error('name_of_establishment')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -135,7 +138,7 @@
                                 <label for="owner" class="form-label">Owner</label>
                                 <input type="text" placeholder="Eg. John Doe" id="owner" name="owner"
                                     class="form-control {{ $errors->has('owner') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('owner') }}" required>
+                                    value="{{ old('owner') ?? $spot->owner }}" required>
                                 @error('owner')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -146,7 +149,7 @@
                                 <label for="occupant" class="form-label">Occupant</label>
                                 <input type="text" placeholder="Eg. Jane Doe" id="occupant" name="occupant"
                                     class="form-control {{ $errors->has('occupant') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('occupant') }}" required>
+                                    value="{{ old('occupant') ?? $spot->occupant }}" required>
                                 @error('occupant')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -160,7 +163,7 @@
                                 <label for="fatality" class="form-label">Fatality</label>
                                 <input type="number" placeholder="Eg. 1" id="fatality" name="fatality"
                                     class="form-control {{ $errors->has('fatality') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('fatality') }}" required min="0">
+                                    value="{{ old('fatality') ?? $spot->fatality }}" required min="0">
                                 @error('fatality')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -170,7 +173,7 @@
                                 <label for="injured" class="form-label">Injured</label>
                                 <input type="number" placeholder="Eg. 3" id="injured" name="injured"
                                     class="form-control {{ $errors->has('injured') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('injured') }}" required min="0">
+                                    value="{{ old('injured') ?? $spot->injured }}" required min="0">
                                 @error('injured')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -184,7 +187,7 @@
                                 <input type="number" placeholder="Eg. 50000" id="estimate-damage"
                                     name="estimate_damage"
                                     class="form-control {{ $errors->has('estimate_damage') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('estimate_damage') }}" required>
+                                    value="{{ old('estimate_damage') ?? $spot->estimate_damage }}" required>
                                 @error('estimate_damage')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -196,7 +199,7 @@
                                 <input type="text" placeholder="Eg. 2100H" id="time-fire-started"
                                     name="time_fire_start"
                                     class="form-control {{ $errors->has('time_fire_start') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_fire_start') }}" required>
+                                    value="{{ old('time_fire_start') ?? $spot->time_fire_start }}" required>
                                 @error('time_fire_start')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -208,7 +211,7 @@
                                 <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
                                     name="time_fire_out"
                                     class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_fire_out') }}" required>
+                                    value="{{ old('time_fire_out') ?? $spot->time_fire_out }}" required>
                                 @error('time_fire_out')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -219,31 +222,31 @@
                                 <label for="alarm" class="form-label">Alarm</label>
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
-                                    <option {{ old('alarm') == 1 ? 'selected' : '' }} value="1">1st
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 1 ? 'selected' : '' }} value="1">1st
                                         Alarm</option>
-                                    <option {{ old('alarm') == 2 ? 'selected' : '' }} value="2">2nd
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 2 ? 'selected' : '' }} value="2">2nd
                                         Alarm</option>
-                                    <option {{ old('alarm') == 3 ? 'selected' : '' }} value="3">3rd
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 3 ? 'selected' : '' }} value="3">3rd
                                         Alarm</option>
-                                    <option {{ old('alarm') == 4 ? 'selected' : '' }} value="4">4th
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 4 ? 'selected' : '' }} value="4">4th
                                         Alarm</option>
-                                    <option {{ old('alarm') == 5 ? 'selected' : '' }} value="5">5th
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 5 ? 'selected' : '' }} value="5">5th
                                         Alarm</option>
-                                    <option {{ old('alarm') == 6 ? 'selected' : '' }} value="6">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 6 ? 'selected' : '' }} value="6">Task
                                         Force Alpha</option>
-                                    <option {{ old('alarm') == 7 ? 'selected' : '' }} value="7">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 7 ? 'selected' : '' }} value="7">Task
                                         Force Bravo</option>
-                                    <option {{ old('alarm') == 8 ? 'selected' : '' }} value="8">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 8 ? 'selected' : '' }} value="8">Task
                                         Force Charlie</option>
-                                    <option {{ old('alarm') == 9 ? 'selected' : '' }} value="9">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 9 ? 'selected' : '' }} value="9">Task
                                         Force Delta</option>
-                                    <option {{ old('alarm') == 10 ? 'selected' : '' }} value="10">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 10 ? 'selected' : '' }} value="10">Task
                                         Force Echo</option>
-                                    <option {{ old('alarm') == 11 ? 'selected' : '' }} value="11">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 11 ? 'selected' : '' }} value="11">Task
                                         Force Hotel</option>
-                                    <option {{ old('alarm') == 12 ? 'selected' : '' }} value="12">Task
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 12 ? 'selected' : '' }} value="12">Task
                                         Force India</option>
-                                    <option {{ old('alarm') == 13 ? 'selected' : '' }} value="13">
+                                    <option {{ old('alarm') ?? ($spot->alarm ?? "") == 13 ? 'selected' : '' }} value="13">
                                         General Alarm</option>
                                 </select>
                                 @error('alarm')
@@ -302,7 +305,7 @@
                                             </span>
                                         </div>
                                         <div id="detailsOfInvestigation">
-                                        {!!old('details')!!}
+                                        {!!old('details') ?? $spot->details!!}
 
                                         </div>
 
@@ -364,7 +367,7 @@
                                             </span>
                                         </div>
                                         <div id="disposition">
-                                        {!!old('disposition')!!}
+                                        {!!old('disposition') ?? $spot->disposition !!}
                                             
                                         </div>
                                         <input type="hidden" id="dispo" name="disposition">
@@ -375,7 +378,7 @@
                             <div class="mb-5"></div>
                         </div>
 
-                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="submit" type="submit" class="btn btn-primary w-100">Update</button>
 
                     </form>
                 </div>
