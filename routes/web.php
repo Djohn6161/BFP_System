@@ -4,11 +4,10 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
@@ -167,7 +166,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
         Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
-    });
+    }); 
 
 
     // Investigation

@@ -14,7 +14,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="{{ route('admin.dashboard') }}" class="text-nowrap logo-img">
+            <a href="{{route('admin.dashboard')}}" class="text-nowrap logo-img">
                 <h2>BFP</h2>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -33,34 +33,19 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                <hr class="border border-dark border-1 opacity-100">
+                <b>REPORTS</b>
+                <hr class="border border-dark border-1 opacity-100">
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('operation.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'operation' ? 'active' : '' }}">
+                    <a class="sidebar-link"  href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}">
                         <span>
                             <i class="ti ti-report"></i>
-                        </span>
+                        </span> 
                         <span class="hide-menu">Operation</span>
                     </a>
-                    {{-- <div class="accordion accordion-flush" id="accordionExample">
-                        <div class="accordion-item p-0">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <span> <i class="ti ti-article"></i></span>
-                                    <span class="hide-menu">Reports</span>
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show"
-                                data-bs-parent="#accordionExample">
-
-                                
-                            </div>
-                        </div>
-                    </div> --}}
                 </li>
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush" href="{{ route('investigation.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
+                    <div class="accordion accordion-flush" href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
@@ -71,9 +56,8 @@
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 data-bs-parent="#accordionExample">
-
-                                <a href="{{ route('investigation.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
+                                
+                                <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" > 
                                     <span>
                                         <i class="ti ti-category"></i>
                                     </span>
@@ -105,22 +89,64 @@
                                     </span>
                                     Final
                                 </a>
-
-
+                            
+                                
                                 {{-- href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" href="{{route(auth()->user()->type . '.dashboard')}}" --}}
                             </div>
                         </div>
                     </div>
                 </li>
-                {{-- balyuwan nasana ninyo a ngarans --}}
+                <hr class="border border-dark border-1 opacity-100">
+                <b>CONFIGURATION</b>
+                <hr class="border border-dark border-1 opacity-100">
+
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse"
-                        id="operationdropAccordion">
+                    <a class="sidebar-link"  href="{{route('admin.occupancy.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-report"></i>
+                        </span> 
+                        <span class="hide-menu">Occupancy</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-home"></i>
+                        </span> 
+                        <span class="hide-menu">Barangay</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="{{ route('admin.alarms.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-alarm"></i>
+                        </span> 
+                        <span class="hide-menu">Alarm</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-truck"></i>
+                        </span> 
+                        <span class="hide-menu">Trucks</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-report"></i>
+                        </span> 
+                        <span class="hide-menu">Ranks</span>
+                    </a>
+                </li>
+                {{--balyuwan nasana ninyo a ngarans--}}
+                {{-- <li class="sidebar-item">
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="operationdropAccordion">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOperationdrop" aria-expanded="true"
-                                    aria-controls="collapseOne">
+                                    data-bs-target="#collapseOperationdrop" aria-expanded="true" aria-controls="collapseOne">
                                     <span> <i class="ti ti-check"></i></span>
                                     <span class="hide-menu">Operation</span>
                                 </button>
@@ -154,84 +180,37 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 @if (auth()->user()->type === 'admin')
+                    {{-- <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{route(auth()->user()->type . '.account')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-alert-circle"></i>
+                            </span>
+                            <span class="hide-menu">Accounts</span>
+                        </a>
+                    </li> --}}
                     <li class="sidebar-item">
-                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse"
-                            id="personnelAccordion">
+                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="personnelAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapsePersonnel"
-                                        aria-expanded="true" aria-controls="collapseOne">
-                                        <span> <i class="ti ti-users"></i></span>
-                                        <span class="hide-menu">Account</span>
-                                    </button>
-                                </h2>
-                                <div id="collapsePersonnel" class="accordion-collapse collapse show"
-                                    data-bs-parent="#personnelAccordion">
-
-                                    <a href="{{ route(auth()->user()->type . '.account.admin') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Admin
-                                    </a>
-                                    <a href="{{ route(auth()->user()->type . '.account.user') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        User
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="sidebar-item">
-                        <div class="accordion accordion-flush"
-                            class="sidebar-link accordion-body ms-2 reports-collapse" id="personnelAccordion">
-                            <div class="accordion-item p-0">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapsePersonnel"
-                                        aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapsePersonnel" aria-expanded="true" aria-controls="collapseOne">
                                         <span> <i class="ti ti-users"></i></span>
                                         <span class="hide-menu">Personnel</span>
                                     </button>
                                 </h2>
                                 <div id="collapsePersonnel" class="accordion-collapse collapse show"
                                     data-bs-parent="#personnelAccordion">
-
-                                    <a href="{{ route('admin.personnel.index') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    
+                                    <a href="{{route('admin.personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         Personnel Info
                                     </a>
-                                    <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
-                                        Ranks
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>    
-                    <li class="sidebar-item">
-                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
-                            <div class="accordion-item p-0">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseLogs" aria-expanded="true" aria-controls="collapseOne">
-                                        <span> <i class="ti ti-file-description"></i></span>
-                                        <span class="hide-menu">Logs</span>
-                                    </button>
-                                </h2>
-                                <div id="collapseLogs" class="accordion-collapse collapse show"
-                                    data-bs-parent="#logsAccordion">
-                                    
-                                    <a href="{{route('admin.logs.operation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span> <i class="ti ti-caret-right"></i></span>
-                                        Operation
-                                    </a>
-                                    <a href="{{route('admin.logs.investigation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
                                         <span><i class="ti ti-caret-right"></i></span>
-                                        Investigation
+                                        Sample1
                                     </a>
-                                    {{-- <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
                                         <span>
                                             <i class="ti ti-caret-right"></i>
                                         </span>
@@ -242,37 +221,89 @@
                                             <i class="ti ti-caret-right"></i>
                                         </span>
                                         Sample3
-                                    </a> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </li> 
-                    <li class="sidebar-item">
-                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
-                            <div class="accordion-item p-0">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTrash" aria-expanded="true" aria-controls="collapseOne">
-                                        <span> <i class="ti ti-users"></i></span>
-                                        <span class="hide-menu">Trash</span>
-                                    </button>
-                                </h2>
-                                <div id="collapseTrash" class="accordion-collapse collapse show"
-                                    data-bs-parent="#trashAccordion">
-                                    <a href="{{route('admin.trash.operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        Operation
-                                    </a>
-                                    <a href="{{route('admin.trash.investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        Investigation
                                     </a>
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li>    
+                     
+                    
                 @endif
+                <hr class="border border-dark border-1 opacity-100">
+                <b>ACTIVITY</b>
+                <hr class="border border-dark border-1 opacity-100">
+                @if (auth()->user()->type === 'admin')
+                <li class="sidebar-item">
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
+                        <div class="accordion-item p-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseLogs" aria-expanded="true" aria-controls="collapseOne">
+                                    <span> <i class="ti ti-file-description"></i></span>
+                                    <span class="hide-menu">Logs</span>
+                                </button>
+                            </h2>
+                            <div id="collapseLogs" class="accordion-collapse collapse show"
+                                data-bs-parent="#logsAccordion">
+                                
+                                <a href="{{route('admin.logs.operation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <span> <i class="ti ti-caret-right"></i></span>
+                                    Operation
+                                </a>
+                                <a href="{{route('admin.logs.investigation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <span><i class="ti ti-caret-right"></i></span>
+                                    Investigation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-item">
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
+                        <div class="accordion-item p-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTrash" aria-expanded="true" aria-controls="collapseOne">
+                                    <span> <i class="ti ti-trash"></i></span>
+                                    <span class="hide-menu">Trash</span>
+                                </button>
+                            </h2>
+                            <div id="collapseTrash" class="accordion-collapse collapse show"
+                                data-bs-parent="#trashAccordion">
+                                <a href="{{route('admin.trash.operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                   <span><i class="ti ti-caret-right"></i></span>
+                                    Operation
+                                </a>
+                                <a href="{{route('admin.trash.investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span><i class="ti ti-caret-right"></i></span>
+                                    Investigation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            @endif
 
                 {{-- Bottom --}}
-
+                <hr class="border border-dark border-1 opacity-100">
+                <b>ACCOUNT</b>
+                <hr class="border border-dark border-1 opacity-100">
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="{{ route(auth()->user()->type . '.account.admin') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-user"></i>
+                        </span> 
+                        <span class="hide-menu">Admin</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link"  href="{{ route(auth()->user()->type . '.account.user') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span> 
+                        <span class="hide-menu">User</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
