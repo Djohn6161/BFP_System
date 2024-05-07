@@ -1,10 +1,13 @@
 $('#myTable').DataTable();
 $("#operationTable").DataTable();
+$("#investigationTable").DataTable();
+$("#trashOperationTable").DataTable();
+$("#trashInvestigationTable").DataTable();
 $("#allInvestigation").DataTable();
 $("#spotInvestigationTable").DataTable();
 $("#minimalInvestigationTable").DataTable();
 $("#progressInvestigationTable").DataTable();
-$("#finalInvestigationTable").DataTable();
+$("#finalInvestigationTable").DataTable();s
 $("#rankTable").DataTable();
 $("#investigationTable").DataTable();
 $("#adminAccount").DataTable();
