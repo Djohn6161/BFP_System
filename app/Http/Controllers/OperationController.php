@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
+use App\Models\AforLog;
 use App\Models\Alarm_name;
 use App\Models\AlarmName;
 use App\Models\Duty_personnel;
@@ -77,7 +78,14 @@ class OperationController extends Controller
         ]);
         $afor->save();
         $afor_id = $afor->id;
-
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an AFOR Report about the operation in " . $afor->location,
+            'action' => "Store",
+        ]);
+        $log->save();
         //Response
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -248,7 +256,7 @@ class OperationController extends Controller
             $afor->save();
         }
 
-        return redirect()->back()->with('success', "Operation report added successfully.");
+        return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
     public function operationUpdateForm($id)
@@ -312,6 +320,14 @@ class OperationController extends Controller
             $operation->update($InfoUpdatedData);
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated an AFOR Report about the operation in " . $operation->location,
+            'action' => "Update",
+        ]);
+        $log->save();
         // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
