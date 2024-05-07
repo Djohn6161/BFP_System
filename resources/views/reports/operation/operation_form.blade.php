@@ -142,7 +142,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <label for="waterTank" class="form-label">Water Tank
                                             Refilled (GAL)</label>
-                                        <input type="text" placeholder="Eg. 1900h - 2300h"
+                                        <input type="text" placeholder="Eg. 1000 GAL"
                                             class="form-control text-uppercase" id="waterTankInput"
                                             name="water_tank_refilled[]">
                                     </div>

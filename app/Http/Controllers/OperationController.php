@@ -49,7 +49,7 @@ class OperationController extends Controller
     {
         //Afor
         $afor = new Afor();
-        if ($request->has('barangay_name')) {
+        if ($request->has('location')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
         } else {
             $location = 'Location: ' . $request->input('location');

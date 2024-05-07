@@ -51,17 +51,17 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        @foreach ($personnels as $personnel)
+                                                        {{-- @foreach ($personnels as $personnel)
                                                             @if ($personnel->id == $operation->transmitted_by)
                                                                 {{ $personnel->rank->slug }}
                                                                 {{ $operation->transmittedBy->first_name }}
                                                                 {{ $operation->transmittedBy->last_name }}
                                                             @endif
-                                                        @endforeach
+                                                        @endforeach --}}{{ $operation->transmitted_by }}
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $operation->location }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->full_location }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">
