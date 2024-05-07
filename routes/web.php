@@ -78,33 +78,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
-        // Dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
+        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
+        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
+        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
+        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
         //Rank
         Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
         Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
         Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
         Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
-        
-        // Accounts
-        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
-        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
+
+        // Account
+        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
-
-        // Personnel    
-        Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
-        Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
-        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
-        Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
-        Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
-        Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
-
-        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
-        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
 
     // Operation
@@ -114,7 +106,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-        Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
     });
 
 
@@ -157,7 +148,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
 
-    // User Account
+    // Personnel    
+    Route::prefix('personnel/')->name('personnel.')->group(function () {
+        Route::get('/index', [PersonnelController::class, 'personnelIndex'])->name('index');
+        Route::get('/update/{id}', [PersonnelController::class, 'personnelView'])->name('view');
+        // Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
+        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+    });
+
+
+
+    // Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
     Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });

@@ -11,7 +11,7 @@
 @endif
 @if (session('status'))
     <div class="alert alert-info alert-dismissible fade show flast-pos text-center position-absolute" role="alert">
-        {{ session('status') }}
+        Created Successfully
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
