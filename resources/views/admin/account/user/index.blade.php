@@ -9,7 +9,6 @@
 @section('content')
     <div class="container-fluid">
         <!--  Row 1 -->
-
         <div class="col-lg-12">
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
@@ -17,7 +16,7 @@
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
-                        <span class="hide-menu">Create Account</span>
+                        <span class="hide-menu">Create Account {{$type}}</span>
                     </button>
                 </div>
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -46,18 +45,17 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="mb-0 fw-normal">{{$user->name}}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $user->name }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="mb-0 fw-normal">{{$user->email}}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $user->email }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="mb-0 fw-normal">{{$user->Privilege}}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $user->Privilege }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="" class="btn btn-success w-100 mb-1"
+                                                    <a class="btn btn-success w-100 mb-1"
                                                         data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</a>
-
                                                     <br>
                                                     <a href="#" class="btn btn-danger w-100 mb-1"
                                                         data-bs-toggle="modal"
@@ -78,8 +76,8 @@
         </div>
     </div>
     <x-account.create :category=$active :type="$type"> </x-account.create>
-    <x-account.edit :category=$active> </x-account.edit>
     <x-account.delete :category=$active> </x-account.delete>
+    <x-account.edit :category="$active" :type="$type"> </x-account.edit>
     <script>
         // Wait for the document to load
         document.addEventListener("DOMContentLoaded", function() {

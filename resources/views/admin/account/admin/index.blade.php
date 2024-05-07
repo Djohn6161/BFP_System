@@ -72,7 +72,7 @@
         </div>
     </div>
     <x-account.create :category=$active :type="$type"> </x-account.create>
-    <x-account.edit :category=$active> </x-account.edit>
+    <x-account.edit :category=$active :type="$type"> </x-account.edit>
     <x-account.delete :category=$active> </x-account.delete>
     <script>
         // Wait for the document to load
