@@ -4,7 +4,10 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LogsController;
+
+use App\Http\Controllers\AlarmController;
+use App\Http\Controllers\TrashController;
+    use App\Http\Controllers\LogsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
@@ -98,6 +101,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        //Alarms
+        Route::get('/alarms/index', [AlarmController::class, 'alarmIndex'])->name('alarms.index');
+        Route::post('/alarm/create', [AlarmController::class, 'alarmCreate'])->name('alarms.create');
+        Route::put('/alarm/update/{id}', [AlarmController::class, 'alarmUpdate'])->name('alarms.update');
+        Route::delete('/alarm/delete/{id}', [AlarmController::class, 'alarmDelete'])->name('alarms.delete');
+
+        //Trash Operation
+        Route::get('/trash/operation/index', [TrashController::class, 'trashOperationIndex'])->name('trash.operation.index');
+        Route::get('/trash/operation/delete', [TrashController::class, 'trashOperationDelete'])->name('trash.operation.delete');
+        Route::get('/trash/operation/restore', [TrashController::class, 'trashOperationRestore'])->name('trash.operation.restore');
+
+        //Trash Investigation
+        Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
+        Route::get('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
+        Route::get('/trash/investigation/restore', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
 
         //Occupancy
         Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
