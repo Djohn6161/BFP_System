@@ -17,7 +17,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="password" class="form-label">Current Password:</label>
-                        <input type="hidden" name="password_id" id="password_id">
+                        <input type="hidden" name="password_id" id="update_password_id">
                         <input type="password" class="form-control" name="current_password"
                             placeholder="Enter Current Password">
                     </div>
@@ -33,7 +33,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Admin Confirmation Password:</label>
                         <input type="password" class="form-control"
-                            placeholder="Admin Confirm Password"name="admin_confirm_password">
+                            placeholder="Admin Confirm Password" name="admin_confirm_password">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -46,10 +46,12 @@
 </div>
 
 <script>
-    $('#updatePasswordModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('id');
-        console.log(id);
-        // $('#password_id').val(id);
+    $(document).ready(function() {
+        $('#updatePasswordModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var accountId = button.data('account-id');
+ 
+            $('#update_password_id').val(accountId);
+        });
     });
 </script>

@@ -23,8 +23,8 @@ class AdminController extends Controller
 
     public function adminAccountIndex()
     {
-        $accounts = User::where('type', 'admin')->get();
         $user = Auth::user();
+        $accounts = User::where('type', 'admin')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'admin';
         return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
@@ -32,8 +32,8 @@ class AdminController extends Controller
 
     public function userAccountIndex()
     {
-        $accounts = User::where('type', 'user')->get();
         $user = Auth::user();
+        $accounts = User::where('type', 'user')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'user';
         return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
@@ -115,19 +115,19 @@ class AdminController extends Controller
 
     public function accountPasswordUpdate(Request $request)
     {
-        dd($request->all());
         $request->validate([
+            'current_password' => 'required|min:8',
             'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8',
+            'admin_confirm_password' => 'required|min:8',
         ]);
-
 
         $profile = $request->user();
 
         $user = User::find($request->input('password_id'));
 
-
-        if (Hash::check($request->input('admin_password'), $profile->password)) {
-            if ($request->input('password') === $request->input('confirmation')) {
+        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
+            if ($request->input('password') === $request->input('confirm_password')) {
                 // Check if the provided password matches the current password
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->back()->with('status', "New password must be different from the current password.");
@@ -151,18 +151,17 @@ class AdminController extends Controller
     public function accountDelete(Request $request)
     {
         $request->validate([
-            'admin_password' => 'required|min:8',
+            'admin_confirm_password' => 'required|min:8',
         ]);
 
         $profile = $request->user();
 
-        if (Hash::check($request->input('admin_password'), $profile->password)) {
+        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
 
             $user = User::where('id', $request->input('account_id'))->first();
             $user->delete();
 
             return redirect()->back()->with('success', 'Account deleted successfully');
-
         } else {
             return redirect()->back()->with('status', "Admin password confirmation doesn't match.");
 

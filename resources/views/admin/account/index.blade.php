@@ -43,27 +43,25 @@
                                         @foreach ($accounts as $account)
                                             <tr>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="mb-0 fw-normal">{{$account->name}}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $account->name }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="mb-0 fw-normal">{{$account->email}}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $account->email }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a class="btn btn-success w-100 mb-1"
-                                                        data-bs-toggle="modal" data-bs-target="#editAccountModal" 
-                                                        data-user="{{ json_encode($account)}}"
-                                                        data-type="{{ $type }}"
-                                                        >Edit Profile</a>
+                                                    <a class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#editAccountModal"
+                                                        data-user="{{ json_encode($account) }}"
+                                                        data-type="{{ $type }}">Edit Profile</a>
                                                     <br>
                                                     <a class="btn btn-primary w-100 mb-1"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#updatePasswordModal"
-                                                    data-id="{{ $account->id }}"
-                                                    >Change Password</a>
+                                                        data-bs-toggle="modal" data-bs-target="#updatePasswordModal"
+                                                        data-account-id="{{ $account->id }}">Change Password</a>
                                                     <br>
                                                     <a href="#" class="btn btn-danger w-100 mb-1"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#deleteAccountModal">Delete</a>
+                                                        data-bs-target="#deleteAccountModal"
+                                                        data-account-id="{{ $account->id }}">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -79,10 +77,10 @@
             <!-- Removed custom blade components -->
         </div>
     </div>
-    <x-account.create :category=$active :type="$type"> </x-account.create>
-    <x-account.edit :category=$active :type="$type"> </x-account.edit>
-    <x-account.edit_password :category=$active :type="$type"> </x-account.edit_password>
-    <x-account.delete :category=$active> </x-account.delete>
+    <x-account.create :category="$active" :type="$type"> </x-account.create>
+    <x-account.edit :category="$active" :type="$type"> </x-account.edit>
+    <x-account.edit_password :category="$active" :type="$type"> </x-account.edit_password>
+    <x-account.delete :category="$active" :type="$type"> </x-account.delete>
     {{-- <script>
         // Wait for the document to load
         document.addEventListener("DOMContentLoaded", function() {
