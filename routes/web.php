@@ -171,6 +171,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
 
+    //Profile 
+    Route::get('/profile/myProfile', [ProfileController::class, 'myProfile'])->name('profile.myProfile');
+
     // User Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
     Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
