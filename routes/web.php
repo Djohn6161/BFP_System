@@ -13,6 +13,8 @@ use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\RankController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,6 @@ use App\Http\Controllers\InvestigationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 Route::get('/', function () {
     return view('index');
@@ -85,6 +86,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Accounts
         Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
         Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
+        //Rank
+        Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
+        Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
+        Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
+        Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
+
+        // Account
+        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');

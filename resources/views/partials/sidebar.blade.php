@@ -87,22 +87,19 @@
                                     </span>
                                     Minimal
                                 </a>
-                                <a href="{{ route('investigation.spot.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'spot' ? 'active' : '' }}">
+                                <a href="{{route('investigation.spot.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'spot' ? 'active' : ''}}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
                                     Spot
                                 </a>
-                                <a href="{{ route('investigation.progress.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'progress' ? 'active' : '' }}">
+                                <a href="{{route('investigation.progress.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'progress' ? 'active' : ''}}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
                                     Progress
                                 </a>
-                                <a href="{{ route('investigation.final.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'final' ? 'active' : '' }}">
+                                <a href="{{route('investigation.final.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'final' ? 'active' : ''}}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
@@ -200,21 +197,8 @@
                                         class="sidebar-link accordion-body ms-2 reports-collapse">
                                         Personnel Info
                                     </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Sample1
-                                    </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Sample2
-                                    </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Sample3
+                                    <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
+                                        Ranks
                                     </a>
                                 </div>
                             </div>

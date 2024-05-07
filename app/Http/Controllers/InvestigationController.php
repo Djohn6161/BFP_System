@@ -39,6 +39,7 @@ class InvestigationController extends Controller
         $minimals = Minimal::all();
         $investigations = Minimal::latest()->get();
         $spots = Spot::all();
+       
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
     }
     public function createMinimal()
@@ -295,10 +296,11 @@ class InvestigationController extends Controller
     {
         // dd($minimal);
         if ($minimal->landmark == null || $minimal->landmark == "") {
-            $location = $minimal->address_occurence;
+            $location = $minimal->incident_location;
         } else {
             $location = $minimal->landmark;
         }
+        // dd($location);
         if ($minimal->photos != '') {
             $photos = explode(", ", $minimal->photos);
         }
@@ -350,7 +352,7 @@ class InvestigationController extends Controller
 
         if ($request->has('barangay')) {
             # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
+            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ', Ligao City, Albay';
         } else {
             $location = $request->input('landmark');
             # code...
