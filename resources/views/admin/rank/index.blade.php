@@ -66,3 +66,4 @@
     </div>
     <x-rank.create :category="$active"> </x-rank.create>
 @endsection
+

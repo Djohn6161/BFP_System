@@ -7,15 +7,16 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
-    use App\Http\Controllers\LogsController;
+use App\Http\Controllers\LogsController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\RankController;
 use App\Http\Controllers\InvestigationController;
 
 /*
@@ -28,7 +29,6 @@ use App\Http\Controllers\InvestigationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 Route::get('/', function () {
     return view('index');
@@ -86,6 +86,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+        // Accounts
+        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
+        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
         //Rank
         Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
         Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
@@ -117,6 +120,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
         Route::get('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
         Route::get('/trash/investigation/restore', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
+        //Trucks
+        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
 
         //Occupancy
         Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
@@ -189,6 +197,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
+
+    //Profile 
+    Route::get('/profile/myProfile', [ProfileController::class, 'myProfile'])->name('profile.myProfile');
 
     // User Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
