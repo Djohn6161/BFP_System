@@ -1,6 +1,11 @@
 $('#myTable').DataTable();
-$('#spotJTable').DataTable();
 $("#operationTable").DataTable();
 $("#investigationTable").DataTable();
 $("#trashOperationTable").DataTable();
 $("#trashInvestigationTable").DataTable();
+$("#allInvestigation").DataTable();
+$("#spotInvestigationTable").DataTable();
+$("#minimalInvestigationTable").DataTable();
+$("#progressInvestigationTable").DataTable();
+$("#finalInvestigationTable").DataTable();s
+$("#rankTable").DataTable();

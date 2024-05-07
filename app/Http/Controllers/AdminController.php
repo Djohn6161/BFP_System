@@ -28,28 +28,7 @@ class AdminController extends Controller
         return view('admin.account', compact('users', 'active'));
 
     }
-    public function viewPersonnel(){
-        $user = Auth::user();
-        return view('admin.personnel.index', [
-            'active' => 'index',
-            'user' => $user,
-        ]);
-    }
-    public function reviewPersonnel(){
-        $user = Auth::user();
-        return view('admin.personnel.view', [
-            'active' => 'view',
-            'user' => $user,
-        ]);
-    }
-    public function editPersonnel(){
-        $user = Auth::user();
-        return view('admin.personnel.edit', [
-            'active' => 'edit',
-            'user' => $user,
-        ]);
-    }
-    
+
     public function accountCreate(Request $request)
     {
         $request->validate([
@@ -171,4 +150,12 @@ class AdminController extends Controller
         return false;
 
     }
+    // public function viewOccupancy(){
+    //     $user = Auth::user();
+    //     return view('admin.occupancy.index', [
+    //         'active' => 'index',
+    //         'user' => $user,
+    //     ]);
+    // }
+
 }

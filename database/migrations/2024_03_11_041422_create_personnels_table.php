@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
+            // $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
             $table->foreignId('ranks_id')->constrained('ranks')->onUpdate('cascade');
             $table->string('account_number');
             $table->integer('item_number')->nullable();
@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('designation');
             $table->string('admin_operation_remarks');
             $table->string('picture')->nullable();
+            $table->string('files')->nullable();
             $table->timestamps();
         });
     }

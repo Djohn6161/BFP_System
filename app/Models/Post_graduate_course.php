@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post_graduate_course extends Model
 {
+    
     use HasFactory;
 }
