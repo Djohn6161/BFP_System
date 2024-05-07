@@ -129,7 +129,7 @@ th {
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">7. Total Number of Casualty Reported:</h5>
-                 <table class="table table-bordered">
+                 <table class="table table-bordered border-dark">
                     <tr>
                       <th> </th>
                       <th>Injured</th>
@@ -165,11 +165,11 @@ th {
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">9. Time Alarm Status Declared:</h5>
-                 <table class="table table-bordered">
+                 <table class="table table-bordered border-dark table-striped">
                     <tr>
-                      <th>Alarm Status</th>
-                      <th>Time</th>
-                      <th>Fund Commander</th>
+                      <th style="color:black;">Alarm Status</th>
+                      <th style="color:black;">Time</th>
+                      <th style="color:black;">Fund Commander</th>
                     </tr>
                     <tr>
                       <td>DETAILS HERE</td>
@@ -186,7 +186,7 @@ th {
                   <hr>
                   <br>
                   <h5 class="my-4 fw-bolder">10. Extinguishing Agent Used:</h5>
-                   <table class="table table-bordered">
+                   <table class="table table-bordered border-dark">
                       <tr>
                         <th>QTY.</th>
                         <th>Type/Kind</th>
@@ -201,7 +201,7 @@ th {
                   <hr>
                   <br>
                   <h5 class="my-4 fw-bolder">11. Rope and Ladder Used:</h5>
-                   <table class="table table-bordered">
+                   <table class="table table-bordered border-dark">
                       <tr>
                         <th>Type</th>
                         <th>Lenght</th>
@@ -216,7 +216,7 @@ th {
                   <hr>
                   <br>
                   <h5 class="my-4 fw-bolder">12. Hose line Used:</h5>
-                   <table class="table table-bordered">
+                   <table class="table table-bordered border-dark">
                       <tr>
                         <th>Nr.</th>
                         <th> TYPE/KIND</th>
