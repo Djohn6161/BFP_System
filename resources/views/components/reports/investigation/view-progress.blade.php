@@ -22,23 +22,23 @@
                 
                 <h5 class="my-4 fw-bolder">AUTHORITY:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {!! $investigation->authority !!}
                 </div>
                 <hr>
 
                 <h5 class="my-4 fw-bolder">MATTERS INVESTIGATED:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {!! $investigation->matters_investigated !!}
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">FACTS OF THE CASE:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {!! $investigation->facts_of_the_case !!}
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">DISPOSITION:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {!! $investigation->disposition !!}
                 </div>
                 <hr>
             </div>

@@ -410,11 +410,6 @@
                         $(fileItems[i]).remove();
                         break;
                     }
-            var fileItems = fileList.find('.file-item');
-            for (var i = 0; i < fileItems.length; i++) {
-                if ($(fileItems[i]).find('span').text() === file.name) {
-                    $(fileItems[i]).remove();
-                    break;
                 }
             }
 

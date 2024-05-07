@@ -16,7 +16,6 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\InvestigationController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,6 +94,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Account
         Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+        // Accounts
+        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
+        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');

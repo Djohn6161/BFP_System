@@ -38,4 +38,5 @@ $(document).ready(function () {
         // Update the input field value with the cleaned value
         $(this).val(cleanedValue);
     });
+    $("#barangay-select").select2();
 });

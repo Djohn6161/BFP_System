@@ -12,29 +12,44 @@
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4">Operation Logs</h5>
-                           
+                            <h5 class="card-title fw-semibold mb-4">Afor Logs</h5>
+
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover table-striped">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Information</th>
-                                            <th>Type of Report</th>
+                                            <th>Date and Time</th>
                                             <th>User</th>
+                                            <th>Details</th>
+                                            <th>Alarm Received</th>
                                             <th>Action/Changes Made</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        <tr>
-                                            <td>01-05-2024</td>
-                                            <td>9:00am</td>
-                                            <td>Inda</td>
-                                            <td>Minimal</td>
-                                            <td>Admin</td>
-                                            <td>Update Minimal Report</td>
+                                        @foreach ($logs as $log)
+                                            {{-- {{dd($log->user)}} --}}
+
+                                            <tr class="text-dark">
+                                                <td>{{ $log->updated_at }}</td>
+                                                <td>{{ $log->user->name }}</td>
+                                                <td>{{ $log->details }}</td>
+                                                <td>{{ $log->afor != null ? $log->afor->alarm_received : 'Null' }}
+                                                </td>
+                                                <td>
+                                                @if ($log->action == 'Delete')
+                                                    <div class="text-light rounded-pill bg-danger p-2 text-center ">{{ $log->action }}</div>
+                                                    @elseif($log->action == 'Update')
+                                                    <div class="text-light rounded-pill bg-success p-2 text-center ">{{ $log->action }}</div>
+                                                    @elseif($log->action == 'Store')
+                                                    <div class="text-light rounded-pill bg-primary p-2 text-center ">{{ $log->action }}</div>
+                                                    @else
+                                                    <div class="rounded-pill p-2 text-center ">{{ $log->action }}</div>
+                                                @endif
+                                                </td>
                                         </tr>
+                                        @endforeach
+
+
                                         <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>

@@ -29,7 +29,7 @@ return new class extends Migration
             $table->float('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
-            $table->integer('alarm');
+            $table->foreignId('alarm')->constrained('alarm_names')->onUpdate('cascade');;
             $table->longText('details');
             $table->longText('disposition');
             $table->timestamps();

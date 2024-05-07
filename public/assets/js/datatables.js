@@ -6,3 +6,5 @@ $("#minimalInvestigationTable").DataTable();
 $("#progressInvestigationTable").DataTable();
 $("#finalInvestigationTable").DataTable();
 $("#rankTable").DataTable();
+$("#investigationTable").DataTable();
+$("#adminAccount").DataTable();

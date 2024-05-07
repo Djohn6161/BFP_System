@@ -131,6 +131,16 @@
     <script src="{{ asset('assets/js/datatables.js') }}"></script>
     <script src="{{ asset('assets/select2/dist/scripts/script.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                // disable the submit button 
+                $('button[type="submit"]').attr('disabled', true);
+                // submit the form
+                return true;
+            });
+        });
+    </script>
 </body>
 
 </html>

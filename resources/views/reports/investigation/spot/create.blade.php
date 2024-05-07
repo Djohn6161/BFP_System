@@ -219,32 +219,9 @@
                                 <label for="alarm" class="form-label">Alarm</label>
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
-                                    <option {{ old('alarm') == 1 ? 'selected' : '' }} value="1">1st
-                                        Alarm</option>
-                                    <option {{ old('alarm') == 2 ? 'selected' : '' }} value="2">2nd
-                                        Alarm</option>
-                                    <option {{ old('alarm') == 3 ? 'selected' : '' }} value="3">3rd
-                                        Alarm</option>
-                                    <option {{ old('alarm') == 4 ? 'selected' : '' }} value="4">4th
-                                        Alarm</option>
-                                    <option {{ old('alarm') == 5 ? 'selected' : '' }} value="5">5th
-                                        Alarm</option>
-                                    <option {{ old('alarm') == 6 ? 'selected' : '' }} value="6">Task
-                                        Force Alpha</option>
-                                    <option {{ old('alarm') == 7 ? 'selected' : '' }} value="7">Task
-                                        Force Bravo</option>
-                                    <option {{ old('alarm') == 8 ? 'selected' : '' }} value="8">Task
-                                        Force Charlie</option>
-                                    <option {{ old('alarm') == 9 ? 'selected' : '' }} value="9">Task
-                                        Force Delta</option>
-                                    <option {{ old('alarm') == 10 ? 'selected' : '' }} value="10">Task
-                                        Force Echo</option>
-                                    <option {{ old('alarm') == 11 ? 'selected' : '' }} value="11">Task
-                                        Force Hotel</option>
-                                    <option {{ old('alarm') == 12 ? 'selected' : '' }} value="12">Task
-                                        Force India</option>
-                                    <option {{ old('alarm') == 13 ? 'selected' : '' }} value="13">
-                                        General Alarm</option>
+                                    @foreach ($alarms as $item)
+                                    <option {{ old('alarm') == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('alarm')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
