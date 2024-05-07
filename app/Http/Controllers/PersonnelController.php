@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
-use App\Models\Post_graduate_course;
 use Illuminate\Http\Request;
-// use Illuminate\Http\Post_graduate_course;
+use App\Models\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class PersonnelController extends Controller
 {
-    public function personnelIndex(){
+    public function personnelIndex()
+    {
         $user = Auth::user();
         $active = 'personnel';
         $personnels = Personnel::all();
@@ -24,15 +27,19 @@ class PersonnelController extends Controller
         return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'));
     }
 
-    public function personnelView($id){
+    public function personnelView($id)
+    {
         $user = Auth::user();
         $active = 'personnel';
         $ranks = Rank::all();
+
         $personnel = Personnel::findOrFail($id);
         $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
         $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $files = explode(',', $personnel->files);
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
+
         $files = explode(',', $personnel->files);
         return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
@@ -63,7 +70,7 @@ class PersonnelController extends Controller
             'highest_training' => $request->input('highest_training') ?? '',
             'specialized_training' => $request->input('specialized_training') ?? '',
             'date_entered_other_government_service' => $request->input('date_entered_other_government_service') ?? null,
-            'date_entered_fire_service' =>  $request->input('date_entered_fire_service') ?? null,
+            'date_entered_fire_service' => $request->input('date_entered_fire_service') ?? null,
             'mode_of_entry' => $request->input('mode_of_entry') ?? '',
             'last_date_promotion' => $request->input('last_date_promotion') ?? '',
             'appointment_status' => $request->input('appointment_status') ?? '',
@@ -202,8 +209,80 @@ class PersonnelController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', "Personnel Information Updated successfully.");
+        $existPersonnel = Personnel::find($request['operation_id']);
+        $default_files = $request->input('default_files', []);
+        $personnelFiles = explode(',', $existPersonnel->files);
+        $requestIndexes = array_keys($default_files);
+        $existIndex = array_keys($personnelFiles);
+        $change = false;
+        $publicPath = public_path() . '/assets/images/personnel_files/';
 
+        foreach ($personnelFiles as $index => $file) {
+            if (!in_array($index, $requestIndexes)) {
+                File::delete($publicPath . $personnelFiles[$index]);
+                unset($personnelFiles[$index]);
+                $status = true;
+                $change = true;
+            }
+        }
+
+        if ($change) {
+            $files = implode(',', $personnelFiles);
+            $existPersonnel->files = $files;
+            $existPersonnel->save();
+        }
+
+        $files = $request->file('files');
+
+        if ($request->hasFile('files')) {
+            foreach ($files as $file) {
+
+                $fileName = $file->getClientOriginalName();
+
+                if (!in_array($fileName, $personnelFiles)) {
+                    $file->move(public_path('personnel_files'), $fileName);
+                    array_push($personnelFiles, $fileName);
+                    $status = true;
+                }
+            }
+
+            $files = implode(',', $personnelFiles);
+            $existPersonnel->files = $files;
+            $existPersonnel->save();
+        }
+
+        if ($status) {
+            return redirect()->back()->with('success', "Personnel Information Updated successfully.");
+        } else {
+            return redirect()->back()->with('status', "Nothing's change.");
+        }
+
+    }
+
+    public function personnelDelete($id, Request $request)
+    {
+
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $personnel = Personnel::find($id);
+        $user = Auth::user();
+        $user = Auth::user();
+        $active = 'personnel';
+        $personnels = Personnel::all();
+        $ranks = Rank::all();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $personnelCount = count($personnels);
+
+
+        if (Hash::check($request->input('password'), $user->password)) {
+            $personnel->delete();
+            return redirect()->route('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'))->with('success', 'Personnel deleted successfully.');
+        } else {
+            return redirect()->back()->with('status', 'Admin password is not correct.');
+        }
     }
 
     private function hasValues($array)

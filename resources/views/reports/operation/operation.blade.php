@@ -80,11 +80,9 @@
                                                     <br>
                                                     <a data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</a>
-                                                    <x-reports.operation.delete :operaration="$operation->id"> </x-reports.operation.delete>
                                                 </td>
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>
@@ -92,4 +90,5 @@
                     </div>
                 </div>
             </div>
+            <x-reports.operation.delete :operation="$operation->id"> </x-reports.operation.delete>
         @endsection

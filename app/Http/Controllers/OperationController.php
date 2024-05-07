@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Afor;
-use App\Models\Afor_casualties;
-use App\Models\Afor_duty_personnel;
-use App\Models\Alarm_name;
-use App\Models\AlarmName;
-use App\Models\Duty_personnel;
-use App\Models\Occupancy_name;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
 use App\Models\Occupancy;
-use App\Models\Operation;
 use App\Models\Personnel;
-use App\Models\Used_equipment;
+use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Declared_alarm;
-use Illuminate\Support\MessageBag;
+use App\Models\Occupancy_name;
+use App\Models\Used_equipment;
+use App\Models\Afor_casualties;
+use App\Models\Afor_duty_personnel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+
 
 class OperationController extends Controller
 {
@@ -27,7 +27,8 @@ class OperationController extends Controller
     {
         $user = Auth::user();
         $active = 'operation';
-        $operations = Afor::all();
+        $operations = Afor::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+
         $personnels = Personnel::all();
         return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels'));
     }
@@ -732,11 +733,13 @@ class OperationController extends Controller
         $requestIndexes = array_keys($default_photos);
         $existIndex = array_keys($sketchArray);
         $change = false;
+        $publicPath = public_path() . '/assets/images/operation_images/';
 
         foreach ($sketchArray as $index => $array) {
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                File::delete($publicPath . $sketchArray[$index]);
                 unset($sketchArray[$index]);
                 $status = true;
                 $change = true;
@@ -757,7 +760,7 @@ class OperationController extends Controller
                 $fileName = $file->getClientOriginalName();
 
                 if (!in_array($fileName, $sketchArray)) {
-                    $file->move(public_path('operation_image'), $fileName);
+                    $file->move(public_path('/assets/images/operation_images'), $fileName);
                     array_push($sketchArray, $fileName);
                     $status = true;
                 }
@@ -770,14 +773,24 @@ class OperationController extends Controller
         return redirect()->back()->with('success', 'Operation updated successfully.');
     }
 
-    public function operationDelete($id)
+    public function operationDelete($id, Request $request)
     {
-        $data = Afor::find($id);
-        if (!$data) {
-            return redirect()->back()->with('error', 'Data not found.');
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $operation = Afor::find($id);
+        $user = Auth::user();
+        $currentDateTime = Carbon::now();
+        $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+
+        if (Hash::check($request->input('password'), $user->password)) {
+            $operation->deleted_at = $formattedDateTime;
+            $operation->save();
+            return redirect()->back()->with('success', 'Data deleted successfully.');
+        } else {
+            return redirect()->back()->with('status', 'Admin password is not correct.');
         }
-        $data->delete();    
-        return redirect()->back()->with('success', 'Data deleted successfully.');
     }
 
     private function hasValues($array)

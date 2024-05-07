@@ -7,10 +7,20 @@
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete this personnel?</p>
+                <form action="{{ route('admin.personnel.delete', $personnel) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="row">
+                        <label for="" class="form-label">Admin Password Confirmation</label>
+                        <div class="col-md-8">
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
     </div>
