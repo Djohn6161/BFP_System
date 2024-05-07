@@ -45,6 +45,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($operations as $operation)
+                                       
                                             {{-- <x-reports.view-modal :report=$operation></x-reports.view-modal> --}}
                                             {{-- <x-reports.update :report=$operation></x-reports.update> --}}
                                             <tr>
@@ -67,6 +68,10 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     {{-- {{dd($operation->id) }}s --}}
+                                                    <x-reports.operation.operation_view :operation=$operation></x-reports.operation.operation_view>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#viewOperationModal{{ $operation->id }}" class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                       
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
