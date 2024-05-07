@@ -202,11 +202,11 @@
                                     </a>
                                     <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
                                         Ranks
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <a href="{{ route('admin.designation.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'designation' ? 'active' : ''}}">
                                         <span>
                                             <i class="ti ti-caret-right"></i>
                                         </span>
-                                        Sample2
+                                        Designation
                                     </a>
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
                                         <span>

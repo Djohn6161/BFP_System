@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
@@ -102,6 +103,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
         Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
         Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+
+        // Designation
+        Route::get('/designation/index',[DesignationController::class, 'designationIndex'])->name('designation.index');
 
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
