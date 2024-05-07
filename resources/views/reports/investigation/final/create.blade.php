@@ -70,7 +70,7 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == 1 ? 'selected' : '' }} value="{{ $barangay->name }}">
+                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }} value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
 

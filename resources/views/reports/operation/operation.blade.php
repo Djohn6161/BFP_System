@@ -74,11 +74,13 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="{{ route('operation.update.form', $operation->id) }}"
+                                                    {{-- {{dd($operation->id) }}s --}}
+                                                    <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
-                                                    <a data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</a>
+                                                    <button type="button" href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $operation->id }}"
+                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
                                                 </td>
                                             </tr>
                                         @endforeach

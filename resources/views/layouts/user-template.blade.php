@@ -52,7 +52,7 @@
                 </div>
             </div>
             
-            <div class="modal fade" data-bs-backdrop="static" id="profileModal" tabindex="-1"
+            {{-- <div class="modal fade" data-bs-backdrop="static" id="profileModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -62,6 +62,7 @@
                             <form method="POST" action="{{ route('profile.update') }}">
                                 @csrf
                                 <div class="mb-3">
+                                    
                                     <input type="text" class="form-control" hidden name="user_id" id="user_id"
                                         value="{{ $user->id }}">
                                     <label for="inputName" class="form-label">Name</label>
@@ -82,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -130,6 +131,16 @@
     <script src="{{ asset('assets/js/datatables.js') }}"></script>
     <script src="{{ asset('assets/select2/dist/scripts/script.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                // disable the submit button 
+                $('button[type="submit"]').attr('disabled', true);
+                // submit the form
+                return true;
+            });
+        });
+    </script>
 </body>
 
 </html>

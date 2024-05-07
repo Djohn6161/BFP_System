@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('victims', function (Blueprint $table) {
             $table->id();
             // $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
-            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name')->nullable();
             $table->timestamps();
         });

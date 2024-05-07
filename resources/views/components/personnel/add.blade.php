@@ -271,6 +271,11 @@
                                 <div id="file-list"></div>
                             </div>
                         </div>
+
+                        <!-- File List Container -->
+                        <div id="file-list-container">
+                            <div id="file-list"></div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -317,11 +322,94 @@
     function createDeleteHandler(file, fileCountSpan) {
         return function() {
             var fileList = $('#file-list');
-            var fileItems = fileList.find('.file-item');
-            for (var i = 0; i < fileItems.length; i++) {
-                if ($(fileItems[i]).find('span').text() === file.name) {
-                    $(fileItems[i]).remove();
-                    break;
+            fileList.html('');
+
+            var files = event.target.files;
+
+            // Update file count
+            var fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+
+                var fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const tinInput = document.getElementById('tin');
+            const pagibigInput = document.getElementById('pagibig');
+            const gsisInput = document.getElementById('gsis');
+            const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        });
+
+        function previewPhoto(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#personnel-picture').attr('src', e.target.result).attr('alt', 'Selected Image');
+            }
+
+            reader.readAsDataURL(file);
+        }
+
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
+                var fileList = $('#file-list');
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
+                    }
                 }
             }
 

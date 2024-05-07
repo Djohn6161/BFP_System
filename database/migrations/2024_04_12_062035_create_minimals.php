@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('minimals', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('investigation_id')->constrained('investigations')->onUpdate('cascade');
+            $table->foreignid('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
             $table->string('dt_actual_occurence');
             $table->string('dt_reported');
+            $table->string('barangay')->nullable();
+            $table->string('street')->nullable();
+            $table->string('landmark')->nullable();
             $table->string('incident_location');
             $table->string('involved_property');
             $table->longText('property_data');
@@ -27,7 +30,7 @@ return new class extends Migration
             $table->foreignId('first_responding_engine')->constrained('trucks')->onUpdate('cascade');
             $table->foreignId('first_responding_leader')->nullable()->constrained('personnels')->onUpdate('cascade')->onDelete('set null');
             $table->string('time_arrival_on_scene');
-            $table->string('alarm_status_time');
+            $table->foreignId('alarm_status_time')->constrained('alarm_names')->onUpdate('cascade');
             $table->string('Time_Fire_out');
             $table->string('property_owner');
             $table->string('property_occupant');

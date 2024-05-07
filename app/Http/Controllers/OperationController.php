@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Afor;
+use App\Models\AforLog;
+use App\Models\AlarmName;
+use App\Models\Duty_personnel;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
@@ -79,7 +82,14 @@ class OperationController extends Controller
         ]);
         $afor->save();
         $afor_id = $afor->id;
-
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an AFOR Report about the operation in " . $afor->location,
+            'action' => "Store",
+        ]);
+        $log->save();
         //Response
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -250,7 +260,7 @@ class OperationController extends Controller
             $afor->save();
         }
 
-        return redirect()->back()->with('success', "Operation report added successfully.");
+        return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
     public function operationUpdateForm($id)
@@ -313,6 +323,14 @@ class OperationController extends Controller
             $operation->update($InfoUpdatedData);
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated an AFOR Report about the operation in " . $operation->location,
+            'action' => "Update",
+        ]);
+        $log->save();
         // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -770,7 +788,7 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        return redirect()->back()->with('success', 'Operation updated successfully.');
+        return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
     }
 
     public function operationDelete($id, Request $request)

@@ -20,4 +20,7 @@ class Minimal extends Model
     public function respondingLeader(){
         return $this->belongsTo(Personnel::class, 'first_responding_leader');
     }
+    public function alarm(){
+        return $this->belongsTo(Alarm_name::class, 'alarm_status_time');
+    }
 }

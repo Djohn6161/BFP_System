@@ -18,4 +18,7 @@ class Spot extends Model
     public function final(){
         return $this->hasMany(Ifinal::class, 'spot_id');
     }
+    public function alarmed(){
+        return $this->belongsTo(Alarm_name::class, 'alarm');
+    }
 }

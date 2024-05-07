@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('afor_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afors')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('afor_id')->nullable()->constrained('afors')->onUpdate('cascade')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
+            $table->longText('details');
             $table->string('action');
             $table->timestamps();
         });
@@ -23,6 +24,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+    
     public function down(): void
     {
         Schema::dropIfExists('afor_logs');

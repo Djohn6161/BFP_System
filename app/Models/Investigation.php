@@ -26,4 +26,7 @@ class Investigation extends Model
     public function victims(){
         return $this->hasMany(Victim::class, 'investigation_id');
     }
+    public function logs(){
+        return $this->hasMany(InvestigationLog::class, 'investigation_id');
+    }
 }

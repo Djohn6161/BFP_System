@@ -402,7 +402,46 @@
             const pagibigInput = document.getElementById('pagibig');
             const gsisInput = document.getElementById('gsis');
             const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
         });
+
         //personnel file upload
         $(document).ready(function() {
             $('#file-input').change(handleFileSelect);
