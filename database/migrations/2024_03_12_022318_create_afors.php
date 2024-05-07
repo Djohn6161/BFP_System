@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('zone');
             $table->string('location');
             $table->string('full_location');
-            $table->foreignid('received_by')->constrained('personnels')->onUpdate('cascade');
+            $table->foreignId('received_by')->nullable()->constrained('personnels')->onupdate('cascade')->onDelete('set null');
             $table->string('td_under_control')->nullable();
             $table->string('td_declared_fireout')->nullable();
             $table->string('occupancy');
@@ -33,6 +33,7 @@ return new class extends Migration
             $table->longText('observation_recommendation');
             $table->string('alarm_status_arrival');
             $table->string('first_responder');
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }

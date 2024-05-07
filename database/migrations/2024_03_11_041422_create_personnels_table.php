@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
+            // $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
             $table->foreignId('ranks_id')->constrained('ranks')->onUpdate('cascade');
             $table->string('account_number');
+            $table->integer('item_number')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
@@ -23,11 +24,11 @@ return new class extends Migration
             $table->integer('contact_number')->nullable(); 
             $table->date('date_of_birth')->nullable();
             $table->string('maritam_status')->nullable();
-            $table->boolean('gender')->nullable();
+            $table->string('gender');
             $table->string('address');
             $table->string('religion');
             $table->string('tin');
-            $table->string('gsis');
+            $table->string('gsis');     
             $table->string('pagibig');
             $table->string('philhealth');
             $table->string('highest_eligibility');
@@ -43,6 +44,7 @@ return new class extends Migration
             $table->string('designation');
             $table->string('admin_operation_remarks');
             $table->string('picture')->nullable();
+            $table->string('files')->nullable();
             $table->timestamps();
         });
     }
