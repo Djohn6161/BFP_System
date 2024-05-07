@@ -51,7 +51,7 @@ class Afor extends Model
         return $this->hasMany(Declared_alarm::class, 'afor_id');
     }
     public function alarmStatus(){
-        return $this->hasMany(Alarm_status::class, 'afor_id');
+        return $this->hasMany(Declared_alarm::class, 'afor_id');
     }
     public function usedEquipments(){
         return $this->hasMany(Used_equipment::class, 'afor_id');
@@ -60,7 +60,7 @@ class Afor extends Model
         return $this->hasMany(Response::class, 'afor_id');
     }
     public function dutyPersonnel(){
-        return $this->belongsTo(Duty_personnel::class,'afor_id');
+        return $this->belongsTo(Afor_duty_personnel::class,'afor_id');
     }
 
     public function personnel(){

@@ -45,33 +45,40 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($operations as $operation)
-                                            {{-- <x-reports.view-modal :report=$operation></x-reports.view-modal> --}}
-                                            {{-- <x-reports.update :report=$operation></x-reports.update> --}}
                                             <tr>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{ $operation->transmitted_by }}
+                                                        @foreach ($personnels as $personnel)
+                                                            @if ($personnel->id == $operation->transmitted_by)
+                                                                {{ $personnel->rank->slug }}
+                                                                {{ $operation->transmittedBy->first_name }}
+                                                                {{ $operation->transmittedBy->last_name }}
+                                                            @endif
+                                                        @endforeach
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">{{ $operation->location }}</p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $operation->td_under_control }}</p>
+                                                    <p class="mb-0 fw-normal">
+                                                        {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
+                                                    </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $operation->td_declared_fireout }}</p>
+                                                    <p class="mb-0 fw-normal">
+                                                        {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
+                                                    </p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     {{-- {{dd($operation->id) }}s --}}
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $operation->id }}"
+                                                    <a data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</a>
                                                 </td>
                                             </tr>
@@ -83,4 +90,5 @@
                     </div>
                 </div>
             </div>
+            <x-reports.operation.delete :operation="$operation->id"> </x-reports.operation.delete>
         @endsection
