@@ -145,6 +145,12 @@
                                     </span>
                                     Alarming
                                 </a>
+                                <a href="{{route('admin.trucks.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span>
+                                        <i class="ti ti-caret-right"></i>
+                                    </span>
+                                    Trucks
+                                </a>
                             </div>
                         </div>
                     </div>

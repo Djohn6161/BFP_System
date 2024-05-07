@@ -7,7 +7,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editOccupancyModal">Create Occupancy</h1>
+                <h1 class="modal-title fs-5" id="editOccupancyModal">Edit Occupancy</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

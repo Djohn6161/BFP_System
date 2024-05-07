@@ -5,7 +5,9 @@ use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogsController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\InvestigationController;
-use App\Http\Controllers\RankController;
 
 
 /*
@@ -98,6 +99,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+        //Trucks
+        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
 
         //Occupancy
         Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
