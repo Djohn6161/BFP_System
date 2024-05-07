@@ -226,20 +226,53 @@
                 <hr class="border border-dark border-1 opacity-100">
                 @if (auth()->user()->type === 'admin')
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="{{route('admin.trash.operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span> 
-                        <span class="hide-menu">Operation</span>
-                    </a>
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
+                        <div class="accordion-item p-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseLogs" aria-expanded="true" aria-controls="collapseOne">
+                                    <span> <i class="ti ti-file-description"></i></span>
+                                    <span class="hide-menu">Logs</span>
+                                </button>
+                            </h2>
+                            <div id="collapseLogs" class="accordion-collapse collapse show"
+                                data-bs-parent="#logsAccordion">
+                                
+                                <a href="{{route('admin.logs.operation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <span> <i class="ti ti-caret-right"></i></span>
+                                    Operation
+                                </a>
+                                <a href="{{route('admin.logs.investigation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                    <span><i class="ti ti-caret-right"></i></span>
+                                    Investigation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="{{route('admin.trash.investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span> 
-                        <span class="hide-menu">Investigation</span>
-                    </a>
+                    <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
+                        <div class="accordion-item p-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTrash" aria-expanded="true" aria-controls="collapseOne">
+                                    <span> <i class="ti ti-trash"></i></span>
+                                    <span class="hide-menu">Trash</span>
+                                </button>
+                            </h2>
+                            <div id="collapseTrash" class="accordion-collapse collapse show"
+                                data-bs-parent="#trashAccordion">
+                                <a href="{{route('admin.trash.operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                   <span><i class="ti ti-caret-right"></i></span>
+                                    Operation
+                                </a>
+                                <a href="{{route('admin.trash.investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                    <span><i class="ti ti-caret-right"></i></span>
+                                    Investigation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             @endif
 
