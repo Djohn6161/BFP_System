@@ -16,4 +16,5 @@ $(document).ready(function () {
     $(".typeOccupancy").select2();
     $(".specify").select2();
     $(".rankName").select2();
+    $(".designation").select2({tags: true});
 });
