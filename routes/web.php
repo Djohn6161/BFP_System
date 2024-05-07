@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
-use App\Http\Controllers\LogsController;
+    use App\Http\Controllers\LogsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;

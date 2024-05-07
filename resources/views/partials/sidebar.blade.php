@@ -58,14 +58,6 @@
                     </div> --}}
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.alarms.index') }}" class="sidebar-link ccordion-body ms-2 reports-collapse {{$active == 'alarm' ? 'active' : ''}}">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span> 
-                        <span class="hide-menu">Alarms</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <div class="accordion accordion-flush" href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
@@ -140,7 +132,7 @@
                                     </span>
                                     Barangay
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{ route('admin.alarms.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'alarm' ? 'active' : ''}}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
