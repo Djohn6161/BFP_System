@@ -50,9 +50,6 @@
                                                 <td class="border-bottom-0">
                                                     <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editRankModal{{ $rank->id }}">Update</button>
                                                     <br>
-                                                    <span>
-                                                        <i class="ti ti-trash"></i>
-                                                    </span>
                                                     <button data-bs-toggle="modal" data-bs-target="#deleteRankModal{{ $rank->id }}" class="btn btn-danger w-100 mb-1">Delete</button>
                                                 </td>
                                             </tr>
@@ -69,3 +66,4 @@
     </div>
     <x-rank.create :category="$active"> </x-rank.create>
 @endsection
+

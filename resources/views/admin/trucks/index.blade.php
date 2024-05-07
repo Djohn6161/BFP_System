@@ -24,24 +24,18 @@
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body p-4">
+                            
+                    <h5 class="card-title fw-semibold mb-4">Station Trucks</h5>
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">
                                 {{-- {{ $active != 'occupancy' ? $active : 'All' }} Investigation Reports</h5> --}}
                             <div class="table-responsive">
                                 <table class="table mb-0 align-middle w-100">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0" style="max-width:10%">
-                                                <h5 class="fw-semibold mb-0">Truck Name</h5>
-                                            </th>
-                                            <th class="border-bottom-0" style="max-width:10%">
-                                                <h5 class="fw-semibold mb-0">Plate Number</h5>
-                                            </th>
-                                            <th class="border-bottom-0" style="max-width:10%">
-                                                <h5 class="fw-semibold mb-0">Status</h5>
-                                            </th>
-                                            <th class="border-bottom-0" style="max-width:10%">
-                                                <h5 class="fw-semibold mb-0">Action</h5>
-                                            </th>
+                                            <th class="border-bottom-0">Truck Name</th>
+                                            <th class="border-bottom-0">Plate Number</th>
+                                            <th class="border-bottom-0">Status</th>
+                                            <th class="border-bottom-0">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -66,12 +60,16 @@
                                                 
                                                 
                                                 <td class="border-bottom-0">
-                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editTruckModal{{ $truck->id }}">Update</button>
+                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editTruckModal{{ $truck->id }}">
+                                                        Update
+                                                        <i class="ti ti-pencil"></i>
+                                                    </button>
                                                   
                                                     <br>
                                                     
                                                     <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteTruckModal{{ $truck->id }}">
-                                                        <i class="ti ti-trash"></i> Delete
+                                                         Delete 
+                                                         <i class="ti ti-trash"></i>
                                                     </button>                                                    
                                                     
                                                 </td>
@@ -86,3 +84,6 @@
             </div>
             {{-- @include('partials.investigationScript') --}}
         @endsection
+
+
+        
