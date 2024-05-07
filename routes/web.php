@@ -6,13 +6,14 @@ use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\RankController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
@@ -104,6 +105,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
 
+        //Barangay
+        Route::get('/barangay/index', [BarangayController::class, 'viewBarangay'])->name('barangay.index');
+        Route::post('/barangay/create', [BarangayController::class, 'createBarangay'])->name('barangay.create');
+        Route::put('/barangay/edit/{id}', [BarangayController::class, 'updateBarangay'])->name('barangay.edit');
+        Route::delete('/barangay/delete/{id}', [BarangayController::class, 'deleteBarangay'])->name('barangay.delete');
         //Trucks
         Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
         Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');

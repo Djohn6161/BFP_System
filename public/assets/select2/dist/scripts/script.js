@@ -39,4 +39,6 @@ $(document).ready(function () {
         $(this).val(cleanedValue);
     });
     $("#barangay-select").select2();
+
+    new DataTable('#barangayTable');
 });

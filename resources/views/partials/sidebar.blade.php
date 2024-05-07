@@ -133,7 +133,7 @@
                                     </span>
                                     Occupancy
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('admin.barangay.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
