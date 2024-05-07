@@ -21,7 +21,7 @@ class TruckController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'plate_num' => 'required|unique:trucks',
+            'plate_num' => 'required',
             'status' => 'required'
         ]);
 
@@ -35,7 +35,7 @@ class TruckController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required',
-            'plate_num' => 'required|unique:trucks',
+            'plate_num' => 'required|unique:trucks,plate_num,'.$id,
             'status' => 'required'
         ]);
             
