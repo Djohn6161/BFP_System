@@ -40,11 +40,15 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
+                <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize">
+                    <b>{{ $final->investigation->subject }}</b>
+                </h1>
                 <div class="row">
-                    <form action="{{ route('investigation.final.store', ['spot' => $spot]) }}" class="needs-validation"
+                    <form action="{{ route('investigation.final.update', ['final' => $final]) }}" class="needs-validation"
                         novalidate method="POST" id="finalCreate">
                         @csrf
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
+                        @method('PUT')
+                        <x-reports.investigation.memo-investigate :spot=$final></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -58,7 +62,7 @@
                                 <input type="text" placeholder="Eg. Purok 5 Paubla, Ligao City" id="intelligence_unit"
                                     name="intelligence_unit"
                                     class="form-control {{ $errors->has('intelligence_unit') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('intelligence_unit') ?? 'Ligao City Fire Station, Ligao City Albay' }}"
+                                    value="{{ old('intelligence_unit') ?? ($final->intelligence_unit ?? 'Ligao City Fire Station, Ligao City Albay') }}"
                                     required>
                                 @error('intelligence_unit')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
@@ -70,7 +74,9 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }} value="{{ $barangay->name }}">
+                                        <option
+                                            {{ old('barangay') ?? ($spot->barangay ?? '') == $barangay->name ? 'selected' : '' }}
+                                            value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
 
@@ -85,7 +91,7 @@
                                 <label for="zone_street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone_street" name="zone_street"
                                     class="form-control {{ $errors->has('zone_street') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone_street') }}" required>
+                                    value="{{ old('zone_street') ?? $final->street }}" required>
                                 @error('zone_street')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -96,7 +102,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? $location }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -110,7 +116,7 @@
                                 <label for="time_alarm" class="form-label">TIME OF ALARM</label>
                                 <input type="text" placeholder="Eg. 0034H" id="time_alarm" name="time_alarm"
                                     class="form-control {{ $errors->has('time_alarm') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_alarm') }}" required>
+                                    value="{{ old('time_alarm') ?? $td[0] }}" required>
                                 @error('time_alarm')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -119,7 +125,7 @@
                                 <label for="date_alarm" class="form-label">DATE OF ALARM</label>
                                 <input type="date" placeholder="Eg. 30 March 2024" id="date_alarm" name="date_alarm"
                                     class="form-control {{ $errors->has('date_alarm') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('date_alarm') }}" required>
+                                    value="{{ old('date_alarm') ?? $td[1] }}" required>
                                 @error('date_alarm')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -130,7 +136,7 @@
                                 <input type="text" placeholder=" Eg. Romy Nabas Residence" id="establishment_burned"
                                     name="establishment_burned"
                                     class="form-control {{ $errors->has('establishment_burned') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('establishment_burned') }}" required>
+                                    value="{{ old('establishment_burned') ?? $final->establishment_burned }}" required>
                                 @error('establishment_burned')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -140,7 +146,7 @@
                                 <input type="number" placeholder=" Eg. Php 20,000.00" id="damage_to_property"
                                     name="damage_to_property"
                                     class="form-control {{ $errors->has('damage_to_property') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('damage_to_property') }}" required>
+                                    value="{{ old('damage_to_property') ?? $final->damage_to_property }}" required>
                                 @error('damage_to_property')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -172,6 +178,31 @@
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
                                 {{-- {{dd($victim)}} --}}
+                            @elseif($victims ?? false)
+                                <div class="col-lg-12">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-lg-6 m-0 p-0">
+                                            <label for="fireVictims" class="form-label me-2">FIRE VICTIM/S</label>
+                                            <button type="button" class="btn btn-sm btn-primary mb-1"
+                                                id="addFireVictims">+ ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0" id="fireVictimsContainer">
+                                    @foreach ($victims as $victim)
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="input-group"><input type="text"
+                                                    placeholder="Enter victim name"
+                                                    class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}"
+                                                    name="victim[]" required value="{{ $victim->name }}"><button
+                                                    type="button" class="btn btn-outline-danger removeInput">x</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @error('victim')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             @else
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
@@ -251,7 +282,7 @@
                                         </span>
                                     </div>
                                     <div id="orig">
-                                        {!! old('origin_of_fire') !!}
+                                        {!! old('origin_of_fire') ?? $final->origin_of_fire !!}
                                     </div>
 
                                 </div>
@@ -310,7 +341,7 @@
                                         </span>
                                     </div>
                                     <div id="cause">
-                                        {!! old('cause_of_fire') !!}
+                                        {!! old('cause_of_fire') ?? $final->cause_of_fire !!}
                                     </div>
 
                                 </div>
@@ -369,7 +400,7 @@
                                         </span>
                                     </div>
                                     <div id="subsDoc">
-                                        {!! old('substantiating_documents') !!}
+                                        {!! old('substantiating_documents') ?? $final->substantiating_documents !!}
                                     </div>
 
                                 </div>
@@ -428,7 +459,7 @@
                                         </span>
                                     </div>
                                     <div id="facts">
-                                        {!! old('facts_of_the_case') !!}
+                                        {!! old('facts_of_the_case') ?? $final->facts_of_the_case !!}
                                     </div>
 
                                 </div>
@@ -488,7 +519,7 @@
                                         </span>
                                     </div>
                                     <div id="discus">
-                                        {!! old('discussion') !!}
+                                        {!! old('discussion') ?? $final->discussion !!}
                                     </div>
 
                                 </div>
@@ -547,7 +578,7 @@
                                         </span>
                                     </div>
                                     <div id="find">
-                                        {!! old('findings') !!}
+                                        {!! old('findings') ?? $final->findings !!}
                                     </div>
 
                                 </div>
@@ -606,14 +637,15 @@
                                         </span>
                                     </div>
                                     <div id="recom">
-                                        {!! old('recommendation') !!}
+                                        {!! old('recommendation') ?? $final->recommendation !!}
                                     </div>
 
                                 </div>
                                 <input type="hidden" id="recommendation" name="recommendation">
                             </div>
                         </div>
-                        <button type="submit" id="submit" class="btn btn-primary mb-4 float-start">Submit</button>
+                        <button type="submit" id="submit"
+                            class="btn btn-primary mb-4 float-start w-100">Update</button>
                         <br>
                     </form>
                 </div>

@@ -29,7 +29,7 @@ class InvestigationSeeder extends Seeder
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $time = ["1400", "1800", "1600", "0800"];
-                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
+                $alarm = [1,2,3,4,5,6,7,8,9,10,11,12,13];
                 $minimals = [
                     'investigation_id' => $reportID,
                     'dt_actual_occurence' => $faker->date(),
@@ -62,7 +62,7 @@ class InvestigationSeeder extends Seeder
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $time = ["1400", "1800", "1600", "0800"];
-                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
+                $alarm = [1,2,3,4,5,6,7,8,9,10,11,12,13];
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $spot = [
                     'investigation_id' => $reportID,
@@ -97,7 +97,7 @@ class InvestigationSeeder extends Seeder
                     'investigation_id' => $reportID,
                     'intelligence_unit' => "Ligao City Fire Station, Ligao City Albay",
                     "place_of_fire" => $faker->city . " " . $faker->streetname,
-                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H" . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H " . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
                     "establishment_burned" => $properties[$faker->numberBetween(0, 3)],
                     "damage_to_property" => $faker->numberBetween(10000, 100000),
                     "origin_of_fire" => $faker->sentence(10),
