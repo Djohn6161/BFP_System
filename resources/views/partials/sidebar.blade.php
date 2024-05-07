@@ -200,10 +200,8 @@
                                         class="sidebar-link accordion-body ms-2 reports-collapse">
                                         Personnel Info
                                     </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Sample1
-                                    </a>
+                                    <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
+                                        Ranks
                                     <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
                                         <span>
                                             <i class="ti ti-caret-right"></i>
