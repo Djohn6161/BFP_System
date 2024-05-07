@@ -788,7 +788,7 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        return redirect()->back()->with('success', 'Operation updated successfully.');
+        return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
     }
 
     public function operationDelete($id, Request $request)

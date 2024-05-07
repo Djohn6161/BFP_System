@@ -237,58 +237,12 @@
                                     <label for="waterTank" class="form-label">Alarm Status</label>
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 1 ? 'selected' : '' }}
-                                            value="1">1st
-                                            Alarm</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 2 ? 'selected' : '' }}
-                                            value="2">2nd
-                                            Alarm</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 3 ? 'selected' : '' }}
-                                            value="3">3rd
-                                            Alarm</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 4 ? 'selected' : '' }}
-                                            value="4">4th
-                                            Alarm</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 5 ? 'selected' : '' }}
-                                            value="5">5th
-                                            Alarm</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 6 ? 'selected' : '' }}
-                                            value="6">Task
-                                            Force Alpha</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 7 ? 'selected' : '' }}
-                                            value="7">Task
-                                            Force Bravo</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 8 ? 'selected' : '' }}
-                                            value="8">Task
-                                            Force Charlie</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 9 ? 'selected' : '' }}
-                                            value="9">Task
-                                            Force Delta</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 10 ? 'selected' : '' }}
-                                            value="10">Task
-                                            Force Echo</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 11 ? 'selected' : '' }}
-                                            value="11">Task
-                                            Force Hotel</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 12 ? 'selected' : '' }}
-                                            value="12">Task
-                                            Force India</option>
-                                        <option
-                                            {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == 13 ? 'selected' : '' }}
-                                            value="13">
-                                            General Alarm</option>
+                                        @foreach ($alarm as $item)
+                                            <option
+                                                {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') ==  $item->id? 'selected' : '' }}
+                                                value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+
                                     </select>
                                     @error('alarm_status_time')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
@@ -530,14 +484,15 @@
 
                             {{-- {{dd($minimal->photos)}} --}}
                             @unless (count($photos) == 0)
-                                <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary">Current
+                                <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary">
+                                    Current
                                     Photos</h5>
 
                                 {{-- {{ dd('hi') }} --}}
                                 @foreach ($photos as $photo)
                                     <div class="image-preview mb-1 col-sm-4" id="photo{{ $loop->index }}">
-                                        <img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="{{ asset('storage/minimal/' . $photo) }}"
-                                            alt="sample Image">
+                                        <img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100"
+                                            src="{{ asset('storage/minimal/' . $photo) }}" alt="sample Image">
                                         <div class="d-flex justify-content-end align-items-center mb-2 border-bottom pb-2">
                                             <button data-id="photo{{ $loop->index }}" type="button"
                                                 class="btn btn-sm btn-danger float-end"
@@ -547,7 +502,8 @@
                                     </div>
                                 @endforeach
                             @endunless
-                            <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary mt-5">Add New
+                            <h5 class="text-dark text-bold text-center border-bottom border-2 pb-2 border-secondary mt-5">
+                                Add New
                                 Photos</h5>
 
                             <input type="file" class="form-control uncheable" id="photos" name="photos[]"
@@ -665,7 +621,9 @@
                             // Create image preview
                             var mainContainer = $(
                                 '<div class="image-preview mb-1  col-sm-4"></div>')
-                            var imgPreview = $('<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' + e.target
+                            var imgPreview = $(
+                                '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
+                                e.target
                                 .result +
                                 '" alt="' + file.name + '">'
                             );
@@ -712,10 +670,11 @@
                 }
             });
         });
+
         function removePic(btn) {
-                const photo = $("#" + $(btn).data('id'));
-                photo.remove();
-                console.log(photo);
-            }
+            const photo = $("#" + $(btn).data('id'));
+            photo.remove();
+            console.log(photo);
+        }
     </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Spot;
 use App\Models\Afors;
+use App\Models\Alarm_name;
 use App\Models\Truck;
 use App\Models\Ifinal;
 use App\Models\Victim;
@@ -51,6 +52,7 @@ class InvestigationController extends Controller
             'barangay' => Barangay::all(),
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
+            'alarms' => Alarm_name::all(),
         ]);
     }
 
@@ -71,6 +73,7 @@ class InvestigationController extends Controller
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
+            'alarms' => Alarm_name::all(), 
 
         ]);
     }
@@ -334,9 +337,11 @@ class InvestigationController extends Controller
             'barangay' => Barangay::all(),
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
+            'alarm' => Alarm_name::all(),
             'minimal' => $minimal,
             'location' => $location,
             'photos' => $photos ?? [],
+
         ]);
     }
     public function storeMinimal(Request $request)
@@ -394,8 +399,8 @@ class InvestigationController extends Controller
                 $fileNames[] = $filePath;
                 // $fileName = baseName($file)
             }
+            $photos = implode(", ", $fileNames);
         }
-        $photos = implode(", ", $fileNames);
 
         $minimal->fill([
             'investigation_id' => $investigation->id,
@@ -568,6 +573,7 @@ class InvestigationController extends Controller
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
+            'alarms' => Alarm_name::all(), 
             'spot' => $spot,
             'location' => $location,
         ]);

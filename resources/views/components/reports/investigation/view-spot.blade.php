@@ -73,7 +73,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">ALARM</th>
-                        <td colspan="2">{{ $investigation->alarm }}</td>
+                        <td colspan="2">{{ $investigation->alarmed->name }}</td>
                     </tr>
                 </table>
                 <hr>
