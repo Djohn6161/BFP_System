@@ -4,10 +4,11 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
@@ -130,6 +131,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
         Route::get('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
         Route::get('/trash/investigation/restore', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
+        //Trucks
+        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
 
         //Occupancy
         Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
@@ -160,6 +166,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+        Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
     });
 
 
