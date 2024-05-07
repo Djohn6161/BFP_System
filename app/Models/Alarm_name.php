@@ -14,4 +14,10 @@ class Alarm_name extends Model
     public function personnel(){
         return $this->belongsTo(Personnel::class,'personnels_id');
     }
+    public function minimals(){
+        return $this->hasMany(Minimal::class, 'alarm_status_time');
+    }
+    public function spots(){
+        return $this->hasMany(Spot::class, 'alarm');
+    }
 }

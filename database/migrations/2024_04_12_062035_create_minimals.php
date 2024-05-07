@@ -22,15 +22,15 @@ return new class extends Migration
             $table->string('incident_location');
             $table->string('involved_property');
             $table->longText('property_data');
-            $table->foreignId('receiver')->constrained('personnels')->onUpdate('cascade');
+            $table->foreignId('receiver')->nullable()->constrained('personnels')->onupdate('cascade')->onDelete('set null');
             $table->string('caller_name');
             $table->string('caller_address');
             $table->string('caller_number');
             $table->string('notification_originator');
             $table->foreignId('first_responding_engine')->constrained('trucks')->onUpdate('cascade');
-            $table->foreignId('first_responding_leader')->constrained('personnels')->onUpdate('cascade');
+            $table->foreignId('first_responding_leader')->nullable()->constrained('personnels')->onUpdate('cascade')->onDelete('set null');
             $table->string('time_arrival_on_scene');
-            $table->string('alarm_status_time');
+            $table->foreignId('alarm_status_time')->constrained('alarm_names')->onUpdate('cascade');
             $table->string('Time_Fire_out');
             $table->string('property_owner');
             $table->string('property_occupant');

@@ -9,3 +9,5 @@ $("#minimalInvestigationTable").DataTable();
 $("#progressInvestigationTable").DataTable();
 $("#finalInvestigationTable").DataTable();s
 $("#rankTable").DataTable();
+$("#investigationTable").DataTable();
+$("#adminAccount").DataTable();

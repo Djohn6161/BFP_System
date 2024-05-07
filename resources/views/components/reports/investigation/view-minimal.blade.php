@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                             <td>Alarm Status-Time:</td>
-                            <td>{{ $investigation->alarm_status_time }}</td>
+                            <td>{{ $investigation->alarm->name }}</td>
                         </tr>
                         <tr>
                             <td>Time Fire Out:</td>

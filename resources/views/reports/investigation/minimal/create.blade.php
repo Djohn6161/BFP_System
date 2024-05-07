@@ -231,32 +231,9 @@
                                     <label for="waterTank" class="form-label">Alarm Status</label>
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
-                                        <option {{ old('alarm_status_time') == 1 ? 'selected' : '' }} value="1">1st
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 2 ? 'selected' : '' }} value="2">2nd
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 3 ? 'selected' : '' }} value="3">3rd
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 4 ? 'selected' : '' }} value="4">4th
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 5 ? 'selected' : '' }} value="5">5th
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 6 ? 'selected' : '' }} value="6">Task
-                                            Force Alpha</option>
-                                        <option {{ old('alarm_status_time') == 7 ? 'selected' : '' }} value="7">Task
-                                            Force Bravo</option>
-                                        <option {{ old('alarm_status_time') == 8 ? 'selected' : '' }} value="8">Task
-                                            Force Charlie</option>
-                                        <option {{ old('alarm_status_time') == 9 ? 'selected' : '' }} value="9">Task
-                                            Force Delta</option>
-                                        <option {{ old('alarm_status_time') == 10 ? 'selected' : '' }} value="10">Task
-                                            Force Echo</option>
-                                        <option {{ old('alarm_status_time') == 11 ? 'selected' : '' }} value="11">Task
-                                            Force Hotel</option>
-                                        <option {{ old('alarm_status_time') == 12 ? 'selected' : '' }} value="12">Task
-                                            Force India</option>
-                                        <option {{ old('alarm_status_time') == 13 ? 'selected' : '' }} value="13">
-                                            General Alarm</option>
+                                        @foreach ($alarms as $item)
+                                        <option {{ old('alarm_status_time') == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                     @error('alarm_status_time')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
