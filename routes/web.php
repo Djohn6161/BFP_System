@@ -4,7 +4,6 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\LogsController;
