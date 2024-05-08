@@ -136,224 +136,224 @@ class DesignationSeeder extends Seeder
             [
                 'id' => '18',
                 'name' => 'Radio Operation/Telephone Operator',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '19',
                 'name' => 'Information Technologist',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '20',
                 'name' => 'Lead Fire Arson Investigator',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '21',
                 'name' => 'Fire Scene Photographer',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '22',
                 'name' => 'Fire Scene Sketch Preparer',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '23',
                 'name' => 'Evidence Custodian',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '24',
                 'name' => 'Evidence Recovery Personnel',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '25',
                 'name' => 'Team Security Personnel',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '26',
                 'name' => 'Fire Arson Investigator',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
 
             ],
             [
                 'id' => '27',
                 'name' => 'Medical First Responder',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '28',
                 'name' => 'EMT/Paramedics',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '29',
                 'name' => 'EMS Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '30',
                 'name' => 'EMS Personnel',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '31',
                 'name' => 'Search and Rescue',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '32',
                 'name' => 'Hazmat/CBRN Response',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '33',
                 'name' => 'Shift A - Commander',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '34',
                 'name' => 'Shift B - Commander',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '35',
                 'name' => 'Driver/Pump Operator',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '36',
                 'name' => 'Lineman',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '37',
                 'name' => 'Nozzleman',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '38',
                 'name' => 'Operations Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '4',
                 
             ],
             [
                 'id' => '39',
                 'name' => 'CRU Personnel',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '40',
                 'name' => 'Assessor',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '41',
                 'name' => 'Building Inspector',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '42',
                 'name' => 'FPU Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '43',
                 'name' => 'Plan Evaluator',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '44',
                 'name' => 'FSES Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '5',
                 
             ],
             [
                 'id' => '45',
                 'name' => 'Admin Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '6',
                 
             ],
             [
                 'id' => '46',
                 'name' => 'Leave Processor',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '6',
                 
             ],
             [
                 'id' => '47',
                 'name' => 'Records Custodian',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '6',
                 
             ],
             [
                 'id' => '48',
                 'name' => 'Admin Clerk',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '6',
                 
             ],
             [
                 'id' => '49',
                 'name' => 'Liason Officer',
-                'class' => 'D',
+                'class' => 'C',
                 'section' => '6',
                 
             ],

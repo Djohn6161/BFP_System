@@ -52,8 +52,10 @@
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteOtherDesignationModal{{ $item->id }}"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
-                                                    <x-designation.other.edit-other :designation=$item></x-designation.other.edit-other>
-                                                    <x-designation.other.delete-other :designation=$item></x-designation.other.delete-other>
+                                                    <x-designation.other.edit-other
+                                                        :designation=$item></x-designation.other.edit-other>
+                                                    <x-designation.other.delete-other
+                                                        :designation=$item></x-designation.other.delete-other>
                                                 </td>
                                                 {{-- <td>{{ $designation->class }}</td> --}}
                                                 {{-- <td>{{ substr(App\Models\Designation::find($designation->section)->name, 0, 3) ?? 'Unspecified' }}</td> --}}
@@ -67,6 +69,10 @@
                         </div>
                     </div>
                     @foreach ($sections as $section)
+                        <x-designation.section.edit :section=$section></x-designation.section.edit>
+                        <x-designation.section.delete :section=$section></x-designation.section.delete>
+                        <x-designation.section.add-unit :section=$section></x-designation.section.add-unit>
+
                         <div class="card w-100">
 
                             <div class="card-body p-4">
@@ -83,47 +89,66 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#addUnitModal">Add Unit</button></li>
+                                                    data-bs-target="#addUnitModal{{$section->id}}">Add Designation</button></li>
                                             <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#editSectionModal">Edit Section</button></li>
+                                                    data-bs-target="#editSectionModal{{ $section->id }}">Edit
+                                                    Section</button></li>
                                             <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteSectionModal">Delete Section</button></li>
+                                                    data-bs-target="#deleteSectionModal{{ $section->id }}">Delete
+                                                    Section</button></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <table class="table mb-0 align-middle w-100" id="designationTable">
-                                        <thead class="text-dark fs-4">
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- @foreach ($designations as $designation) --}}
-                                            {{-- <x-designation.edit :designation="$designation"> </x-designation.edit>
-                                        <x-designation.delete :designation="$designation"> </x-designation.delete> --}}
-                                            @foreach ($designations->where('section', $section->id) as $item)
+                                    @unless (count($designations->where('section', $section->id)) == 0)
+                                        <table class="table mb-0 align-middle w-100" id="designationTable">
+                                            <thead class="text-dark fs-4">
                                                 <tr>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td class="w-25">
-                                                        <button type="button"
-                                                            class="btn btn-success w-100 mb-1"data-bs-toggle="modal"
-                                                            data-bs-target="#editUnitModal">Update</button>
-                                                        <br>
-                                                        <button type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteUnitModal"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
-                                                    </td>
-                                                    {{-- <td>{{ $designation->class }}</td> --}}
-                                                    {{-- <td>{{ substr(App\Models\Designation::find($designation->section)->name, 0, 3) ?? 'Unspecified' }}</td> --}}
+                                                    <th>Name</th>
+                                                    <th>Action</th>
                                                 </tr>
-                                            @endforeach
+                                            </thead>
+                                            <tbody>
+                                                {{-- @foreach ($designations as $designation) --}}
+                                                {{-- <x-designation.edit :designation="$designation"> </x-designation.edit>
+                                        <x-designation.delete :designation="$designation"> </x-designation.delete> --}}
 
-                                            {{-- @endforeach --}}
-                                        </tbody>
-                                    </table>
+
+                                                @foreach ($designations->where('section', $section->id) as $item)
+                                                    <tr>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td class="w-25">
+
+                                                            <x-designation.unit.edit-unit :designation=$item ></x-designation.unit.edit-unit>
+                                                            <x-designation.unit.delete-unit :designation=$item ></x-designation.unit.delete-unit>
+                                                            <button type="button"
+                                                                class="btn btn-success w-100 mb-1"data-bs-toggle="modal"
+                                                                data-bs-target="#editUnitModal{{$item->id}}">Update</button>
+                                                            <br>
+                                                            <button type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteUnitModal{{$item->id}}"
+                                                                class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                        </td>
+                                                        {{-- <td>{{ $designation->class }}</td> --}}
+                                                        {{-- <td>{{ substr(App\Models\Designation::find($designation->section)->name, 0, 3) ?? 'Unspecified' }}</td> --}}
+                                                    </tr>
+                                                @endforeach
+
+
+
+                                                {{-- @endforeach --}}
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <div class="alert alert-secondary text-center rounded">
+
+                                            <p class="mb-1 fw-bold text-dark rounded">No Designation Found</p>
+                                            <button type="button" class="text-uppercase btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#addUnitModal{{$section->id}}"><span> <i class="ti ti-plus"></i></span> Add
+                                                Designation</button>
+                                        </div>
+                                    @endunless
                                 </div>
                             </div>
                         </div>
@@ -141,9 +166,4 @@
     <x-designation.add-section></x-designation.add-section>
     <x-designation.other.add-other></x-designation.other.add-other>
 
-    <x-designation.section.add-unit></x-designation.section.add-unit>
-    <x-designation.section.edit></x-designation.section.edit>
-    <x-designation.section.delete></x-designation.section.delete>
-    <x-designation.unit.edit-unit></x-designation.unit.edit-unit>
-    <x-designation.unit.delete-unit></x-designation.unit.delete-unit>
 @endsection

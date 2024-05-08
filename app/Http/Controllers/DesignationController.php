@@ -24,8 +24,13 @@ class DesignationController extends Controller
             'class' => 'required',
             'section' => 'nullable',
         ]);
-
-        Designation::create($formFields);
+        
+        $designation = Designation::create($formFields);
+        if($formFields['class'] == 'B'){
+            $designation->section = $designation->id;
+            $designation->name = "C, " . $designation->name;
+            $designation->save();
+        }
         return redirect()->back()->with('success', 'Designation Added Successfully!');
     }
     public function update(Request $request, Designation $designation){
@@ -38,7 +43,12 @@ class DesignationController extends Controller
     }
     public function destroy(Request $request){
         // dd($request->all());
-        Designation::findOrFail($request->input('id'))->delete();
+        $designation = Designation::findOrFail($request->input('id'));
+        
+        if ($designation->class == "B") {
+            Designation::where('section', $designation->id)->delete();
+        }
+        $designation->delete();
         return redirect()->back()->with('success', 'Designation Deleted Successfully!');
     }
 }
