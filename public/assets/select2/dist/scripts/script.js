@@ -16,7 +16,7 @@ $(document).ready(function () {
     $(".typeOccupancy").select2();
     $(".specify").select2();
     $(".rankName").select2();
-    $(".form-select").select2();
+    // $(".form-select").select2();
 
 
     
