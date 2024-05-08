@@ -50,10 +50,16 @@
                                                 </td>
                                                 
                                                 <td class="border-bottom-0">
-                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#updateOccupancyModal{{ $occupancyName->id }}">Update</button>
+                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#updateOccupancyModal{{ $occupancyName->id }}">
+                                                        Update
+                                                        <i class="ti ti-pencil"></i>
+                                                    </button>
                                                    
                                                     <br>
-                                                    <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteOccupancyModal{{ $occupancyName->id }}">Delete</button>
+                                                    <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteOccupancyModal{{ $occupancyName->id }}">
+                                                        Delete
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
                                                    
                                                 </td>
                                             </tr>
