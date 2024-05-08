@@ -1,12 +1,3 @@
-<style>
-
-th {
-    color: black;
-    font-size: 18px;
-}
-
-</style>
-
 <div class="modal fade" tabindex="-1" id="viewOperationModal{{ $operation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -28,10 +19,9 @@ th {
                     {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div> --}}
                 </div>
                 <hr>
-                <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">1.</h5> 
+                <table class="table table-striped">
                     <tr>
-                        <th style="color: black;">Alarm received (Time):</th>
+                        <th>Alarm received (Time):</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -39,7 +29,7 @@ th {
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">Office/Address of the Caller:</th>
+                        <th>Office/Address of the Caller:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -47,17 +37,16 @@ th {
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">Location:</th>
+                        <th>Location:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                 </table>
                 <br>
                 <hr>    
 
-                <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">2.</h5> 
+                <table class="table   table-striped">
                     <tr>
-                        <th style="color: black;">ENGINE DISPATCHED:</th>
+                        <th>ENGINE DISPATCHED:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -65,7 +54,7 @@ th {
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">TIME ARRIVED AT FIRE SCENE:</th>
+                        <th>TIME ARRIVED AT FIRE SCENE:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -73,7 +62,7 @@ th {
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">TIME RETURNED TO BASE:</th>
+                        <th>TIME RETURNED TO BASE:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -81,16 +70,15 @@ th {
                         <td class="text-break">DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">GAS CONSUMED(L):</th>
+                        <th>GAS CONSUMED(L):</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                 </table>
                 <br>
                 <hr>
-                <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">3.</h5> 
+                <table class="table   table-striped">
                     <tr>
-                        <th style="color: black;">Alarm Status:</th>
+                        <th>Alarm Status:</th>
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -98,7 +86,7 @@ th {
                         <td class="text-break">  DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th style="color: black;">Time/Date Under Control:</th>
+                        <th>Time/Date Under Control:</th>
                         <td class="text-break">DETAILS HERE</td>
                     </tr>
                     <tr>
@@ -109,27 +97,27 @@ th {
                 <br>
 
                 <hr> 
-                <h5 class="my-4 fw-bolder">4. Type of Occupancy (please specify):</h5>
+                <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
 
                 <hr>
-                <h5 class="my-4 fw-bolder">5. Approximate Distance of Fire Incident From Fire Station (Km):</h5>
+                <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
 
                 <hr>
-                <h5 class="my-4 fw-bolder">6. General Description of the structure/s involved:</h5>
+                <h5 class="my-4 fw-bolder">General Description of the structure/s involved:</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
                 
                 <hr>
                 <br>
-                <h5 class="my-4 fw-bolder">7. Total Number of Casualty Reported:</h5>
-                 <table class="table table-bordered border-dark">
+                <h5 class="my-4 fw-bolder">Total Number of Casualty Reported:</h5>
+                 <table class="table table-striped ">
                     <tr>
                       <th> </th>
                       <th>Injured</th>
@@ -149,8 +137,8 @@ th {
 
                 <hr>
                 <br>
-                <h5 class="my-4 fw-bolder">8. Breathing Apparatus Used:</h5>
-                 <table class="table table-bordered border-dark">
+                <h5 class="my-4 fw-bolder">Breathing Apparatus Used:</h5>
+                 <table class="table table-striped ">
                     <tr>
                       <th>Nr.</th>
                       <th>Type/Kind</th>
@@ -164,12 +152,12 @@ th {
 
                 <hr>
                 <br>
-                <h5 class="my-4 fw-bolder">9. Time Alarm Status Declared:</h5>
-                 <table class="table table-bordered border-dark table-striped">
+                <h5 class="my-4 fw-bolder">Time Alarm Status Declared:</h5>
+                 <table class="table   table-striped">
                     <tr>
-                      <th style="color:black;">Alarm Status</th>
-                      <th style="color:black;">Time</th>
-                      <th style="color:black;">Fund Commander</th>
+                      <th>Alarm Status</th>
+                      <th>Time</th>
+                      <th>Fund Commander</th>
                     </tr>
                     <tr>
                       <td>DETAILS HERE</td>
@@ -185,8 +173,8 @@ th {
 
                   <hr>
                   <br>
-                  <h5 class="my-4 fw-bolder">10. Extinguishing Agent Used:</h5>
-                   <table class="table table-bordered border-dark">
+                  <h5 class="my-4 fw-bolder">Extinguishing Agent Used:</h5>
+                   <table class="table table-striped ">
                       <tr>
                         <th>QTY.</th>
                         <th>Type/Kind</th>
@@ -200,8 +188,8 @@ th {
 
                   <hr>
                   <br>
-                  <h5 class="my-4 fw-bolder">11. Rope and Ladder Used:</h5>
-                   <table class="table table-bordered border-dark">
+                  <h5 class="my-4 fw-bolder">Rope and Ladder Used:</h5>
+                   <table class="table table-striped">
                       <tr>
                         <th>Type</th>
                         <th>Lenght</th>
@@ -215,8 +203,8 @@ th {
 
                   <hr>
                   <br>
-                  <h5 class="my-4 fw-bolder">12. Hose line Used:</h5>
-                   <table class="table table-bordered border-dark">
+                  <h5 class="my-4 fw-bolder">Hose line Used:</h5>
+                   <table class="table table-striped">
                       <tr>
                         <th>Nr.</th>
                         <th> TYPE/KIND</th>
@@ -231,12 +219,12 @@ th {
 
                   <hr>
                   <br>
-                  <h5 class="my-4 fw-bolder">13. Duty Personnel at the Fire Scene:</h5>
-                  <table class="table table-bordered border-dark table-striped">
+                  <h5 class="my-4 fw-bolder">Duty Personnel at the Fire Scene:</h5>
+                  <table class="table  table-striped">
                     <tr>
-                        <th style="color: black;">Rank/Name</th></th>
-                        <th style="color: black;">Designation</th>
-                        <th style="color: black;">Remarks</th>
+                        <th>Rank/Name</th></th>
+                        <th>Designation</th>
+                        <th>Remarks</th>
                       </tr>
                       <tr>
                         <td>DETAILS HERE</td>
@@ -246,8 +234,8 @@ th {
                     </table>
 
                 <hr>
-                <h5 class="my-4 fw-bolder">14. Instruction/Sketch of the Fire Operation (Should Be Attached): 
-                    <span class="d-block" style="color: grey; font-style:italic;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Indicate the data frame, legend, location, north arrow and scale)</span>
+                <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be Attached): 
+                    <span class="d-block" style="color: grey; font-style:italic; font-size:15px;">(Indicate the data frame, legend, location, north arrow and scale)</span>
                 </h5>
                 <div class="ps-5">
                     Photo Here
@@ -255,19 +243,19 @@ th {
                 <br>
                 
                 <hr>
-                <h5 class="my-4 fw-bolder">15. Details(Narrative)</h5>
+                <h5 class="my-4 fw-bolder">Details(Narrative)</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
                 
                 <hr>
-                <h5 class="my-4 fw-bolder">16. Problem/s Rencountered during Operation:</h5>
+                <h5 class="my-4 fw-bolder">Problem/s Rencountered during Operation:</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
 
                 <hr>
-                <h5 class="my-4 fw-bolder">17. Observation/Recommendation</h5>
+                <h5 class="my-4 fw-bolder">Observation/Recommendation</h5>
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
