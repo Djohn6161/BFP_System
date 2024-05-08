@@ -61,8 +61,8 @@
                     </tr>
                     <tr>
                         <th colspan="2">ESTIMATED DAMAGE</th>
-                        <td colspan="2">{{'₱ ' . number_format($investigation->estimate_damage, 0, '.', ','); }}</td>
-                    </tr>
+                        <td colspan="2">{{'₱ ' . number_format($investigation->estimate_damage, 0, '.', ',') }}</td>
+                    </tr>   
                     <tr>
                         <th colspan="2">TIME FIRE STARTED</th>
                         <td colspan="2">{{ $investigation->time_fire_start }}</td>

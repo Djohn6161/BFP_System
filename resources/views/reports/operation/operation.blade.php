@@ -51,13 +51,7 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{-- @foreach ($personnels as $personnel)
-                                                            @if ($personnel->id == $operation->transmitted_by)
-                                                                {{ $personnel->rank->slug }}
-                                                                {{ $operation->transmittedBy->first_name }}
-                                                                {{ $operation->transmittedBy->last_name }}
-                                                            @endif
-                                                        @endforeach --}}{{ $operation->transmitted_by }}
+                                                        {{ $operation->transmitted_by }}
                                                     </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
@@ -74,16 +68,15 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    {{-- {{dd($operation->id) }}s --}}
-                                                    <x-reports.operation.operation_view :operation=$operation></x-reports.operation.operation_view>
                                                     <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#viewOperationModal{{ $operation->id }}" class="btn btn-primary hide-menu w-100 mb-1">View</button>
-                                                       
+                                                        data-bs-target="#viewOperationModal"
+                                                        data-operation="{{ json_encode($operation) }}"
+                                                        class="btn btn-primary hide-menu w-100 mb-1">View</button>
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
-                                                    <button type="button" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $operation->id }}"
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
                                                 </td>
                                             </tr>
@@ -95,5 +88,6 @@
                     </div>
                 </div>
             </div>
-            <x-reports.operation.delete :operation="$operation->id"> </x-reports.operation.delete>
+            <x-reports.operation.delete> </x-reports.operation.delete>
+            <x-reports.operation.operation_view :operation="$operation"></x-reports.operation.operation_view>
         @endsection

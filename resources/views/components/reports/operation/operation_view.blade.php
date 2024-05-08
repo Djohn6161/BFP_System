@@ -1,13 +1,11 @@
 <style>
-
-th {
-    color: black;
-    font-size: 18px;
-}
-
+    th {
+        color: black;
+        font-size: 18px;
+    }
 </style>
 
-<div class="modal fade" tabindex="-1" id="viewOperationModal{{ $operation->id }}">
+<div class="modal fade" tabindex="-1" id="viewOperationModal">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,7 +14,7 @@ th {
             </div>
             <div class="modal-body">
                 <div class="row p-2">
-                    <div class="col-sm-2 text-dark">For:</div>
+                    <div class="col-sm-2 text-dark"></div>
                     {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div> --}}
                 </div>
                 <div class="row p-2">
@@ -29,52 +27,52 @@ th {
                 </div>
                 <hr>
                 <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">1.</h5> 
+                    <h5 class="my-4 fw-bolder">1.</h5>
                     <tr>
                         <th style="color: black;">Alarm received (Time):</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break" id="view_alarm_received"></td>
                     </tr>
                     <tr>
                         <th>Caller/Reported/Transmitted by:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break" id="view_transmitted_by"></td>
                     </tr>
                     <tr>
                         <th style="color: black;">Office/Address of the Caller:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break" id="view_caller_address"></td>
                     </tr>
                     <tr>
                         <th>Personnel on duty who receive the alarm:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                    <td class="text-break" id="view_received_by"></td>
                     </tr>
                     <tr>
                         <th style="color: black;">Location:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break" id="view_location"></td>
                     </tr>
                 </table>
                 <br>
-                <hr>    
+                <hr>
 
                 <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">2.</h5> 
+                    <h5 class="my-4 fw-bolder">2.</h5>
                     <tr>
                         <th style="color: black;">ENGINE DISPATCHED:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th>TIME DISPATCHED:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th style="color: black;">TIME ARRIVED AT FIRE SCENE:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th>RESPONSE TIME:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th style="color: black;">TIME RETURNED TO BASE:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th>WATER TANK REFILLED(GAL):</th>
@@ -82,35 +80,35 @@ th {
                     </tr>
                     <tr>
                         <th style="color: black;">GAS CONSUMED(L):</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                 </table>
                 <br>
                 <hr>
                 <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">3.</h5> 
+                    <h5 class="my-4 fw-bolder">3.</h5>
                     <tr>
                         <th style="color: black;">Alarm Status:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break"> DETAILS HERE</td>
                     </tr>
                     <tr>
                         <th>First Responder:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break" id="view_first_responder"> DETAILS HERE</td>
                     </tr>
-                    <tr>
+                   <tr>
                         <th style="color: black;">Time/Date Under Control:</th>
-                        <td class="text-break">DETAILS HERE</td>
+                        <td class="text-break" id="view_td_under_control">DETAILS HERE</td>
                     </tr>
                     <tr>
-                        <th>time/Date Declared Fire Out:</th>
-                        <td class="text-break">DETAILS HERE</td>
+                        <th>Time/Date Declared Fire Out:</th>
+                        <td class="text-break" id="view_time_date_declared_fire_out">DETAILS HERE</td>
                     </tr>
                 </table>
                 <br>
 
-                <hr> 
+                <hr>
                 <h5 class="my-4 fw-bolder">4. Type of Occupancy (please specify):</h5>
-                <div class="ps-5">
+                <div class="ps-5" id="view_type_of_occupancy">
                     DETAILS HERE
                 </div>
 
@@ -125,153 +123,156 @@ th {
                 <div class="ps-5">
                     DETAILS HERE
                 </div>
-                
+
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">7. Total Number of Casualty Reported:</h5>
-                 <table class="table table-bordered border-dark">
+                <table class="table table-bordered border-dark">
                     <tr>
-                      <th> </th>
-                      <th>Injured</th>
-                      <th>Death</th>
+                        <th> </th>
+                        <th>Injured</th>
+                        <th>Death</th>
                     </tr>
                     <tr>
-                      <th>Civilian</th>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
+                        <th>Civilian</th>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
                     </tr>
                     <tr>
-                      <th>FireFighter</th>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
+                        <th>FireFighter</th>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
                     </tr>
-                  </table>
+                </table>
 
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">8. Breathing Apparatus Used:</h5>
-                 <table class="table table-bordered border-dark">
+                <table class="table table-bordered border-dark">
                     <tr>
-                      <th>Nr.</th>
-                      <th>Type/Kind</th>
-            
+                        <th>Nr.</th>
+                        <th>Type/Kind</th>
+
                     </tr>
                     <tr>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
                     </tr>
                 </table>
 
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">9. Time Alarm Status Declared:</h5>
-                 <table class="table table-bordered border-dark table-striped">
+                <table class="table table-bordered border-dark table-striped">
                     <tr>
-                      <th style="color:black;">Alarm Status</th>
-                      <th style="color:black;">Time</th>
-                      <th style="color:black;">Fund Commander</th>
+                        <th style="color:black;">Alarm Status</th>
+                        <th style="color:black;">Time</th>
+                        <th style="color:black;">Fund Commander</th>
                     </tr>
                     <tr>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
                     </tr>
                     <tr>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
-                      <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
                     </tr>
-                  </table>
+                </table>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">10. Extinguishing Agent Used:</h5>
-                   <table class="table table-bordered border-dark">
-                      <tr>
+                <hr>
+                <br>
+                <h5 class="my-4 fw-bolder">10. Extinguishing Agent Used:</h5>
+                <table class="table table-bordered border-dark">
+                    <tr>
                         <th>QTY.</th>
                         <th>Type/Kind</th>
-              
-                      </tr>
-                      <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                      </tr>
-                  </table>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">11. Rope and Ladder Used:</h5>
-                   <table class="table table-bordered border-dark">
-                      <tr>
+                    </tr>
+                    <tr>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <br>
+                <h5 class="my-4 fw-bolder">11. Rope and Ladder Used:</h5>
+                <table class="table table-bordered border-dark">
+                    <tr>
                         <th>Type</th>
                         <th>Lenght</th>
-              
-                      </tr>
-                      <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                      </tr>
-                  </table>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">12. Hose line Used:</h5>
-                   <table class="table table-bordered border-dark">
-                      <tr>
+                    </tr>
+                    <tr>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <br>
+                <h5 class="my-4 fw-bolder">12. Hose line Used:</h5>
+                <table class="table table-bordered border-dark">
+                    <tr>
                         <th>Nr.</th>
                         <th> TYPE/KIND</th>
                         <th>TOTAL ft</th>
-                      </tr>
-                      <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                      </tr>
-                    </table>
-
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">13. Duty Personnel at the Fire Scene:</h5>
-                  <table class="table table-bordered border-dark table-striped">
+                    </tr>
                     <tr>
-                        <th style="color: black;">Rank/Name</th></th>
-                        <th style="color: black;">Designation</th>
-                        <th style="color: black;">Remarks</th>
-                      </tr>
-                      <tr>
                         <td>DETAILS HERE</td>
                         <td>DETAILS HERE</td>
                         <td>DETAILS HERE</td>
-                      </tr>
-                    </table>
+                    </tr>
+                </table>
 
                 <hr>
-                <h5 class="my-4 fw-bolder">14. Instruction/Sketch of the Fire Operation (Should Be Attached): 
-                    <span class="d-block" style="color: grey; font-style:italic;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Indicate the data frame, legend, location, north arrow and scale)</span>
+                <br>
+                <h5 class="my-4 fw-bolder">13. Duty Personnel at the Fire Scene:</h5>
+                <table class="table table-bordered border-dark table-striped">
+                    <tr>
+                        <th style="color: black;">Rank/Name</th>
+                        </th>
+                        <th style="color: black;">Designation</th>
+                        <th style="color: black;">Remarks</th>
+                    </tr>
+                    <tr>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <h5 class="my-4 fw-bolder">14. Instruction/Sketch of the Fire Operation (Should Be Attached):
+                    <span class="d-block" style="color: grey; font-style:italic;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Indicate the data frame, legend, location, north arrow and
+                        scale)</span>
                 </h5>
                 <div class="ps-5">
                     Photo Here
                 </div>
                 <br>
-                
+
                 <hr>
                 <h5 class="my-4 fw-bolder">15. Details(Narrative)</h5>
-                <div class="ps-5">
+                <div class="ps-5" id="view_details_narrative">
                     DETAILS HERE
                 </div>
-                
+
                 <hr>
                 <h5 class="my-4 fw-bolder">16. Problem/s Rencountered during Operation:</h5>
-                <div class="ps-5">
+                <div class="ps-5" id="view_problems_rencountered_during_operation">
                     DETAILS HERE
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">17. Observation/Recommendation</h5>
-                <div class="ps-5">
+                <div class="ps-5" id="view_observation_recommendation">
                     DETAILS HERE
                 </div>
-               
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -280,3 +281,23 @@ th {
         </div>
     </div>
 </div>
+<script>
+    $('#viewOperationModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var operation = button.data('operation');
+
+        $('#view_alarm_received').text(operation.alarm_received);
+        $('#view_transmitted_by').text(operation.transmitted_by);
+        $('#view_caller_address').text(operation.caller_address);
+        $('#view_received_by').text(operation.recieved_by);
+        $('#view_location').text(operation.full_location);
+        $('#view_td_under_control').text(operation.td_under_control);
+        $('#view_first_responder').text(operation.first_responder);
+        $('#view_time_date_declared_fire_out').text(operation.td_declared_fireout);
+        $('#view_details_narrative').text(operation.details);
+        $('#view_problems_rencountered_during_operation').text(operation.problem_encounter);
+        $('#view_observation_recommendation').text(operation.observation_recommendation);
+
+
+    });
+</script>
