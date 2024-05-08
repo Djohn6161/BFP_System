@@ -47,19 +47,37 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">ENGINE DISPATCHED</th>
-                            <th class="text-center">TIME DISPATCHED</th>
-                            <th class="text-center">TIME ARRIVED AT FIRE SCENE</th>
-                            <th class="text-center">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
-                            <th class="text-center">TIME RETURNED TO BASE</th>
-                            <th class="text-center">WATER TANK REFILLED (GAL)</th>
-                            <th class="text-center">GAS COSUMED (L)</th>
+                            <th class="text-center align-middle">ENGINE DISPATCHED</th>
+                            <th class="text-center align-middle">TIME DISPATCHED</th>
+                            <th class="text-center align-middle">TIME ARRIVED AT FIRE SCENE</th>
+                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
+                            <th class="text-center align-middle">TIME RETURNED TO BASE</th>
+                            <th class="text-center align-middle">WATER TANK REFILLED (GAL)</th>
+                            <th class="text-center align-middle">GAS COSUMED (L)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                dtbgn
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
+                            </td>
+                            <td class="text-break">
+                                DETAILS DHJGKJKJVKLCH
                             </td>
                         </tr>
                     </tbody>
