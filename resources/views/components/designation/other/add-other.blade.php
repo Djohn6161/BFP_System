@@ -3,7 +3,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.designation.store')}}" >
                 @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="addOtherDesignationLabel">Create Designation</h1>
@@ -12,8 +12,10 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name"
+                        <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}"
                             placeholder="Enter Name">
+                            <input type="hidden" name="class" id="class" value="A">
+                            <input type="hidden" name="section" id="section">
                     </div>
                 </div>
                 <div class="modal-footer">

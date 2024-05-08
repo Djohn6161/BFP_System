@@ -210,48 +210,12 @@
                                         Ranks
                                     </a>
                                     <a href="{{ route('admin.designation.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'designation' ? 'active' : ''}}">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
                                         Designation
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </li>    
-                    <li class="sidebar-item">
-                        <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
-                            <div class="accordion-item p-0">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseLogs" aria-expanded="true" aria-controls="collapseOne">
-                                        <span> <i class="ti ti-file-description"></i></span>
-                                        <span class="hide-menu">Logs</span>
-                                    </button>
-                                </h2>
-                                <div id="collapseLogs" class="accordion-collapse collapse show"
-                                    data-bs-parent="#logsAccordion">
-                                    
-                                    <a href="{{route('admin.logs.operation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span> <i class="ti ti-caret-right"></i></span>
-                                        Operation
-                                    </a>
-                                    <a href="{{route('admin.logs.investigation.viewLogs')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Investigation
-                                    </a>
-                                    {{-- <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                    
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Sample3
-                                    </a>--}}
-                                </div>
-                            </div>
-                        </div>
-                    </li>
                 @endif
                 <hr class="border border-dark border-1 opacity-100">
                 <b>ACTIVITY</b>

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->char('class');
             $table->integer('section')->nullable();
-            $table->integer('unit')->nullable();
             $table->timestamps();
         });
     }

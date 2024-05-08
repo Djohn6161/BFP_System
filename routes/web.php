@@ -141,6 +141,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Designation
         Route::get('/designation/index',[DesignationController::class, 'designationIndex'])->name('designation.index');
+        Route::post('/designation/store', [DesignationController::class, 'store'])->name('designation.store');
+        Route::put('/designation/update/{designation}', [DesignationController::class, 'update'])->name('designation.update');
+        Route::delete('/designation/destroy', [DesignationController::class, 'destroy'])->name('designation.destroy');
 
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');

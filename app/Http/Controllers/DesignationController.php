@@ -12,6 +12,33 @@ class DesignationController extends Controller
         $user = Auth::user();
         $designations = Designation::all();
         $active = 'designation';
-        return view('admin.designation.index', compact('user', 'designations', 'active'));
+        $sections = Designation::where('class', "B")->get();
+        $designations = Designation::where('class', "C")->get();
+        $otherDes = Designation::where('class', "A")->get();
+        return view('admin.designation.index', compact('user', 'designations', 'sections', 'otherDes', 'active'));
+    }
+    public function store(Request $request){
+        // dd($request->all());
+        $formFields = $request->validate([
+            'name' => 'required',
+            'class' => 'required',
+            'section' => 'nullable',
+        ]);
+
+        Designation::create($formFields);
+        return redirect()->back()->with('success', 'Designation Added Successfully!');
+    }
+    public function update(Request $request, Designation $designation){
+        // dd($request->all(), $designation);
+        $formFields = $request->validate([
+            'name' => 'required',
+        ]);
+        $designation->update($formFields);
+        return redirect()->back()->with('success', $designation->name . ' Updated Successfully!');
+    }
+    public function destroy(Request $request){
+        // dd($request->all());
+        Designation::findOrFail($request->input('id'))->delete();
+        return redirect()->back()->with('success', 'Designation Deleted Successfully!');
     }
 }
