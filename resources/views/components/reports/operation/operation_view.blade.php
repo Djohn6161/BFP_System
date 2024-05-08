@@ -150,7 +150,7 @@ th {
                 <hr>
                 <br>
                 <h5 class="my-4 fw-bolder">8. Breathing Apparatus Used:</h5>
-                 <table class="table table-bordered">
+                 <table class="table table-bordered border-dark">
                     <tr>
                       <th>Nr.</th>
                       <th>Type/Kind</th>
