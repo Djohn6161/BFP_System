@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="col d-flex justify-content-start mb-2">
-            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
+            <a href="{{ route('operation.index') }}" class="btn btn-primary">Back</a>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
@@ -408,7 +408,7 @@
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row" id="thirdAddApor">
                                     <h3></h3>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-12 mb-3">
                                         <label for="fundCommander" class="form-label">Rank /
                                             Name</label>
                                         <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
@@ -420,10 +420,29 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Designation</label>
-                                        <input type="text" placeholder="Designation" class="form-control"
-                                            name="duty_designation[]">
+
+
+                                    <div class="row m-0 p-0 designationContainer">
+                                        <div class="col-lg-12">
+                                            <div class="row m-0 p-0">
+                                                <div class="col-lg-6 m-0 p-0">
+                                                    <label for="designation" class="form-label me-2">Designation</label>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select designation" aria-label=""
+                                                    name="duty_designation[]">
+                                                    <option value="" selected>Select Designation</option>
+                                                    <option value="1">Joshua</option>
+                                                </select>
+                                                <button type="button"
+                                                    class=" ms-1 btn btn-outline-danger remove-designation">x</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <label for="firefighterDeath" class="form-label">Remarks</label>
@@ -495,6 +514,10 @@
 
     <script>
         $(document).ready(function() {
+            // Remove dynamically added input field
+            $(document).on('click', '.removeInput', function() {
+                $(this).closest('.col-lg-6').remove();
+            });
             $('#divApor').on('click', '.remove-section-btn', function() {
                 // Find the parent div of the clicked remove button and remove it
                 $(this).closest('.remove-button-container').remove();
@@ -541,7 +564,7 @@
             $('#addNewDutyPersonnelAtFireScene').click(function() {
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" name="duty_designation[]"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -550,6 +573,20 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
+                mnewDiv.find('.designation').select2();
+            });
+            $(document).on('click', '.addDesignation', function() {
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation").select2();
+            });
+            $(document).on('click', '.remove-designation', function() {
+                $(this).closest('.col-lg-6').remove();
             });
 
             $('#photos').on('change', function() {

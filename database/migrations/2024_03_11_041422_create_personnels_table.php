@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
             $table->foreignId('ranks_id')->constrained('ranks')->onUpdate('cascade');
+            $table->foreignId('designation_id')->constrained('designations')->onUpdate('cascade');
             $table->string('account_number');
             $table->integer('item_number')->nullable();
             $table->string('first_name');
