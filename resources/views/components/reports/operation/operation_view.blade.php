@@ -44,35 +44,25 @@
                 <br>
                 <hr>    
 
-                <table class="table   table-striped">
-                    <tr>
-                        <th>ENGINE DISPATCHED:</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>TIME DISPATCHED:</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>TIME ARRIVED AT FIRE SCENE:</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>RESPONSE TIME:</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>TIME RETURNED TO BASE:</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>WATER TANK REFILLED(GAL):</th>
-                        <td class="text-break">DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>GAS CONSUMED(L):</th>
-                        <td class="text-break">  DETAILS HERE</td>
-                    </tr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ENGINE DISPATCHED</th>
+                            <th class="text-center">TIME DISPATCHED</th>
+                            <th class="text-center">TIME ARRIVED AT FIRE SCENE</th>
+                            <th class="text-center">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
+                            <th class="text-center">TIME RETURNED TO BASE</th>
+                            <th class="text-center">WATER TANK REFILLED (GAL)</th>
+                            <th class="text-center">GAS COSUMED (L)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                dtbgn
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <br>
                 <hr>
