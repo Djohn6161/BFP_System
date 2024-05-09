@@ -87,11 +87,15 @@
                     </tr>
                     <tr>
                         <th>Time/Date Under Control:</th>
-                        <td class="text-break">{{ $operation->td_under_control }}</td>
+
+                        <td class="text-break">
+                            {{ \Carbon\Carbon::parse($operation->td_under_control)->format('F j, Y | g:i:s A') }}</td>
                     </tr>
                     <tr>
                         <th>Time/Date Declared Fire Out:</th>
-                        <td class="text-break">{{ $operation->td_declared_fireout }}</td>
+                        <td class="text-break">
+                            {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
+                        </td>
                     </tr>
                 </table>
                 <br>
@@ -233,34 +237,48 @@
                         frame, legend, location, north arrow and scale)</span>
                 </h5>
                 <div class="ps-5 row">
-                        <div class="col-sm-4">
-                            <div class="card">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            @if ($operation->sketch_of_fire_operation == null)
                                 <div class="card-body p-1">
-                                    <a href="#" data-toggle="lightbox" data-gallery="example-gallery">
-                                        <img style="height: 350px; object-fit: cover;" class="w-100" src="#" alt="Sample Image">
-                                    </a>
+                                    <h3>No photos</h3>
                                 </div>
-                            </div>
+                            @else
+                                @php
+                                    if ($operation->sketch_of_fire_operation != '') {
+                                        $photos = explode(',', $operation->sketch_of_fire_operation);
+                                    }
+                                @endphp
+                                <div class="card-body p-1">
+                                    @foreach ($photos as $photo)
+                                        <img style="height: 350px; object-fit: cover;" class="w-100"
+                                            src="/assets/images/operation_images/{{ $photo }}"
+                                            alt="Sample Image">
+                                    @endforeach
+                                </div>
+                            @endif
+
                         </div>
+                    </div>
                 </div>
                 <br>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">Details(Narrative)</h5>
                 <div class="ps-5">
-                    {{$operation->details}}
+                    {{ $operation->details }}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">Problem/s Rencountered during Operation:</h5>
                 <div class="ps-5">
-                    {{$operation->problem_encounter}}
+                    {{ $operation->problem_encounter }}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">Observation/Recommendation</h5>
                 <div class="ps-5">
-                    {{$operation->observation_recommendation}}
+                    {{ $operation->observation_recommendation }}
                 </div>
             </div>
             <div class="modal-footer">
