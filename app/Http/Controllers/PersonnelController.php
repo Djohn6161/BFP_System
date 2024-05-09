@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
+use App\Models\Designation;
 use Illuminate\Http\Request;
 use App\Models\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,8 @@ class PersonnelController extends Controller
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
         $personnelCount = count($personnels);
-
-        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'));
+        $designations = Designation::all();
+        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
     }
 
     public function personnelView($id)
@@ -39,7 +40,6 @@ class PersonnelController extends Controller
         $files = explode(',', $personnel->files);
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
-
         $files = explode(',', $personnel->files);
         return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
     }
@@ -149,7 +149,8 @@ class PersonnelController extends Controller
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
         $files = explode(',', $personnel->files);
-        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
+        $designations = Designation::all();
+        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'designations'));
     }
 
     public function personnelUpdate(Request $request)

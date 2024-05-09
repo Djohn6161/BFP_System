@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Afor;
-use App\Models\AforLog;
 use App\Models\Truck;
+use App\Models\AforLog;
 use App\Models\Barangay;
 use App\Models\Response;
 use App\Models\Occupancy;
@@ -18,7 +18,6 @@ use App\Models\Used_equipment;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 
 
@@ -44,6 +43,7 @@ class OperationController extends Controller
         $trucks = Truck::all();
         $alarm_list = Alarm_name::all();
         $occupancy_names = Occupancy_name::all();
+
         return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names'));
     }
 

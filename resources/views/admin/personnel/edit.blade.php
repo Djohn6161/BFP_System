@@ -278,9 +278,16 @@
                                     value="{{ $personnel->unit_assignment }}">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation" name="designation" value="{{ $personnel->designation }}">
+                                <div class="col-lg-12">
+                                    <label for="designationSelect" class="form-label">Designation</label>
+                                    <br>
+                                    <select class="form-control edit-designation-select" id="designationSelect" aria-label="designationSelect" name="designation">
+                                        <option selected>Open this select menu</option>
+                                        @foreach ($designations as $designation)
+                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-lg-12 mb-3">
