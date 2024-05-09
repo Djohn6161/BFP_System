@@ -35,7 +35,7 @@
                                             <th class="border-bottom-0">Truck Name</th>
                                             <th class="border-bottom-0">Plate Number</th>
                                             <th class="border-bottom-0">Status</th>
-                                            <th class="border-bottom-0">Action</th>
+                                            <th class="border-bottom-0 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">

@@ -7,6 +7,23 @@
     .reports-collapse.active:hover {
         color: #000 !important;
     }
+    .divider {
+    display: flex;
+    align-items: center;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #000;
+}
+
+.divider-text {
+    padding: 0 10px;
+    color: #000;
+    font-weight: bold;
+}
 </style>
 
 <!-- Sidebar Start -->
@@ -33,9 +50,9 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                <hr class="border border-dark border-1 opacity-100">
-                <b>REPORTS</b>
-                <hr class="border border-dark border-1 opacity-100">
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
+                <b class="px-2 m-1">REPORTS</b>
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
                 <li class="sidebar-item">
                     <a class="sidebar-link"  href="{{route('operation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'operation' ? 'active' : ''}}">
                         <span>
@@ -96,9 +113,9 @@
                         </div>
                     </div>
                 </li>
-                <hr class="border border-dark border-1 opacity-100">
-                <b>CONFIGURATION</b>
-                <hr class="border border-dark border-1 opacity-100">
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
+                <b class="px-2 m-1">CONFIGURATIONS</b>
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
 
                 <li class="sidebar-item">
                     <a class="sidebar-link"  href="{{route('admin.occupancy.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
@@ -109,7 +126,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                    <a class="sidebar-link"  href="{{route('admin.barangay.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>
                             <i class="ti ti-home"></i>
                         </span> 
@@ -125,7 +142,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                    <a class="sidebar-link"  href="{{route('admin.trucks.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>
                             <i class="ti ti-truck"></i>
                         </span> 
@@ -133,7 +150,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link"  href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                    <a class="sidebar-link"  href="{{route('admin.rank.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>
                             <i class="ti ti-report"></i>
                         </span> 
@@ -159,7 +176,7 @@
                                     </span>
                                     Occupancy
                                 </a>
-                                <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
+                                <a href="{{route('admin.barangay.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
@@ -217,9 +234,9 @@
                         </div>
                     </li>    
                 @endif
-                <hr class="border border-dark border-1 opacity-100">
-                <b>ACTIVITY</b>
-                <hr class="border border-dark border-1 opacity-100">
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
+                <b class="px-2 m-1">ACTIVITY</b>
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
                 @if (auth()->user()->type === 'admin')
                 <li class="sidebar-item">
                     <div class="accordion accordion-flush" class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
@@ -273,9 +290,9 @@
             @endif
 
                 {{-- Bottom --}}
-                <hr class="border border-dark border-1 opacity-100">
-                <b>ACCOUNT</b>
-                <hr class="border border-dark border-1 opacity-100">
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
+                <b class="px-2 m-1">ACCOUNT</b>
+                <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
                 <li class="sidebar-item">
                     <a class="sidebar-link"  href="{{ route(auth()->user()->type . '.account.admin') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>

@@ -14,7 +14,7 @@
                     <div class="col-lg-4">
                         <div class="mb-3">
                             <img id="previewPersonnelImage"
-                                src="{{ asset('assets/images/personnel_images/default.png') }}"
+                                src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
@@ -41,8 +41,7 @@
                                 <select class="form-select" id="rank" name="rank">
                                     <option selected>Select Rank</option>
                                     @foreach ($ranks as $rank)
-                                        <option value="{{ $rank->id }}">{{ $rank->slug }} - {{ $rank->name }}
-                                        </option>
+                                        <option value="{{$rank->id}}">{{$rank->slug}} - {{$rank->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,7 +79,7 @@
                                 <div class="col-lg-6">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" id="dateOfBirth"
-                                        name="date_of_birth">
+                                        value="date_of_birth">
                                 </div>
                             </div>
 
@@ -90,7 +89,7 @@
                                     <select class="form-select" id="maritalStatus" name="marital_status">
                                         <option value="" selected>Select marital status</option>
                                         @foreach ($maritals as $marital)
-                                            <option value="{{ $marital }}">{{ ucwords($marital) }}</option>
+                                            <option value="{{ $marital }}">{{ucwords($marital)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -99,7 +98,7 @@
                                     <select class="form-select" id="gender" name="gender">
                                         <option value="" selected>Select gender</option>
                                         @foreach ($genders as $gender)
-                                            <option value="{{ $gender }}">{{ ucwords($gender) }}</option>
+                                            <option value="{{ $gender }}">{{ucwords($gender)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -262,8 +261,7 @@
                                 <input class="form-control" type="file" id="file-input" style="display: none;"
                                     multiple name="files[]">
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary"
-                                        onclick="document.getElementById('file-input').click();">+ Choose File</button>
+                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
                                     <p id="file-count">No files selected</p>
                                 </div>
                             </div>
@@ -444,7 +442,7 @@
     $('#imagePersonnelInput').change(function() {
         var file = this.files[0];
         if (file) {
-            var reader = new FileReader();
+            var reader = new FileReader();  
             reader.onload = function(e) {
                 $('#previewPersonnelImage').attr('src', e.target.result);
             }

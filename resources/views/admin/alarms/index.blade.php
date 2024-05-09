@@ -38,10 +38,16 @@
                                                 <td class="border-bottom-0">
                                                 
                                                     <button href="editAlarmModal" class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
-                                                    data-bs-target="#editAlarmModal{{ $list->id }}">Update</button>
+                                                    data-bs-target="#editAlarmModal{{ $list->id }}">Update
+                                                    
+
+                                                    <i class="ti ti-pencil"></i>
+                                                </button>
                                                     <br>
                                                     <button type="button" class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteAlarmModalll{{ $list->id }}">Delete</button>
+                                                    data-bs-target="#deleteAlarmModalll{{ $list->id }}">Delete
+                                                    <i class="ti ti-trash"></i>
+                                                </button>
                                                     <x-alarm.delete :list="$list"></x-alarm.delete>
 
                                                 </td>

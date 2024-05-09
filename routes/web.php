@@ -4,6 +4,9 @@ use App\Models\Report;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogsController;
+use App\Http\Controllers\RankController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\LogsController;
@@ -13,6 +16,7 @@ use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
@@ -105,6 +109,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
 
+        //Barangay
+        Route::get('/barangay/index', [BarangayController::class, 'viewBarangay'])->name('barangay.index');
+        Route::post('/barangay/create', [BarangayController::class, 'createBarangay'])->name('barangay.create');
+        Route::put('/barangay/edit/{id}', [BarangayController::class, 'updateBarangay'])->name('barangay.edit');
+        Route::delete('/barangay/delete/{id}', [BarangayController::class, 'deleteBarangay'])->name('barangay.delete');
+        //Trucks
+        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
         //Alarms
         Route::get('/alarms/index', [AlarmController::class, 'alarmIndex'])->name('alarms.index');
         Route::post('/alarm/create', [AlarmController::class, 'alarmCreate'])->name('alarms.create');
@@ -162,7 +176,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
         Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
-    });
+    }); 
 
 
     // Investigation

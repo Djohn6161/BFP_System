@@ -19,4 +19,5 @@ $(document).ready(function () {
     $(".designation").select2({tags: true});
     $("#barangay-select").select2();
 
+    new DataTable('#barangayTable');
 });
