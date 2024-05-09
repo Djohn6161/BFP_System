@@ -33,7 +33,7 @@
                                                 <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->name }}</td>
                                                 <td>{{ $log->details }}</td>
-                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Null' }}
+                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
