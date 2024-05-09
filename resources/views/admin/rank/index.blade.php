@@ -36,7 +36,7 @@
                                                 <h6 class="fw-semibold mb-0">Slug</h6>
                                             </th>
                                             <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Action</h6>
+                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
                                             </th>
                                         </tr>
                                     </thead>
@@ -48,9 +48,15 @@
                                                 <td>{{ $rank->name }}</td>
                                                 <td>{{ $rank->slug }}</td>
                                                 <td class="border-bottom-0">
-                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editRankModal{{ $rank->id }}">Update</button>
+                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editRankModal{{ $rank->id }}">
+                                                        Update
+                                                        <i class="ti ti-pencil"></i>
+                                                    </button>
                                                     <br>
-                                                    <button data-bs-toggle="modal" data-bs-target="#deleteRankModal{{ $rank->id }}" class="btn btn-danger w-100 mb-1">Delete</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#deleteRankModal{{ $rank->id }}" class="btn btn-danger w-100 mb-1">
+                                                        Delete
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                                 

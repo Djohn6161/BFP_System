@@ -224,28 +224,16 @@
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Personnel Info
                                     </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse"> 
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Sample1
+                                    <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
+                                        Ranks
                                     </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Sample2
-                                    </a>
-                                    <a href="#" class="sidebar-link accordion-body ms-2 reports-collapse">
-                                        <span>
-                                            <i class="ti ti-caret-right"></i>
-                                        </span>
-                                        Sample3
+                                    <a href="{{ route('admin.designation.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'designation' ? 'active' : ''}}">
+                                        Designation
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </li>    
-                     
-                    
                 @endif
                 <hr class="flex-grow-1 m-2 border border-dark border-1 opacity-100">
                 <b class="px-2 m-1">ACTIVITY</b>

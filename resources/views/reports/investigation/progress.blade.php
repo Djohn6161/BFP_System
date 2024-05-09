@@ -45,7 +45,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($investigations as $investigation)
-                                            <x-reports.investigation.investigation-delete :type="'progress'" :investigation=$investigation></x-reports.investigation.investigation-delete>
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td class="border-bottom-0">
@@ -70,6 +69,8 @@
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $investigation->id }}"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                        <x-reports.investigation.investigation-delete :type="'progress'" :investigation=$investigation></x-reports.investigation.investigation-delete>
+
                                                 </td>
                                             </tr>
                                         @endforeach

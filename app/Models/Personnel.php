@@ -33,6 +33,9 @@ class Personnel extends Model
     public function aforDuty(){
         return $this->hasMany(Afor_duty_personnel::class, 'personnels_id');
     }
+    public function designation(){
+        return $this->belongsTo(Designation::class, 'designation_id');
+    }
     // public function crewReport(){
     //     return $this->hasMany(Crew::class, 'personnel_id');
     // }

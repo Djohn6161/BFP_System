@@ -15,9 +15,10 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\OccupancyController;
+use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\InvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,6 +149,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
         Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
         Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+
+        // Designation
+        Route::get('/designation/index',[DesignationController::class, 'designationIndex'])->name('designation.index');
+        Route::post('/designation/store', [DesignationController::class, 'store'])->name('designation.store');
+        Route::put('/designation/update/{designation}', [DesignationController::class, 'update'])->name('designation.update');
+        Route::delete('/designation/destroy', [DesignationController::class, 'destroy'])->name('designation.destroy');
 
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
