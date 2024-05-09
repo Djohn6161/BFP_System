@@ -193,7 +193,6 @@
                                             </div>
                                         @endforeach
 
-
                                     </div>
                                     <!-- Input fields will be appended here -->
                                 </div>
