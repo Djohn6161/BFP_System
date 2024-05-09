@@ -6,18 +6,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">For:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Subject:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->subject }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Date:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div> --}}
-                </div>
                 <hr>
                 <table class="table table-striped">
                     <tr>
@@ -245,8 +233,16 @@
                 <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be Attached): 
                     <span class="d-block" style="color: grey; font-style:italic; font-size:15px;">(Indicate the data frame, legend, location, north arrow and scale)</span>
                 </h5>
-                <div class="ps-5">
-                    Photo Here
+                <div class="ps-5 row">
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body p-1">
+                                    <a href="#" data-toggle="lightbox" data-gallery="example-gallery">
+                                        <img style="height: 350px; object-fit: cover;" class="w-100" src="#" alt="Sample Image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <br>
                 
