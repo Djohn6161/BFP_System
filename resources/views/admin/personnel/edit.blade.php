@@ -2,18 +2,6 @@
     .btn-reports {
         width: 200px
     }
-
-    /* Styles for file list container */
-    /* #file-list-container {
-        margin-top: 20px;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    } */
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -156,7 +144,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="tertiaryCourses" class="form-label ">Tertiary Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
                                                 id="editTertiaryCourse">+ ADD</button>
@@ -184,7 +172,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="postGraduateCourses" class="form-label">Post Graduate
                                                 Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
@@ -204,7 +192,6 @@
                                                     class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
                                             </div>
                                         @endforeach
-
 
                                     </div>
                                     <!-- Input fields will be appended here -->
@@ -317,6 +304,8 @@
                                             <button type="button" class="btn btn-danger"
                                                 onclick="deleteFile(this)">Delete</button>
                                         </div>
+                                    @else
+                                    <p>No files uploaded</p>
                                     @endif
                                 @endforeach
 

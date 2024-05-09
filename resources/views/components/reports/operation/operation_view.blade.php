@@ -232,8 +232,16 @@
                         the data
                         frame, legend, location, north arrow and scale)</span>
                 </h5>
-                <div class="ps-5">
-                    Photo Here
+                <div class="ps-5 row">
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body p-1">
+                                    <a href="#" data-toggle="lightbox" data-gallery="example-gallery">
+                                        <img style="height: 350px; object-fit: cover;" class="w-100" src="#" alt="Sample Image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <br>
 

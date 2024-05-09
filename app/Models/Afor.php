@@ -38,10 +38,7 @@ class Afor extends Model
     {
         return $this->hasMany(Declared_alarm::class, 'afor_id');
     }
-    public function usedEquipments()
-    {
-        return $this->hasMany(Used_equipment::class, 'afor_id');
-    }
+
     public function responses()
     {
         return $this->hasMany(Response::class, 'afor_id');
