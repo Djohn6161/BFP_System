@@ -46,6 +46,7 @@ class PersonnelController extends Controller
 
     public function personnelStore(Request $request)
     {
+
         $personnel = new Personnel();
 
         $personnel->fill([

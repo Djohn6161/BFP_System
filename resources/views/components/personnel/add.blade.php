@@ -253,7 +253,7 @@
                                     <select class="form-control designation-select" id="designationSelect" aria-label="designationSelect" name="designation">
                                         <option selected>Open this select menu</option>
                                         @foreach ($designations as $designation)
-                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                            <option value="{{ $designation->name }}">{{ $designation->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
