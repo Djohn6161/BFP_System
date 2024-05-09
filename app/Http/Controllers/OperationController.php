@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Afor;
 use App\Models\AforLog;
-use App\Models\AlarmName;
-use App\Models\Duty_personnel;
 use App\Models\Truck;
 use App\Models\Barangay;
 use App\Models\Response;
@@ -34,7 +32,7 @@ class OperationController extends Controller
         $responses = Response::all();
         $personnels = Personnel::all();
 
-        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels','responses'));
+        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels', 'responses'));
     }
 
     public function operationCreateForm()
@@ -794,22 +792,14 @@ class OperationController extends Controller
 
     public function operationDelete($id, Request $request)
     {
-        $request->validate([
-            'password' => 'required',
-        ]);
-
         $operation = Afor::find($id);
-        $user = Auth::user();
         $currentDateTime = Carbon::now();
         $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
 
-        if (Hash::check($request->input('password'), $user->password)) {
-            $operation->deleted_at = $formattedDateTime;
-            $operation->save();
-            return redirect()->back()->with('success', 'Data deleted successfully.');
-        } else {
-            return redirect()->back()->with('status', 'Admin password is not correct.');
-        }
+        $operation->deleted_at = $formattedDateTime;
+        $operation->save();
+
+        return redirect()->back()->with('success', 'Data deleted successfully.');
     }
 
     private function hasValues($array)

@@ -40,7 +40,7 @@
                                             </th>
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Action</h6>
-                                            </th>
+                                            </th>   
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,16 +73,15 @@
                                                         data-operation="{{ json_encode($operation) }}"
                                                         data-responses="{{ json_encode($operation->responses) }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1">View</button>
-                                                        <x-reports.operation.operation_view
-                                                        :operation="$operation"
-                                                        :responses="$responses"
-                                                        ></x-reports.operation.operation_view>
+                                                    <x-reports.operation.operation_view :operation="$operation"
+                                                        :responses="$responses"></x-reports.operation.operation_view>
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal"
+                                                        data-bs-target="#deleteModal{{$operation->id}}"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                    <x-reports.operation.delete :operation="$operation"> </x-reports.operation.delete>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -93,5 +92,4 @@
                     </div>
                 </div>
             </div>
-            <x-reports.operation.delete> </x-reports.operation.delete>
         @endsection

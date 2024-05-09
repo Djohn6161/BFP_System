@@ -39,8 +39,7 @@
                             <th class="text-center align-middle">ENGINE DISPATCHED</th>
                             <th class="text-center align-middle">TIME DISPATCHED</th>
                             <th class="text-center align-middle">TIME ARRIVED AT FIRE SCENE</th>
-                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT
-                                FIRE SCENE) in minutes</th>
+                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
                             <th class="text-center align-middle">TIME RETURNED TO BASE</th>
                             <th class="text-center align-middle">WATER TANK REFILLED (GAL)</th>
                             <th class="text-center align-middle">GAS COSUMED (L)</th>
@@ -87,7 +86,6 @@
                     </tr>
                     <tr>
                         <th>Time/Date Under Control:</th>
-
                         <td class="text-break">
                             {{ \Carbon\Carbon::parse($operation->td_under_control)->format('F j, Y | g:i:s A') }}</td>
                     </tr>
