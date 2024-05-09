@@ -12,7 +12,7 @@ class Declared_alarm extends Model
     public function afor(){
         return $this->belongsTo(Afor::class, 'afor_id');
     }
-    public function groundCommander(){
+    public function getgroundCommander(){
         return $this->belongsTo(Personnel::class, 'ground_commander');
     }
 }

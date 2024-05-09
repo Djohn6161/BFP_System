@@ -6,23 +6,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">For:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Subject:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->subject }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Date:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div> --}}
-                </div>
-                <hr>
                 <table class="table table-striped">
                     <tr>
                         <th>Alarm received (Time):</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->alarm_received }}</td>
                     </tr>
                     <tr>
                         <th>Caller/Reported/Transmitted by:</th>
@@ -30,19 +17,21 @@
                     </tr>
                     <tr>
                         <th>Office/Address of the Caller:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->caller_address }}</td>
                     </tr>
                     <tr>
                         <th>Personnel on duty who receive the alarm:</th>
-                        <td class="text-break">{{ $operation->received_by }}</td>
+                        <td class="text-break">
+                            {{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}
+                        </td>
                     </tr>
                     <tr>
                         <th>Location:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->full_location }}</td>
                     </tr>
                 </table>
                 <br>
-                <hr>    
+                <hr>
 
                 <table class="table table-striped">
                     <thead>
@@ -50,186 +39,198 @@
                             <th class="text-center align-middle">ENGINE DISPATCHED</th>
                             <th class="text-center align-middle">TIME DISPATCHED</th>
                             <th class="text-center align-middle">TIME ARRIVED AT FIRE SCENE</th>
-                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
+                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT
+                                FIRE SCENE) in minutes</th>
                             <th class="text-center align-middle">TIME RETURNED TO BASE</th>
                             <th class="text-center align-middle">WATER TANK REFILLED (GAL)</th>
                             <th class="text-center align-middle">GAS COSUMED (L)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                            <td class="text-break">
-                                DETAILS DHJGKJKJVKLCH
-                            </td>
-                        </tr>
+                        @foreach ($operation->responses as $response)
+                            <tr>
+                                <td class="text-break">
+                                    {{ $response->truck->name }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->time_dispatched }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->time_arrived_at_scene }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->response_duration }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->time_return_to_base }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->water_tank_refilled }}
+                                </td>
+                                <td class="text-break">
+                                    {{ $response->gas_consumed }}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <br>
                 <hr>
-                <table class="table   table-striped">
+                <table class="table table-striped">
                     <tr>
                         <th>Alarm Status:</th>
-                        <td class="text-break">  DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->alarm_status_arrival }}</td>
                     </tr>
                     <tr>
                         <th>First Responder:</th>
-                        <td class="text-break" id="view_first_responder"> DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->first_responder }}</td>
                     </tr>
                     <tr>
                         <th>Time/Date Under Control:</th>
-                        <td class="text-break">DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->td_under_control }}</td>
                     </tr>
                     <tr>
                         <th>Time/Date Declared Fire Out:</th>
-                        <td class="text-break" id="view_time_date_declared_fire_out">DETAILS HERE</td>
+                        <td class="text-break">{{ $operation->td_declared_fireout }}</td>
                     </tr>
                 </table>
                 <br>
+                <hr>
 
-                <hr> 
                 <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->specify }}
                 </div>
-
                 <hr>
                 <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{ $operation->getOccupancy->distance }}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">General Description of the structure/s involved:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{ $operation->getOccupancy->description }}
                 </div>
-
                 <hr>
                 <br>
+
                 <h5 class="my-4 fw-bolder">Total Number of Casualty Reported:</h5>
-                 <table class="table table-striped ">
+                <table class="table table-striped ">
                     <tr>
                         <th> </th>
                         <th>Injured</th>
                         <th>Death</th>
                     </tr>
-                    <tr>
-                        <th>Civilian</th>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>FireFighter</th>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
+                    @foreach ($operation->casualties as $casualty)
+                        @if ($casualty->type == 'civilian')
+                            <tr>
+                                <th>Civilian</th>
+                                <td>{{ $casualty->injured }}</td>
+                                <td>{{ $casualty->death }}</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <th>FireFighter</th>
+                                <td>{{ $casualty->injured }}</td>
+                                <td>{{ $casualty->death }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </table>
-
                 <hr>
                 <br>
-                <h5 class="my-4 fw-bolder">Breathing Apparatus Used:</h5>
-                 <table class="table table-striped ">
-                    <tr>
-                        <th>Nr.</th>
-                        <th>Type/Kind</th>
 
-                    </tr>
-                    <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
-                </table>
-
-                <hr>
-                <br>
                 <h5 class="my-4 fw-bolder">Time Alarm Status Declared:</h5>
-                 <table class="table   table-striped">
+                <table class="table   table-striped">
                     <tr>
-                      <th>Alarm Status</th>
-                      <th>Time</th>
-                      <th>Fund Commander</th>
+                        <th>Alarm Status</th>
+                        <th>Time</th>
+                        <th>Fund Commander</th>
                     </tr>
-                    <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
+                    @foreach ($operation->declaredAlarms as $alarm)
+                        <tr>
+                            <td>{{ $alarm->alarm_name }}</td>
+                            <td>{{ $alarm->time }}</td>
+                            <td>{{ $alarm->getGroundCommander->rank->slug . ' ' . $alarm->getGroundCommander->first_name . ' ' . $alarm->getGroundCommander->last_name }}
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
+                <hr>
+                <br>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">Extinguishing Agent Used:</h5>
-                   <table class="table table-striped ">
-                      <tr>
-                        <th>QTY.</th>
+                <h5 class="my-4 fw-bolder">Breathing Apparatus Used:</h5>
+                <table class="table table-striped ">
+                    <tr>
+                        <th>Qty.</th>
                         <th>Type/Kind</th>
+                    </tr>
+                    @foreach ($operation->getBreathingApparatus as $equipment)
+                        <tr>
+                            <td>{{ $equipment->quantity }}</td>
+                            <td>{{ $equipment->type }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+                <hr>
+                <br>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">Rope and Ladder Used:</h5>
-                   <table class="table table-striped">
-                      <tr>
-                        <th>Type</th>
-                        <th>Lenght</th>
+                <h5 class="my-4 fw-bolder">Extinguishing Agent Used:</h5>
+                <table class="table table-striped ">
+                    <tr>
+                        <th>Qty.</th>
+                        <th>Type/Kind</th>
+                    </tr>
+                    @foreach ($operation->getExtinguishingAgent as $equipment)
+                        <tr>
+                            <td>{{ $equipment->quantity }}</td>
+                            <td>{{ $equipment->type }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+                <hr>
+                <br>
 
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">Hose line Used:</h5>
-                   <table class="table table-striped">
-                      <tr>
+                <h5 class="my-4 fw-bolder">Rope and Ladder Used:</h5>
+                <table class="table table-striped ">
+                    <tr>
+                        <th>Type.</th>
+                        <th>Length</th>
+                    </tr>
+                    @foreach ($operation->getRopeAndLadder as $equipment)
+                        <tr>
+                            <td>{{ $equipment->type }}</td>
+                            <td>{{ $equipment->length }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+                <hr>
+                <br>
+
+                <h5 class="my-4 fw-bolder">Hose line Used::</h5>
+                <table class="table table-striped ">
+                    <tr>
                         <th>Nr.</th>
                         <th> TYPE/KIND</th>
                         <th>TOTAL ft</th>
-                      </tr>
-                      <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                      </tr>
-                    </table>
-
-                  <hr>
-                  <br>
-                  <h5 class="my-4 fw-bolder">Duty Personnel at the Fire Scene:</h5>
-                  <table class="table  table-striped">
-                    <tr>
-                        <th>Rank/Name</th></th>
-                        <th>Designation</th>
-                        <th>Remarks</th>
-                      </tr>
-                      <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
                     </tr>
+                    @foreach ($operation->getRopeAndLadder as $equipment)
+                        <tr>
+                            <td>{{ $equipment->nr }}</td>
+                            <td>{{ $equipment->type }}</td>
+                            <td>{{ $equipment->length }}</td>
+                        </tr>
+                    @endforeach
                 </table>
-
                 <hr>
-                <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be Attached): 
-                    <span class="d-block" style="color: grey; font-style:italic; font-size:15px;">(Indicate the data frame, legend, location, north arrow and scale)</span>
+                <br>
+
+                <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be
+                    Attached):
+                    <span class="d-block" style="color: grey; font-style:italic; font-size:15px;">(Indicate
+                        the data
+                        frame, legend, location, north arrow and scale)</span>
                 </h5>
                 <div class="ps-5">
                     Photo Here
@@ -239,21 +240,20 @@
                 <hr>
                 <h5 class="my-4 fw-bolder">Details(Narrative)</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{$operation->details}}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">Problem/s Rencountered during Operation:</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{$operation->problem_encounter}}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">Observation/Recommendation</h5>
                 <div class="ps-5">
-                    DETAILS HERE
+                    {{$operation->observation_recommendation}}
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
