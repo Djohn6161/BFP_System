@@ -118,6 +118,6 @@
     </div>
 
 
-    <x-personnel.add :category="$active" :ranks="$ranks" :maritals="$maritals" :genders="$genders"> </x-personnel.add>
+    <x-personnel.add :category="$active" :ranks="$ranks" :maritals="$maritals" :genders="$genders" :designations="$designations"> </x-personnel.add>
     {{-- <x-personnel.preview :category="$active"> </x-personnel.preview> --}}
 @endsection

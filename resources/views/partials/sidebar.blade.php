@@ -145,7 +145,7 @@
                     <a class="sidebar-link" href="{{ route('admin.alarms.index') }}"
                         class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>
-                            <i class="ti ti-alarm"></i>
+                            <i class="ti ti-bell-school"></i>
                         </span>
                         <span class="hide-menu">Alarm</span>
                     </a>
