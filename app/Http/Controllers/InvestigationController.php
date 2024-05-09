@@ -860,7 +860,7 @@ class InvestigationController extends Controller
             'action' => "Delete",
         ]);
         $log->save();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
         dd($minimal);
     }
     public function destroySpot(Request $request)
@@ -880,7 +880,7 @@ class InvestigationController extends Controller
         $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
         $investigation->touch();
         $investigation->save();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
     public function destroyProgress(Request $request)
     {
@@ -899,7 +899,7 @@ class InvestigationController extends Controller
         $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
         $investigation->touch();
         $investigation->save();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
     public function destroyFinal(Request $request)
     {
@@ -918,6 +918,6 @@ class InvestigationController extends Controller
         $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
         $investigation->touch();
         $investigation->save();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
 }

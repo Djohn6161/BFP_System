@@ -10,13 +10,14 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <h6>Are you sure you want to restore this subject: HAHAHAHA</h6>
+                    <h5 class="text-center">Are you sure you want to restore this Investigation?</h5>
+                    <h4 class="fw-bolder text-center text-danger">{{$investigation->subject}}</h4>
 
 
                 </div>
                 <div class="modal-footer">
                     <form method="POST"
-                        action="{{ route('admin.trash.investigation.restore', ['id' => $investigation->id]) }}"
+                        action="{{ route('admin.trash.investigation.restore', ['investigation' => $investigation->id]) }}"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

@@ -110,6 +110,19 @@ class TrashController extends Controller
             return redirect()->back()->with('status', 'Password Incorrect!');
         }
     }
+    public function trashInvestigationRestore(Investigation $investigation){
+        $investigation->deleted_at = null;
+        $investigation->save();
+        $log = new InvestigationLog();
+            $log->fill([
+                'investigation_id' => $investigation->id,
+                'user_id' => auth()->user()->id,
+                'details' => "Restored an Investigation with a subject of " . $investigation->subject . ", Created on " . $investigation->date,
+                'action' => "Update",
+            ]);
+            $log->save();
+            return redirect()->back()->with('success', 'Investigation Report Restored Successfully');
+    }
     /**
      * Show the form for creating a new resource.
      */

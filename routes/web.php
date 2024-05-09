@@ -130,7 +130,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //Trash Investigation
         Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
         Route::delete('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
-        Route::put('/trash/investigation/restore', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
+        Route::put('/trash/investigation/restore/{investigation}', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
         //Trucks
         Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
         Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
