@@ -57,7 +57,7 @@ class InvestigationSeeder extends Seeder
             } else if ($index <= 10) {
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
-                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->date(),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
@@ -84,7 +84,7 @@ class InvestigationSeeder extends Seeder
             } else if ($index <= 15) {
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
-                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'subject' => 'FIRE INCIDENT REPORTS -PROGRESS DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->date(),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
@@ -103,7 +103,7 @@ class InvestigationSeeder extends Seeder
             } else if ($index <= 20) {
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
-                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'subject' => 'FIRE INCIDENT REPORTS -FINAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->date(),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
