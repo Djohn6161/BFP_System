@@ -18,7 +18,8 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
                         <input type="hidden" value="{{ $type }}" name="type">
-                        <input type="text" class="form-control" id="name" name="name"
+                        <input type="hidden" name="user_id" id="edit_user_id">
+                        <input type="text" class="form-control" id="edit_name" name="name"
                             placeholder="Enter Name">
                     </div>
                     @if ($type == 'user')
@@ -26,7 +27,7 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="privileges" class="form-label">Privileges:</label>
-                                    <select class="form-select" name="privilege" id="privilege">
+                                    <select class="form-select" name="privilege" id="edit_privilege">
                                         <option value="OC">Operation Clerk</option>
                                         <option value="IC">Investigation Clerk</option>
                                     </select>
@@ -37,27 +38,18 @@
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email"
+                        <input type="email" class="form-control" id="edit_email" name="email"
                             placeholder="Enter Email">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Current Password:</label>
-                        <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Enter Current Password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Enter Password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Confirm Password:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Confirm Password"
-                            name="confirm_password">
+                        <label for="password" class="form-label">Admin Confirmation Password:</label>
+                        <input type="password" class="form-control" id="edit_admin_confirmation_password"
+                            placeholder="Confirm Password"name="admin_confirm_password">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="submit" class="btn btn-primary">Update Account</button>
                 </div>
             </form>
         </div>
@@ -67,13 +59,15 @@
 <script>
     $('#editAccountModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
-        var userData = button.data('user');
-        var user = JSON.parse(userData);
+        var user = button.data('user');
+        var type = button.data('type');
 
-        // Populate form fields with user data
-        $('#name').val(user.name);
-        $('#privilege').val(user.privilege);
-        $('#email').val(user.email);
-        // Populate other form fields as needed
+        $('#edit_name').val(user.name);
+        $('#edit_user_id').val(user.id);
+        $('#edit_email').val(user.email);
+        if (type == 'user') {
+            $('#edit_privilege').val(user.privilege);
+        }
+
     });
 </script>

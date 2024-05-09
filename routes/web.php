@@ -103,7 +103,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
-        Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
+        Route::delete('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
         Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
 
         //Barangay
@@ -124,13 +124,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         //Trash Operation
         Route::get('/trash/operation/index', [TrashController::class, 'trashOperationIndex'])->name('trash.operation.index');
-        Route::get('/trash/operation/delete', [TrashController::class, 'trashOperationDelete'])->name('trash.operation.delete');
-        Route::get('/trash/operation/restore', [TrashController::class, 'trashOperationRestore'])->name('trash.operation.restore');
+        Route::delete('/trash/operation/delete/{id}', [TrashController::class, 'trashOperationDelete'])->name('trash.operation.delete');
+        Route::put('/trash/operation/restore/{id}', [TrashController::class, 'trashOperationRestore'])->name('trash.operation.restore');
 
         //Trash Investigation
         Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
         Route::get('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
         Route::get('/trash/investigation/restore', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
+
         //Trucks
         Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
         Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
@@ -172,7 +173,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-        Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
+        Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
     }); 
 
 

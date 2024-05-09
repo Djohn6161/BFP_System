@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
 use App\Models\Spot;
-use App\Models\Trash;
-use App\Models\Minimal;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class TrashController extends Controller
 {
@@ -15,39 +16,61 @@ class TrashController extends Controller
      * Display a listing of the resource.
      */
 
-     //Operation
-    public function trashOperationIndex()   
+    //Operation
+    public function trashOperationIndex()
     {
         return view('admin.trash.operation.index', [
             'active' => 'Operation',
             'user' => Auth::user(),
-            // 'minimals' => Minimal::all(),
-            'investigations' => Investigation::latest()->get(),
-            'spots' => Spot::all(),
+            'operations' => Afor::whereNotNull('deleted_at')->get(),
         ]);
     }
 
-
-    public function trashOperationDelete($id)
+    public function trashOperationRestore($id)
     {
-        $investigations = Investigation::findorFail($id);
+        $operation = Afor::find($id);
+        $operation->deleted_at = null;
+        $operation->save();
 
-        $investigations->delete();
-        return redirect()->back()->with('success', 'Operation Report deleted successfully');
+        return redirect()->back()->with('success', 'Operation report restored successfully');
     }
-     //Investigation
-     public function trashinvestigationIndex()   
-     {
+
+
+    public function trashOperationDelete($id, Request $request)
+    {
+        $profile = $request->user();
+
+        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
+            $operation = Afor::findorFail($id);
+            $publicPath = public_path() . '/assets/images/operation_images/';
+
+            if ($operation->sketch_of_fire_operation != '') {
+                $photos = explode(',', $operation->sketch_of_fire_operation);
+
+                foreach ($photos as $photo) {
+                    File::delete($publicPath . $photo);
+                }
+
+                $operation->delete();
+            }
+            return redirect()->back()->with('success', 'Operation Report deleted successfully');
+        } else {
+            return redirect()->back()->with('status', "Admin password confirmation doesn't match.");
+        }
+
+    }
+    //Investigation
+    public function trashinvestigationIndex()
+    {
         return view('admin.trash.investigation.index', [
             'active' => 'Investigation',
             'user' => Auth::user(),
-            // 'minimals' => Minimal::all(),
             'investigations' => Investigation::latest()->get(),
             'spots' => Spot::all(),
         ]);
-     }
+    }
 
-     public function trashInvestigationDelete($id)
+    public function trashInvestigationDelete($id)
     {
         $investigations = Investigation::findorFail($id);
 
@@ -89,7 +112,7 @@ class TrashController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request )
+    public function update(Request $request)
     {
         //
     }
