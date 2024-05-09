@@ -5,7 +5,7 @@
     }
 </style>
 
-<div class="modal fade" tabindex="-1" id="viewOperationModal">
+<div class="modal fade" tabindex="-1" id="viewOperationModal{{ $operation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,76 +13,64 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark"></div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Subject:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->subject }}</b></div> --}}
-                </div>
-                <div class="row p-2">
-                    <div class="col-sm-2 text-dark">Date:</div>
-                    {{-- <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div> --}}
-                </div>
-                <hr>
                 <table class="table table-bordered border-dark table-striped">
                     <h5 class="my-4 fw-bolder">1.</h5>
                     <tr>
                         <th style="color: black;">Alarm received (Time):</th>
-                        <td class="text-break" id="view_alarm_received"></td>
+                        <td class="text-break">{{ $operation->alarm_received }}</td>
                     </tr>
                     <tr>
                         <th>Caller/Reported/Transmitted by:</th>
-                        <td class="text-break" id="view_transmitted_by"></td>
+                        <td class="text-break">{{ $operation->transmitted_by }}</td>
                     </tr>
                     <tr>
                         <th style="color: black;">Office/Address of the Caller:</th>
-                        <td class="text-break" id="view_caller_address"></td>
+                        <td class="text-break">{{ $operation->caller_address }}</td>
                     </tr>
                     <tr>
                         <th>Personnel on duty who receive the alarm:</th>
-                    <td class="text-break" id="view_received_by"></td>
+                        <td class="text-break">{{ $operation->received_by }}</td>
                     </tr>
                     <tr>
                         <th style="color: black;">Location:</th>
-                        <td class="text-break" id="view_location"></td>
+                        <td class="text-break" id="view_location">{{ $operation->full_location }}</td>
                     </tr>
                 </table>
                 <br>
                 <hr>
-
-                <table class="table table-bordered border-dark table-striped">
-                    <h5 class="my-4 fw-bolder">2.</h5>
-                    <tr>
-                        <th style="color: black;">ENGINE DISPATCHED:</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>TIME DISPATCHED:</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th style="color: black;">TIME ARRIVED AT FIRE SCENE:</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>RESPONSE TIME:</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th style="color: black;">TIME RETURNED TO BASE:</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th>WATER TANK REFILLED(GAL):</th>
-                        <td class="text-break">DETAILS HERE</td>
-                    </tr>
-                    <tr>
-                        <th style="color: black;">GAS CONSUMED(L):</th>
-                        <td class="text-break"> DETAILS HERE</td>
-                    </tr>
-                </table>
+                @foreach ($responses as $response)
+                        <table class="table table-bordered border-dark table-striped">
+                            <h5 class="my-4 fw-bolder">2.</h5>
+                            <tr>
+                                <th style="color: black;">ENGINE DISPATCHED:</th>
+                                <td class="text-break">{{$response->truck->name}}</td>
+                            </tr>
+                            <tr>
+                                <th>TIME DISPATCHED:</th>
+                                <td class="text-break">{{$response->time_dispatched}}</td>
+                            </tr>
+                            <tr>
+                                <th style="color: black;">TIME ARRIVED AT FIRE SCENE:</th>
+                                <td class="text-break">{{$response->time_arrived_at_scene}}</td>
+                            </tr>
+                            <tr>
+                                <th>RESPONSE TIME:</th>
+                                <td class="text-break">{{$response->response_duration}}</td>
+                            </tr>
+                            <tr>
+                                <th style="color: black;">TIME RETURNED TO BASE:</th>
+                                <td class="text-break">{{$response->time_return_to_base}}</td>
+                            </tr>
+                            <tr>
+                                <th>WATER TANK REFILLED(GAL):</th>
+                                <td class="text-break">{{$response->water_tank_refilled}}</td>
+                            </tr>
+                            <tr>
+                                <th style="color: black;">GAS CONSUMED(L):</th>
+                                <td class="text-break">{{$response->gas_consumed}}</td>
+                            </tr>
+                        </table>
+                @endforeach
                 <br>
                 <hr>
                 <table class="table table-bordered border-dark table-striped">
@@ -95,7 +83,7 @@
                         <th>First Responder:</th>
                         <td class="text-break" id="view_first_responder"> DETAILS HERE</td>
                     </tr>
-                   <tr>
+                    <tr>
                         <th style="color: black;">Time/Date Under Control:</th>
                         <td class="text-break" id="view_td_under_control">DETAILS HERE</td>
                     </tr>
@@ -285,7 +273,10 @@
     $('#viewOperationModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var operation = button.data('operation');
+        var responses = button.data('responses');
+        console.log(responses);
 
+        // Intro
         $('#view_alarm_received').text(operation.alarm_received);
         $('#view_transmitted_by').text(operation.transmitted_by);
         $('#view_caller_address').text(operation.caller_address);
@@ -297,6 +288,9 @@
         $('#view_details_narrative').text(operation.details);
         $('#view_problems_rencountered_during_operation').text(operation.problem_encounter);
         $('#view_observation_recommendation').text(operation.observation_recommendation);
+
+        $('#view_alarm_received').text(operation.alarm_received);
+
 
 
     });

@@ -69,9 +69,14 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#viewOperationModal"
+                                                        data-bs-target="#viewOperationModal{{ $operation->id }}"
                                                         data-operation="{{ json_encode($operation) }}"
+                                                        data-responses="{{ json_encode($operation->responses) }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                        <x-reports.operation.operation_view
+                                                        :operation="$operation"
+                                                        :responses="$responses"
+                                                        ></x-reports.operation.operation_view>
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
@@ -89,5 +94,4 @@
                 </div>
             </div>
             <x-reports.operation.delete> </x-reports.operation.delete>
-            <x-reports.operation.operation_view :operation="$operation"></x-reports.operation.operation_view>
         @endsection

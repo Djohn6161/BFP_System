@@ -31,9 +31,10 @@ class OperationController extends Controller
         $user = Auth::user();
         $active = 'operation';
         $operations = Afor::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
-
+        $responses = Response::all();
         $personnels = Personnel::all();
-        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels'));
+
+        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels','responses'));
     }
 
     public function operationCreateForm()

@@ -59,8 +59,7 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href=""
-                                                        class="btn btn-success w-100 mb-1">Update</a>
+                                                    <a href="" class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
                                                     <a href="#" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $investigation->id }}"
