@@ -45,7 +45,7 @@
                     <a class="sidebar-link" href="{{ route(auth()->user()->type . '.dashboard') }}"
                         aria-expanded="false">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class="ti ti-layout-dashboard" style="color: #5D87FF"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -76,7 +76,7 @@
                                 
                                 <a href="{{route('investigation.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'investigation' ? 'active' : ''}}" > 
                                     <span>
-                                        <i class="ti ti-category"></i>
+                                        <i class="ti ti-category" style="color: lightskyblue;"></i>
                                     </span>
                                     All
                                 </a>
@@ -136,7 +136,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link"  href="{{ route('admin.alarms.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse">
                         <span>
-                            <i class="ti ti-alarm"></i>
+                            <i class="ti ti-bell-school"></i>
                         </span> 
                         <span class="hide-menu">Alarm</span>
                     </a>
@@ -221,6 +221,7 @@
                                     data-bs-parent="#personnelAccordion">
                                     
                                     <a href="{{route('admin.personnel.index')}}" class="sidebar-link accordion-body ms-2 reports-collapse"> 
+                                        <span><i class="ti ti-caret-right"></i></span>
                                         Personnel Info
                                     </a>
                                     <a href="{{ route('admin.rank.index') }}" class="sidebar-link accordion-body ms-2 reports-collapse {{$active == 'rank' ? 'active' : ''}}"> 
