@@ -11,7 +11,7 @@
                     <div class=" col-lg-12 card">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-semibold text-center">Other Designations
+                                <h5 class="card-title fw-semibold mb-4">Occupancy Names
                                     <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                 </h5>
                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
