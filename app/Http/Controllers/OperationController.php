@@ -255,6 +255,7 @@ class OperationController extends Controller
                     foreach ($duty_designations[$key] as $designation) {
                         $designationModel = new Afor_designation();
                         $designationModel->afor_id = $afor_id;
+                        $designationModel->key = $key;
                         $designationModel->name = $designation;
                         $designationModel->save();
                     }

@@ -228,6 +228,20 @@
                 <hr>
                 <br>
 
+                <h5 class="my-4 fw-bolder">Duty Personnrl at the Fire Scene:</h5>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Rank/Name</th>
+                        <th>Designation</th>
+                        <th>Remarks</th>
+                    </tr>
+                    <tr>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                        <td>DETAILS HERE</td>
+                    </tr>
+                </table>
+
                 <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be
                     Attached):
                     <span class="d-block" style="color: grey; font-style:italic; font-size:15px;">(Indicate
