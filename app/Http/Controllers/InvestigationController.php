@@ -839,7 +839,6 @@ class InvestigationController extends Controller
         
         $investigation->delete();
         return redirect()->back()->with('message', 'Investigation Deleted Successfully');
-        dd($minimal);
     }
     public function destroySpot(Request $request){
         $spot = Spot::findOrFail($request->input('id'));

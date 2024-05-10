@@ -49,7 +49,13 @@ class OperationController extends Controller
 
     public function operationStore(Request $request)
     {
-        //Afor
+        $request->validate([
+            'alarm_received' => 'required|string|max:255',
+            'transmitted_by' => 'required|string|max:255',
+            'caller_address' => 'required|string|max:255',
+            'received_by' => 'required',
+        ]);
+
         $afor = new Afor();
         if ($request->has('location')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
@@ -58,10 +64,10 @@ class OperationController extends Controller
         }
 
         $afor->fill([
-            'alarm_received' => $request->input('alarm_received') ?? '',
-            'transmitted_by' => $request->input('transmitted_by') ?? '',
-            'caller_address' => $request->input('caller_address') ?? '',
-            'received_by' => $request->input('received_by') ?? '',
+            'alarm_received' => $request->input('alarm_received'),
+            'transmitted_by' => $request->input('transmitted_by'),
+            'caller_address' => $request->input('caller_address'),
+            'received_by' => $request->input('received_by'),
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
