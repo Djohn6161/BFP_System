@@ -19,7 +19,6 @@ class PersonnelSeeder extends Seeder
 
             $attributes = [
                 // 'departments_id' => $faker->numberBetween(1, 3),
-                'designation_id' => $faker->numberBetween(1, 49),
                 'ranks_id' => $faker->numberBetween(1, 13),
                 'account_number' => 101010,
                 'item_number' => 12,
@@ -43,7 +42,6 @@ class PersonnelSeeder extends Seeder
                 'appointment_status' => 'status',
                 'unit_code' => '123',
                 'unit_assignment' => 'asiignment',
-                'designation' => 'destination',
                 'admin_operation_remarks' => 'remarks',
             ];
 
