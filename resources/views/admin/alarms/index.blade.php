@@ -22,7 +22,7 @@
                         <div class="card-body p-4">
                             <h5 class="card-title fw-semibold mb-4">Alarms</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="operationTable">
+                                <table class="table mb-0 align-middle w-100" id="alarmTable">
                                     <thead class="text-dark fs-4 ">
                                         <tr>
                                             <th class="border-bottom-0 text-center"> Alarm Name</th>
