@@ -14,7 +14,7 @@ class LogsController extends Controller
         $user = Auth::user();
 
         return view('admin.logs.investigation.viewLogs', [
-            'active' => 'viewLogs',
+            'active' => 'viewInvestigationLogs',
             'user' => $user,
             'logs' => InvestigationLog::all(),
         ]);
@@ -25,7 +25,7 @@ class LogsController extends Controller
         $user = Auth::user();
 
         return view('admin.logs.operation.viewLogs', [
-            'active' => 'viewLogs',
+            'active' => 'viewOperationLogs',
             'user' => $user,
             'logs' => AforLog::all(),
             
