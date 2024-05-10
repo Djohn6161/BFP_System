@@ -9,7 +9,7 @@
                 <div class="col d-flex justify-content-end mb-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class="ti ti-plus"></i>
                         </span>
                         <span class="hide-menu">Add Personnel</span>
                     </button>

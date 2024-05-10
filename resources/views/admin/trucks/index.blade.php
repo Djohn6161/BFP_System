@@ -15,7 +15,10 @@
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addTruckModal">Create</button>
+                        data-bs-target="#addTruckModal">
+                        <i class="ti ti-plus"></i>
+                        Create
+                    </button>
                     <x-truck.create :category="$active"></x-truck.create>
                 </div>
                 {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

@@ -13,8 +13,12 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <a href="{{ route('operation.create.form') }}" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addAlarmModal">Create</a>
+                    <button href="{{ route('operation.create.form') }}" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addAlarmModal">
+                    <i class="ti ti-plus"></i>
+                    Create
+                    
+                </button>
               
                 </div>
                 <div class="col-lg-12 d-flex align-items-stretch">

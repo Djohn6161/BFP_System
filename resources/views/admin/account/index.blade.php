@@ -15,7 +15,7 @@
                 <div class="col d-flex justify-content-end mb-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class="ti ti-plus"></i>
                         </span>
                         <span class="hide-menu">Create Account</span>
                     </button>
@@ -48,34 +48,50 @@
                                                 <td class="border-bottom-0">
                                                     <h6 class="mb-0 fw-normal">{{ $account->email }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
-                                                    <a class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
-                                                        data-bs-target="#editAccountModal"
-                                                        data-user="{{ json_encode($account) }}"
-                                                        data-type="{{ $type }}">Edit Profile</a>
-                                                    <br>
-                                                    <a class="btn btn-primary w-100 mb-1"
-                                                        data-bs-toggle="modal" data-bs-target="#updatePasswordModal"
-                                                        data-account-id="{{ $account->id }}">Change Password</a>
-                                                    <br>
-                                                    <a href="#" class="btn btn-danger w-100 mb-1"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteAccountModal"
-                                                        data-account-id="{{ $account->id }}">Delete</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                <td class="border-bottom-0 w-25 py-2">
+                                                    <div class="d-flex flex-row">
+                                                        <div class="me-1">
+                                                            <button class="btn btn-success mb-1" data-bs-toggle="modal"
+                                                                data-bs-target="#editAccountModal"
+                                                                data-user="{{ json_encode($account) }}"
+                                                                data-type="{{ $type }}">
+                                                                Edit Profile
+                                                                <i class="ti ti-pencil"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="me-1">
+                                                            <button class="btn btn-primary mb-1" data-bs-toggle="modal"
+                                                                data-bs-target="#updatePasswordModal"
+                                                                data-account-id="{{ $account->id }}">
+                                                                Change Password
+                                                                <i class="ti ti-key"></i>
+                                                            </button>
+                                                        </div>
 
-                                        <!-- Add more static data rows as needed -->
-                                    </tbody>
-                                </table>
+                                                        <div class="me-1">
+                                                            <button href="#" class="btn btn-danger mb-1"
+                                                                data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
+                                                                data-account-id="{{ $account->id }}">
+                                                                Delete
+                                                                <i class="ti ti-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                             </div>
+                            </td>
+                            </tr>
+                            @endforeach
+
+                            <!-- Add more static data rows as needed -->
+                            </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Removed custom blade components -->
         </div>
+        <!-- Removed custom blade components -->
+    </div>
     </div>
     <x-account.create :category="$active" :type="$type"> </x-account.create>
     <x-account.edit :category="$active" :type="$type"> </x-account.edit>

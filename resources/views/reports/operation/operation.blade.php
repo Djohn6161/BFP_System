@@ -13,7 +13,11 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    <a href="{{ route('operation.create.form') }}" class="btn btn-primary">Create</a>
+                    <button href="{{ route('operation.create.form') }}" class="btn btn-primary">
+                        <i class="ti ti-plus"></i>
+                        Create
+                       
+                    </button>
                 </div>
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
@@ -72,15 +76,21 @@
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
                                                         data-operation="{{ json_encode($operation) }}"
                                                         data-responses="{{ json_encode($operation->responses) }}"
-                                                        class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                        class="btn btn-primary hide-menu w-100 mb-1">View
+                                                        <i class="ti ti-eye"></i>
+                                                    </button>
                                                     <x-reports.operation.operation_view :operation="$operation"
                                                         :responses="$responses"></x-reports.operation.operation_view>
-                                                    <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
-                                                        class="btn btn-success w-100 mb-1">Update</a>
+                                                    <button href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
+                                                        class="btn btn-success w-100 mb-1">Update
+                                                        <i class="ti ti-pencil"></i>
+                                                    </button>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{$operation->id}}"
-                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
                                                     <x-reports.operation.delete :operation="$operation"> </x-reports.operation.delete>
                                                 </td>
                                             </tr>

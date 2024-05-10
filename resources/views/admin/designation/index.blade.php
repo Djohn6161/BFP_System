@@ -15,7 +15,11 @@
                                     <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                 </h5>
                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#addOtherDesignationModal">Add Designation</button>
+                                    data-bs-target="#addOtherDesignationModal">
+                                    <i class="ti ti-plus"></i>
+                                    
+                                    Add Designation
+                                </button>
                             </div>
 
                             <div>
