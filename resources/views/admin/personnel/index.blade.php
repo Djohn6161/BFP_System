@@ -20,7 +20,8 @@
                         <div class="card-body p-4">
 
                             <!-- Display Total Personnel -->
-                            <h5 class="fw-semibold mb-4">BFP - Personnel
+                            <h5 class="card-title fw-semibold mb-4 p-3 rounded bg-gradient-blue text-light">
+                                BFP - Personnel
                                 <span class=" ms-3 badge rounded-pill bg-secondary">{{ $personnelCount }}</span>
                             </h5>
 
