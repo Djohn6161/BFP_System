@@ -8,8 +8,8 @@
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
-                        @csrf
-
+                        @csrf 
+                        
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
