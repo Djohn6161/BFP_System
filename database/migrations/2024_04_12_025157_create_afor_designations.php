@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('afor_designations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('afor_id')->nullable()->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('key');
             $table->string('name');
             $table->timestamps();
         });
