@@ -20,7 +20,8 @@
                         <div class="card-body p-4">
 
                             <!-- Display Total Personnel -->
-                            <h5 class="fw-semibold mb-4">BFP - Ranks
+                            <h5 class="card-title fw-semibold mb-4 p-3 rounded bg-gradient-blue text-light">
+                                Ranks
                                 <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                             </h5>
 
@@ -42,8 +43,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($ranks as $rank)
-                                        <x-rank.edit :rank="$rank"> </x-rank.edit>
-                                        <x-rank.delete :rank="$rank"> </x-rank.delete>
+                                            <x-rank.edit :rank="$rank"> </x-rank.edit>
+                                            <x-rank.delete :rank="$rank"> </x-rank.delete>
                                             <tr>
                                                 <td>{{ $rank->name }}</td>
                                                 <td>{{ $rank->slug }}</td>
@@ -67,7 +68,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                                
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -80,4 +80,3 @@
     </div>
     <x-rank.create :category="$active"> </x-rank.create>
 @endsection
-
