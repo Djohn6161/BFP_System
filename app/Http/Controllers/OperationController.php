@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor_designation;
 use Carbon\Carbon;
 use App\Models\Afor;
 use App\Models\Truck;
@@ -11,6 +12,7 @@ use App\Models\Response;
 use App\Models\Occupancy;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
+use App\Models\Designation;
 use Illuminate\Http\Request;
 use App\Models\Declared_alarm;
 use App\Models\Occupancy_name;
@@ -43,12 +45,14 @@ class OperationController extends Controller
         $trucks = Truck::all();
         $alarm_list = Alarm_name::all();
         $occupancy_names = Occupancy_name::all();
+        $designations = Designation::all();
 
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names'));
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations'));
     }
 
     public function operationStore(Request $request)
     {
+
         $request->validate([
             'alarm_received' => 'required|string|max:255',
             'transmitted_by' => 'required|string|max:255',
@@ -236,7 +240,7 @@ class OperationController extends Controller
 
         // Duty Personnel
         $duty_personnel_ids = $request->input('duty_personnel_id', []);
-        $duty_designation = $request->input('duty_designation', []);
+        $duty_designations = $request->input('duty_designation', [[]]);
         $duty_remarks = $request->input('duty_remarks', []);
 
         if ($this->hasValues($duty_personnel_ids)) {
@@ -244,12 +248,19 @@ class OperationController extends Controller
                 $personnel = new Afor_duty_personnel();
                 $personnel->afor_id = $afor_id;
                 $personnel->personnels_id = $duty_personnel_id;
-                $personnel->designation = isset($duty_designation[$key]) ? $duty_designation[$key] : '';
                 $personnel->remarks = isset($duty_remarks[$key]) ? $duty_remarks[$key] : '';
                 $personnel->save();
+
+                if (isset($duty_designations[$key])) {
+                    foreach ($duty_designations[$key] as $designation) {
+                        $designationModel = new Afor_designation();
+                        $designationModel->afor_id = $afor_id;
+                        $designationModel->name = $designation;
+                        $designationModel->save();
+                    }
+                }
             }
         }
-
 
         // Photos
         $files = $request->file('sketch_of_fire_operation');

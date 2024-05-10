@@ -424,9 +424,12 @@
                                         <div class="col-lg-6 mb-3">
                                             <div class="d-flex align-items-center">
                                                 <select class="form-select designation" aria-label=""
-                                                    name="duty_designation[]">
+                                                    name="duty_designation[0][0]">
                                                     <option value="" selected>Select Designation</option>
-                                                    <option value="1">Joshua</option>
+                                                    @foreach ($designations as $designation)
+                                                        <option value="{{ $designation->name }}">{{ $designation->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <button type="button"
                                                     class=" ms-1 btn btn-outline-danger remove-designation">x</button>
@@ -502,6 +505,9 @@
     </div>
 
     <script>
+
+        var parentCounter = 0;
+        var childCounter = 0;
         $(document).ready(function() {
             // Remove dynamically added input field
             $(document).on('click', '.removeInput', function() {
@@ -551,9 +557,12 @@
             });
 
             $('#addNewDutyPersonnelAtFireScene').click(function() {
+                parentCounter++;
+                childCounter=0;
+                console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation['+ parentCounter +']['+ childCounter +']"> <option value="" selected>Select Designation</option> @foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -565,238 +574,239 @@
                 mnewDiv.find('.designation').select2();
             });
             $(document).on('click', '.addDesignation', function() {
-                // console.log("hello");
-                var inputField =
-                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+                    childCounter++;
+                    console.log(parentCounter, childCounter);
+                    // console.log("hello");
+                    var inputField =
+                        '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation['+ parentCounter +']['+ childCounter +']"> <option value="" selected>Select Designation</option>@foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach</select><button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button></div></div>';
                 // $(".designationContainer").append(inputField);
                 $(this).closest('.designationContainer').append(inputField);
 
                 // inputField.find('.designation').select2();
                 $(".designation").select2();
+            }); $(document).on('click', '.remove-designation', function() {
+            $(this).closest('.col-lg-6').remove();
+        });
+
+        $('#photos').on('change', function() {
+            var files = $(this)[0].files; // Get the files selected
+            var container = $('#image-preview-container'); // Get the preview container
+
+            // Clear previous previews
+            container.empty();
+
+            // Loop through each file
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+
+                // Closure to capture the file information.
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Create image preview
+                        var imgPreview = $(
+                            '<div class="image-preview mb-1">' +
+                            '<img class="img-thumbnail" src="' + e.target.result +
+                            '" alt="' + file.name + '">' +
+                            '</div>'
+                        );
+
+                        // Append image preview to the container
+                        container.append(imgPreview);
+
+                        // Create filename container with flex layout
+                        var fileInfoContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                        );
+
+                        // Filename element
+                        var fileInfo = $(
+                            '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                            .name + '</div>');
+
+                        // Remove button
+                        var removeBtn = $(
+                            '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                        );
+
+                        // Append filename and remove button to container
+                        fileInfoContainer.append(fileInfo);
+                        fileInfoContainer.append(removeBtn);
+
+                        // Append the filename container to the preview container
+                        container.append(fileInfoContainer);
+
+                        // Remove button click event
+                        removeBtn.click(function() {
+                            imgPreview.remove(); // Remove the image preview
+                            $(this).closest('.d-flex')
+                                .remove(); // Remove the flex container
+                            $('#photos').val(
+                                ''); // Clear the file input (if needed)
+                        });
+                    };
+                })(file);
+
+                // Read in the image file as a data URL
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $('#addNewBreathingApparatus').click(function() {
+            // Clone the first row (assuming it's the row you want to duplicate)
+            var newRow = $('.breathing-apparatus:first').clone();
+
+            // Reset input values in the cloned row (if needed)
+            newRow.find('input').val('');
+
+            // Update the header text to reflect "New Fire Engine Response Details"
+            var newHeaderText = "";
+            var newHeader = $('<h3></h3>').text(newHeaderText);
+
+            // Create a flex container for the header and button
+            var flexContainer = $(
+                '<div class="d-flex justify-content-between align-items-center"></div>');
+            flexContainer.append(newHeader); // Append the new header to the flex container
+
+            // Create and append the removal ('X') button
+            var removeButton = $(
+                '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+            removeButton.click(function() {
+                var rowToRemove = $(this).closest('.breathing-apparatus');
+                var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                // Remove both the row and the preceding <hr> element
+                rowToRemove.remove();
+                hrToRemove.remove();
             });
-            $(document).on('click', '.remove-designation', function() {
-                $(this).closest('.col-lg-6').remove();
+            flexContainer.append(removeButton); // Append the remove button to the flex container
+
+            // Replace the existing header with the flex container
+            newRow.find('h3').replaceWith(flexContainer);
+
+            // Insert the cloned row before the button
+            $(this).parent().before(newRow);
+
+            // Add <hr> tag after each cloned row for visual separation
+            $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+        });
+
+        $('#addNewExtinguishingAgent').click(function() {
+            // Clone the first row (assuming it's the row you want to duplicate)
+            var newRow = $('.extinguishing-agent:first').clone();
+
+            // Reset input values in the cloned row (if needed)
+            newRow.find('input').val('');
+
+            // Update the header text to reflect "New Fire Engine Response Details"
+            var newHeaderText = "";
+            var newHeader = $('<h3></h3>').text(newHeaderText);
+
+            // Create a flex container for the header and button
+            var flexContainer = $(
+                '<div class="d-flex justify-content-between align-items-center"></div>');
+            flexContainer.append(newHeader); // Append the new header to the flex container
+
+            // Create and append the removal ('X') button
+            var removeButton = $(
+                '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+            removeButton.click(function() {
+                var rowToRemove = $(this).closest('.extinguishing-agent');
+                var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+
+                // Remove both the row and the preceding <hr> element
+                rowToRemove.remove();
+                hrToRemove.remove();
             });
+            flexContainer.append(removeButton); // Append the remove button to the flex container
 
-            $('#photos').on('change', function() {
-                var files = $(this)[0].files; // Get the files selected
-                var container = $('#image-preview-container'); // Get the preview container
+            // Replace the existing header with the flex container
+            newRow.find('h3').replaceWith(flexContainer);
 
-                // Clear previous previews
-                container.empty();
+            // Insert the cloned row before the button
+            $(this).parent().before(newRow);
 
-                // Loop through each file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
+            // Add <hr> tag after each cloned row for visual separation
+            $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+        });
 
-                    // Closure to capture the file information.
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create image preview
-                            var imgPreview = $(
-                                '<div class="image-preview mb-1">' +
-                                '<img class="img-thumbnail" src="' + e.target.result +
-                                '" alt="' + file.name + '">' +
-                                '</div>'
-                            );
+        $('#addNewRopeAndLadder').click(function() {
+            // Clone the first row (assuming it's the row you want to duplicate)
+            var newRow = $('.rope-ladder:first').clone();
 
-                            // Append image preview to the container
-                            container.append(imgPreview);
+            // Reset input values in the cloned row (if needed)
+            newRow.find('input').val('');
 
-                            // Create filename container with flex layout
-                            var fileInfoContainer = $(
-                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                            );
+            // Update the header text to reflect "New Fire Engine Response Details"
+            var newHeaderText = "";
+            var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                            // Filename element
-                            var fileInfo = $(
-                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
-                                .name + '</div>');
+            // Create a flex container for the header and button
+            var flexContainer = $(
+                '<div class="d-flex justify-content-between align-items-center"></div>');
+            flexContainer.append(newHeader); // Append the new header to the flex container
 
-                            // Remove button
-                            var removeBtn = $(
-                                '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                            );
+            // Create and append the removal ('X') button
+            var removeButton = $(
+                '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+            removeButton.click(function() {
+                var rowToRemove = $(this).closest('.rope-ladder');
+                var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                            // Append filename and remove button to container
-                            fileInfoContainer.append(fileInfo);
-                            fileInfoContainer.append(removeBtn);
-
-                            // Append the filename container to the preview container
-                            container.append(fileInfoContainer);
-
-                            // Remove button click event
-                            removeBtn.click(function() {
-                                imgPreview.remove(); // Remove the image preview
-                                $(this).closest('.d-flex')
-                                    .remove(); // Remove the flex container
-                                $('#photos').val(
-                                    ''); // Clear the file input (if needed)
-                            });
-                        };
-                    })(file);
-
-                    // Read in the image file as a data URL
-                    reader.readAsDataURL(file);
-                }
+                // Remove both the row and the preceding <hr> element
+                rowToRemove.remove();
+                hrToRemove.remove();
             });
+            flexContainer.append(removeButton); // Append the remove button to the flex container
 
-            $('#addNewBreathingApparatus').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.breathing-apparatus:first').clone();
+            // Replace the existing header with the flex container
+            newRow.find('h3').replaceWith(flexContainer);
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+            // Insert the cloned row before the button
+            $(this).parent().before(newRow);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
+            // Add <hr> tag after each cloned row for visual separation
+            $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+        });
 
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
+        $('#addNewHoseLine').click(function() {
+            // Clone the first row (assuming it's the row you want to duplicate)
+            var newRow = $('.hose-line:first').clone();
 
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.breathing-apparatus');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
+            // Reset input values in the cloned row (if needed)
+            newRow.find('input').val('');
 
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
+            // Update the header text to reflect "New Fire Engine Response Details"
+            var newHeaderText = "";
+            var newHeader = $('<h3></h3>').text(newHeaderText);
 
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
+            // Create a flex container for the header and button
+            var flexContainer = $(
+                '<div class="d-flex justify-content-between align-items-center"></div>');
+            flexContainer.append(newHeader); // Append the new header to the flex container
 
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
+            // Create and append the removal ('X') button
+            var removeButton = $(
+                '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
+            removeButton.click(function() {
+                var rowToRemove = $(this).closest('.hose-line');
+                var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
 
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                // Remove both the row and the preceding <hr> element
+                rowToRemove.remove();
+                hrToRemove.remove();
             });
+            flexContainer.append(removeButton); // Append the remove button to the flex container
 
-            $('#addNewExtinguishingAgent').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.extinguishing-agent:first').clone();
+            // Replace the existing header with the flex container
+            newRow.find('h3').replaceWith(flexContainer);
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+            // Insert the cloned row before the button
+            $(this).parent().before(newRow);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.extinguishing-agent');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
-
-            $('#addNewRopeAndLadder').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.rope-ladder:first').clone();
-
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
-
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.rope-ladder');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
-
-            $('#addNewHoseLine').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.hose-line:first').clone();
-
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
-
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.hose-line');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
+            // Add <hr> tag after each cloned row for visual separation
+            $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+        });
         });
     </script>
 @endsection
