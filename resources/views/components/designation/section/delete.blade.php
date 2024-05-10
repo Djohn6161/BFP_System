@@ -13,8 +13,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h3>Are you sure you want to delete this Section, <b class="fw-bolder text-danger"> including all Designation under it</b>?</h3>
-                        <h4 class="fw-bolder text-center text-danger">{{$section->name}}</h4>
+                        <h5 class="text-center">Are you sure you want to delete this Section, <span class="fw-bolder text-warning"> including all designations under it</span>?</h5>
+                        <h4 class="fw-bolder text-center text-danger mt-4">{{$section->name}}</h4>
                     </div>
                 </div>
                 <div class="modal-footer">
