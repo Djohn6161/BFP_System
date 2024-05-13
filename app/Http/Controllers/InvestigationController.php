@@ -920,4 +920,12 @@ class InvestigationController extends Controller
         $investigation->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
+    public function printSpot(Spot $spot){
+        // dd($spot);
+        return view('reports.investigation.spot.printable', [
+            'active' => 'spot',
+            'user' => Auth::user(),
+            'spot' => $spot,
+        ]);
+    }
 }

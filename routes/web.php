@@ -194,6 +194,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
         Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
         Route::delete('/spot/destroy', [InvestigationController::class, 'destroySpot'])->name('spot.destroy');
+        Route::get('/spot/print/{spot}', [InvestigationController::class, 'printSpot'])->name('spot.print');
 
 
         Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
