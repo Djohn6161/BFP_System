@@ -71,15 +71,17 @@
                                                             <button class="btn btn-success w-100 mb-1"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editRankModal{{ $rank->id }}">
-                                                                Update
                                                                 <i class="ti ti-pencil"></i>
+                                                                Update
+                                                                
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
                                                             <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteRankModal{{ $rank->id }}">
-                                                                Delete
                                                                 <i class="ti ti-trash"></i>
+                                                                Delete
+                                                                
                                                             </button>
                                                         </div>
                                                     </div>

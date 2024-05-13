@@ -89,21 +89,26 @@
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
                                                         data-operation="{{ json_encode($operation) }}"
                                                         data-responses="{{ json_encode($operation->responses) }}"
-                                                        class="btn btn-primary hide-menu w-100 mb-1">View
+                                                        class="btn btn-primary hide-menu w-100 mb-1">
                                                         <i class="ti ti-eye"></i>
+                                                        View
+                                                       
                                                     </button>
                                                     <x-reports.operation.operation_view :operation="$operation"
                                                         :responses="$responses"></x-reports.operation.operation_view>
                                                     <a
                                                         href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
-                                                        class="btn btn-success w-100 mb-1">Update
+                                                        class="btn btn-success w-100 mb-1">
                                                         <i class="ti ti-pencil"></i>
+                                                        Update
+                                                        
                                                     </a>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $operation->id }}"
-                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete
+                                                        class="btn btn-danger hide-menu w-100 mb-1">
                                                         <i class="ti ti-trash"></i>
+                                                        Delete
                                                     </button>
                                                     <x-reports.operation.delete :operation="$operation">
                                                     </x-reports.operation.delete>
