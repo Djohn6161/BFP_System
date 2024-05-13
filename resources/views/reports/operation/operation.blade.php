@@ -31,10 +31,10 @@
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
                                 <h5 class="mb-0 text-light card-title fw-semibold">Operation Reports</h5>
-                                <button type="button" class="btn btn-light" href="{{ route('operation.create.form') }}">
+                                <a type="button" class="btn btn-light" href="{{ route('operation.create.form') }}">
                                     <i class="ti ti-plus"></i>
                                     Create
-                                </button>
+                                </a>
                                 <x-truck.create :category="$active"></x-truck.create>
                             </div>
                             <div class="table-responsive">
