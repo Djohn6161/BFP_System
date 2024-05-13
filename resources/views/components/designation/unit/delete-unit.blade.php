@@ -14,8 +14,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h3>Are you sure you want to delete this designation?</h3>
-                        <h4 class="fw-bolder text-center text-danger">{{$designation->name}}</h4>
+                        <h5 class="text-center">Are you sure you want to delete this designation?</h5>
+                        <h4 class="fw-bolder text-center mt-4 text-danger">{{$designation->name}}</h4>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -72,17 +72,16 @@
                                                     <td class="border-bottom-0">
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewMinimalModal{{ $investigation->id }}"
-                                                            class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
                                                         <x-reports.Investigation.view-minimal
                                                             :investigation=$investigation></x-reports.Investigation.view-minimal>
-
                                                         <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
-                                                            class="btn btn-success w-100 mb-1">Update</a>
+                                                            class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
 
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                            class="btn btn-danger hide-menu w-100 mb-1"><i class="ti ti-trash"></i> Delete</button>
                                                         <x-reports.investigation.investigation-delete :type="'minimal'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                     </td>
@@ -96,16 +95,16 @@
                                                     <td class="border-bottom-0">
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewSpotModal{{ $investigation->id }}"
-                                                            class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
                                                         <x-reports.Investigation.view-spot
                                                             :investigation=$investigation></x-reports.Investigation.view-spot>
 
                                                         <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
-                                                            class="btn btn-success w-100 mb-1">Update</a>
+                                                            class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                            class="btn btn-danger hide-menu w-100 mb-1"><i class="ti ti-trash"></i> Delete</button>
                                                         <x-reports.investigation.investigation-delete :type="'spot'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                     </td>
@@ -119,16 +118,16 @@
                                                     <td class="border-bottom-0">
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewProgressModal{{ $investigation->id }}"
-                                                            class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
                                                         <x-reports.Investigation.view-progress
                                                             :investigation=$investigation></x-reports.Investigation.view-progress>
 
                                                         <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
-                                                            class="btn btn-success w-100 mb-1">Update</a>
+                                                            class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                            class="btn btn-danger hide-menu w-100 mb-1"><i class="ti ti-trash"></i> Delete</button>
                                                         <x-reports.investigation.investigation-delete :type="'progress'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                     </td>
@@ -142,17 +141,17 @@
                                                     <td class="border-bottom-0">
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewFinalModal{{ $investigation->id }}"
-                                                            class="btn btn-primary hide-menu w-100 mb-1">View</button>
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
                                                         <x-reports.Investigation.view-final
                                                             :investigation=$investigation></x-reports.Investigation.view-final>
                                                         <x-reports.investigation.investigation-delete :type="'final'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                         <a href="{{ route('investigation.final.edit', ['final' => $investigation->id]) }}"
-                                                            class="btn btn-success w-100 mb-1">Update</a>
+                                                            class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                            class="btn btn-danger hide-menu w-100 mb-1"><i class="ti ti-trash"></i> Delete</button>
                                                     </td>
                                                 @endif
                                                 </td>

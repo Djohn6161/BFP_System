@@ -24,7 +24,7 @@
             <label for="date" class="form-label">DATE:</label>
             <input type="date" placeholder=" Eg. march 02, 2013" id="date" name="date"
                 class="form-control {{ $errors->has('date') != '' ? 'is-invalid' : '' }}"
-                value="{{ old('date') ?? ($spot->investigation->date ?? date('Y-m-d')) }}" required>
+                value="{{ old('date') ?? ($spot->investigation->date ?? Illuminate\Support\Carbon::now()->format('Y-m-d')) }}" required>
             @error('date')
                 <span class="text-danger alert" role="alert">{{ $message }}</span>
             @enderror

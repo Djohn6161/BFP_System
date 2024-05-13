@@ -46,7 +46,7 @@
                                             <tr class="text-center">
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0"> {{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}</h6>
+                                                    <h6 class="fw-semibold mb-0"> {{ \Carbon\Carbon::parse($investigation->deleted_at)->format('F j, Y') }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>

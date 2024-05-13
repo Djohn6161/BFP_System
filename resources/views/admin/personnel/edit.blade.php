@@ -260,27 +260,47 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion" value="{{ $personnel->last_date_promotion }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status"
                                     value="{{ $personnel->appointment_status }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode"
                                     name="unit_code" value="{{ $personnel->unit_code }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment"
                                     value="{{ $personnel->unit_assignment }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation" name="designation" value="{{ $personnel->designation }}">
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignationEdit">+ ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 ps-0">
+                                        <div class="d-flex align-items-center">
+                                            <select class="form-control designation-select-edit" id="designationSelect" aria-label="designationSelect" name="designation">
+                                                <option selected>Open this select menu</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button"
+                                                class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-lg-12 mb-3">
@@ -359,6 +379,20 @@
             // Remove dynamically added input field
             $(document).on('click', '.removePostGraduateInputEdit', function() {
                 $(this).closest('.col-lg-12').remove();
+            });
+
+            $(document).on('click', '.addPersonnelDesignationEdit', function() {
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select-edit" aria-label="designationSelect" name="designation"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->id }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button> </div> </div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation-select-edit").select2();
+            });
+            $(document).on('click', '.remove-edit-personnel-designation', function() {
+                $(this).closest('.col-lg-6').remove();
             });
         });
 
