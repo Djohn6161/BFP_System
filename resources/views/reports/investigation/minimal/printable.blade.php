@@ -216,6 +216,27 @@
         .rounded {
             border-radius: 0.25rem;
         }
+
+        .photo .row {
+        margin-right: 0;
+        margin-left: 0;
+        }
+
+        .photo .col-sm-4 {
+            flex: 0 0 50%; /* Set column width to 50% to fit two photos in a row */
+            max-width: 50%;
+            padding-right: 0; /* Remove padding */
+            padding-left: 0; /* Remove padding */
+            
+
+        }
+
+        .photo .card {
+            margin-bottom: 0; /* Remove margin bottom for cards */
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 </head>
 
@@ -363,18 +384,11 @@
                     $photos = explode(', ', $minimal->photos);
                 }
             @endphp
-            <div class="ps-5 row">
+            <div class="row">
                 @foreach ($photos as $photo)
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body p-1">
-                                <a href="{{ asset('storage/minimal/' . $photo) }}" data-toggle="lightbox"
-                                    data-gallery="example-gallery">
-                                    <img style="height: 350px; object-fit: cover;" class="w-100"
-                                        src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
-                                </a>
-                            </div>
-                        </div>
+                    <div class="col-sm-4 col-lg-4" style="margin-right: 1px">
+                        <img style="height: 200px; object-fit: cover; width: 80%" class=""
+                            src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
                     </div>
                 @endforeach
             </div>
