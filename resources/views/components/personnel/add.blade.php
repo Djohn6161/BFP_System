@@ -231,31 +231,44 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control"
                                     id="unitCode" name="unit_code">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <div class="col-lg-12">
-                                    <label for="designationSelect" class="form-label">Designation</label>
-                                    <br>
-                                    <select class="form-control designation-select" id="designationSelect" aria-label="designationSelect" name="designation">
-                                        <option selected>Open this select menu</option>
-                                        @foreach ($designations as $designation)
-                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignation">+ ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 ps-0">
+                                        <div class="d-flex align-items-center">
+                                            <select class="form-control designation-select" id="designationSelect" aria-label="designationSelect" name="designation">
+                                                <option selected>Open this select menu</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button"
+                                                class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-3">
@@ -297,6 +310,19 @@
     //personnel file upload
     $(document).ready(function() {
         $('#file-input').change(handleFileSelect);
+        $(document).on('click', '.addPersonnelDesignation', function() {
+            // console.log("hello");
+            var inputField =
+                '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select" aria-label="designationSelect" name="designation"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->id }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button> </div> </div>';
+            // $(".designationContainer").append(inputField);
+            $(this).closest('.designationContainer').append(inputField);
+
+            // inputField.find('.designation').select2();
+            $(".designation-select").select2({dropdownParent: $("#addPersonnelModal")});
+        });
+        $(document).on('click', '.remove-personnel-designation', function() {
+            $(this).closest('.col-lg-6').remove();
+        });
     });
 
     function handleFileSelect(event) {

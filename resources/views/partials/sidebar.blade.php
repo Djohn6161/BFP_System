@@ -1,31 +1,3 @@
-{{-- <style>
-    .reports-collapse.active {
-        background-color: #5D87FF;
-        color: #fff !important;
-    }
-
-    .reports-collapse.active:hover {
-        color: #000 !important;
-    }
-    .divider {
-    display: flex;
-    align-items: center;
-}
-
-.divider::before,
-.divider::after {
-    content: "";
-    flex: 1;
-    border-top: 1px solid #000;
-}
-
-.divider-text {
-    padding: 0 10px;
-    color: #000;
-    font-weight: bold;
-}
-</style> --}}
-
 <!-- Sidebar Start -->
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -46,7 +18,7 @@
                     <a class="sidebar-link" href="{{ route(auth()->user()->type . '.dashboard') }}"
                         aria-expanded="false">
                         <span>
-                            <i class="ti ti-layout-dashboard" style="color: #5D87FF"></i>
+                            <i class="ti ti-layout-dashboard"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -73,18 +45,18 @@
                                     <span class="hide-menu">Investigation</span>
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse"
+                            <div id="collapseOne" class="accordion-collapse {{ ($active == 'investigation' || $active == 'minimal') || ($active == 'spot' || $active == 'progress') || ($active == 'final') ? '' : 'collapse' }}"
                                 data-bs-parent="#accordionExample">
 
                                 <a href="{{ route('investigation.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
+                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'bg-primary text-light' : '' }}">
                                     <span>
-                                        <i class="ti ti-category" style="color: lightskyblue;"></i>
+                                        <i class="ti ti-category"></i>
                                     </span>
                                     All
                                 </a>
                                 <a href="{{ route('investigation.minimal.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'minimal' ? 'active' : '' }}"
+                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'minimal' ? 'bg-primary text-light' : '' }}"
                                     href="{{ route(auth()->user()->type . '.dashboard') }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
@@ -92,21 +64,21 @@
                                     Minimal
                                 </a>
                                 <a href="{{ route('investigation.spot.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'spot' ? 'active' : '' }}">
+                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'spot' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
                                     Spot
                                 </a>
                                 <a href="{{ route('investigation.progress.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'progress' ? 'active' : '' }}">
+                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'progress' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
                                     Progress
                                 </a>
                                 <a href="{{ route('investigation.final.index') }}"
-                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'final' ? 'active' : '' }}">
+                                    class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'final' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
@@ -200,16 +172,16 @@
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse collapse"
+                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' ? '' : 'collapse' }}"
                                     data-bs-parent="#logsAccordion">
 
                                     <a href="{{ route('admin.logs.operation.viewLogs') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewOperationLogs' ? 'bg-primary text-light' : '' }}">
                                         <span> <i class="ti ti-caret-right"></i></span>
                                         Operation
                                     </a>
                                     <a href="{{ route('admin.logs.investigation.viewLogs') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewInvestigationLogs' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
                                     </a>
@@ -229,15 +201,15 @@
                                         <span class="hide-menu">Trash</span>
                                     </button>
                                 </h2>
-                                <div id="collapseTrash" class="accordion-collapse collapse"
+                                <div id="collapseTrash" class="accordion-collapse {{ $active == 'Investigation' || $active == 'Operation' ? '' : 'collapse' }}"
                                     data-bs-parent="#trashAccordion">
                                     <a href="{{ route('admin.trash.operation.index') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Operation' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Operation
                                     </a>
                                     <a href="{{ route('admin.trash.investigation.index') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Investigation' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
                                     </a>
