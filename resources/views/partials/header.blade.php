@@ -1,7 +1,7 @@
 <!-- Header Start -->
 
-<header class="app-header bg-info-subtle">
-    <nav class="navbar navbar-expand-lg navbar-light">
+<header class="app-header">
+    <nav class="navbar navbar-expand-lg navbar-succes">
         <div class="navbar-nav">
             <div class="nav-item d-block d-xl-none">
                 <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="nav-item">
-                <div id="page-title" style="font-weight: bold; font-size: 24px;"></div>
+                {{-- <div id="page-title" style="font-weight: bold; font-size: 24px;"></div> --}}
             </div>
         </div>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
