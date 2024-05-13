@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('afor_duty_personnels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->nullable()->constrained('afors')->onupdate('cascade')->onDelete('set null');
+            $table->foreignId('afor_id')->nullable()->constrained('afors')->onupdate('cascade')->onDelete('cascade');
             $table->foreignId('personnels_id')->nullable()->constrained('personnels')->onUpdate('cascade')->onDelete('set null');
             $table->string('designation');
             $table->string('remarks')->nullable();
