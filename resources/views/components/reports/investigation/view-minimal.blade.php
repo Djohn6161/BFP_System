@@ -144,7 +144,7 @@
                 <hr>
                 <h3 class="my-4 fw-bolder ">PHOTOGRAPH OF FIRE SCENE</h3>
                 @if ($investigation->photos == '' || $investigation->photos == null)
-                    <div class="w-100 text-center fw-bolder">None photos found!</div>
+                    <div class="w-100 text-center fw-bolder">No photos found!</div>
                 @else
                     @php
                         if ($investigation->photos != '') {
