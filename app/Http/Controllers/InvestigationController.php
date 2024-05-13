@@ -928,4 +928,27 @@ class InvestigationController extends Controller
             'spot' => $spot,
         ]);
     }
+    public function printMinimal(Minimal $minimal){
+        // dd($spot);
+        return view('reports.investigation.minimal.printable', [
+            'active' => 'minimal',
+            'user' => Auth::user(),
+            'minimal' => $minimal,
+        ]);
+    }
+    public function printProgress(Progress $progress){
+        return view('reports.investigation.progress.printable', [
+            'active' => 'progress',
+            'user' => Auth::user(),
+            'progress' => $progress,
+        ]);
+    }
+    public function printFinal(Ifinal $final){
+        return view('reports.investigation.final.printable',[
+            'active' => 'final',
+            'user' => Auth::user(),
+            'final' => $final,
+        ]);
+    }
+
 }
