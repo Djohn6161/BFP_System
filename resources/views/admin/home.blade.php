@@ -1,14 +1,9 @@
 @extends('layouts.user-template')
 @section('content')
-<style>
-    .custom-icon {
-        font-size: 2rem; /* Adjust the size as needed */
-    }
-</style>
-    <div class="container-fluid position-relative py-0" style="height: 90vh; top: 10vh">
+    <div class="container-fluid position-relative py-0" style="top: 10vh">
         <!--  Row 1 -->
         <div class="d-flex justify-content-center">
-            <div class="col-lg-12 mb-5">
+            <div class="col-lg-12 mb-5 mt-2">
                 <!-- Monthly Earnings -->
                 <div class="row">
                     <div class="col text-center">
