@@ -4,11 +4,11 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ route('admin.dashboard') }}" class="text-nowrap logo-img">
-                <h2 style="background-image: linear-gradient(to right, #2959c9, #0f58c6); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                    <b>BFP</b>
-                    <span class="text-secondary">
+                <h2 style="background-image: linear-gradient(to right, #0b063f, #0f5fd6); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                    <b>BFP-Ligao City</b>
+                    {{-- <span class="text-primary">
                         Ligao City
-                    </span>
+                    </span> --}}
                 </h2>
 
             </a>
@@ -23,7 +23,7 @@
                     <a class="sidebar-link" href="{{ route(auth()->user()->type . '.dashboard') }}"
                         aria-expanded="false">
                         <span>
-                            <i class="ti ti-layout-dashboard" style="color: #444d67"></i>
+                            <i class="ti ti-layout-dashboard" style="color: #7e88a6"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
