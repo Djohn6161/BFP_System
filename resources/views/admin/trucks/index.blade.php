@@ -35,9 +35,9 @@
                                 <table class="table mb-0 align-middle w-100">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0">Truck Name</th>
-                                            <th class="border-bottom-0">Plate Number</th>
-                                            <th class="border-bottom-0">Status</th>
+                                            <th>Truck Name</th>
+                                            <th>Plate Number</th>
+                                            <th>Status</th>
                                             <th class="border-bottom-0 text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -51,13 +51,13 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     {{ $truck->name}}
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     {{ $truck->plate_num}}
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     {{ $truck->status}}
                                                 </td>
                                                 
@@ -65,7 +65,7 @@
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
-                                                            <button class="btn btn-success w-100 mb-1"
+                                                            <button class="btn btn-success w-100"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editTruckModal{{ $truck->id }}">
                                                                 Update
@@ -73,7 +73,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
-                                                            <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteTruckModal{{ $truck->id }}">
                                                                 Delete
                                                                 <i class="ti ti-trash"></i>

@@ -39,17 +39,17 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     {{ $barangay->name }}
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     {{ $barangay->unit }}
                                                 </td>
 
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
-                                                            <button class="btn btn-success w-100 mb-1"
+                                                            <button class="btn btn-success w-100"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editBarangayModal{{ $barangay->id }}">
                                                                 Update
@@ -57,7 +57,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
-                                                            <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteBarangayModal{{ $barangay->id }}">
                                                                 Delete
                                                                 <i class="ti ti-trash"></i>

@@ -37,12 +37,12 @@
                                         @foreach ($alarm_list as $list)
                                             <x-alarm.edit :list="$list"></x-alarm.edit> 
                                             <tr>
-                                                <td class="border-bottom-0">{{ $list->name }}</td>
+                                                <td>{{ $list->name }}</td>
 
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
-                                                            <button class="btn btn-success w-100 mb-1"
+                                                            <button class="btn btn-success w-100"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editAlarmModal{{ $list->id }}">
                                                                 Update
@@ -50,7 +50,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
-                                                            <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteAlarmModalll{{ $list->id }}">
                                                                 Delete
                                                                 <i class="ti ti-trash"></i>
