@@ -1,7 +1,7 @@
 @extends('layouts.user-template')
 
 @section('content')
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         <!-- Row 1 -->
         <div class="col-lg-12">
             <!-- Monthly Earnings -->
@@ -25,8 +25,25 @@
                                 <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                             </h5>
 
-                            <!-- Accordion for Ranks -->
-                            <div class="accordion accordion-flush" id="accordionRankPersonnel">
+                            
+                            <!-- Accordion for Ranks --> --}}
+
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
+                                <h5 class="mb-0 text-light card-title fw-semibold">Ranks</h5>
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#addRankModal">
+                                    <i class="ti ti-plus"></i>
+                                    Create
+                                </button>
+                                <x-truck.create :category="$active"></x-truck.create>
+                            </div>
+                            <div class="accordion accordion-flush table-responsive" id="accordionRankPersonnel">
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
