@@ -87,7 +87,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
         // Accounts
-        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
+        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
         Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
         Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
         Route::post('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
@@ -99,6 +100,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
         Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
         Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
+        Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+
         // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
     });
@@ -110,6 +113,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
         Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
         Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+        Route::post('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
     });
 
 

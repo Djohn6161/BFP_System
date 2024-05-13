@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="col d-flex justify-content-start mb-2">
-            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
+            <a href="{{ route('operation.index') }}" class="btn btn-primary">Back</a>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
@@ -44,7 +44,7 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
-                                <input type="hidden" name="operation_id" value="{{$operation->id}}">
+                                <input type="hidden" name="operation_id" value="{{ $operation->id }}">
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>
@@ -607,16 +607,20 @@
                                 name="sketch_of_fire_operation[]" multiple>
                             <div id="image-preview-container" class="mt-3"></div>
                             @foreach ($photos as $photo)
-                                <div class="mt-3">
-                                    <div class="image-preview mb-1">
-                                        <input type="hidden" name="default_photos[]" value="{{$photo}}">
-                                        <img class="img-thumbnail w-100" src="/operation_image/{{$photo}}">
+                                @if ($photo != '')
+                                    <div class="mt-3">
+                                        <div class="image-preview mb-1">
+                                            <input type="hidden" name="default_photos[]" value="{{ $photo }}">
+                                            <img class="img-thumbnail w-100" src="/operation_image/{{ $photo }}">
+                                        </div>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                                            <div class="file-info flex-grow-1 me-2 text-break">{{ $photo }}</div>
+                                            <button type="button" class="btn btn-sm btn-danger remove-photo"
+                                                id="remove-photo">Remove</button>
+                                        </div>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
-                                        <div class="file-info flex-grow-1 me-2 text-break">{{$photo}}</div>
-                                        <button type="button" class="btn btn-sm btn-danger remove-photo" id="remove-photo">Remove</button>
-                                    </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
 
@@ -747,7 +751,7 @@
                 // Find the parent div with class "mt-3" and remove it
                 $(this).closest('.mt-3').remove();
             });
-            
+
             $('#photos').on('change', function() {
                 var files = $(this)[0].files; // Get the files selected
                 var container = $('#image-preview-container'); // Get the preview container
@@ -780,7 +784,8 @@
                             );
 
                             // Filename element
-                            var fileInfo = $('<div class="file-info flex-grow-1 me-2 text-break">' + file
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
                                 .name + '</div>');
 
                             // Remove button
@@ -799,9 +804,9 @@
                             removeBtn.click(function() {
                                 imgPreview.remove(); // Remove the image preview
                                 $(this).closest('.d-flex')
-                            .remove(); // Remove the flex container
+                                    .remove(); // Remove the flex container
                                 $('#photos').val(
-                                ''); // Clear the file input (if needed)
+                                    ''); // Clear the file input (if needed)
                             });
                         };
                     })(file);

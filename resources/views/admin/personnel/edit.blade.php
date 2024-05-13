@@ -33,6 +33,7 @@
                                         alt="Personnel Picture">
                                     <div class="row px-2">
                                         <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
+                                        <input type="hidden" name="operation_id" value="{{ $personnel->id }}">
                                         <input type="file" id="photo-upload" style="display: none;" accept="image/*"
                                             onchange="previewPhoto(event)" name="image">
                                     </div>
@@ -306,13 +307,17 @@
                             <!-- File List Container -->
                             <div id="file-list-container mb-3">
                                 @foreach ($files as $file)
-                                    <div class="file-item d-flex justify-content-between mb-2 align-items-center">
-                                        <span>
-                                            <input type="hidden" name="default_files[]" value="{{$file}}">
-                                            {{$file}}
-                                        </span>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
+                                    @if ($file != '' )
+                                        <div class="file-item d-flex justify-content-between mb-2 align-items-center">
+                                            <span>
+                                                <input type="hidden" name="default_files[]"
+                                                    value="{{ $file }}">
+                                                {{ $file }}
+                                            </span>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="deleteFile(this)">Delete</button>
+                                        </div>
+                                    @endif
                                 @endforeach
 
                             </div>
@@ -321,27 +326,21 @@
 
                             <div>
                                 <label for="file-input" class="form-label"></label>
-                                <input class="form-control" type="file" id="file-input" style="display: none;"
-                                    multiple>
+                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="files[]">
                                 <button class="btn btn-primary" type="button"
                                     onclick="document.getElementById('file-input').click();">+
                                     Choose File</button>
                                 <p id="file-count">No files selected</p>
                             </div>
                         </div>
-
-
                         <!-- File List Container -->
                         <div id="file-list-container">
                             <div id="file-list"></div>
                         </div>
-
+                        <div class="col d-flex justify-content-end mb-2">
+                            <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
                     </div>
-
-
-            </div>
-            <div class="col d-flex justify-content-end mb-2">
-                <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
             </div>
             </form>
         </div>
@@ -450,6 +449,12 @@
                 var remainingFiles = fileList.find('.file-item').length;
                 fileCountSpan.text(remainingFiles + ' file(s)');
             };
+        }
+
+        // uploaded personal file delete button
+        function deleteFile(button) {
+            var fileItem = button.parentNode;
+            fileItem.parentNode.removeChild(fileItem);
         }
     </script>
 @endsection
