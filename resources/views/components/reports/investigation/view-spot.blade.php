@@ -90,7 +90,8 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> <i class="ti ti-x"></i> Close</button>
+                <a href="{{route('investigation.spot.print', ['spot' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>

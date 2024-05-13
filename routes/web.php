@@ -186,6 +186,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
         Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
         Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
+        Route::get('/minimal/print/{minimal}', [InvestigationController::class, 'printMinimal'])->name('minimal.print');
 
 
         Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
@@ -194,6 +195,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
         Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
         Route::delete('/spot/destroy', [InvestigationController::class, 'destroySpot'])->name('spot.destroy');
+        Route::get('/spot/print/{spot}', [InvestigationController::class, 'printSpot'])->name('spot.print');
 
 
         Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
@@ -202,6 +204,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/progress/edit/{progress}', [InvestigationController::class, 'editProgress'])->name('progress.edit');
         Route::put('/progress/update/{progress}', [InvestigationController::class, 'updateProgress'])->name('progress.update');
         Route::delete('/progress/destroy', [InvestigationController::class, 'destroyProgress'])->name('progress.destroy');
+        Route::get('/progress/print/{progress}', [InvestigationController::class, 'printProgress'])->name('progress.print');
 
         Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
         Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
@@ -209,6 +212,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('final/edit/{final}', [InvestigationController::class, 'editFinal'])->name('final.edit');
         Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
         Route::delete('/final/destroy', [InvestigationController::class, 'destroyFinal'])->name('final.destroy');
+        Route::get('/final/print/{final}', [InvestigationController::class, 'printFinal'])->name('final.print');
 
 
 
