@@ -9,7 +9,7 @@
                 <div class="col d-flex justify-content-end mb-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRankModal">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class="ti ti-plus"></i>
                         </span>
                         <span class="hide-menu">Add Rank</span>
                     </button>
@@ -26,7 +26,7 @@
 
                             <!-- Accordion for Ranks -->
                             <div class="accordion accordion-flush" id="accordionRankPersonnel">
-                                <table class="table mb-0 align-middle w-100" id="rankTable">
+                                <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -36,7 +36,7 @@
                                                 <h6 class="fw-semibold mb-0">Slug</h6>
                                             </th>
                                             <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Action</h6>
+                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
                                             </th>
                                         </tr>
                                     </thead>
@@ -47,10 +47,24 @@
                                             <tr>
                                                 <td>{{ $rank->name }}</td>
                                                 <td>{{ $rank->slug }}</td>
-                                                <td class="border-bottom-0">
-                                                    <button class="btn btn-success w-100 mb-1" data-bs-toggle="modal" data-bs-target="#editRankModal{{ $rank->id }}">Update</button>
-                                                    <br>
-                                                    <button data-bs-toggle="modal" data-bs-target="#deleteRankModal{{ $rank->id }}" class="btn btn-danger w-100 mb-1">Delete</button>
+                                                <td class="w-25 py-2">
+                                                    <div class="d-flex flex-row">
+                                                        <div class="me-1">
+                                                            <button class="btn btn-success w-100 mb-1"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editRankModal{{ $rank->id }}">
+                                                                Update
+                                                                <i class="ti ti-pencil"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="me-1">
+                                                            <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteRankModal{{ $rank->id }}">
+                                                                Delete
+                                                                <i class="ti ti-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                                 
@@ -66,3 +80,4 @@
     </div>
     <x-rank.create :category="$active"> </x-rank.create>
 @endsection
+

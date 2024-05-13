@@ -36,7 +36,7 @@
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        <x-reports.investigation.memo-investigate ></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -231,32 +231,9 @@
                                     <label for="waterTank" class="form-label">Alarm Status</label>
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
-                                        <option {{ old('alarm_status_time') == 1 ? 'selected' : '' }} value="1">1st
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 2 ? 'selected' : '' }} value="2">2nd
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 3 ? 'selected' : '' }} value="3">3rd
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 4 ? 'selected' : '' }} value="4">4th
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 5 ? 'selected' : '' }} value="5">5th
-                                            Alarm</option>
-                                        <option {{ old('alarm_status_time') == 6 ? 'selected' : '' }} value="6">Task
-                                            Force Alpha</option>
-                                        <option {{ old('alarm_status_time') == 7 ? 'selected' : '' }} value="7">Task
-                                            Force Bravo</option>
-                                        <option {{ old('alarm_status_time') == 8 ? 'selected' : '' }} value="8">Task
-                                            Force Charlie</option>
-                                        <option {{ old('alarm_status_time') == 9 ? 'selected' : '' }} value="9">Task
-                                            Force Delta</option>
-                                        <option {{ old('alarm_status_time') == 10 ? 'selected' : '' }} value="10">Task
-                                            Force Echo</option>
-                                        <option {{ old('alarm_status_time') == 11 ? 'selected' : '' }} value="11">Task
-                                            Force Hotel</option>
-                                        <option {{ old('alarm_status_time') == 12 ? 'selected' : '' }} value="12">Task
-                                            Force India</option>
-                                        <option {{ old('alarm_status_time') == 13 ? 'selected' : '' }} value="13">
-                                            General Alarm</option>
+                                        @foreach ($alarms as $item)
+                                        <option {{ old('alarm_status_time') == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                     @error('alarm_status_time')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
@@ -495,54 +472,127 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
-                            <input type="file" class="form-control uncheable" id="photos"
-                                name="photos[]" multiple  >
-                            <div id="photo" class="mt-3"></div>
+                            <input type="file" class="form-control uncheable" id="photos" name="photos[]"
+                                multiple>
+                            <div id="photo" class="row"></div>
                         </div>
-                            @error('photos')
-                                <span class="text-danger alert" role="alert">{{ $message }}</span>
-                            @enderror
+                        @error('photos')
+                            <span class="text-danger alert" role="alert">{{ $message }}</span>
+                        @enderror
 
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-
-                    </form>
                 </div>
+                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+
+                </form>
             </div>
         </div>
     </div>
+    </div>
     <script>
-      $(document).ready(function(){
+        $(document).ready(function() {
+            // $('#photos').on('change', function() {
+            //     // Get the selected files
+            //     var files = $(this)[0].files;
+
+            //     // Clear any existing previews
+            //     $('#preview-container').empty();
+
+            //     // Loop through each selected file
+            //     for (var i = 0; i < files.length; i++) {
+            //         var file = files[i];
+            //         var reader = new FileReader();
+
+            //         // Closure to capture the file information
+            //         reader.onload = (function(file) {
+            //             return function(e) {
+            //                 // Create a new image element
+            //                 var imgElement = $(
+            //                     '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
+            //                 ).addClass('preview-image').attr('src', e.target.result);
+
+            //                 // Append the image to the preview container
+            //                 $('#preview-container').append(imgElement);
+            //             };
+            //         })(file);
+
+            //         // Read the file as a data URL
+            //         reader.readAsDataURL(file);
+            //     }
+            // });
+            $("#submit").click(function() {
+            $("#details").val($("#first").text());
+            $("#findings").val($("#second").html());
+            $("#recommendation").val($("#third").html());
+        });
+
+        $("#submit").click(function() {
+            $("#details").val(quillFirst.root.innerHTML);
+            $("#findings").val(quillSecond.root.innerHTML);
+            $("#recommendation").val(quillThird.root.innerHTML);
+        });
+
         $('#photos').on('change', function() {
-                // Get the selected files
-                var files = $(this)[0].files;
+            var files = $(this)[0].files; // Get the files selected
+            var container = $('#photo'); // Get the preview container
 
-                // Clear any existing previews
-                $('#preview-container').empty();
+            // Clear previous previews
+            container.empty();
 
-                // Loop through each selected file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
+            // Loop through each file
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
 
-                    // Closure to capture the file information
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create a new image element
-                            var imgElement = $(
-                                '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
-                            ).addClass('preview-image').attr('src', e.target.result);
+                // Closure to capture the file information.
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Create image preview
+                        var mainContainer = $('<div class="image-preview mb-1 col-sm-4"></div>')
+                        var imgPreview = $('<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' + e.target.result +
+                            '" alt="' + '">'
+                        );
+                        mainContainer.append(imgPreview);
 
-                            // Append the image to the preview container
-                            $('#preview-container').append(imgElement);
-                        };
-                    })(file);
+                        // Append image preview to the container
+                        // container.append(imgPreview);
 
-                    // Read the file as a data URL
-                    reader.readAsDataURL(file);
-                }
-            });
-      });
+                        // Create filename container with flex layout
+                        var fileInfoContainer = $(
+                            '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                        );
+
+                        // Filename element
+                        var fileInfo = $(
+                            '<div class="file-info flex-grow-1 me-2 text-break"></div>');
+
+                        // Remove button
+                        // var removeBtn = $(
+                        //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                        // );
+
+                        // Append filename and remove button to container
+                        fileInfoContainer.append(fileInfo);
+                        // fileInfoContainer.append(removeBtn);
+                        mainContainer.append(fileInfoContainer);
+                        // Append the filename container to the preview container
+                        container.append(mainContainer);
+
+                        // Remove button click event
+                        // removeBtn.click(function() {
+                        //     imgPreview.remove(); // Remove the image preview
+                        //     $(this).closest('.d-flex')
+                        //         .remove(); // Remove the flex container
+                        //     $('#photos').val(
+                        //         ''); // Clear the file input (if needed)
+                        // });
+                    };
+                })(file);
+
+                // Read in the image file as a data URL
+                reader.readAsDataURL(file);
+            }
+        });
+        });
         // Get the input element
         var input = document.getElementById('telephone');
 
@@ -558,11 +608,7 @@
         });
         var hiddenInput = document.getElementById('editorContent');
 
-        $("#submit").click(function() {
-            $("#details").val($("#first").text());
-            $("#findings").val($("#second").html());
-            $("#recommendation").val($("#third").html());
-        });
+        
         const quillFirst = new Quill('#first', {
             modules: {
                 toolbar: '#toolbar1',
@@ -585,75 +631,6 @@
             },
 
             placeholder: 'Compose an epic...',
-        });
-        $("#submit").click(function() {
-            $("#details").val(quillFirst.root.innerHTML);
-            $("#findings").val(quillSecond.root.innerHTML);
-            $("#recommendation").val(quillThird.root.innerHTML);
-        });
-
-        $('#photos').on('change', function() {
-                var files = $(this)[0].files; // Get the files selected
-                var container = $('#photo'); // Get the preview container
-
-                // Clear previous previews
-                container.empty();
-
-                // Loop through each file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
-
-                    // Closure to capture the file information.
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create image preview
-                            var imgPreview = $(
-                                '<div class="image-preview mb-1">' +
-                                '<img class="img-thumbnail" src="' + e.target.result +
-                                '" alt="' + file.name + '">' +
-                                '</div>'
-                            );
-
-                            // Append image preview to the container
-                            container.append(imgPreview);
-
-                            // Create filename container with flex layout
-                            var fileInfoContainer = $(
-                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                            );
-
-                            // Filename element
-                            var fileInfo = $(
-                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
-                                .name + '</div>');
-
-                            // Remove button
-                            // var removeBtn = $(
-                            //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                            // );
-
-                            // Append filename and remove button to container
-                            fileInfoContainer.append(fileInfo);
-                            // fileInfoContainer.append(removeBtn);
-
-                            // Append the filename container to the preview container
-                            container.append(fileInfoContainer);
-
-                            // Remove button click event
-                            // removeBtn.click(function() {
-                            //     imgPreview.remove(); // Remove the image preview
-                            //     $(this).closest('.d-flex')
-                            //         .remove(); // Remove the flex container
-                            //     $('#photos').val(
-                            //         ''); // Clear the file input (if needed)
-                            // });
-                        };
-                    })(file);
-
-                    // Read in the image file as a data URL
-                    reader.readAsDataURL(file);
-                }
-            });
+        }); 
     </script>
 @endsection

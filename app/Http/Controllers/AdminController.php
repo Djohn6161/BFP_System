@@ -17,27 +17,26 @@ class AdminController extends Controller
         return view('admin.home', [
             'active' => 'home',
             'user' => $user,
-            
+
         ]);
     }
 
     public function adminAccountIndex()
     {
-        $users = User::where('type', 'admin')->get();
         $user = Auth::user();
+        $accounts = User::where('type', 'admin')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'admin';
-        return view('admin.account.admin.index', compact('users', 'active', 'user','type'));
-
+        return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
     }
 
     public function userAccountIndex()
     {
-        $users = User::where('type', 'user')->get();
         $user = Auth::user();
+        $accounts = User::where('type', 'user')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'user';
-        return view('admin.account.admin.index', compact('users', 'active', 'user','type'));
+        return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
 
     }
 
@@ -50,11 +49,11 @@ class AdminController extends Controller
             'confirm_password' => 'required|string|min:8',
         ]);
 
-        $account = new User();  
+        $account = new User();
 
         if ($request->input('type') == 'user') {
             $account->privilege = $request['privilege'];
-            $account->type = 'user';    
+            $account->type = 'user';
         } else {
             $account->privilege = 'all';
             $account->type = 'admin';
@@ -67,46 +66,68 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Account created successfully.');
     }
-    
+
     public function accountUpdate(Request $request)
     {
+        $type = $request->input('type');
+        $status = false;
+        $user = User::findOrFail($request['user_id']);
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'privilege' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'admin_confirm_password' => 'required|min:8',
         ]);
 
-        $userInfoUpdatedData = [
-            'name' => $request->input('name'),
-            'privilege' => $request->input('privilege'),
-            'email' => $request->input('email'),
-        ];
-        $user = User::findOrFail($request['user_id']);
-        $userChange = $this->hasChanges($user, $userInfoUpdatedData);
+        if ($type == 'user') {
+            $request->validate([
+                'privilege' => 'required|string',
+            ]);
 
-        if (!$userChange) {
-            return redirect()->back()->with('status', 'No changes were made.');
+            $userInfoUpdatedData = [
+                'name' => $request->input('name'),
+                'privilege' => $request->input('privilege'),
+                'email' => $request->input('email'),
+            ];
+        } else {
+            $userInfoUpdatedData = [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+            ];
         }
 
-        $user->update($userInfoUpdatedData);
+        if (Hash::check($request->input('admin_confirm_password'), $user->password)) {
+            $userChange = $this->hasChanges($user, $userInfoUpdatedData);
+            if ($userChange) {
+                $user->update($userInfoUpdatedData);
+                $status = true;
+            }
+        } else {
+            return redirect()->back()->with('status', 'Admin Password is incorrect.');
+        }
 
-        return redirect()->back()->with('success', 'User updated successfully.');
-
-
+        if ($status) {
+            return redirect()->back()->with('success', 'User updated successfully.');
+        } else {
+            return redirect()->back()->with('status', 'No changes were made.');
+        }
     }
 
     public function accountPasswordUpdate(Request $request)
     {
         $request->validate([
+            'current_password' => 'required|min:8',
             'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8',
+            'admin_confirm_password' => 'required|min:8',
         ]);
 
         $profile = $request->user();
 
-        $user = User::findOrFail($request->input('password_id'));
+        $user = User::find($request->input('password_id'));
 
-        if (Hash::check($request->input('admin_password'), $profile->password)) {
-            if ($request->input('password') === $request->input('confirmation')) {
+        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
+            if ($request->input('password') === $request->input('confirm_password')) {
                 // Check if the provided password matches the current password
                 if (Hash::check($request->input('password'), $user->password)) {
                     return redirect()->back()->with('status', "New password must be different from the current password.");
@@ -130,18 +151,17 @@ class AdminController extends Controller
     public function accountDelete(Request $request)
     {
         $request->validate([
-            'admin_password' => 'required|min:8',
+            'admin_confirm_password' => 'required|min:8',
         ]);
 
         $profile = $request->user();
 
-        if (Hash::check($request->input('admin_password'), $profile->password)) {
-            
+        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
+
             $user = User::where('id', $request->input('account_id'))->first();
             $user->delete();
 
             return redirect()->back()->with('success', 'Account deleted successfully');
-
         } else {
             return redirect()->back()->with('status', "Admin password confirmation doesn't match.");
 
@@ -170,4 +190,12 @@ class AdminController extends Controller
         return false;
 
     }
+    // public function viewOccupancy(){
+    //     $user = Auth::user();
+    //     return view('admin.occupancy.index', [
+    //         'active' => 'index',
+    //         'user' => $user,
+    //     ]);
+    // }
+
 }

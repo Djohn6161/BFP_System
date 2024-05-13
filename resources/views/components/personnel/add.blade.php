@@ -9,12 +9,12 @@
             </div>
             <div class="modal-body px-5">
                 <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('admin.personnel.store') }}"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" class="needs-validation" novalidate>
                     @csrf
                     <div class="col-lg-4">
                         <div class="mb-3">
                             <img id="previewPersonnelImage"
-                                src="{{ asset('assets/images/personnel_images/default.png') }}"
+                                src="{{ asset('assets/images/backgrounds/sir sample.jpg') }}"
                                 class="object-fit-cover img-fluid w-100" style="height: 340px;" alt="Personnel Picture">
                             <div class="mt-2">
                                 <label for="imagePersonnelInput" class="btn btn-primary w-100">
@@ -28,23 +28,35 @@
                         <div class="row g-3">
                             <div class="col-lg-4 mb-3">
                                 <label for="accountNumber" class="form-label">Account Number</label>
-                                <input type="text" placeholder="Enter account number" class="form-control"
-                                    id="accountNumber" name="account_number">
+                                <input type="text" placeholder="Enter account number"
+                                    class="form-control {{ $errors->has('account_number') != '' ? 'is-invalid' : '' }}"
+                                    name="account_number" value="{{ old('account_number') }}">
+                                @error('account_number')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="itemNumber" class="form-label">Item Number</label>
-                                <input type="text" placeholder="Enter item number" class="form-control"
-                                    id="itemNumber" name="item_number">
+                                <input type="text" placeholder="Enter item number"
+                                    class="form-control {{ $errors->has('item_number') != '' ? 'is-invalid' : '' }}"
+                                    name="item_number">
+                                @error('item_number')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="rank" class="form-label">Rank</label>
-                                <select class="form-select" id="rank" name="rank">
-                                    <option selected>Select Rank</option>
+                                <select class="form-select  {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
+                                    id="rank" name="rank">
+                                    <option value="" selected>Select Rank</option>
                                     @foreach ($ranks as $rank)
                                         <option value="{{ $rank->id }}">{{ $rank->slug }} - {{ $rank->name }}
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('rank')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -52,16 +64,24 @@
                             <label class="form-label">Name</label>
                             <div class="row g-3">
                                 <div class="col">
-                                    <input type="text" placeholder="First Name" class="form-control" id="firstName"
+                                    <input type="text" placeholder="First Name"
+                                        class="form-control {{ $errors->has('first_name') != '' ? 'is-invalid' : '' }}"
                                         name="first_name">
+                                    @error('first_name')
+                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <input type="text" placeholder="Middle Name" class="form-control" id="middleName"
                                         name="middle_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Last Name" class="form-control" id="lastName"
-                                        name="last_name">
+                                    <input type="text" placeholder="Last Name"
+                                        class="form-control {{ $errors->has('first_name') != '' ? 'is-invalid' : '' }}""
+                                        id="lastName" name="last_name">
+                                    @error('last_name')
+                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <input type="text" placeholder="Suffix Name" class="form-control" id="suffixName"
@@ -80,7 +100,7 @@
                                 <div class="col-lg-6">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" id="dateOfBirth"
-                                        name="date_of_birth">
+                                        value="date_of_birth">
                                 </div>
                             </div>
 
@@ -232,25 +252,48 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control"
                                     id="unitCode" name="unit_code">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation" name="designation">
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignation">+
+                                                    ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 ps-0">
+                                        <div class="d-flex align-items-center">
+                                            <select class="form-control designation-select" id="designationSelect"
+                                                aria-label="designationSelect" name="designations[]">
+                                                <option selected>Open this select menu</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->name }}">{{ $designation->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button"
+                                                class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
@@ -271,6 +314,11 @@
                                 <div id="file-list"></div>
                             </div>
                         </div>
+
+                        <!-- File List Container -->
+                        <div id="file-list-container">
+                            <div id="file-list"></div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -287,6 +335,21 @@
     //personnel file upload
     $(document).ready(function() {
         $('#file-input').change(handleFileSelect);
+        $(document).on('click', '.addPersonnelDesignation', function() {
+            // console.log("hello");
+            var inputField =
+                '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select" aria-label="designationSelect" name="designations[]"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button> </div> </div>';
+            // $(".designationContainer").append(inputField);
+            $(this).closest('.designationContainer').append(inputField);
+
+            // inputField.find('.designation').select2();
+            $(".designation-select").select2({
+                dropdownParent: $("#addPersonnelModal")
+            });
+        });
+        $(document).on('click', '.remove-personnel-designation', function() {
+            $(this).closest('.col-lg-6').remove();
+        });
     });
 
     function handleFileSelect(event) {
@@ -317,11 +380,95 @@
     function createDeleteHandler(file, fileCountSpan) {
         return function() {
             var fileList = $('#file-list');
-            var fileItems = fileList.find('.file-item');
-            for (var i = 0; i < fileItems.length; i++) {
-                if ($(fileItems[i]).find('span').text() === file.name) {
-                    $(fileItems[i]).remove();
-                    break;
+            fileList.html('');
+
+            var files = event.target.files;
+
+            // Update file count
+            var fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $(
+                    '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+
+                var fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const tinInput = document.getElementById('tin');
+            const pagibigInput = document.getElementById('pagibig');
+            const gsisInput = document.getElementById('gsis');
+            const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        });
+
+        function previewPhoto(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#personnel-picture').attr('src', e.target.result).attr('alt', 'Selected Image');
+            }
+
+            reader.readAsDataURL(file);
+        }
+
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
+                var fileList = $('#file-list');
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
+                    }
                 }
             }
 

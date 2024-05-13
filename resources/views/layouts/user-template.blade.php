@@ -52,37 +52,6 @@
                 </div>
             </div>
             
-            <div class="modal fade" data-bs-backdrop="static" id="profileModal" tabindex="-1"
-                aria-labelledby="addResponseModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('profile.update') }}">
-                                @csrf
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" hidden name="user_id" id="user_id"
-                                        value="{{ $user->id }}">
-                                    <label for="inputName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="name" id="name"
-                                        value="{{ $user->name }}">
-                                </div>
-                                <hr>
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        value="{{ $user->email }}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -130,6 +99,16 @@
     <script src="{{ asset('assets/js/datatables.js') }}"></script>
     <script src="{{ asset('assets/select2/dist/scripts/script.js') }}"></script>
     <script src="{{ asset('assets/js/lightbox.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                // disable the submit button 
+                $('button[type="submit"]').attr('disabled', true);
+                // submit the form
+                return true;
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -26,7 +26,7 @@
                             <h5 class="card-title fw-semibold mb-4 text-capitalize">
                                 {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="investigationTable">
+                                <table class="table mb-0 align-middle w-100" id="spotInvestigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
@@ -45,17 +45,16 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($investigations as $investigation)
-                                            <x-reports.view-modal :report=$investigation></x-reports.view-modal>
-                                            <x-reports.investigation.investigation-delete :type="'spot'" :investigation=$investigation></x-reports.investigation.investigation-delete>
-
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
+                                                    </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}
+                                                    </p>
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal">
@@ -63,12 +62,21 @@
                                                     </p>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <a href="{{route('investigation.spot.edit', ['spot' => $investigation->id])}}"
-                                                        class="btn btn-success w-100 mb-1">Update</a>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        data-bs-target="#viewSpotModal{{ $investigation->id }}"
+                                                        class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
+                                                    <x-reports.Investigation.view-spot
+                                                        :investigation=$investigation></x-reports.Investigation.view-spot>
+
+                                                    <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
+                                                        class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                        class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
+                                                        class="btn btn-danger hide-menu w-100 mb-1"><i class="ti ti-trash"></i> Delete</button>
+                                                    <x-reports.investigation.investigation-delete :type="'spot'"
+                                                        :investigation=$investigation></x-reports.investigation.investigation-delete>
+
                                                 </td>
                                             </tr>
                                         @endforeach

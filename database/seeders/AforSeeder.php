@@ -26,7 +26,7 @@ class AforSeeder extends Seeder
 
             $attributes = [
                 'alarm_received' => $faker->time('H:i') . 'H',
-                'transmitted_by' => $faker->numberBetween(1, 16),
+                'transmitted_by' => $faker->firstName . ' ' . $faker->lastName,
                 'caller_address' => 'Ligao City',
                 'barangay_name' => 'Amtic',
                 'zone' => 'Zone 1',
@@ -177,7 +177,6 @@ class AforSeeder extends Seeder
                 $attributes = [
                     'afor_id' => $reportID,
                     'personnels_id' => $faker->numberBetween(1, 16),
-                    'designation' => 'commander',
                     'remarks' => 'remarks'
                 ];
 

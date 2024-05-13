@@ -2,42 +2,13 @@
 @section('content')
     <div class="container-fluid">
         <div class="col d-flex justify-content-start mb-2">
-            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
+            <a href="{{ route('operation.index') }}" class="btn btn-primary">Back</a>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Oops!</strong> There were some errors with your submission:
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('status'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
 
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
@@ -45,24 +16,38 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
-                                <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    name="alarm_received">
+                                <input type="text" placeholder="Eg. 2300h"
+                                    class="form-control text-uppercase {{ $errors->has('alarm_received') != '' ? 'is-invalid' : '' }}"
+                                    name="alarm_received" value="{{ old('alarm_received') }}">
+                                @error('alarm_received')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <input type="text" placeholder="Eg. Juan Cruz" class="form-control"
-                                    name="transmitted_by">
+                                <input type="text" placeholder="Eg. Juan Cruz"
+                                    class="form-control {{ $errors->has('transmitted_by') != '' ? 'is-invalid' : '' }}"
+                                    name="transmitted_by" value="{{ old('transmitted_by') }}">
+                                @error('transmitted_by')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                <input type="text" placeholder="Enter the office or address"
+                                    class="form-control {{ $errors->has('caller_address') != '' ? 'is-invalid' : '' }}"
                                     name="caller_address">
+                                @error('caller_address')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Personnel on duty
                                     who received the
                                     alarm</label>
-                                <select class="form-select personnelReceive" aria-label="" name="received_by">
+                                <select
+                                    class="form-select personnelReceive {{ $errors->has('received_by') != '' ? 'is-invalid' : '' }}""
+                                    name="received_by">
                                     <option value="" selected>Select personnel</option>
                                     @foreach ($personnels as $personnel)
                                         <option value="{{ $personnel->id }}">
@@ -70,6 +55,9 @@
                                             {{ $personnel->last_name }}</option>
                                     @endforeach
                                 </select>
+                                @error('received_by')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">
@@ -142,7 +130,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <label for="waterTank" class="form-label">Water Tank
                                             Refilled (GAL)</label>
-                                        <input type="text" placeholder="Eg. 1900h - 2300h"
+                                        <input type="text" placeholder="Eg. 1000 GAL"
                                             class="form-control text-uppercase" id="waterTankInput"
                                             name="water_tank_refilled[]">
                                     </div>
@@ -421,10 +409,49 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Designation</label>
-                                        <input type="text" placeholder="Designation" class="form-control"
-                                            name="duty_designation[]">
+                                        <label for="fundCommander" class="form-label">Designation</label>
+                                        <select class="form-select" aria-label="" name="designations[]">
+                                            <option value="" selected>Select designation</option>
+                                            @foreach ($designations as $designation)
+                                                <option value="{{ $designation->name }}">
+                                                    {{ $designation->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    {{-- <div class="col-lg-6">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    {{-- <div class="row m-0 p-0 designationContainer">
+                                        <div class="col-lg-12">
+                                            <div class="row m-0 p-0">
+                                                <div class="col-lg-6 m-0 p-0">
+                                                    <label for="designation" class="form-label me-2">Designation</label>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select designation" aria-label=""
+                                                    name="duty_designation[0][0]">
+                                                    <option value="" selected>Select Designation</option>
+                                                    @foreach ($designations as $designation)
+                                                        <option value="{{ $designation->name }}">{{ $designation->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <button type="button"
+                                                    class=" ms-1 btn btn-outline-danger remove-designation">x</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                     <div class="col-lg-12 mb-3">
                                         <label for="firefighterDeath" class="form-label">Remarks</label>
                                         <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
@@ -494,7 +521,13 @@
     </div>
 
     <script>
+        var parentCounter = 0;
+        var childCounter = 0;
         $(document).ready(function() {
+            // Remove dynamically added input field
+            $(document).on('click', '.removeInput', function() {
+                $(this).closest('.col-lg-6').remove();
+            });
             $('#divApor').on('click', '.remove-section-btn', function() {
                 // Find the parent div of the clicked remove button and remove it
                 $(this).closest('.remove-button-container').remove();
@@ -539,9 +572,14 @@
             });
 
             $('#addNewDutyPersonnelAtFireScene').click(function() {
+                parentCounter++;
+                childCounter = 0;
+                console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" name="duty_designation[]"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[' +
+                    parentCounter + '][' + childCounter +
+                    ']"> <option value="" selected>Select Designation</option> @foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -550,6 +588,24 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
+                mnewDiv.find('.designation').select2();
+            });
+            $(document).on('click', '.addDesignation', function() {
+                childCounter++;
+                console.log(parentCounter, childCounter);
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[' +
+                    parentCounter + '][' + childCounter +
+                    ']"> <option value="" selected>Select Designation</option>@foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach</select><button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button></div></div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation").select2();
+            });
+            $(document).on('click', '.remove-designation', function() {
+                $(this).closest('.col-lg-6').remove();
             });
 
             $('#photos').on('change', function() {

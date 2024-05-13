@@ -41,7 +41,6 @@ return new class extends Migration
             $table->string('appointment_status');
             $table->string('unit_code');
             $table->string('unit_assignment');
-            $table->string('designation');
             $table->string('admin_operation_remarks');
             $table->string('picture')->nullable();
             $table->string('files')->nullable();

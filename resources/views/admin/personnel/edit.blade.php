@@ -2,18 +2,6 @@
     .btn-reports {
         width: 200px
     }
-
-    /* Styles for file list container */
-    /* #file-list-container {
-        margin-top: 20px;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    } */
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -156,7 +144,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="tertiaryCourses" class="form-label ">Tertiary Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
                                                 id="editTertiaryCourse">+ ADD</button>
@@ -184,7 +172,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="postGraduateCourses" class="form-label">Post Graduate
                                                 Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
@@ -204,7 +192,6 @@
                                                     class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
                                             </div>
                                         @endforeach
-
 
                                     </div>
                                     <!-- Input fields will be appended here -->
@@ -273,27 +260,47 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion" value="{{ $personnel->last_date_promotion }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status"
                                     value="{{ $personnel->appointment_status }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode"
                                     name="unit_code" value="{{ $personnel->unit_code }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment"
                                     value="{{ $personnel->unit_assignment }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation" name="designation" value="{{ $personnel->designation }}">
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignationEdit">+ ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 ps-0">
+                                        <div class="d-flex align-items-center">
+                                            <select class="form-control designation-select-edit" id="designationSelect" aria-label="designationSelect" name="designation">
+                                                <option selected>Open this select menu</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button"
+                                                class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-lg-12 mb-3">
@@ -317,6 +324,8 @@
                                             <button type="button" class="btn btn-danger"
                                                 onclick="deleteFile(this)">Delete</button>
                                         </div>
+                                    @else
+                                    <p>No files uploaded</p>
                                     @endif
                                 @endforeach
 
@@ -371,6 +380,20 @@
             $(document).on('click', '.removePostGraduateInputEdit', function() {
                 $(this).closest('.col-lg-12').remove();
             });
+
+            $(document).on('click', '.addPersonnelDesignationEdit', function() {
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select-edit" aria-label="designationSelect" name="designation"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->id }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button> </div> </div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation-select-edit").select2();
+            });
+            $(document).on('click', '.remove-edit-personnel-designation', function() {
+                $(this).closest('.col-lg-6').remove();
+            });
         });
 
         // Function to preview photo using jQuery
@@ -402,7 +425,46 @@
             const pagibigInput = document.getElementById('pagibig');
             const gsisInput = document.getElementById('gsis');
             const philhealthInput = document.getElementById('philhealth');
+
+            const restrictToNumbers = function(inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+                        ''); // Remove any characters that are not numbers or hyphens
+                    event.target.value = cleanedValue;
+                });
+            };
+
+            restrictToNumbers(tinInput);
+            restrictToNumbers(pagibigInput);
+            restrictToNumbers(gsisInput);
+            restrictToNumbers(philhealthInput);
+
+            const formatGovernmentID = function(inputElement, format) {
+                inputElement.addEventListener('input', function(event) {
+                    const inputValue = event.target.value;
+                    const cleanedValue = inputValue.replace(/[^0-9]/g,
+                        ''); // Remove any characters that are not numbers
+                    let formattedValue = '';
+                    if (format === 'TIN') {
+                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+                    } else if (format === 'PAGIBIG') {
+                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+                    } else if (format === 'GSIS') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+                    } else if (format === 'PHILHEALTH') {
+                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+                    }
+                    event.target.value = formattedValue;
+                });
+            };
+
+            formatGovernmentID(tinInput, 'TIN');
+            formatGovernmentID(pagibigInput, 'PAGIBIG');
+            formatGovernmentID(gsisInput, 'GSIS');
+            formatGovernmentID(philhealthInput, 'PHILHEALTH');
         });
+
         //personnel file upload
         $(document).ready(function() {
             $('#file-input').change(handleFileSelect);

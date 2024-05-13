@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Occupancy_name extends Model
 {
     use HasFactory;
+
+    
 }
