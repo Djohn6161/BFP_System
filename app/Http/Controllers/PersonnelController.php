@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Personnel_designation;
 use Carbon\Carbon;
 use App\Models\Rank;
 use App\Models\Tertiary;
@@ -46,6 +47,15 @@ class PersonnelController extends Controller
 
     public function personnelStore(Request $request)
     {
+        $request->validate([
+            'account_number' => 'required|string|max:255',
+            'item_number' => 'required|string|max:255',
+            'rank' => 'required',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+
+        ]);
+
         $personnel = new Personnel();
 
         $personnel->fill([
@@ -56,7 +66,7 @@ class PersonnelController extends Controller
             'middle_name' => $request->input('middle_name') ?? '',
             'last_name' => $request->input('last_name') ?? '',
             'extension' => $request->input('extension') ?? '',
-            'contact_number' => $request->input('contact_number') ?? '',
+            'contact_number' => $request->input('contact_number') ?? null,
             'date_of_birth' => $request->input('date_of_birth') ?? null,
             'maritam_status' => $request->input('maritam_status') ?? '',
             'gender' => $request->input('gender') ?? '',
@@ -72,11 +82,10 @@ class PersonnelController extends Controller
             'date_entered_other_government_service' => $request->input('date_entered_other_government_service') ?? null,
             'date_entered_fire_service' => $request->input('date_entered_fire_service') ?? null,
             'mode_of_entry' => $request->input('mode_of_entry') ?? '',
-            'last_date_promotion' => $request->input('last_date_promotion') ?? '',
+            'last_date_promotion' => $request->input('last_date_promotion') ?? null,
             'appointment_status' => $request->input('appointment_status') ?? '',
             'unit_code' => $request->input('unit_code') ?? '',
             'unit_assignment' => $request->input('unit_assignment') ?? '',
-            'designation' => $request->input('designation') ?? '',
             'admin_operation_remarks' => $request->input('admin_operation_remarks') ?? '',
         ]);
         $personnel->save();
@@ -118,6 +127,17 @@ class PersonnelController extends Controller
         } else {
             $personnel->picture = 'default.png';
             $personnel->save();
+        }
+        // Designation
+        $designations = $request->input('designations', []);
+
+        if ($this->hasValues($designations)) {
+            foreach ($designations as $key => $designation) {
+                $newDesignation = new Personnel_designation();
+                $newDesignation->personnel_id = $personnel_id;
+                $newDesignation->name = $designation;
+                $newDesignation->save();
+            }
         }
 
         // Files

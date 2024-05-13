@@ -862,6 +862,10 @@ class InvestigationController extends Controller
         $log->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
         dd($minimal);
+        $minimal->delete();
+        
+        $investigation->delete();
+        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
     }
     public function destroySpot(Request $request)
     {
