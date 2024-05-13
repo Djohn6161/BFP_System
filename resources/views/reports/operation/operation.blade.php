@@ -94,11 +94,11 @@
                                                     </button>
                                                     <x-reports.operation.operation_view :operation="$operation"
                                                         :responses="$responses"></x-reports.operation.operation_view>
-                                                    <button
+                                                    <a
                                                         href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update
                                                         <i class="ti ti-pencil"></i>
-                                                    </button>
+                                                    </a>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $operation->id }}"

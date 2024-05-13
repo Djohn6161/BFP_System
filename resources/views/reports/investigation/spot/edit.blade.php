@@ -32,9 +32,9 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
-                <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize">
+                <h3 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize">
                     <b>{{ $spot->investigation->subject }}</b>
-                </h1>
+                </h3>
                 <div class="row">
                     <form action="{{ route('investigation.spot.update', ['spot' => $spot->id]) }}" class="needs-validation"
                         novalidate method="POST">
