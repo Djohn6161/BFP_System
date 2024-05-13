@@ -171,6 +171,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{route('investigation.minimal.print', ['minimal' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>

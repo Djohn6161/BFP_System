@@ -862,10 +862,6 @@ class InvestigationController extends Controller
         $log->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
         dd($minimal);
-        $minimal->delete();
-        
-        $investigation->delete();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
     }
     public function destroySpot(Request $request)
     {
@@ -924,4 +920,35 @@ class InvestigationController extends Controller
         $investigation->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
+    public function printSpot(Spot $spot){
+        // dd($spot);
+        return view('reports.investigation.spot.printable', [
+            'active' => 'spot',
+            'user' => Auth::user(),
+            'spot' => $spot,
+        ]);
+    }
+    public function printMinimal(Minimal $minimal){
+        // dd($spot);
+        return view('reports.investigation.minimal.printable', [
+            'active' => 'minimal',
+            'user' => Auth::user(),
+            'minimal' => $minimal,
+        ]);
+    }
+    public function printProgress(Progress $progress){
+        return view('reports.investigation.progress.printable', [
+            'active' => 'progress',
+            'user' => Auth::user(),
+            'progress' => $progress,
+        ]);
+    }
+    public function printFinal(Ifinal $final){
+        return view('reports.investigation.final.printable',[
+            'active' => 'final',
+            'user' => Auth::user(),
+            'final' => $final,
+        ]);
+    }
+
 }

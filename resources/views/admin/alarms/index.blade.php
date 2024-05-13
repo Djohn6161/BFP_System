@@ -38,7 +38,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="operationTable">
+                                <table class="table mb-0 align-middle w-100" id="alarmTable">
                                     <thead class="text-dark fs-4 ">
                                         <tr>
                                             <th class="border-bottom-0"> Alarm Name</th>
