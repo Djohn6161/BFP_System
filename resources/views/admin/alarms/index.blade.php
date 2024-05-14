@@ -38,7 +38,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="operationTable">
+                                <table class="table mb-0 align-middle w-100" id="alarmTable">
                                     <thead class="text-dark fs-4 ">
                                         <tr>
                                             <th class="border-bottom-0"> Alarm Name</th>
@@ -58,15 +58,17 @@
                                                             <button class="btn btn-success w-100 mb-1"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editAlarmModal{{ $list->id }}">
-                                                                Update
                                                                 <i class="ti ti-pencil"></i>
+                                                                Update
+                                                                
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
                                                             <button class="btn btn-danger w-100 mb-1" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteAlarmModalll{{ $list->id }}">
-                                                                Delete
                                                                 <i class="ti ti-trash"></i>
+                                                                Delete
+                                                               
                                                             </button>
                                                             <x-alarm.delete :list="$list"></x-alarm.delete>
                                                         </div>

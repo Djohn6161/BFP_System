@@ -1,5 +1,9 @@
 $('#myTable').DataTable();
 $("#operationTable").DataTable();
+$("#alarmTable").DataTable();
+$("#investigationTable").DataTable();
+$("#trashOperationTable").DataTable();
+$("#trashInvestigationTable").DataTable();
 $("#allInvestigation").DataTable();
 $("#spotInvestigationTable").DataTable();
 $("#minimalInvestigationTable").DataTable();

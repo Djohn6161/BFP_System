@@ -11,7 +11,7 @@
                         @csrf 
                         
                         <!-- Intro -->
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
@@ -81,7 +81,7 @@
                         </div>
 
                         {{-- Response --}}
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <div class="row m-0 p-0" id="divApor">
                                 <div class="row m-0 p-0 border-0" id="addApor">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
@@ -171,7 +171,7 @@
                         </div>
 
                         <!-- Alarm -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
                                 9</h3>
                             <div class="col-lg-6">
@@ -275,7 +275,7 @@
                         </div>
 
                         <!-- Occupancy -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
                             <div class="col-lg-6 mb-3">
@@ -313,7 +313,7 @@
                         </div>
 
                         <!-- Casualties -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
                             </h3>
@@ -357,7 +357,7 @@
                         </div>
 
                         <!-- Material Used -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divBreathingApparatus">
                                 <div class="row m-0 p-0 border-0" id="addBreathingApparatus">
@@ -393,7 +393,7 @@
                                     another breathing apparatus used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divExtinguishing">
                                 <div class="row m-0 p-0" id="addExtinguishing">
@@ -433,7 +433,7 @@
                                     another extinguishing agent</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divRopeLadder">
                                 <div class="row m-0 p-0" id="addRopeLadder">
@@ -469,7 +469,7 @@
                                     rope and ladder used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
 
                             <div class="row m-0 p-0" id="divHoseLine">
@@ -516,7 +516,7 @@
                         </div>
 
                         <!-- Duty Personnel -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
                             </h3>
@@ -575,7 +575,7 @@
 
 
                         <!-- Photos -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
@@ -600,7 +600,7 @@
                         </div>
 
                         <!-- Details narrative -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
                             </h3>
@@ -612,7 +612,7 @@
                         </div>
 
                         <!-- Problem encounterd -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
                             </h3>
@@ -624,7 +624,7 @@
                         </div>
 
                         <!-- Observation Recommendation -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
                             </h3>

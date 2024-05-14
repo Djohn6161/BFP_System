@@ -7,12 +7,17 @@
                     <i class="ti ti-menu-2"></i>
                 </a>
             </div>
-            <div class="nav-item">
-                <div id="page-title" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
+            <div class="navbar-nav flex-row ms-auto align-items-center justify-content-start">
+
+                <div class="nav-item">
+                    <div id="page-title" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
+                </div>
             </div>
         </div>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            
             <div class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+               
                 <div class="nav-item">
                     <div id="military-time" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
                 </div>

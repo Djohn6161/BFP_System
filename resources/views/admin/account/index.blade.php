@@ -71,16 +71,18 @@
                                                                 data-bs-target="#editAccountModal"
                                                                 data-user="{{ json_encode($account) }}"
                                                                 data-type="{{ $type }}">
-                                                                Edit Profile
                                                                 <i class="ti ti-pencil"></i>
+                                                                Edit Profile
+                                                                
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
                                                             <button class="btn btn-primary mb-1" data-bs-toggle="modal"
                                                                 data-bs-target="#updatePasswordModal"
                                                                 data-account-id="{{ $account->id }}">
-                                                                Change Password
                                                                 <i class="ti ti-key"></i>
+                                                                Change Password
+                                                                
                                                             </button>
                                                         </div>
 
@@ -88,8 +90,9 @@
                                                             <button href="#" class="btn btn-danger mb-1"
                                                                 data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
                                                                 data-account-id="{{ $account->id }}">
-                                                                Delete
                                                                 <i class="ti ti-trash"></i>
+                                                                Delete
+                                                                
                                                             </button>
                                                         </div>
                                                     </div>
