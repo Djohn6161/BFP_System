@@ -271,8 +271,7 @@
                                 <div class="card-body p-1">
                                     @foreach ($photos as $photo)
                                         <img style="height: 350px; object-fit: cover;" class="w-100"
-                                            src="/assets/images/operation_images/{{ $photo }}"
-                                            alt="Sample Image">
+                                            src="{{asset('/assets/images/operation_images/' . $photo)}}">
                                     @endforeach
                                 </div>
                             @endif
