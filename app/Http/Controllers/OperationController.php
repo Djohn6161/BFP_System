@@ -298,7 +298,8 @@ class OperationController extends Controller
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $sketch = $operation->sketch_of_fire_operation;
         $photos = explode(',', $sketch);
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos'));
+        $designations = Designation::all();
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations'));
     }
 
     public function operationUpdate(Request $request)
