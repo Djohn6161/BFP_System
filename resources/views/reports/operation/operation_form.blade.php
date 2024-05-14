@@ -7,62 +7,47 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Oops!</strong> There were some errors with your submission:
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('status'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
                         <!-- Intro -->
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
-                                <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                    name="alarm_received">
+                                <input type="text" placeholder="Eg. 2300h"
+                                    class="form-control text-uppercase {{ $errors->has('alarm_received') != '' ? 'is-invalid' : '' }}"
+                                    name="alarm_received" value="{{ old('alarm_received') }}">
+                                @error('alarm_received')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <input type="text" placeholder="Eg. Juan Cruz" class="form-control"
-                                    name="transmitted_by">
+                                <input type="text" placeholder="Eg. Juan Cruz"
+                                    class="form-control {{ $errors->has('transmitted_by') != '' ? 'is-invalid' : '' }}"
+                                    name="transmitted_by" value="{{ old('transmitted_by') }}">
+                                @error('transmitted_by')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
-                                <input type="text" placeholder="Enter the office or address" class="form-control"
+                                <input type="text" placeholder="Enter the office or address"
+                                    class="form-control {{ $errors->has('caller_address') != '' ? 'is-invalid' : '' }}"
                                     name="caller_address">
+                                @error('caller_address')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Personnel on duty
                                     who received the
                                     alarm</label>
-                                <select class="form-select personnelReceive" aria-label="" name="received_by">
+                                <select
+                                    class="form-select personnelReceive {{ $errors->has('received_by') != '' ? 'is-invalid' : '' }}""
+                                    name="received_by">
                                     <option value="" selected>Select personnel</option>
                                     @foreach ($personnels as $personnel)
                                         <option value="{{ $personnel->id }}">
@@ -70,6 +55,9 @@
                                             {{ $personnel->last_name }}</option>
                                     @endforeach
                                 </select>
+                                @error('received_by')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">
@@ -95,7 +83,7 @@
                                     id="otherLocation" name="location">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <div class="row m-0 p-0" id="divApor">
                                 <div class="row m-0 p-0 border-0" id="addApor">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
@@ -162,7 +150,7 @@
                         </div>
 
                         <!-- Alarm -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
                                 9</h3>
                             <div class="col-lg-6">
@@ -234,7 +222,7 @@
                         </div>
 
                         <!-- Occupancy -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
                             <div class="col-lg-6 mb-3">
@@ -267,7 +255,7 @@
                         </div>
 
                         <!-- Casualties -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
                             </h3>
@@ -304,7 +292,7 @@
                         </div>
 
                         <!-- Material Used -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 breathing-apparatus">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used</h3>
@@ -327,7 +315,7 @@
                                     another breathing apparatus used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 extinguishing-agent">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent Used</h3>
@@ -350,7 +338,7 @@
                                     another extinguishing agent</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 rope-ladder">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
@@ -372,7 +360,7 @@
                                     rope and ladder used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0 hose-line">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
@@ -401,14 +389,14 @@
                         </div>
 
                         <!-- Duty Personnel -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
                             </h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row" id="thirdAddApor">
                                     <h3></h3>
-                                    <div class="col-lg-12 mb-3">
+                                    <div class="col-lg-6 mb-3">
                                         <label for="fundCommander" class="form-label">Rank /
                                             Name</label>
                                         <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
@@ -420,9 +408,26 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-
-                                    <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="fundCommander" class="form-label">Designation</label>
+                                        <select class="form-select" aria-label="" name="designations[]">
+                                            <option value="" selected>Select designation</option>
+                                            @foreach ($designations as $designation)
+                                                <option value="{{ $designation->name }}">
+                                                    {{ $designation->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- <div class="col-lg-6">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    {{-- <div class="row m-0 p-0 designationContainer">
                                         <div class="col-lg-12">
                                             <div class="row m-0 p-0">
                                                 <div class="col-lg-6 m-0 p-0">
@@ -435,15 +440,18 @@
                                         <div class="col-lg-6 mb-3">
                                             <div class="d-flex align-items-center">
                                                 <select class="form-select designation" aria-label=""
-                                                    name="duty_designation[]">
+                                                    name="duty_designation[0][0]">
                                                     <option value="" selected>Select Designation</option>
-                                                    <option value="1">Joshua</option>
+                                                    @foreach ($designations as $designation)
+                                                        <option value="{{ $designation->name }}">{{ $designation->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <button type="button"
                                                     class=" ms-1 btn btn-outline-danger remove-designation">x</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-12 mb-3">
                                         <label for="firefighterDeath" class="form-label">Remarks</label>
                                         <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
@@ -459,7 +467,7 @@
                         </div>
 
                         <!-- Photos -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
@@ -468,39 +476,181 @@
                         </div>
 
                         <!-- Details narrative -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
-                            </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Details
-                                    (Narrative)</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="details"></textarea>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
+                            <label for="firefighterDeath" class="form-label">Details (Narrative)</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3" >
+                                <label for="dateTime" class="form-label"></label>
+                                <div style="height: 150px;">
+                                    <div id="toolbar1" >
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="first">
+                                        {!! old('details') !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Problem encounterd -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-4 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
-                            </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Problems /
-                                    Encountered during operation:</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="problem_encounter"></textarea>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16</h3>
+                            <label for="firefighterDeath" class="form-label">Problems / Encountered during operation:</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div style="height: 150px;">
+                                    <div id="toolbar2">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="second">
+                                        {!! old('details') !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Observation Recommendation -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
-                            </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Observation /
-                                    Recommendation</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"
-                                    name="observation_recommendation"></textarea>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17 </h3>
+                            <label for="firefighterDeath" class="form-label">Observation / Recommendation</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
+                                <div style="height: 150px;">
+                                    <div id="toolbar3">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="third">
+                                        {!! old('details') !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -513,6 +663,8 @@
     </div>
 
     <script>
+        var parentCounter = 0;
+        var childCounter = 0;
         $(document).ready(function() {
             // Remove dynamically added input field
             $(document).on('click', '.removeInput', function() {
@@ -562,9 +714,14 @@
             });
 
             $('#addNewDutyPersonnelAtFireScene').click(function() {
+                parentCounter++;
+                childCounter = 0;
+                console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[' +
+                    parentCounter + '][' + childCounter +
+                    ']"> <option value="" selected>Select Designation</option> @foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -576,9 +733,13 @@
                 mnewDiv.find('.designation').select2();
             });
             $(document).on('click', '.addDesignation', function() {
+                childCounter++;
+                console.log(parentCounter, childCounter);
                 // console.log("hello");
                 var inputField =
-                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[' +
+                    parentCounter + '][' + childCounter +
+                    ']"> <option value="" selected>Select Designation</option>@foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach</select><button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button></div></div>';
                 // $(".designationContainer").append(inputField);
                 $(this).closest('.designationContainer').append(inputField);
 
@@ -808,6 +969,29 @@
                 // Add <hr> tag after each cloned row for visual separation
                 $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
             });
+        });
+
+
+        const quillFirst = new Quill('#first', {
+            modules: {
+                toolbar: '#toolbar1',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
+        });
+        const quillSecond = new Quill('#second', {
+            modules: {
+                toolbar: '#toolbar2',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
+        });
+        const quillThird = new Quill('#third', {
+            modules: {
+                toolbar: '#toolbar3',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
         });
     </script>
 @endsection

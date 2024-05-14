@@ -177,7 +177,6 @@ class AforSeeder extends Seeder
                 $attributes = [
                     'afor_id' => $reportID,
                     'personnels_id' => $faker->numberBetween(1, 16),
-                    'designation' => 'commander',
                     'remarks' => 'remarks'
                 ];
 

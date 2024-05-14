@@ -11,10 +11,10 @@
                     <div class=" col-lg-12 card">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-semibold text-center">Other Designations
+                                <h5 class="card-title fw-semibold mb-4">Occupancy Names
                                     <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                 </h5>
-                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#addOtherDesignationModal">
                                     <i class="ti ti-plus"></i>
                                     
@@ -40,12 +40,16 @@
                                                         <div class="me-1">
                                                             <button type="button" class="btn btn-success"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#editOtherDesignationModal{{ $item->id }}">Update</button>
+                                                                data-bs-target="#editOtherDesignationModal{{ $item->id }}">
+                                                                    <i class="ti ti-plus"></i>
+                                                                Update</button>
                                                         </div>
                                                         <div>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteOtherDesignationModal{{ $item->id }}"
-                                                                class="btn btn-danger hide-menu">Delete</button>
+                                                                class="btn btn-danger hide-menu">
+                                                                <i class="ti ti-trash"></i>
+                                                                Delete</button>
                                                         </div>
                                                     </div>
                                                     <x-designation.other.edit-other
@@ -79,7 +83,7 @@
                                                 <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                             </h5>
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                                                <button class="btn btn-primary dropdown-toggle" type="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     Manage
                                                 </button>
@@ -88,7 +92,8 @@
                                                             data-bs-target="#addUnitModal{{ $section->id }}">Add
                                                             Designation</button></li>
                                                     <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#editSectionModal{{ $section->id }}">Edit
+                                                            data-bs-target="#editSectionModal{{ $section->id }}">
+                                                            Edit
                                                             Section</button></li>
                                                     <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#deleteSectionModal{{ $section->id }}">Delete
@@ -110,17 +115,21 @@
                                                         @foreach ($designations->where('section', $section->id) as $item)
                                                             <tr>
                                                                 <td class="py-2">{{ $item->name }}</td>
-                                                                <td class="w-25 py-2">
+                                                                <td class="py-2">
                                                                     <div class="d-flex flex-row">
                                                                         <div class="me-1">
                                                                             <button type="button" class="btn btn-success w-100"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#editUnitModal{{ $item->id }}">Update</button>
+                                                                                data-bs-target="#editUnitModal{{ $item->id }}">
+                                                                                <i class="ti ti-pencil"></i>
+                                                                                Update</button>
                                                                         </div>
                                                                         <div>
                                                                             <button type="button" data-bs-toggle="modal"
                                                                                 data-bs-target="#deleteUnitModal{{ $item->id }}"
-                                                                                class="btn btn-danger hide-menu w-100">Delete</button>
+                                                                                class="btn btn-danger hide-menu w-100">
+                                                                                <i class="ti ti-trash"></i>
+                                                                                Delete</button>
                                                                         </div>
                                                                     </div>
                                                                     <x-designation.unit.edit-unit

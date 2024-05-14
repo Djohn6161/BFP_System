@@ -193,7 +193,7 @@ div.dt-processing > div:last-child > div {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: rgb(13, 110, 253);
+  background: rgb(253, 177, 13);
   background: rgb(var(--dt-row-selected));
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }

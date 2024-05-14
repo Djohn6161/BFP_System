@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body px-5">
                 <form id="addPersonnelForm" class="row g-3" method="POST" action="{{ route('admin.personnel.store') }}"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" class="needs-validation" novalidate>
                     @csrf
                     <div class="col-lg-4">
                         <div class="mb-3">
@@ -28,22 +28,35 @@
                         <div class="row g-3">
                             <div class="col-lg-4 mb-3">
                                 <label for="accountNumber" class="form-label">Account Number</label>
-                                <input type="text" placeholder="Enter account number" class="form-control"
-                                    id="accountNumber" name="account_number">
+                                <input type="text" placeholder="Enter account number"
+                                    class="form-control {{ $errors->has('account_number') != '' ? 'is-invalid' : '' }}"
+                                    name="account_number" value="{{ old('account_number') }}">
+                                @error('account_number')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="itemNumber" class="form-label">Item Number</label>
-                                <input type="text" placeholder="Enter item number" class="form-control"
-                                    id="itemNumber" name="item_number">
+                                <input type="text" placeholder="Enter item number"
+                                    class="form-control {{ $errors->has('item_number') != '' ? 'is-invalid' : '' }}"
+                                    name="item_number">
+                                @error('item_number')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="rank" class="form-label">Rank</label>
-                                <select class="form-select" id="rank" name="rank">
-                                    <option selected>Select Rank</option>
+                                <select class="form-select  {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
+                                    id="rank" name="rank">
+                                    <option value="" selected>Select Rank</option>
                                     @foreach ($ranks as $rank)
-                                        <option value="{{$rank->id}}">{{$rank->slug}} - {{$rank->name}}</option>
+                                        <option value="{{ $rank->id }}">{{ $rank->slug }} - {{ $rank->name }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('rank')
+                                    <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -51,16 +64,24 @@
                             <label class="form-label">Name</label>
                             <div class="row g-3">
                                 <div class="col">
-                                    <input type="text" placeholder="First Name" class="form-control" id="firstName"
+                                    <input type="text" placeholder="First Name"
+                                        class="form-control {{ $errors->has('first_name') != '' ? 'is-invalid' : '' }}"
                                         name="first_name">
+                                    @error('first_name')
+                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <input type="text" placeholder="Middle Name" class="form-control" id="middleName"
                                         name="middle_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Last Name" class="form-control" id="lastName"
-                                        name="last_name">
+                                    <input type="text" placeholder="Last Name"
+                                        class="form-control {{ $errors->has('first_name') != '' ? 'is-invalid' : '' }}""
+                                        id="lastName" name="last_name">
+                                    @error('last_name')
+                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col">
                                     <input type="text" placeholder="Suffix Name" class="form-control" id="suffixName"
@@ -89,7 +110,7 @@
                                     <select class="form-select" id="maritalStatus" name="marital_status">
                                         <option value="" selected>Select marital status</option>
                                         @foreach ($maritals as $marital)
-                                            <option value="{{ $marital }}">{{ucwords($marital)}}</option>
+                                            <option value="{{ $marital }}">{{ ucwords($marital) }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -98,7 +119,7 @@
                                     <select class="form-select" id="gender" name="gender">
                                         <option value="" selected>Select gender</option>
                                         @foreach ($genders as $gender)
-                                            <option value="{{ $gender }}">{{ucwords($gender)}}</option>
+                                            <option value="{{ $gender }}">{{ ucwords($gender) }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -231,31 +252,47 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control"
                                     id="unitCode" name="unit_code">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <div class="col-lg-12">
-                                    <label for="designationSelect" class="form-label">Designation</label>
-                                    <br>
-                                    <select class="form-control designation-select" id="designationSelect" aria-label="designationSelect" name="designation">
-                                        <option selected>Open this select menu</option>
-                                        @foreach ($designations as $designation)
-                                            <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignation">+
+                                                    ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 ps-0">
+                                        <div class="d-flex align-items-center">
+                                            <select class="form-control designation-select" id="designationSelect"
+                                                aria-label="designationSelect" name="designations[]">
+                                                <option selected>Open this select menu</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->name }}">{{ $designation->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button"
+                                                class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-3">
@@ -268,7 +305,8 @@
                                 <input class="form-control" type="file" id="file-input" style="display: none;"
                                     multiple name="files[]">
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">+ Choose File</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="document.getElementById('file-input').click();">+ Choose File</button>
                                     <p id="file-count">No files selected</p>
                                 </div>
                             </div>
@@ -297,6 +335,21 @@
     //personnel file upload
     $(document).ready(function() {
         $('#file-input').change(handleFileSelect);
+        $(document).on('click', '.addPersonnelDesignation', function() {
+            // console.log("hello");
+            var inputField =
+                '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select" aria-label="designationSelect" name="designations[]"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-personnel-designation">x</button> </div> </div>';
+            // $(".designationContainer").append(inputField);
+            $(this).closest('.designationContainer').append(inputField);
+
+            // inputField.find('.designation').select2();
+            $(".designation-select").select2({
+                dropdownParent: $("#addPersonnelModal")
+            });
+        });
+        $(document).on('click', '.remove-personnel-designation', function() {
+            $(this).closest('.col-lg-6').remove();
+        });
     });
 
     function handleFileSelect(event) {
@@ -337,7 +390,8 @@
 
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                var listItem = $('<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+                var listItem = $(
+                    '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
 
                 var fileName = $('<span></span>').text(file.name);
                 listItem.append(fileName);
@@ -449,7 +503,7 @@
     $('#imagePersonnelInput').change(function() {
         var file = this.files[0];
         if (file) {
-            var reader = new FileReader();  
+            var reader = new FileReader();
             reader.onload = function(e) {
                 $('#previewPersonnelImage').attr('src', e.target.result);
             }
