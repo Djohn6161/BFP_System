@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Spot;
 use App\Models\Afors;
-use App\Models\Alarm_name;
 use App\Models\Truck;
 use App\Models\Ifinal;
 use App\Models\Victim;
@@ -12,11 +11,13 @@ use App\Models\Minimal;
 use App\Models\Barangay;
 use App\Models\Progress;
 use App\Models\Personnel;
+use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
+use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use function Symfony\Component\String\b;
 
@@ -29,8 +30,10 @@ class InvestigationController extends Controller
             'active' => 'investigation',
             'user' => Auth::user(),
             // 'minimals' => Minimal::all(),
-            'investigations' => Investigation::latest()->get(),
-            'spots' => Spot::all(),
+            'investigations' => Investigation::where('deleted_at', null)->latest()->get(),
+            'spots' => Spot::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
         ]);
     }
     public function investigationMinimalIndex()
@@ -38,10 +41,16 @@ class InvestigationController extends Controller
         // dd();
         $user = Auth::user();
         $active = 'minimal';
-        $minimals = Minimal::all();
-        $investigations = Minimal::latest()->get();
-        $spots = Spot::all();
-       
+        $minimals = Minimal::whereHas('investigation', function ($query) {
+            $query->whereNull('deleted_at');
+        })->latest()->get();
+        $investigations = Minimal::whereHas('investigation', function ($query) {
+            $query->whereNull('deleted_at');
+        })->latest()->get();
+        $spots = Spot::whereHas('investigation', function ($query) {
+            $query->whereNull('deleted_at');
+        })->latest()->get();
+
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
     }
     public function createMinimal()
@@ -62,9 +71,13 @@ class InvestigationController extends Controller
         return view('reports.investigation.spot', [
             'active' => 'spot',
             'user' => Auth::user(),
-            'minimals' => Minimal::all(),
+            'minimals' => Minimal::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
             'investigations' => Spot::latest()->get(),
-            'spots' => Spot::all(),
+            'spots' => Spot::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
         ]);
     }
     public function createSpot()
@@ -73,7 +86,7 @@ class InvestigationController extends Controller
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
-            'alarms' => Alarm_name::all(), 
+            'alarms' => Alarm_name::all(),
 
         ]);
     }
@@ -159,9 +172,15 @@ class InvestigationController extends Controller
         return view('reports.investigation.progress', [
             'active' => 'progress',
             'user' => Auth::user(),
-            'minimals' => Minimal::all(),
-            'investigations' => Progress::latest()->get(),
-            'spots' => Spot::all(),
+            'minimals' => Minimal::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
+            'investigations' => Progress::whereHas('investigation', function ($query) {
+            $query->whereNull('deleted_at');
+        })->latest()->get(),
+            'spots' => Spot::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
         ]);
     }
     public function createProgress(Spot $spot)
@@ -220,9 +239,15 @@ class InvestigationController extends Controller
         return view('reports.investigation.final', [
             'active' => 'final',
             'user' => Auth::user(),
-            'minimals' => Minimal::all(),
-            'investigations' => Ifinal::latest()->get(),
-            'spots' => Spot::all(),
+            'minimals' => Minimal::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
+            'investigations' => Ifinal::whereHas('investigation', function ($query) {
+            $query->whereNull('deleted_at');
+        })->latest()->get(),
+            'spots' => Spot::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
         ]);
     }
     public function createFinal(Spot $spot)
@@ -573,7 +598,7 @@ class InvestigationController extends Controller
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
-            'alarms' => Alarm_name::all(), 
+            'alarms' => Alarm_name::all(),
             'spot' => $spot,
             'location' => $location,
         ]);
@@ -809,81 +834,90 @@ class InvestigationController extends Controller
         // dd($request->all());
         $minimal = Minimal::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($minimal->investigation_id);
-        if ($minimal->photos !== null) {
-            $photos = explode(", ", $minimal->photos);
-            // dd($photos);
-            foreach ($photos as $photoToDelete) {
-                if (Storage::disk('public')->exists('minimal/' . $photoToDelete)) {
-                    // dd("photo is found: " . $photoToDelete);
-                    try {
-                        Storage::disk('public')->delete('minimal/' . $photoToDelete);
-                    } catch (\Throwable $th) {
-                        abort(404, "Page not found");
-                    }
-                }
-            }
-            // if (Storage::disk('public')->exists($thesis->file)) {
-            //     // dd("Thesis is found: " . $thesis->file);
-            //     Storage::disk('public')->delete($thesis->file);
-            // }
-        }
+        // if ($minimal->photos !== null) {
+        //     $photos = explode(", ", $minimal->photos);
+        //     // dd($photos);
+        //     foreach ($photos as $photoToDelete) {
+        //         if (Storage::disk('public')->exists('minimal/' . $photoToDelete)) {
+        //             // dd("photo is found: " . $photoToDelete);
+        //             try {
+        //                 Storage::disk('public')->delete('minimal/' . $photoToDelete);
+        //             } catch (\Throwable $th) {
+        //                 abort(404, "Page not found");
+        //             }
+        //         }
+        //     }
+        // }
+        // $minimal->delete();
+        $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
+        $investigation->touch();
+        $investigation->save();
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $minimal->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Permanently Deleted a Minimal Investigation with a subject of " . $minimal->investigation->subject . ", Created on " . $minimal->investigation->date,
+            'details' => "Deleted a Minimal Investigation with a subject of " . $minimal->investigation->subject . ", Created on " . $minimal->investigation->date,
             'action' => "Delete",
         ]);
         $log->save();
-        $minimal->delete();
-        
-        $investigation->delete();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
         dd($minimal);
     }
-    public function destroySpot(Request $request){
+    public function destroySpot(Request $request)
+    {
         $spot = Spot::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($spot->investigation_id);
+        // $spot->delete();
+        // $investigation->delete();
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $spot->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Permanently Deleted a Spot Investigation with a subject of " . $spot->investigation->subject . ", Created on " . $spot->investigation->date,
+            'details' => "Deleted a Spot Investigation with a subject of " . $spot->investigation->subject . ", Created on " . $spot->investigation->date,
             'action' => "Delete",
         ]);
         $log->save();
-        $spot->delete();
-        $investigation->delete();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
+        $investigation->touch();
+        $investigation->save();
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
-    public function destroyProgress(Request $request){
+    public function destroyProgress(Request $request)
+    {
         $progress = Progress::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($progress->investigation_id);
+        // $progress->delete();
+        // $investigation->delete();
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $progress->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Permanently Deleted a Progress Investigation with a subject of " . $progress->investigation->subject . ", Created on " . $progress->investigation->date,
+            'details' => "Deleted a Progress Investigation with a subject of " . $progress->investigation->subject . ", Created on " . $progress->investigation->date,
             'action' => "Delete",
         ]);
         $log->save();
-        $progress->delete();
-        $investigation->delete();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
+        $investigation->touch();
+        $investigation->save();
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
-    public function destroyFinal(Request $request){
+    public function destroyFinal(Request $request)
+    {
         $final = Ifinal::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($final->investigation_id);
+        // $final->delete();
+        // $investigation->delete();
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $final->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Permanently Deleted a Final Investigation with a subject of " . $final->investigation->subject . ", Created on " . $final->investigation->date,
+            'details' => "Deleted a Final Investigation with a subject of " . $final->investigation->subject . ", Created on " . $final->investigation->date,
             'action' => "Delete",
         ]);
         $log->save();
-        $final->delete();
-        $investigation->delete();
-        return redirect()->back()->with('message', 'Investigation Deleted Successfully');
+        $investigation->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
+        $investigation->touch();
+        $investigation->save();
+        return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
 }

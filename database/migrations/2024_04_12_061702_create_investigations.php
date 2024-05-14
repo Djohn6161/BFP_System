@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('for');
             $table->string('subject');
             $table->date('date');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

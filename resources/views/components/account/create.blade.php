@@ -44,7 +44,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Confirm Password:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Confirm Password" name="confirm_password">
+                        <input type="password" class="form-control"placeholder="Confirm Password" name="confirm_password">
                     </div>
                 </div>
                 <div class="modal-footer">

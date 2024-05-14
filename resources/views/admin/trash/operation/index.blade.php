@@ -13,7 +13,7 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end mb-2">
-                    
+
                 </div>
                 <div class="col-lg-12 d-flex align-items-stretch">
                     <div class="card w-100">
@@ -28,43 +28,43 @@
                                                 <h6 class="fw-semibold mb-0">Deleted at</h6>
                                             </th>
                                             <th class="border-bottom-0" style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">For</h6>
+                                                <h6 class="fw-semibold mb-0">Alarm Received</h6>
                                             </th>
                                             <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Subject</h6>
+                                                <h6 class="fw-semibold mb-0">Transmitted By</h6>
                                             </th>
-                                            
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                        @foreach ($investigations as $investigation)
-                                            
-                                            <x-trash.operation.restore :investigation=$investigation></x-trash.operation.restore>
-                                            <tr class="justify-content-center">
-                                                {{-- {{dd($investigation)}} --}}
+
+                                        @foreach ($operations as $operation)
+                                            <x-trash.operation.restore :operation=$operation></x-trash.operation.restore>
+                                            <tr class="justify-content-center text-center">
+
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0"> {{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}</h6>
+                                                    <h6 class="fw-semibold mb-0">
+                                                        {{ \Carbon\Carbon::parse($operation->deleted_at)->format('F j, Y') }}
+                                                    </h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
                                                 </td>
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">{{ $investigation->subject }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $operation->transmitted_by }}</p>
                                                 </td>
-                                               
+
                                                 <td class="border-bottom-0">
                                                     <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#restoreTrashOperationModal{{ $investigation->id }}"
-                                                    class="btn btn-success w-100 mb-1">Restore</button>
+                                                        data-bs-target="#restoreTrashOperationModal{{ $operation->id }}"
+                                                        class="btn btn-success w-100 mb-1">Restore</button>
                                                     <br>
                                                     <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteTrashOperationModal{{ $investigation->id }}"
+                                                        data-bs-target="#deleteTrashOperationModal{{ $operation->id }}"
                                                         class="btn btn-danger hide-menu w-100 mb-1">Delete</button>
-                                                        <x-trash.operation.delete :investigation="$investigation"></x-trash.operation.delete>
+                                                    <x-trash.operation.delete :operation="$operation"></x-trash.operation.delete>
                                                 </td>
                                             </tr>
                                         @endforeach
