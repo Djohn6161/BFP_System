@@ -33,7 +33,7 @@
                         <span>
                             <i class="ti ti-report"></i>
                         </span>
-                        <span class="hide-menu">Operation</span>
+                        <span class="hide-menu">Operations</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -45,7 +45,7 @@
                                     data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     <span> <i class="ti ti-report"></i></span>
-                                    <span class="hide-menu">Investigation</span>
+                                    <span class="hide-menu">Investigations</span>
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse {{ ($active == 'investigation' || $active == 'minimal') || ($active == 'spot' || $active == 'progress') || ($active == 'final') ? '' : 'collapse' }}"
@@ -105,7 +105,7 @@
                             <span>
                                 <i class="ti ti-report"></i>
                             </span>
-                            <span class="hide-menu">Occupancy</span>
+                            <span class="hide-menu">Occupancies</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -123,7 +123,7 @@
                             <span>
                                 <i class="ti ti-bell-school"></i>
                             </span>
-                            <span class="hide-menu">Alarm</span>
+                            <span class="hide-menu">Alarms</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -150,7 +150,7 @@
                             <span>
                                 <i class="ti ti-report"></i>
                             </span>
-                            <span class="hide-menu">Designation</span>
+                            <span class="hide-menu">Designations</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
