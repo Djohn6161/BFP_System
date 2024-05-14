@@ -40,7 +40,7 @@
                         <x-reports.investigation.memo-investigate :spot=$minimal></x-reports.investigation.memo-investigate>
 
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS</h3>
                             {{-- <h5>Details</h5> --}}
@@ -126,7 +126,7 @@
                             </div>
                         </div>
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <div class="row m-0 p-0 second-div border-0">
                                 <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RESPONSE AND SUPPRESSION DATA
                                 </h3>
@@ -260,7 +260,7 @@
                             </div>
                         </div>
 
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Alarm Status and Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">INVOLVED PARTIES</h3>
 
@@ -289,7 +289,7 @@
                             </div>
                         </div>
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS OF INVESTIGATION:</h3>
                             {{-- <h5>Details</h5> --}}
@@ -354,7 +354,7 @@
                         </div>
                         <input type="hidden" name="details" id="details">
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
@@ -416,7 +416,7 @@
                             @enderror
                         </div>
                         <input type="hidden" name="findings" id="findings">
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
@@ -478,7 +478,7 @@
                             @enderror
                         </div>
                         <input type="hidden" name="recommendation" id="recommendation">
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">Photos</h3>
                             {{-- <label class="form-label" for="exampleCheck1">Photos</label> --}}
 

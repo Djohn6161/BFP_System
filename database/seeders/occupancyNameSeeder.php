@@ -51,6 +51,81 @@ class occupancyNameSeeder extends Seeder
             [
                 'name' => 'Special Structures',
             ],
+            [
+                'name' => 'Apartment Building',
+            ],
+            [
+                'name' => 'Condominiums',
+            ],
+            [
+                'name' => 'Dormitory',
+            ],
+            [
+                'name' => 'Hotel',
+            ],
+            [
+                'name' => 'Lodging and Rooming Houses',
+            ],
+            [
+                'name' => 'Single and Two Family Dwelling',
+            ],
+            [
+                'name' => 'Mixed Occupancies',
+            ],
+            [
+                'name' => 'Agricultural Land',
+            ],
+            [
+                'name' => 'Ambulant Vendor',
+            ],
+            [
+                'name' => 'Electrical Post Fire',
+            ],
+            [
+                'name' => 'Forest Fire',
+            ],
+            [
+                'name' => 'Grass Fire',
+            ],
+            [
+                'name' => 'Rubbish Fire',
+            ],
+            [
+                'name' => 'Brush Fire',
+            ],
+            [
+                'name' => 'Automobile',
+            ],
+            [
+                'name' => 'Bus',
+            ],
+            [
+                'name' => 'Jeepney',
+            ],
+            [
+                'name' => 'Motorcycle',
+            ],
+            [
+                'name' => 'Tricycle',
+            ],
+            [
+                'name' => 'Truck',
+            ],
+            [
+                'name' => 'Heavy Equipment',
+            ],
+            [
+                'name' => 'Ship/Water Vessel',
+            ],
+            [
+                'name' => 'Aircraft',
+            ],
+            [
+                'name' => 'Locomotive',
+            ],
+            [
+                'name' => 'Hybrid and Electric Vehicle',
+            ],
         ];
 
         DB::table('Occupancy_names')->insert($names);

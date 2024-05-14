@@ -1,21 +1,25 @@
 <!-- Header Start -->
-
 <header class="app-header">
-    <nav class="navbar navbar-expand-lg navbar-succes">
+    <nav class="navbar navbar-expand-lg navbar-success">
         <div class="navbar-nav">
             <div class="nav-item d-block d-xl-none">
                 <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                     <i class="ti ti-menu-2"></i>
                 </a>
             </div>
-            <div class="nav-item">
-                {{-- <div id="page-title" style="font-weight: bold; font-size: 24px;"></div> --}}
+            <div class="navbar-nav flex-row ms-auto align-items-center justify-content-start">
+
+                <div class="nav-item">
+                    <div id="page-title" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
+                </div>
             </div>
         </div>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            
             <div class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+               
                 <div class="nav-item">
-                    <div id="military-time" style="font-weight: bold; font-size: larger;"></div>
+                    <div id="military-time" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
                 </div>
                 <div class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
@@ -28,12 +32,12 @@
                             <a href="{{ route('profile.myProfile') }}"
                                 class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-user fs-6"></i>
-                                <p class="mb-0 fs-3">My Profile</p>
+                                <p class="mb-0 fs-5">My Profile</p> <!-- Updated: Use consistent font size -->
                             </a>
                             <button data-bs-toggle="modal" data-bs-target="#userPasswordModal"
                                 class="d-flex align-items-center gap-2 dropdown-item mb-2">
                                 <i class="ti ti-mail fs-6"></i>
-                                <p class="mb-0 fs-3">My Password</p>
+                                <p class="mb-0 fs-5">My Password</p> <!-- Updated: Use consistent font size -->
                             </button>
                             <button class="btn btn-outline-danger text-center w-100" data-bs-toggle="modal"
                                 data-bs-target="#logoutModal">Logout</button>

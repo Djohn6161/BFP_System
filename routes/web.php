@@ -86,6 +86,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
+        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
+        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
+        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
+        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
         // Accounts
         Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
@@ -151,7 +156,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
 
         // Designation
-        Route::get('/designation/index',[DesignationController::class, 'designationIndex'])->name('designation.index');
+        Route::get('/designation/index', [DesignationController::class, 'designationIndex'])->name('designation.index');
         Route::post('/designation/store', [DesignationController::class, 'store'])->name('designation.store');
         Route::put('/designation/update/{designation}', [DesignationController::class, 'update'])->name('designation.update');
         Route::delete('/designation/destroy', [DesignationController::class, 'destroy'])->name('designation.destroy');
@@ -162,57 +167,60 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //Logs 
         Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
         Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
-        
     });
 
     // Operation
     Route::prefix('reports/operation')->name('operation.')->group(function () {
         Route::get('/index', [OperationController::class, 'operationIndex'])->name('index');
-        Route::get('/create/form', [OperationController::class, 'operationCreateForm'])->name('create.form');
-        Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
-        Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
-        Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-        Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
-    }); 
+        Route::middleware(['checkPrivilege:OC'])->group(function () {
+            Route::get('/create/form', [OperationController::class, 'operationCreateForm'])->name('create.form');
+            Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
+            Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+            Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+            Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
+        });
+    });
 
 
     // Investigation
     Route::prefix('reports/investigation')->name('investigation.')->group(function () {
         Route::get('/index', [InvestigationController::class, 'index'])->name('index');
-
         Route::get('/minimal/index', [InvestigationController::class, 'investigationMinimalIndex'])->name('minimal.index');
-        Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
-        Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
-        Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
-        Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
-        Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
-        Route::get('/minimal/print/{minimal}', [InvestigationController::class, 'printMinimal'])->name('minimal.print');
-
-
         Route::get('/Spot/index', [InvestigationController::class, 'spot'])->name('spot.index');
-        Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
-        Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
-        Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
-        Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
-        Route::delete('/spot/destroy', [InvestigationController::class, 'destroySpot'])->name('spot.destroy');
-        Route::get('/spot/print/{spot}', [InvestigationController::class, 'printSpot'])->name('spot.print');
-
-
         Route::get('/progress/index', [InvestigationController::class, 'progress'])->name('progress.index');
-        Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');
-        Route::post('/propress/store/{spot}', [InvestigationController::class, 'storeProgress'])->name('progress.store');
-        Route::get('/progress/edit/{progress}', [InvestigationController::class, 'editProgress'])->name('progress.edit');
-        Route::put('/progress/update/{progress}', [InvestigationController::class, 'updateProgress'])->name('progress.update');
-        Route::delete('/progress/destroy', [InvestigationController::class, 'destroyProgress'])->name('progress.destroy');
-        Route::get('/progress/print/{progress}', [InvestigationController::class, 'printProgress'])->name('progress.print');
-
         Route::get('/final/index', [InvestigationController::class, 'final'])->name('final.index');
-        Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
-        Route::post('/final/store/{spot}', [InvestigationController::class, 'storeFinal'])->name('final.store');
-        Route::get('final/edit/{final}', [InvestigationController::class, 'editFinal'])->name('final.edit');
-        Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
-        Route::delete('/final/destroy', [InvestigationController::class, 'destroyFinal'])->name('final.destroy');
+
+        Route::get('/minimal/print/{minimal}', [InvestigationController::class, 'printMinimal'])->name('minimal.print');
+        Route::get('/spot/print/{spot}', [InvestigationController::class, 'printSpot'])->name('spot.print');
+        Route::get('/progress/print/{progress}', [InvestigationController::class, 'printProgress'])->name('progress.print');
         Route::get('/final/print/{final}', [InvestigationController::class, 'printFinal'])->name('final.print');
+        Route::middleware(['checkPrivilege:IC'])->group(function () {
+            Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
+            Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
+            Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
+            Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
+            Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
+
+
+            Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
+            Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
+            Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
+            Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
+            Route::delete('/spot/destroy', [InvestigationController::class, 'destroySpot'])->name('spot.destroy');
+
+
+            Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');
+            Route::post('/propress/store/{spot}', [InvestigationController::class, 'storeProgress'])->name('progress.store');
+            Route::get('/progress/edit/{progress}', [InvestigationController::class, 'editProgress'])->name('progress.edit');
+            Route::put('/progress/update/{progress}', [InvestigationController::class, 'updateProgress'])->name('progress.update');
+            Route::delete('/progress/destroy', [InvestigationController::class, 'destroyProgress'])->name('progress.destroy');
+
+            Route::get('/final/create/{spot}', [InvestigationController::class, 'createFinal'])->name('final.create');
+            Route::post('/final/store/{spot}', [InvestigationController::class, 'storeFinal'])->name('final.store');
+            Route::get('final/edit/{final}', [InvestigationController::class, 'editFinal'])->name('final.edit');
+            Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
+            Route::delete('/final/destroy', [InvestigationController::class, 'destroyFinal'])->name('final.destroy');
+        });
 
 
 
