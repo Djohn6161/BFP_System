@@ -35,7 +35,7 @@
                                     <p class="mb-1 fw-bold text-primary">Total Fire Incident</p>
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h5 class="mb-0 fw-semibold">36,358</h5>
+                                            <h5 class="mb-0 fw-semibold">{{count($afor ?? [])}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -46,16 +46,16 @@
                         </div>
                     </div>
                 </div>
-                
+                @foreach ($occupancies as $occupancy)
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-start border-success border-5 overflow-hidden">
+                    <div class="card border-start border-danger border-5 overflow-hidden">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <p class="mb-1 fw-bold text-success">Occupancy</p>
+                                    <p class="mb-1 fw-bold text-dark">{{$occupancy->name}}</p>
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h5 class="mb-0 fw-semibold">36,358</h5>
+                                            <h5 class="mb-0 fw-semibold">{{count($afor->where('occupancy_specify', $occupancy->name) ?? [])}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -66,6 +66,8 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                
         </div>
     </div>
 @endsection
