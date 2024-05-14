@@ -28,20 +28,20 @@
                                 <table class="table mb-0 align-middle w-100" id="allInvestigation">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0" style="max-width:10%">
+                                            <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Type</h6>
                                             </th>
                                             @if ($user->privilege == 'IC' || $user->privilege == 'All')
-                                                <th class="border-bottom-0">
+                                                <th>
                                                     <h6 class="fw-semibold mb-0">Action</h6>
                                                 </th>
                                             @endif
@@ -54,31 +54,31 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <p class="mb-0 fw-normal">{{ $investigation->subject }}</p>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <p class="mb-0 fw-normal">
                                                         {{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
                                                 @if ($investigation->minimal != null)
-                                                    <td class="border-bottom-0">
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Minimal</p>
                                                     </td>
                                                 @elseif($investigation->spot != null)
-                                                    <td class="border-bottom-0">
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Spot</p>
                                                     </td>
                                                 @elseif($investigation->progress != null)
-                                                    <td class="border-bottom-0">
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Progress</p>
                                                     </td>
                                                 @elseif($investigation->final != null)
-                                                    <td class="border-bottom-0">
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Final</p>
                                                     </td>
                                                 @endif
@@ -88,7 +88,7 @@
                                                         @php
                                                             $investigation = $investigation->minimal;
                                                         @endphp
-                                                        <td class="border-bottom-0">
+                                                        <td>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#viewMinimalModal{{ $investigation->id }}"
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
