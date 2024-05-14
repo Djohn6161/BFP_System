@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <h4 class="mb-3">Dashboard</h4>
+        <h4 class="mb-3">Fire Incidents</h4>
         <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="card border-start border-primary border-5 overflow-hidden">
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto px-2">
-                                    <i class="ti ti-layout-dashboard custom-icon"></i>
+                                    <i class="ti ti-flame custom-icon"></i>
                                 </div>
                             </div>
                         </div>
