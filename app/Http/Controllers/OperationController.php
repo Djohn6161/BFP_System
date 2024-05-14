@@ -298,8 +298,10 @@ class OperationController extends Controller
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $sketch = $operation->sketch_of_fire_operation;
         $photos = explode(',', $sketch);
-        $designations = Designation::all();
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations'));
+        $designations = Designation::where('section', 4)->get();
+        $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
+
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations','duty_personnels'));
     }
 
     public function operationUpdate(Request $request)
@@ -750,6 +752,7 @@ class OperationController extends Controller
                     $status = true;
                     $personnel->update($changes);
                 }
+
             } else {
                 // No existing record for this index, create a new one
                 $newPersonnel = new Afor_duty_personnel();
@@ -806,7 +809,13 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
+        if($status){
+            return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
+        }else{
+            return redirect('/reports/operation/index')->with('success', "Nothing's change.");
+        }
+
+      
     }
 
     public function operationDelete($id, Request $request)

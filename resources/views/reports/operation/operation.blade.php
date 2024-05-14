@@ -74,7 +74,7 @@
                                                         data-responses="{{ json_encode($operation->responses) }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1">View</button>
                                                     <x-reports.operation.operation_view :operation="$operation"
-                                                        :responses="$responses"></x-reports.operation.operation_view>
+                                                        :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
                                                     <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                         class="btn btn-success w-100 mb-1">Update</a>
                                                     <br>
