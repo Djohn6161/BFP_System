@@ -15,12 +15,14 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold text-capitalize">
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#chooseInvestigation">
-                                    <i class="ti ti-plus"></i>
-                                    Create
-                                </button>
-                                <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#chooseInvestigation">
+                                        <i class="ti ti-plus"></i>
+                                        Create
+                                    </button>
+                                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                @endif
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0 align-middle w-100" id="minimalInvestigationTable">
@@ -65,19 +67,19 @@
                                                             class="ti ti-eye"></i> View</button>
                                                     <x-reports.Investigation.view-minimal
                                                         :investigation=$investigation></x-reports.Investigation.view-minimal>
+                                                    @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                        <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
+                                                            class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>
+                                                            Update</a>
 
-                                                    <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
-                                                        class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>
-                                                        Update</a>
-
-                                                    <br>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $investigation->id }}"
-                                                        class="btn btn-danger hide-menu w-100 mb-1"><i
-                                                            class="ti ti-trash"></i> Delete</button>
-                                                    <x-reports.investigation.investigation-delete :type="'minimal'"
-                                                        :investigation=$investigation></x-reports.investigation.investigation-delete>
-
+                                                        <br>
+                                                        <button type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal{{ $investigation->id }}"
+                                                            class="btn btn-danger hide-menu w-100 mb-1"><i
+                                                                class="ti ti-trash"></i> Delete</button>
+                                                        <x-reports.investigation.investigation-delete :type="'minimal'"
+                                                            :investigation=$investigation></x-reports.investigation.investigation-delete>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
