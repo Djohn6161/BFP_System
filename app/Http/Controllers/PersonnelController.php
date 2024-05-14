@@ -170,7 +170,8 @@ class PersonnelController extends Controller
         $genders = ['male', 'female'];
         $files = explode(',', $personnel->files);
         $designations = Designation::all();
-        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'designations'));
+        $old_designations = Personnel_designation::where('personnel_id', $personnel->id)->get();
+        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'designations', 'old_designations'));
     }
 
     public function personnelUpdate(Request $request)
@@ -202,11 +203,10 @@ class PersonnelController extends Controller
             'appointment_status' => $request->input('appointment_status') ?? '',
             'unit_code' => $request->input('unit_code') ?? '',
             'unit_assignment' => $request->input('unit_assignment') ?? '',
-            'designation' => $request->input('designation') ?? '',
             'admin_operation_remarks' => $request->input('admin_operation_remarks') ?? '',
         ];
 
-        $personnel = Personnel::findOrFail($request['personnel_id']);
+        $personnel = Personnel::find($request['personnel_id']);
         $personnelChange = $this->hasChanges($personnel, $InfoUpdatedData);
         $status = false;
 
@@ -270,6 +270,49 @@ class PersonnelController extends Controller
             $files = implode(',', $personnelFiles);
             $existPersonnel->files = $files;
             $existPersonnel->save();
+        }
+
+        // designations
+        $designations = $request->input('designations', []);
+
+        // Retrieve the existing data from the database
+        $existDesignations = Personnel_designation::where('personnel_id', $personnel->id)->get();
+        $requestIndexes = array_keys($designations);
+
+        foreach ($existDesignations as $index => $designation) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $designation->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($designations as $index => $designation) {
+            // Check if there's an existing record at this index
+            $personnelDesignation = $existDesignations->get($index);
+
+            $new_designation = $designations[$index];
+
+            // Check if an existing record exists for this index
+            if ($personnelDesignation) {
+                // Check if any field has changed
+                $changes = [
+                    'name' => $new_designation,
+                ];
+
+                if ($this->hasChanges($personnelDesignation, $changes)) {
+                    $status = true;
+                    $designation->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newRopeLadder = new Personnel_designation();
+                $newRopeLadder->personnel_id = $personnel->id;
+                $newRopeLadder->name = $new_designation;
+                $newRopeLadder->save(); // Save the new record
+                $status = true;
+            }
         }
 
         if ($status) {

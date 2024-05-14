@@ -5,8 +5,8 @@ $(document).ready(function () {
     $(".crew-name").select2();
     $(".barangay").select2();
     $(".caller").select2({tags: true});
+    $(".designation_select_edit").select2();
     $(".designation-select").select2({dropdownParent: $("#addPersonnelModal")});
-    $(".designation-select-edit").select2();
     $(".edit-designation-select").select2({
         tags: true,
     });
