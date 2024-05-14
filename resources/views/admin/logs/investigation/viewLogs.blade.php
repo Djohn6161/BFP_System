@@ -1,18 +1,16 @@
 @extends('layouts.user-template')
 @section('content')
-    <div class="container-fluid">
-
-
-        <div class="col-lg-12">
-
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4">Investigation Logs</h5>
+   
+<div class="container-fluid">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12 d-flex align-items-stretch">
+                <div class="card w-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
+                            <h5 class="mb-0 text-light card-title fw-semibold">Investigation Logs</h5>
+                            
+                        </div>
 
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -33,7 +31,7 @@
                                                 <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->name }}</td>
                                                 <td>{{ $log->details }}</td>
-                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Null' }}
+                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                 @if ($log->action == 'Delete')

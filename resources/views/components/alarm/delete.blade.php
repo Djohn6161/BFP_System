@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <p>Are you sure you want to delete this rank?</p>
+                        <p>Are you sure you want to delete this alarm?</p>
 
                     </div>
                     <div class="modal-footer">

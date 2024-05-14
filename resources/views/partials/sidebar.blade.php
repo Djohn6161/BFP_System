@@ -4,7 +4,10 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ route('admin.dashboard') }}" class="text-nowrap logo-img">
-                <h2>BFP</h2>
+                <h2 style="background-image: linear-gradient(to right, #0b063f, #0f5fd6); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                    <b>BFP-Ligao City</b>
+                </h2>
+
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -13,11 +16,11 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
-                <li class="sidebar-item ">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route(auth()->user()->type . '.dashboard') }}"
                         aria-expanded="false">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class="ti ti-layout-dashboard" style="color: #7e88a6"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -38,8 +41,9 @@
                         class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed sidebar-link" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed sidebar-link" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
                                     <span> <i class="ti ti-report"></i></span>
                                     <span class="hide-menu">Investigation</span>
                                 </button>
@@ -93,71 +97,71 @@
 
                 <hr class="my-2">
                 @if (auth()->user()->type === 'admin')
-                <p class="">CONFIGURATIONS</p>
+                    <p class="">CONFIGURATIONS</p>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span>
-                        <span class="hide-menu">Occupancy</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.barangay.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-home"></i>
-                        </span>
-                        <span class="hide-menu">Barangay</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.alarms.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-bell-school"></i>
-                        </span>
-                        <span class="hide-menu">Alarm</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.trucks.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-truck"></i>
-                        </span>
-                        <span class="hide-menu">Trucks</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.rank.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span>
-                        <span class="hide-menu">Ranks</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.designation.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-report"></i>
-                        </span>
-                        <span class="hide-menu">Designation</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span> <i class="ti ti-users"></i></span>
-                        <span class="hide-menu">Personnel</span>
-                    </a>
-                </li>
-                <hr class="my-2">
-                <p class="">ACTIVITY</p>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-report"></i>
+                            </span>
+                            <span class="hide-menu">Occupancy</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.barangay.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-home"></i>
+                            </span>
+                            <span class="hide-menu">Barangay</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.alarms.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-bell-school"></i>
+                            </span>
+                            <span class="hide-menu">Alarm</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.trucks.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-truck"></i>
+                            </span>
+                            <span class="hide-menu">Trucks</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.rank.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-report"></i>
+                            </span>
+                            <span class="hide-menu">Ranks</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.designation.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-report"></i>
+                            </span>
+                            <span class="hide-menu">Designation</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span> <i class="ti ti-users"></i></span>
+                            <span class="hide-menu">Personnel</span>
+                        </a>
+                    </li>
+                    <hr class="my-2">
+                    <p class="">ACTIVITY</p>
 
                     <li class="sidebar-item">
                         <div class="accordion accordion-flush"
@@ -217,29 +221,29 @@
                         </div>
                     </li>
 
-                {{-- Bottom --}}
+                    {{-- Bottom --}}
 
-                <hr class="my-2">
-                <p class="">ACCOUNT</p>
+                    <hr class="my-2">
+                    <p class="">ACCOUNT</p>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.admin') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-user"></i>
-                        </span>
-                        <span class="hide-menu">Admin</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.user') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span>
-                            <i class="ti ti-users"></i>
-                        </span>
-                        <span class="hide-menu">User</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.admin') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-user"></i>
+                            </span>
+                            <span class="hide-menu">Admin</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.user') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span>
+                                <i class="ti ti-users"></i>
+                            </span>
+                            <span class="hide-menu">User</span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>
