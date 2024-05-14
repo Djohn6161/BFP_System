@@ -196,16 +196,16 @@
                                 <table class="table text-nowrap mb-0 align-middle">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Type</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Privillege</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
@@ -213,13 +213,13 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $user->name }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $user->type }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     @if ($user->privilege == '0C')
                                                         <h6 class="fw-semibold mb-0">Operation</h6>
                                                     @else
@@ -228,7 +228,7 @@
 
                                                 </td>
 
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <a class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
                                                         data-bs-target="#editModal"
                                                         data-user-id="{{ json_encode($user->id) }}"
