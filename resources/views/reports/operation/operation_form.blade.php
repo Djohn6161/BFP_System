@@ -7,7 +7,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data"
+                        class="needs-validation" novalidate>
                         @csrf
 
                         <!-- Intro -->
@@ -418,49 +419,15 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <div class="col-lg-6">
-                                        <div class="row m-0 p-0">
-                                            <div class="col-lg-6 m-0 p-0">
-                                                <label for="designation" class="form-label me-2">Designation</label>
-                                                <button type="button"
-                                                    class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="row m-0 p-0 designationContainer">
-                                        <div class="col-lg-12">
-                                            <div class="row m-0 p-0">
-                                                <div class="col-lg-6 m-0 p-0">
-                                                    <label for="designation" class="form-label me-2">Designation</label>
-                                                    <button type="button"
-                                                        class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <select class="form-select designation" aria-label=""
-                                                    name="duty_designation[0][0]">
-                                                    <option value="" selected>Select Designation</option>
-                                                    @foreach ($designations as $designation)
-                                                        <option value="{{ $designation->name }}">{{ $designation->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <button type="button"
-                                                    class=" ms-1 btn btn-outline-danger remove-designation">x</button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <div class="col-lg-12 mb-3">
                                         <label for="firefighterDeath" class="form-label">Remarks</label>
                                         <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
                                     </div>
                                 </div>
-                                <hr>
                             </div>
                             <div class="row m-0 p-0">
-                                <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
+                                <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+
+                                    Add
                                     another duty
                                     personnel</button>
                             </div>
@@ -657,6 +624,41 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>
+
+                    <div class="row third-remove-button-container m-0 p-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5></h5> <button type="button"
+                                class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="fundCommander" class="form-label">Rank /
+                                Name</label>
+                            <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
+                                <option value="" selected>Select Fund Commander</option>
+                                @foreach ($personnels as $personnel)
+                                    <option value="{{ $personnel->id }}">
+                                        {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                        {{ $personnel->last_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="fundCommander" class="form-label">Designation</label>
+                            <select class="form-select" aria-label="" name="designations[]">
+                                <option value="" selected>Select designation</option>
+                                @foreach ($designations as $designation)
+                                    <option value="{{ $designation->name }}">
+                                        {{ $designation->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <label for="firefighterDeath" class="form-label">Remarks</label>
+                            <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
+                        </div>
+                        <hr>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -719,9 +721,7 @@
                 console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-12 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="row m-0 p-0 designationContainer"> <div class="col-lg-12"> <div class="row m-0 p-0"> <div class="col-lg-6 m-0 p-0"> <label for="designation" class="form-label me-2">Designation</label> <button type="button" class="btn btn-sm btn-primary mb-1 addDesignation">+ ADD</button> </div> </div> </div> <div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"> <select class="form-select designation" aria-label="" name="duty_designation[' +
-                    parentCounter + '][' + childCounter +
-                    ']"> <option value="" selected>Select Designation</option> @foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select" aria-label="" name="designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);

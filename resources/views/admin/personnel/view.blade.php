@@ -134,18 +134,21 @@
                             </div>
                         </div>
 
-
-
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Educational Details</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
-                            <input type="text" placeholder="Enter tertiary course/s" class="form-control"
-                                id="tertiaryCourses" readonly>
+                            @foreach ($personnel->tertiaries as $tertiary)
+                                <input type="text" placeholder="Enter tertiary course/s" class="form-control"
+                                    id="tertiaryCourses" readonly value="{{ $tertiary->name }}">
+                            @endforeach
+
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
-                            <input type="text" placeholder="Enter post graduate course/s" class="form-control"
-                                id="postGraduateCourses" readonly>
+                            @foreach ($personnel->courses as $course)
+                                <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" readonly value="{{$course->name}}">
+                            @endforeach
+
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="highestEligibility" class="form-label">Highest Eligibility</label>
@@ -154,79 +157,72 @@
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="highestTraining" class="form-label">Highest Training</label>
-                            <input type="text" placeholder="Enter highest training" class="form-control"
-                                id="highestTraining" readonly>
+                            <input type="text" placeholder="Enter highest training" class="form-control" id="highestTraining" readonly value="{{$personnel->highest_training}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="specializedTraining" class="form-label">Specialized Training</label>
-                            <input type="text" placeholder="Enter specialized training" class="form-control"
-                                id="specializedTraining" readonly>
+                            <input type="text" placeholder="Enter specialized training" class="form-control" id="specializedTraining" readonly value="{{$personnel->specialized_training}}">
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Government ID Number</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="tin" class="form-label">TIN</label>
                             <input class="form-control" type="text" id="tin" placeholder="XXX-XXX-XXX"
-                                readonly>
+                                readonly value="{{$personnel->tin}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="pagibig" class="form-label">PAGIBIG</label>
-                            <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX"
-                                readonly>
+                            <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX" readonly value="{{$personnel->pagibig}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="gsis" class="form-label">GSIS</label>
-                            <input class="form-control" type="text" id="gsis" placeholder="XX-XX-XXXXXXX"
-                                readonly>
+                            <input class="form-control" type="text" id="gsis" placeholder="XX-XX-XXXXXXX" readonly value="{{$personnel->gsis}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="philhealth" class="form-label">PHILHEALTH</label>
-                            <input class="form-control" type="text" id="philhealth" placeholder="XX-XXXXXXXXX-X"
-                                readonly>
+                            <input class="form-control" type="text" id="philhealth" placeholder="XX-XXXXXXXXX-X" readonly value="{{$personnel->philhealth}}">
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Service Details</h3>
                         <div class="col-lg-6 mb-3">
                             <label for="dateEnteredOtherGovtService" class="form-label">Date Entered Other Government
                                 Service</label>
-                            <input type="date" class="form-control" id="dateEnteredOtherGovtService" readonly>
+                            <input type="date" class="form-control" id="dateEnteredOtherGovtService" readonly value="{{$personnel->date_entered_other_government_service}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="dateEnteredFireService" class="form-label">Date Entered Fire Service</label>
-                            <input type="date" class="form-control" id="dateEnteredFireService" readonly>
+                            <input type="date" class="form-control" id="dateEnteredFireService" readonly value="{{$personnel->date_entered_fire_service}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="modeOfEntry" class="form-label">Mode of Entry</label>
                             <input type="text" placeholder="Enter mode of entry" class="form-control"
-                                id="modeOfEntry" readonly>
+                                id="modeOfEntry" readonly value="{{$personnel->mode_of_entry}}">
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="dateOfLastPromotion" class="form-label">Date of Last Promotion</label>
-                            <input type="date" class="form-control" id="dateOfLastPromotion" readonly>
+                            <input type="date" class="form-control" id="dateOfLastPromotion" readonly value="{{$personnel->last_date_promotion}}">
                         </div>
                         <div class="col-lg-4 mb-3">
                             <label for="appointmentStatus" class="form-label">Appointment Status</label>
-                            <input type="text" placeholder="Enter appointment status" class="form-control"
-                                id="appointmentStatus" readonly>
+                            <input type="text" placeholder="Enter appointment status" class="form-control" id="appointmentStatus" readonly value="{{$personnel->appointment_status}}">
                         </div>
                         <div class="col-lg-4 mb-3">
                             <label for="unitCode" class="form-label">Unit Code</label>
-                            <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode"
-                                readonly>
+                            <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode" readonly value="{{$personnel->unit_code}}">
                         </div>
                         <div class="col-lg-4 mb-3">
                             <label for="unitAssignment" class="form-label">Unit Assignment</label>
-                            <input type="text" placeholder="Enter unit assignment" class="form-control"
-                                id="unitAssignment" readonly value="{{$personnel->designations}}">
+                            <input type="text" placeholder="Enter unit assignment" class="form-control" id="unitAssignment" readonly value="{{ $personnel->unit_assignment }}">
                         </div>
-                        {{-- @foreach ($personnel->designations as $designation)
-                            <div class="col-lg-4 mb-3">
+                        @foreach ($personnel->designations as $designation)
+                            <div class="col-lg-12 mb-3">
                                 <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control" id="designation" value="{{$designation->name}}" readonly>
+                                <input type="text" placeholder="Enter designation" class="form-control"
+                                    id="designation" value="{{ $designation->name }}" readonly>
                             </div>
-                        @endforeach --}}
+                        @endforeach
 
                         <div class="col-lg-12 mb-3">
                             <label for="adminOperation" class="form-label">Admin/Operation Remarks</label>
-                            <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" readonly></textarea>
+                            <textarea type="text" placeholder="Enter remarks" class="form-control" id="remarks" readonly>{{$personnel->admin_operation_remarks}}</textarea>
                         </div>
                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
 
