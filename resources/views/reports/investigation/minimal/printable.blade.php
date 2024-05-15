@@ -218,24 +218,23 @@
         }
 
         .photo .row {
-        margin-right: 0;
-        margin-left: 0;
-        }
+    margin-right: -15px;
+    margin-left: -15px;
+}
 
-        .photo .col-sm-4 {
-            flex: 0 0 50%; /* Set column width to 50% to fit two photos in a row */
-            max-width: 50%;
-            padding-right: 0; /* Remove padding */
-            padding-left: 0; /* Remove padding */
-            
+.photo .col-sm-4 {
+    flex: 0 0 calc(50% - 30px); /* Set column width to 50% minus the space between photos */
+    max-width: calc(50% - 30px);
+    padding: 0 15px 20px; /* Add padding to the bottom for spacing between rows */
+}
 
-        }
+.photo .card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Add margin bottom for spacing between images in the same row */
+    max-width: 350px;
+}
 
-        .photo .card {
-            margin-bottom: 0; /* Remove margin bottom for cards */
-            display: flex;
-            justify-content: space-between;
-        }
 
     </style>
 </head>
@@ -384,14 +383,16 @@
                     $photos = explode(', ', $minimal->photos);
                 }
             @endphp
-            <div class="row">
-                @foreach ($photos as $photo)
-                    <div class="col-sm-4 col-lg-4" style="margin-right: 1px">
-                        <img style="height: 200px; object-fit: cover; width: 80%" class=""
-                            src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
+           <div class="ps-5 row">
+            @foreach ($photos as $photo)
+                <div class="col-sm-4 col-lg-4">
+                    <div class="card">
+                        <img src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
+        
 
         @endif
     </div>
