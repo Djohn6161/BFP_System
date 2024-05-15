@@ -240,10 +240,15 @@
 </head>
 
 <body>
-    <div style="margin: 30px 30px 30px 30px; text-align:end" id="download-btn">
-        <button class="btn btn-primary" style="padding: 10px 30px 10px 30px; border-radius: 30px"
-            onclick="download(this)">PRINT</button>
+    <div style="margin: 30px;">
+        <div style="display: flex; justify-content: space-between;">
+            <a id="back-btn" style="padding: 10px 30px; border-radius: 30px;"
+             href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">Back</a>
+            <button id="download-btn" class="btn btn-primary" style="padding: 10px 30px; border-radius: 30px;"
+                    onclick="download(this)">PRINT</button>
+        </div>
     </div>
+
     <header>
         <div>
             <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Left Logo">
@@ -401,19 +406,22 @@
         <p></p>
     </footer>
     <script>
-        var elementToHide = document.getElementById("download-btn");
-
+        var backBtn = document.getElementById("back-btn");
+        var printBtn = document.getElementById("download-btn");
+    
         function download() {
-            // Replace "elementId" with the ID of your element
-
-            // Add the d-none class to the element
-            elementToHide.classList.add("d-none");
-            console.log('hello');
+            // Hide both the "Back" button and the "PRINT" button
+            backBtn.classList.add("d-none");
+            printBtn.classList.add("d-none");
+    
+            // Print the page
             window.print();
         }
+    
         window.addEventListener('afterprint', function() {
-            // Remove the d-none class after print dialog is closed
-            elementToHide.classList.remove("d-none");
+            // Show both the "Back" button and the "PRINT" button after printing
+            backBtn.classList.remove("d-none");
+            printBtn.classList.remove("d-none");
         });
     </script>
 </body>
