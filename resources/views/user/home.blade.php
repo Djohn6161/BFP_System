@@ -27,7 +27,7 @@
         {{-- don ayos na, plokplok --}}
         <h4 class="mb-3">Fire Incidents</h4>
         <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="card border-start border-primary border-5 overflow-hidden">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
@@ -46,26 +46,28 @@
                         </div>
                     </div>
                 </div>
-              
-                <div class="col-lg-3 col-md-6">
+                @foreach ($occupancies as $occupancy)
+                <div class="col-lg-4 col-md-6">
                     <div class="card border-start border-danger border-5 overflow-hidden">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="mb-1 fw-bold text-dark">Occupancy</p>
+                                <div class="col px-0">
+                                    <p class="mb-1 fw-bold text-dark">{{ $occupancy->name }}</p>
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h5 class="mb-0 fw-semibold">0</h5>
+                                            <h5 class="mb-0 fw-semibold">
+                                                {{ count($afor->where('occupancy_specify', $occupancy->name) ?? []) }}</h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-auto px-2">
+                                <div class="col-auto px-0">
                                     <i class="ti ti-flame custom-icon"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @endforeach 
               
         </div>
     </div>

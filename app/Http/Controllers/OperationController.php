@@ -826,7 +826,14 @@ class OperationController extends Controller
 
         $operation->deleted_at = $formattedDateTime;
         $operation->save();
-
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Deleted an AFOR Report about the operation in " . $operation->location,
+            'action' => "Delete",
+        ]);
+        $log->save();
         return redirect()->back()->with('success', 'Data deleted successfully.');
     }
 
