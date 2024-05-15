@@ -91,7 +91,9 @@
             <x-flash-message></x-flash-message>
             <!--  Header End -->
             @yield('content')
-            {{-- @include('partials.footer') --}}
+            @include('partials.footer')
+            <x-flash-message></x-flash-message>
+            {{-- Footer End --}}
         </div>
     </div>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
