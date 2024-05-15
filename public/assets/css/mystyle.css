@@ -59,7 +59,7 @@
     align-items: center;
     z-index: 99999;
     opacity: 1;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .loader.fade-out {

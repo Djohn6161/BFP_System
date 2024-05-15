@@ -17,14 +17,3 @@ $(document).ready(function () {
         $(this).val(cleanedValue);
     });
 });
-
-window.addEventListener('load', function() {
-    const loader = document.querySelector('.loader');
-    loader.classList.add('fade-out');
-    
-    // Optionally, remove the loader from the DOM after the transition ends
-    loader.addEventListener('transitionend', function() {
-        loader.style.display = 'none';
-    });
-});
-
