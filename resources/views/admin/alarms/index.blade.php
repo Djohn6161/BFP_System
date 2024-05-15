@@ -36,6 +36,8 @@
                                     <i class="ti ti-plus"></i>
                                     Create
                                 </button>
+                                <x-alarm.create :category="$active"></x-alarm.create>
+
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0 align-middle w-100" id="alarmTable">
@@ -83,5 +85,4 @@
                     </div>
                 </div>
             </div>
-            <x-alarm.create :category="$active"></x-alarm.create>
         @endsection
