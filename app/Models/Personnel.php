@@ -44,13 +44,17 @@ class Personnel extends Model
 
     public function designations()
     {
-        return $this->hasMany(Personnel_designation::class, 'personnels_id');
+        return $this->hasMany(Personnel_designation::class, 'personnel_id');
     }
-    public function designation()
+
+    public function tertiaries()
     {
-        return $this->belongsTo(Designation::class, 'designation_id');
+        return $this->hasMany(Tertiary::class, 'personnel_id');
     }
-    // public function crewReport(){
-    //     return $this->hasMany(Crew::class, 'personnel_id');
-    // }
+
+    public function courses()
+    {
+        return $this->hasMany(Post_graduate_course::class, 'personnel_id');
+    }
+
 }

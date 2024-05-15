@@ -223,8 +223,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
-                                <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX"
-                                    name="pagibig" value="{{ $personnel->pagibig }}">
+                                <input class="form-control" type="text" id="pagibig" name="pagibig"
+                                    value="{{ $personnel->pagibig }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
@@ -284,22 +284,34 @@
                                             <div class="col-lg-6 m-0 p-0">
                                                 <label for="designation" class="form-label me-2">Designation</label>
                                                 <button type="button"
-                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignationEdit">+ ADD</button>
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignationEdit">+
+                                                    ADD</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3 ps-0">
-                                        <div class="d-flex align-items-center">
-                                            <select class="form-control designation-select-edit" id="designationSelect" aria-label="designationSelect" name="designation">
-                                                <option selected>Open this select menu</option>
-                                                @foreach ($designations as $designation)
-                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <button type="button"
-                                                class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button>
+                                    @foreach ($old_designations as $old_designation)
+                                        <div class="col-lg-6 mb-3 ps-0">
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-control designation_select_edit" id="designation[{{$loop->index}}]" aria-label="designationSelect" name="designations[]">
+                                                    <option selected>Select designation</option>
+                                                    @foreach ($designations as $designation)
+                                                        @if ($old_designation->name == $designation->name)
+                                                            <option selected value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                <button type="button"
+                                                    class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+                                    
                                 </div>
                             </div>
 
@@ -314,7 +326,7 @@
                             <!-- File List Container -->
                             <div id="file-list-container mb-3">
                                 @foreach ($files as $file)
-                                    @if ($file != '' )
+                                    @if ($file != '')
                                         <div class="file-item d-flex justify-content-between mb-2 align-items-center">
                                             <span>
                                                 <input type="hidden" name="default_files[]"
@@ -325,7 +337,7 @@
                                                 onclick="deleteFile(this)">Delete</button>
                                         </div>
                                     @else
-                                    <p>No files uploaded</p>
+                                        <p>No files uploaded</p>
                                     @endif
                                 @endforeach
 
@@ -335,7 +347,8 @@
 
                             <div>
                                 <label for="file-input" class="form-label"></label>
-                                <input class="form-control" type="file" id="file-input" style="display: none;" multiple name="files[]">
+                                <input class="form-control" type="file" id="file-input" style="display: none;"
+                                    multiple name="files[]">
                                 <button class="btn btn-primary" type="button"
                                     onclick="document.getElementById('file-input').click();">+
                                     Choose File</button>
@@ -384,7 +397,7 @@
             $(document).on('click', '.addPersonnelDesignationEdit', function() {
                 // console.log("hello");
                 var inputField =
-                    '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select-edit" aria-label="designationSelect" name="designation"> <option selected>Open this select menu</option> @foreach ($designations as $designation) <option value="{{ $designation->id }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button> </div> </div>';
+                    '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select-edit" aria-label="designationSelect" name="designations[]"> <option selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button> </div> </div>';
                 // $(".designationContainer").append(inputField);
                 $(this).closest('.designationContainer').append(inputField);
 
@@ -420,50 +433,50 @@
             saveDataAndRedirect();
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const tinInput = document.getElementById('tin');
-            const pagibigInput = document.getElementById('pagibig');
-            const gsisInput = document.getElementById('gsis');
-            const philhealthInput = document.getElementById('philhealth');
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const tinInput = document.getElementById('tin');
+        //     const pagibigInput = document.getElementById('pagibig');
+        //     const gsisInput = document.getElementById('gsis');
+        //     const philhealthInput = document.getElementById('philhealth');
 
-            const restrictToNumbers = function(inputElement) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9\-]/g,
-                        ''); // Remove any characters that are not numbers or hyphens
-                    event.target.value = cleanedValue;
-                });
-            };
+        //     const restrictToNumbers = function(inputElement) {
+        //         inputElement.addEventListener('input', function(event) {
+        //             const inputValue = event.target.value;
+        //             const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+        //                 ''); // Remove any characters that are not numbers or hyphens
+        //             event.target.value = cleanedValue;
+        //         });
+        //     };
 
-            restrictToNumbers(tinInput);
-            restrictToNumbers(pagibigInput);
-            restrictToNumbers(gsisInput);
-            restrictToNumbers(philhealthInput);
+        //     restrictToNumbers(tinInput);
+        //     restrictToNumbers(pagibigInput);
+        //     restrictToNumbers(gsisInput);
+        //     restrictToNumbers(philhealthInput);
 
-            const formatGovernmentID = function(inputElement, format) {
-                inputElement.addEventListener('input', function(event) {
-                    const inputValue = event.target.value;
-                    const cleanedValue = inputValue.replace(/[^0-9]/g,
-                        ''); // Remove any characters that are not numbers
-                    let formattedValue = '';
-                    if (format === 'TIN') {
-                        formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-                    } else if (format === 'PAGIBIG') {
-                        formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-                    } else if (format === 'GSIS') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-                    } else if (format === 'PHILHEALTH') {
-                        formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-                    }
-                    event.target.value = formattedValue;
-                });
-            };
+        //     const formatGovernmentID = function(inputElement, format) {
+        //         inputElement.addEventListener('input', function(event) {
+        //             const inputValue = event.target.value;
+        //             const cleanedValue = inputValue.replace(/[^0-9]/g,
+        //                 ''); // Remove any characters that are not numbers
+        //             let formattedValue = '';
+        //             if (format === 'TIN') {
+        //                 formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+        //             } else if (format === 'PAGIBIG') {
+        //                 formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+        //             } else if (format === 'GSIS') {
+        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+        //             } else if (format === 'PHILHEALTH') {
+        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+        //             }
+        //             event.target.value = formattedValue;
+        //         });
+        //     };
 
-            formatGovernmentID(tinInput, 'TIN');
-            formatGovernmentID(pagibigInput, 'PAGIBIG');
-            formatGovernmentID(gsisInput, 'GSIS');
-            formatGovernmentID(philhealthInput, 'PHILHEALTH');
-        });
+        //     formatGovernmentID(tinInput, 'TIN');
+        //     formatGovernmentID(pagibigInput, 'PAGIBIG');
+        //     formatGovernmentID(gsisInput, 'GSIS');
+        //     formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        // });
 
         //personnel file upload
         $(document).ready(function() {

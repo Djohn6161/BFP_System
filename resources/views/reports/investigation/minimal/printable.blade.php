@@ -218,33 +218,37 @@
         }
 
         .photo .row {
-        margin-right: 0;
-        margin-left: 0;
-        }
+    margin-right: -15px;
+    margin-left: -15px;
+}
 
-        .photo .col-sm-4 {
-            flex: 0 0 50%; /* Set column width to 50% to fit two photos in a row */
-            max-width: 50%;
-            padding-right: 0; /* Remove padding */
-            padding-left: 0; /* Remove padding */
-            
+.photo .col-sm-4 {
+    flex: 0 0 calc(50% - 30px); /* Set column width to 50% minus the space between photos */
+    max-width: calc(50% - 30px);
+    padding: 0 15px 20px; /* Add padding to the bottom for spacing between rows */
+}
 
-        }
+.photo .card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Add margin bottom for spacing between images in the same row */
+    max-width: 350px;
+}
 
-        .photo .card {
-            margin-bottom: 0; /* Remove margin bottom for cards */
-            display: flex;
-            justify-content: space-between;
-        }
 
     </style>
 </head>
 
 <body>
-    <div style="margin: 30px 30px 30px 30px; text-align:end" id="download-btn">
-        <button class="btn btn-primary" style="padding: 10px 30px 10px 30px; border-radius: 30px"
-            onclick="download(this)">PRINT</button>
+    <div style="margin: 30px;">
+        <div style="display: flex; justify-content: space-between;">
+            <a id="back-btn" style="padding: 10px 30px; border-radius: 30px;"
+             href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">Back</a>
+            <button id="download-btn" class="btn btn-primary" style="padding: 10px 30px; border-radius: 30px;"
+                    onclick="download(this)">PRINT</button>
+        </div>
     </div>
+
     <header>
         <div>
             <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Left Logo">
@@ -384,14 +388,16 @@
                     $photos = explode(', ', $minimal->photos);
                 }
             @endphp
-            <div class="row">
-                @foreach ($photos as $photo)
-                    <div class="col-sm-4 col-lg-4" style="margin-right: 1px">
-                        <img style="height: 200px; object-fit: cover; width: 80%" class=""
-                            src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
+           <div class="ps-5 row">
+            @foreach ($photos as $photo)
+                <div class="col-sm-4 col-lg-4">
+                    <div class="card">
+                        <img src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+        </div>
+        
 
         @endif
     </div>
@@ -400,19 +406,22 @@
         <p></p>
     </footer>
     <script>
-        var elementToHide = document.getElementById("download-btn");
-
+        var backBtn = document.getElementById("back-btn");
+        var printBtn = document.getElementById("download-btn");
+    
         function download() {
-            // Replace "elementId" with the ID of your element
-
-            // Add the d-none class to the element
-            elementToHide.classList.add("d-none");
-            console.log('hello');
+            // Hide both the "Back" button and the "PRINT" button
+            backBtn.classList.add("d-none");
+            printBtn.classList.add("d-none");
+    
+            // Print the page
             window.print();
         }
+    
         window.addEventListener('afterprint', function() {
-            // Remove the d-none class after print dialog is closed
-            elementToHide.classList.remove("d-none");
+            // Show both the "Back" button and the "PRINT" button after printing
+            backBtn.classList.remove("d-none");
+            printBtn.classList.remove("d-none");
         });
     </script>
 </body>
