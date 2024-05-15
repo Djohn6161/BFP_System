@@ -178,6 +178,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
             Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
             Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
+
+            Route::get('/print/{id}', [OperationController::class, 'printOperation'])->name('print');
         });
     });
 

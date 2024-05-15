@@ -53,6 +53,7 @@ class AforSeeder extends Seeder
             $attributes = [
                 'afor_id' => $reportID,
                 'occupancy_name' => 'Places of Assembly',
+                'type' => 'Structural',
                 'specify' => 'park',
                 'distance' => '1km',
                 'description' => 'description',

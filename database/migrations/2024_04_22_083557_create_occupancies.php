@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('afor_id')->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
             $table->string('occupancy_name');
+            $table->string('type');
             $table->string('specify');
             $table->string('distance');
             $table->string('description');

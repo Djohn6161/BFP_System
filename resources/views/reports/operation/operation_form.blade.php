@@ -226,17 +226,26 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
-                            <div class="col-lg-6 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Occupancy Name</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
-                                    <option value="" selected>Select type of occupancy</option>
+                                    <option value="" selected>Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
                                         <option value="{{ $names->name }}">{{ $names->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Type of
+                                    Occupancy</label>
+                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_type">
+                                    <option value="" selected>Select type of occupancy</option>
+                                    <option value="Structural">Structural</option>
+                                    <option value="Non-Structural">Non-Structural</option>
+                                    <option value="Vehicular">Vehicular</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     name="occupancy_specify">
@@ -447,10 +456,10 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
                             <label for="firefighterDeath" class="form-label">Details (Narrative)</label>
-                            <div class="col-lg-12 mb-6 pb-5 mb-3" >
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <label for="dateTime" class="form-label"></label>
                                 <div style="height: 150px;">
-                                    <div id="toolbar1" >
+                                    <div id="toolbar1">
                                         <span class="ql-formats">
                                             <select class="ql-font"></select>
                                             <select class="ql-size"></select>
@@ -506,7 +515,8 @@
                         <div class="row border border-light-subtle shadow rounded my-4 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16</h3>
-                            <label for="firefighterDeath" class="form-label">Problems / Encountered during operation:</label>
+                            <label for="firefighterDeath" class="form-label">Problems / Encountered during
+                                operation:</label>
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <label for="dateTime" class="form-label"></label>
                                 <div style="height: 150px;">
@@ -624,41 +634,6 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>
-
-                    <div class="row third-remove-button-container m-0 p-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5></h5> <button type="button"
-                                class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <label for="fundCommander" class="form-label">Rank /
-                                Name</label>
-                            <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
-                                <option value="" selected>Select Fund Commander</option>
-                                @foreach ($personnels as $personnel)
-                                    <option value="{{ $personnel->id }}">
-                                        {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                        {{ $personnel->last_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                            <label for="fundCommander" class="form-label">Designation</label>
-                            <select class="form-select" aria-label="" name="designations[]">
-                                <option value="" selected>Select designation</option>
-                                @foreach ($designations as $designation)
-                                    <option value="{{ $designation->name }}">
-                                        {{ $designation->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-12 mb-3">
-                            <label for="firefighterDeath" class="form-label">Remarks</label>
-                            <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
-                        </div>
-                        <hr>
-                    </div>
-
                 </div>
             </div>
         </div>
