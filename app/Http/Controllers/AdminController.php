@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
+use App\Models\Occupancy;
+use App\Models\Occupancy_name;
 use App\Models\User;
+use Database\Seeders\occupancyNameSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +21,8 @@ class AdminController extends Controller
         return view('admin.home', [
             'active' => 'home',
             'user' => $user,
+            'occupancies' => Occupancy_name::all(),
+            'afor' => Afor::all(),
 
         ]);
     }
