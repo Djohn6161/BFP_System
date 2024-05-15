@@ -1,8 +1,15 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <div class="col d-flex justify-content-start mb-2">
-            <a href="{{ route('operation.index') }}" class="btn btn-primary">Back</a>
+        <div class="row">
+            <div class="col d-flex justify-content-end px-5">
+                <a href="{{ route('operation.index') }}" class="btn btn-primary">
+                    <span>
+                        <i class="ti ti-arrow-back"></i>
+                    </span>
+                    <span>Go Back</span>
+                </a>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
@@ -643,9 +650,16 @@
                                     name="observation_recommendation">{{ $operation->observation_recommendation }}</textarea>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
