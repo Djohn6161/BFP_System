@@ -663,6 +663,64 @@
                                     name="observation_recommendation">{{ $operation->observation_recommendation }}</textarea>
                             </div>
                         </div>
+
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                            <div class="col-lg-6 mb-3">
+                                <label for="alarmReceived" class="form-label">Prepared By:</label>
+                                <select class="form-select rankName" aria-label="" name="prepared_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="caller" class="form-label">Noted By:</label>
+                                <select class="form-select rankName" aria-label="" name="noted_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
                                 <button type="submit" class="btn btn-success">

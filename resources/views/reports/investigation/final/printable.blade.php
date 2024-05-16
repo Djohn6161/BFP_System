@@ -184,7 +184,7 @@
                     </th> <!--input details -->
                 </tr>
                 <tr>
-                    <th>03. ESTABLISHMENT BURNED: <br> <p style="text-align: left">{{ $final->establishment_burned }}</p> <br>05. DAMAGE PROPERTY: <p style="text-align: left">{{'₱ ' . number_format($final->damage_to_property, 0, '.', ','); }}</p></th> <!--input details -->
+                    <th>03. ESTABLISHMENT BURNED: <br> <p style="text-align: left">{{ $final->establishment_burned }}</p> <br>05. DAMAGE PROPERTY: <p style="text-align: left">{{'₱ ' . number_format($final->damage_to_property, 0, '.', ',') }}</p></th> <!--input details -->
                     <th rowspan="1">04. FIRE VICTIM/S:
                         @unless (count($final->investigation->victims) == 0)
                             @foreach ($final->investigation->victims as $victim)
