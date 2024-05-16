@@ -12,13 +12,24 @@
 
   <style>
     .card {
-      /* background: linear-gradient(to bottom, black, grey); /* Gradient from black to white */
-      background-color: black;
-    } 
+    background-color: black; /* Set background color to black */
+    border: 1px solid transparent; /* Set initial border color to transparent */
+    animation: glowBorder 3s infinite alternate; /* Apply animation for glowing effect */
+    }
+
+    @keyframes glowBorder {
+  0% {
+    border-color: grey; /* Start with white border color */
+    box-shadow: 0 0 5px 0px rgba(255,165,0, 0.7); /* Start with orange shadow */
+  }
+  100% {
+    border-color: rgba(255,165,0, 0.7); /* Transition to orange border color */
+    box-shadow: 0 0 10px 2px rgba(255,165,0, 0.7); /* Transition to larger orange shadow */
+  }
+}
 
     .white-text {
       color: white; /* White text color */
-      text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Black outline */
     }
 
     .form-control {
@@ -27,6 +38,26 @@
 
     .form-control:focus {
       background-color: white !important;
+    }
+
+    @keyframes shiningEffect {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .shining-text {
+      background: linear-gradient(-45deg, #ff6a00, #e0e0e0); /* Diagonal gradient from orange to gold */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: shiningEffect 3s linear infinite;
     }
   </style>
 </head>
@@ -44,7 +75,7 @@
               <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
     <img src="../assets/images/logos/login.gif" width="150" height="auto" alt="">
 </a>
-<h4 class="text-center white-text"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+<h4 class="text-center shining-text"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
 
 <form method="POST" action="{{ route('login') }}">
     @csrf
@@ -55,7 +86,6 @@
                     @endif
                     
                   <div class="mb-3 ">
-
                     <label for="exampleInputEmail1" class="form-label white-text" >Email</label>
                     <input  name="email" required value="{{old('email')}}" type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
                   </div>
