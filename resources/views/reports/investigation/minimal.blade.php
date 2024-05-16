@@ -16,12 +16,20 @@
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#chooseInvestigation">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                    <div class="d-flex column-gap-2">
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#exportInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Export
+                                        </button>
+                                        <x-reports.export></x-reports.export>
+                                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#chooseInvestigation">
+                                            <i class="ti ti-plus"></i>
+                                            Create
+                                        </button>
+                                        <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                    </div>
                                 @endif
                             </div>
                             <div class="table-responsive">
