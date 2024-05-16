@@ -97,7 +97,6 @@
             <!--  Header End -->
             @yield('content')
             @include('partials.footer')
-            <x-flash-message></x-flash-message>
             {{-- Footer End --}}
         </div>
     </div>
