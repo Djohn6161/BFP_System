@@ -1,5 +1,25 @@
 @extends('layouts.user-template')
 @section('content')
+
+<style>
+.earth-spinning {
+    perspective: 1000px;
+}
+
+.spinning-logo {
+    animation: spin 5s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(70deg);
+    }
+}
+</style>
     <div class="container-fluid position-relative py-0" style="top: 10vh">
         <!--  Row 1 -->
         <div class="d-flex justify-content-center">
@@ -7,7 +27,9 @@
                 <!-- Monthly Earnings -->
                 <div class="row">
                     <div class="col text-center">
-                        <img src="../assets/images/logos/BFP_Ligao_logo.png" width="170" alt="">
+                        <div class="earth-spinning">
+                            <img src="../assets/images/logos/BFP_Ligao_logo.png" width="170" alt="" class="spinning-logo">
+                        </div>
                         <h1>BFP Ligao City</h1>
                     </div>
 
