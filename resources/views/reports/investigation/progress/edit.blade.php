@@ -30,6 +30,9 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <div class="col d-flex justify-content-start mb-2">
+            <a href="{{ route('investigation.progress.index') }}" class="btn btn-primary">Back</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize"><b>{{$progress->investigation->subject}}</b></h1>

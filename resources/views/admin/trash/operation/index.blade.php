@@ -34,17 +34,17 @@
                                 <table class="table mb-0 align-middle w-100" id="trashOperationTable">
                                     <thead class="text-dark fs-4">
                                         <tr class="text-center">
-                                            <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Deleted at</h6>
-                                            </th>
-                                            <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Alarm Received</h6>
+                                            <th>
+                                                Deleted at
                                             </th>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">Transmitted By</h6>
+                                                Alarm Received
                                             </th>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">Action</h6>
+                                                Transmitted By
+                                            </th>
+                                            <th class="w-25">
+                                                Action
                                             </th>
                                         </tr>
                                     </thead>
@@ -52,25 +52,21 @@
 
                                         @foreach ($operations as $operation)
                                             <x-trash.operation.restore :operation=$operation></x-trash.operation.restore>
-                                            <tr class="justify-content-center text-center">
-
+                                            <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">
                                                         {{ \Carbon\Carbon::parse($operation->deleted_at)->format('F j, Y') }}
-                                                    </h6>
                                                 </td>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
+                                                    {{ $operation->alarm_received }}
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0 fw-normal">{{ $operation->transmitted_by }}</p>
+                                                    {{ $operation->transmitted_by }}
                                                 </td>
 
-                                                <td>
+                                                <td class="w-25">
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#restoreTrashOperationModal{{ $operation->id }}"
-                                                        class="btn btn-success w-100">Restore</button>
-                                                    <br>
+                                                        class="btn btn-success w-100 mb-1">Restore</button>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#deleteTrashOperationModal{{ $operation->id }}"
                                                         class="btn btn-danger hide-menu w-100">Delete</button>
