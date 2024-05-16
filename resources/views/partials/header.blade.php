@@ -19,7 +19,10 @@
             <div class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                
                 <div class="nav-item">
-                    <div id="military-time" class="fw-bold fs-4"></div> <!-- Updated: Use CSS for styling -->
+                    <div id="military-time" class="fw-bold fs-4"></div> 
+                </div>
+                <div class="nav-item">
+                    <a id="" class="fw-bold fs-4 px-3">Welcome, Admin</a> 
                 </div>
                 <div class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
