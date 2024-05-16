@@ -40,9 +40,19 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
-                <h1 class="border-bottom border-4 border-primary pb-2 mb-5 text-capitalize">
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-start px-0">
+                        <a href="{{ route('investigation.progress.index') }}" class="btn btn-primary">
+                            <span>
+                                <i class="ti ti-arrow-back"></i>
+                            </span>
+                            <span>Go Back</span>
+                        </a>
+                    </div>
+                </div>
+                <h3 class="border-bottom border-4 border-primary pb-2 mb-3 text-capitalize">
                     <b>{{ $final->investigation->subject }}</b>
-                </h1>
+                </h3>
                 <div class="row">
                     <form action="{{ route('investigation.final.update', ['final' => $final]) }}" class="needs-validation"
                         novalidate method="POST" id="finalCreate">
@@ -644,8 +654,16 @@
                                 <input type="hidden" id="recommendation" name="recommendation">
                             </div>
                         </div>
-                        <button type="submit" id="submit"
-                            class="btn btn-primary mb-4 float-start w-100">Update</button>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" id="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
                         <br>
                     </form>
                 </div>
