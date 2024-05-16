@@ -33,7 +33,7 @@
                         <span>
                             <i class="ti ti-report"></i>
                         </span>
-                        <span class="hide-menu">Operation</span>
+                        <span class="hide-menu">Operations</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -45,7 +45,7 @@
                                     data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     <span> <i class="ti ti-report"></i></span>
-                                    <span class="hide-menu">Investigation</span>
+                                    <span class="hide-menu">Investigations</span>
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse {{ ($active == 'investigation' || $active == 'minimal') || ($active == 'spot' || $active == 'progress') || ($active == 'final') ? '' : 'collapse' }}"
@@ -103,16 +103,16 @@
                         <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
                             <span>
-                                <i class="ti ti-report"></i>
+                                <i class="ti ti-building-community"></i>
                             </span>
-                            <span class="hide-menu">Occupancy</span>
+                            <span class="hide-menu">Occupancies</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.barangay.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
                             <span>
-                                <i class="ti ti-home"></i>
+                                <i class="ti ti-map-pin"></i>
                             </span>
                             <span class="hide-menu">Barangay</span>
                         </a>
@@ -123,7 +123,7 @@
                             <span>
                                 <i class="ti ti-bell-school"></i>
                             </span>
-                            <span class="hide-menu">Alarm</span>
+                            <span class="hide-menu">Alarms</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -139,7 +139,7 @@
                         <a class="sidebar-link" href="{{ route('admin.rank.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
                             <span>
-                                <i class="ti ti-report"></i>
+                                <i class="ti ti-badge"></i>
                             </span>
                             <span class="hide-menu">Ranks</span>
                         </a>
@@ -148,9 +148,9 @@
                         <a class="sidebar-link" href="{{ route('admin.designation.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
                             <span>
-                                <i class="ti ti-report"></i>
+                                <i class="ti ti-address-book"></i>
                             </span>
-                            <span class="hide-menu">Designation</span>
+                            <span class="hide-menu">Designations</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -161,7 +161,7 @@
                         </a>
                     </li>
                     <hr class="my-2">
-                    <p class="">ACTIVITY</p>
+                    <p class="">ACTIVITIES</p>
 
                     <li class="sidebar-item">
                         <div class="accordion accordion-flush"
@@ -224,7 +224,7 @@
                     {{-- Bottom --}}
 
                     <hr class="my-2">
-                    <p class="">ACCOUNT</p>
+                    <p class="">ACCOUNTS</p>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.admin') }}"
@@ -241,7 +241,7 @@
                             <span>
                                 <i class="ti ti-users"></i>
                             </span>
-                            <span class="hide-menu">User</span>
+                            <span class="hide-menu">Users</span>
                         </a>
                     </li>
                 @endif

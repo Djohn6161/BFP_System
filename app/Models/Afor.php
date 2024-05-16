@@ -43,9 +43,9 @@ class Afor extends Model
     {
         return $this->hasMany(Response::class, 'afor_id');
     }
-    public function dutyPersonnel()
+    public function dutyPersonnels()
     {
-        return $this->belongsTo(Afor_duty_personnel::class, 'afor_id');
+        return $this->hasMany(Afor_duty_personnel::class, 'afor_id');
     }
     public function getOccupancy()
     {

@@ -39,7 +39,8 @@
                             <th class="text-center align-middle">ENGINE DISPATCHED</th>
                             <th class="text-center align-middle">TIME DISPATCHED</th>
                             <th class="text-center align-middle">TIME ARRIVED AT FIRE SCENE</th>
-                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</th>
+                            <th class="text-center align-middle">RESPONSE TIME (TIME RECEIVED CALL - TIME ARRIVED AT
+                                FIRE SCENE) in minutes</th>
                             <th class="text-center align-middle">TIME RETURNED TO BASE</th>
                             <th class="text-center align-middle">WATER TANK REFILLED (GAL)</th>
                             <th class="text-center align-middle">GAS COSUMED (L)</th>
@@ -101,7 +102,7 @@
 
                 <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->specify }}
+                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->type . ' / ' . $operation->getOccupancy->specify }}
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
@@ -235,11 +236,17 @@
                         <th>Designation</th>
                         <th>Remarks</th>
                     </tr>
-                    <tr>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                        <td>DETAILS HERE</td>
-                    </tr>
+                    @foreach ($operation->dutyPersonnels as $duty_personnel)
+                        <tr>
+                            @foreach ($personnels as $personnel)
+                                @if ($duty_personnel->personnels_id == $personnel->id)
+                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}</td>
+                                @endif
+                            @endforeach
+                            <td>{{ $duty_personnel->designation }}</td>
+                            <td>{{ $duty_personnel->remarks }}</td>
+                        </tr>
+                    @endforeach
                 </table>
 
                 <h5 class="my-4 fw-bolder">Instruction/Sketch of the Fire Operation (Should Be
@@ -264,8 +271,7 @@
                                 <div class="card-body p-1">
                                     @foreach ($photos as $photo)
                                         <img style="height: 350px; object-fit: cover;" class="w-100"
-                                            src="/assets/images/operation_images/{{ $photo }}"
-                                            alt="Sample Image">
+                                            src="{{asset('/assets/images/operation_images/' . $photo)}}">
                                     @endforeach
                                 </div>
                             @endif
@@ -295,6 +301,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>

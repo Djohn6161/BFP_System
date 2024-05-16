@@ -207,23 +207,22 @@
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-3">
                                 <label for="tin" class="form-label">TIN</label>
-                                <input class="form-control government-id" type="text" id="tin"
+                                <input class="form-control government-id" type="text" name="tin"
                                     placeholder="XXX-XXX-XXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
-                                <input class="form-control government-id" type="text" id="pagibig"
+                                <input class="form-control government-id" type="text" name="pagibig"
                                     placeholder="XXXX-XXXX-XXXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
-                                <input class="form-control government-id" type="text" id="gsis"
+                                <input class="form-control government-id" type="text" name="gsis"
                                     placeholder="XX-XX-XXXXXXX">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
-                                <input class="form-control government-id" type="text" id="philhealth"
-                                    placeholder="XX-XXXXXXXXX-X">
+                                <input class="form-control government-id" type="text" name="philhealth" placeholder="XX-XXXXXXXXX-X">
                             </div>
                         </div>
 
@@ -283,7 +282,7 @@
                                         <div class="d-flex align-items-center">
                                             <select class="form-control designation-select" id="designationSelect"
                                                 aria-label="designationSelect" name="designations[]">
-                                                <option selected>Open this select menu</option>
+                                                <option selected>Select designation</option>
                                                 @foreach ($designations as $designation)
                                                     <option value="{{ $designation->name }}">{{ $designation->name }}
                                                     </option>
