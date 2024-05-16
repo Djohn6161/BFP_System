@@ -285,11 +285,10 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
-                            <div class="col-lg-6 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Occupancy name</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
-                                    <option value="">Select type of occupancy</option>
+                                    <option value="">Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
                                         @if ($names->name == $occupancy->occupancy_name)
                                             <option selected value="{{ $names->name }}">{{ $names->name }}</option>
@@ -299,7 +298,21 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Type of
+                                    Occupancy</label>
+                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_type">
+                                    <option value="">Select type of occupancy</option>
+                                    @foreach ($occupancy_types as $type)
+                                        @if ($type == $occupancy->type)
+                                            <option selected value="{{ $type }}">{{ $type }}</option>
+                                        @else
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     name="occupancy_specify" value="{{ $occupancy->specify }}">
@@ -572,7 +585,7 @@
                                                 </select> </div>
                                             <div class="col-lg-12 mb-3"> <label for="firefighterDeath"
                                                     class="form-label">Remarks</label>
-                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{$dutyPersonnel->remarks}}</textarea>
+                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $dutyPersonnel->remarks }}</textarea>
                                             </div>
                                         @endforeach
                                         <hr>

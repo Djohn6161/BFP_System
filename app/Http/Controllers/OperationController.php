@@ -145,6 +145,7 @@ class OperationController extends Controller
         $occupancy->fill([
             'afor_id' => $afor_id,
             'occupancy_name' => $request->input('occupancy_name') ?? '',
+            'type' => $request->input('occupancy_type') ?? '',
             'specify' => $request->input('occupancy_specify') ?? '',
             'distance' => $request->input('distance_to_fire_incident') ?? '',
             'description' => $request->input('structure_description') ?? '',
@@ -300,8 +301,10 @@ class OperationController extends Controller
         $photos = explode(',', $sketch);
         $designations = Designation::where('section', 4)->get();
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
+        $occupancy_types = ['Structural','Non-Structural','Vehicular'];
 
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations','duty_personnels'));
+        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations','duty_personnels',
+        'occupancy_types'));
     }
 
     public function operationUpdate(Request $request)
@@ -408,7 +411,7 @@ class OperationController extends Controller
                 }
             } else {
                 // No existing record for this index, create a new one
-                $newResponse = new Response($changes);
+                $newResponse = new Response();
                 $newResponse->afor_id = $request->operation_id;
                 $newResponse->engine_dispatched = $newDispatched;
                 $newResponse->time_dispatched = $new_time_dispatched;
@@ -478,6 +481,7 @@ class OperationController extends Controller
         // Occupancy
         $InfoUpdatedData = [
             'occupancy_name' => $request->input('occupancy_name') ?? '',
+            'type' => $request->input('occupancy_type') ?? '',
             'specify' => $request->input('occupancy_specify') ?? '',
             'distance' => $request->input('distance_to_fire_incident') ?? '',
             'description' => $request->input('structure_description') ?? '',
@@ -835,6 +839,16 @@ class OperationController extends Controller
         ]);
         $log->save();
         return redirect()->back()->with('success', 'Data deleted successfully.');
+    }
+
+    public function printOperation(Afor $id){
+
+        return view('reports.operation.printable', [
+            'active' => 'operation',
+            'user' => Auth::user(),
+            'operation' => $id,
+            'alarm_names' => Alarm_name::all(),
+        ]);
     }
 
     private function hasValues($array)

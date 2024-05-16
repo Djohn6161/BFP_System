@@ -102,7 +102,7 @@
 
                 <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->specify }}
+                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->type . ' / ' . $operation->getOccupancy->specify }}
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
@@ -301,6 +301,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
