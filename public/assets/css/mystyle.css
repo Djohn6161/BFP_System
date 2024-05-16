@@ -91,5 +91,21 @@
     /* height: 12%; */
     max-width: 8%;
 }
+.earth-spinning {
+    perspective: 1000px;
+}
 
+.spinning-logo {
+    animation: spin 10s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
 
