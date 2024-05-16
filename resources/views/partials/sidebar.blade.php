@@ -41,7 +41,7 @@
                         class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
-                                <button class="accordion-button sidebar-link collapsed" type="button"
+                                <button class="accordion-button sidebar-link {{ ($active == 'investigation' || $active == 'minimal') || ($active == 'spot' || $active == 'progress') || ($active == 'final') ? '' : 'collapsed' }}" type="button"
                                     data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
                                     <span> <i class="ti ti-report"></i></span>
@@ -168,7 +168,7 @@
                             class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed sidebar-link" type="button"
+                                    <button class="accordion-button sidebar-link {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' ? '' : 'collapsed' }}" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseLogs" aria-expanded="true"
                                         aria-controls="collapseOne">
                                         <span> <i class="ti ti-file-description"></i></span>
@@ -197,7 +197,7 @@
                             class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed sidebar-link" type="button"
+                                    <button class="accordion-button sidebar-link {{ $active == 'Investigation' || $active == 'Operation' ? '' : 'collapsed' }}" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseTrash"
                                         aria-expanded="true" aria-controls="collapseOne">
                                         <span> <i class="ti ti-trash"></i></span>

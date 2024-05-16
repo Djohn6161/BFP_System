@@ -1,15 +1,23 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <div class="col d-flex justify-content-start mb-2">
-            <a href="{{ route('operation.index') }}" class="btn btn-primary">Back</a>
-        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.create') }}" enctype="multipart/form-data"
                         class="needs-validation" novalidate>
                         @csrf
+
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('operation.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
+                            </div>
+                        </div>
 
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
@@ -631,7 +639,16 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
 
                     </form>
                 </div>

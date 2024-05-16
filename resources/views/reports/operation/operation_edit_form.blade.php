@@ -1,22 +1,23 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col d-flex justify-content-end px-5">
-                <a href="{{ route('operation.index') }}" class="btn btn-primary">
-                    <span>
-                        <i class="ti ti-arrow-back"></i>
-                    </span>
-                    <span>Go Back</span>
-                </a>
-            </div>
-        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
 
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('operation.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
+                            </div>
+                        </div>
+                        
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>

@@ -44,8 +44,19 @@
                     <form action="{{ route('investigation.final.store', ['spot' => $spot]) }}" class="needs-validation"
                         novalidate method="POST" id="finalCreate">
                         @csrf
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
 
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('investigation.progress.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
 
@@ -613,7 +624,16 @@
                                 <input type="hidden" id="recommendation" name="recommendation">
                             </div>
                         </div>
-                        <button type="submit" id="submit" class="btn btn-primary mb-4 float-start">Submit</button>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" id="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
                         <br>
                     </form>
                 </div>
