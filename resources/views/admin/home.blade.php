@@ -7,7 +7,7 @@
 }
 
 .spinning-logo {
-    animation: spin 5s linear infinite;
+    animation: spin 10s linear infinite;
     transform-origin: 50% 50%;
 }
 
@@ -16,7 +16,7 @@
         transform: rotateY(0deg);
     }
     to {
-        transform: rotateY(70deg);
+        transform: rotateY(360deg);
     }
 }
 </style>
