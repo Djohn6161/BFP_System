@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -9,8 +8,27 @@
   
   <link rel="stylesheet" href="{{asset('/assets/libs/bootstrap/dist/css/bootstrap.min.css')}}">
   <script src="{{asset('/assets/libs/bootstrap/dist/js/bootstrap.bundle.js')}}"></script>
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <link rel="stylesheet" href="../assets/css/styles.min.css" />
 
+  <style>
+    .card {
+      /* background: linear-gradient(to bottom, black, grey); /* Gradient from black to white */
+      background-color: black;
+    } 
+
+    .white-text {
+      color: white; /* White text color */
+      text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Black outline */
+    }
+
+    .form-control {
+      background-color: white; /* Set background color to white */
+    }
+
+    .form-control:focus {
+      background-color: white !important;
+    }
+  </style>
 </head>
 
 <body style="background-image: url('../assets/images/backgrounds/bg1.png'); background-size: cover; background-position: center;">
@@ -19,14 +37,14 @@
     data-sidebar-position="fixed" data-header-position="fixed">
     <div class="position-relative overflow-hidden  min-vh-100 d-flex align-items-center justify-content-center">
       <div class="d-flex align-items-center justify-content-center w-100">
-        
+       
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0">
               <div class="card-body">
               <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
-    <img src="../assets/images/logos/bfp.gif" width="150" height="auto" alt="">
+    <img src="../assets/images/logos/login.gif" width="150" height="auto" alt="">
 </a>
-<h4 class="text-center"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+<h4 class="text-center white-text"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
 
 <form method="POST" action="{{ route('login') }}">
     @csrf
@@ -38,14 +56,14 @@
                     
                   <div class="mb-3 ">
 
-                    <label for="exampleInputEmail1" class="form-label" >Email</label>
-                    <input  name="email" required value="{{old('email')}}" type="email" class="form-control " id="InputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label white-text" >Email</label>
+                    <input  name="email" required value="{{old('email')}}" type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4">
-                    <label for="exampleInputPassword1" class="form-label" >Password</label>
+                    <label for="exampleInputPassword1" class="form-label white-text" >Password</label>
                     <input type="password" required class="form-control" id="InputPassword1" name="password">
                   </div>
-                  <button type="submit" class="btn btn-dark w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
+                  <button type="submit" class="btn btn-dark w-100 py-8 fs-4 mb-4 rounded-2">Login</button>
                 </form>
               </div>
             </div>
