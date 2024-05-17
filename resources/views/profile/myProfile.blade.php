@@ -37,8 +37,13 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-6">
                                         <label for="dateOfBirth" class="form-label">User Type</label>
-                                        <input type="text" class="form-control" name="type" id="type"
-                                            value="{{ $user->type }}">
+                                        {{-- <input type="text" class="form-control" name="type" id="type"
+                                            value="{{ $user->type }}"> --}}
+                                            <select type="text" class="form-select" value="{{ $user->type }}" id="status" name="status" placeholder="Truck Status">
+                                                {{-- <option type="text" value="{{ $truck->status }}"selected></option> --}}
+                                                <option type="text" id="type" name="type" value="admin">Admin</option>
+                                                <option type="text" id="type" name="type" value="user">User</option>
+                                            </select>
                                     </div>
                                     <div class="col-lg-6 mb-6">
                                         <label for="inputEmail" class="form-label">Email</label>
