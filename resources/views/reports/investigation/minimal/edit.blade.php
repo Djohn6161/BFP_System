@@ -30,6 +30,9 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <div class="col d-flex justify-content-start mb-2">
+            <a href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">Back</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
@@ -37,6 +40,18 @@
                         class="needs-validation" novalidate method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
+                            </div>
+                        </div>
+
                         <x-reports.investigation.memo-investigate :spot=$minimal></x-reports.investigation.memo-investigate>
 
 
@@ -516,7 +531,16 @@
                         @enderror
 
                 </div>
-                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                <div class="row">
+                    <div class="col d-flex justify-content-end px-0">
+                        <button type="submit" class="btn btn-success">
+                            <span>
+                                <i class="ti ti-send"></i>
+                            </span>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </div>
 
                 </form>
             </div>

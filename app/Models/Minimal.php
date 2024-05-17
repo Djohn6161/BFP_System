@@ -11,7 +11,7 @@ class Minimal extends Model
     public function investigation(){
         return $this->belongsTo(Investigation::class, 'investigation_id');
     }
-    public function receiver(){
+    public function receiverPersonnel(){
         return $this->belongsTo(Personnel::class, 'receiver');
     }
     public function respondingEngine(){

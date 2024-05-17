@@ -57,7 +57,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold">Receiver</td>
+                            {{-- {{dd($investigation->receiver)}} --}}
+                            <td colspan="1" class="fw-bold">Receiver</td>
+                            <td colspan="1" class="fw-bold">{{$investigation->receiverPersonnel->rank->slug . " " . $investigation->receiverPersonnel->last_name . " " . $investigation->receiverPersonnel->first_name}}</td>
                         </tr>
                         <tr>
                             <td>Caller Information:</td>

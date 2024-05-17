@@ -24,7 +24,7 @@ class InvestigationSeeder extends Seeder
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
@@ -58,7 +58,7 @@ class InvestigationSeeder extends Seeder
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $alarm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -85,7 +85,7 @@ class InvestigationSeeder extends Seeder
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -PROGRESS DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $i = 0;
@@ -104,7 +104,7 @@ class InvestigationSeeder extends Seeder
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -FINAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $time = ["1400", "1800", "1600", "0800"];

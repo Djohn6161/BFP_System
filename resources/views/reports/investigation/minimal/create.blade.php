@@ -37,6 +37,18 @@
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
+                        
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
+                            </div>
+                        </div>
+
                         <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
@@ -481,7 +493,16 @@
                         @enderror
 
                 </div>
-                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                <div class="row">
+                    <div class="col d-flex justify-content-end px-0">
+                        <button type="submit" id="submit" class="btn btn-success">
+                            <span>
+                                <i class="ti ti-send"></i>
+                            </span>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </div>
 
                 </form>
             </div>
@@ -490,35 +511,6 @@
     </div>
     <script>
         $(document).ready(function() {
-            // $('#photos').on('change', function() {
-            //     // Get the selected files
-            //     var files = $(this)[0].files;
-
-            //     // Clear any existing previews
-            //     $('#preview-container').empty();
-
-            //     // Loop through each selected file
-            //     for (var i = 0; i < files.length; i++) {
-            //         var file = files[i];
-            //         var reader = new FileReader();
-
-            //         // Closure to capture the file information
-            //         reader.onload = (function(file) {
-            //             return function(e) {
-            //                 // Create a new image element
-            //                 var imgElement = $(
-            //                     '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
-            //                 ).addClass('preview-image').attr('src', e.target.result);
-
-            //                 // Append the image to the preview container
-            //                 $('#preview-container').append(imgElement);
-            //             };
-            //         })(file);
-
-            //         // Read the file as a data URL
-            //         reader.readAsDataURL(file);
-            //     }
-            // });
             $("#submit").click(function() {
             $("#details").val($("#first").text());
             $("#findings").val($("#second").html());
