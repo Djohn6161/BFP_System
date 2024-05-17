@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <div class="loader">
+    <div class="loader bg-gradient-blue">
         <img src="{{ asset('assets/images/logos/BFP_Ligao_logo.png') }}" width="170" alt="">
     </div>
     <!--  Body Wrapper -->
