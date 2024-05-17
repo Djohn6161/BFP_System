@@ -11,14 +11,15 @@ use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\OccupancyController;
-use App\Http\Controllers\DesignationController;
-use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\InvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -197,6 +198,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/progress/print/{progress}', [InvestigationController::class, 'printProgress'])->name('progress.print');
         Route::get('/final/print/{final}', [InvestigationController::class, 'printFinal'])->name('final.print');
         Route::middleware(['checkPrivilege:IC'])->group(function () {
+
+            Route::post('/export', [ExportController::class, 'exportInvestigation'])->name('export');
+            
             Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
             Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
             Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
