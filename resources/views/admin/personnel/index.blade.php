@@ -20,7 +20,7 @@
                             </div>
 
                             <!-- Accordion for Ranks -->
-                            <div class="accordion accordion-flush" id="accordionRankPersonnel">
+                            <div class="accordion accordion-flush px-4" id="accordionRankPersonnel">
                                 @foreach ($ranks as $rank)
                                     <?php $count = 0; ?>
                                     <div class="accordion-item">
