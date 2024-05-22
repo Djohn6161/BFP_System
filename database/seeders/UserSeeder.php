@@ -26,16 +26,22 @@ class UserSeeder extends Seeder
 
             // User
             [
-                'name' => 'user IC',
+                'name' => 'user AC',
                 'username' => 'user1',
+                'password' => Hash::make('12341234'),
+                'type' => 'user',
+                'privilege' => 'AC',
+            ],
+            [
+                'name' => 'user IC',
+                'username' => 'user2',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'IC',
             ],
-
             [
                 'name' => 'user OC',
-                'username' => 'user2',
+                'username' => 'user3',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'OC',
