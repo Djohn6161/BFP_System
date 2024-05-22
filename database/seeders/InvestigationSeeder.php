@@ -30,8 +30,10 @@ class InvestigationSeeder extends Seeder
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $time = ["1400", "1800", "1600", "0800"];
                 $alarm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+                $aforID = [1, 2, 3, 4, 5];
                 $minimals = [
                     'investigation_id' => $reportID,
+                    'afor_id' => $aforID[0],
                     'dt_actual_occurence' => $faker->date(),
                     'dt_reported' => $faker->date(),
                     'incident_location' => $faker->city . " " . $faker->streetname,
@@ -60,11 +62,13 @@ class InvestigationSeeder extends Seeder
                     'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
+                $aforID = [1, 2, 3, 4, 5];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $alarm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
                 $time = ["1400", "1800", "1600", "0800"];
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $spot = [
+                    'afor_id' => $aforID[0],
                     'investigation_id' => $reportID,
                     'date_occurence' => $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
                     'time_occurence' => $time[$faker->numberBetween(0, 3)] . "H",
