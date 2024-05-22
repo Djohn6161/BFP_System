@@ -88,6 +88,8 @@ class OperationController extends Controller
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
             'first_responder' => $request->input('first_responder') ?? '',
+            'prepared_by' => $request->input('prepared_by') ?? '',
+            'noted_by' => $request->input('noted_by') ?? '',
         ]);
         $afor->save();
         $afor_id = $afor->id;
@@ -301,10 +303,29 @@ class OperationController extends Controller
         $photos = explode(',', $sketch);
         $designations = Designation::where('section', 4)->get();
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
-        $occupancy_types = ['Structural','Non-Structural','Vehicular'];
+        $occupancy_types = ['Structural', 'Non-Structural', 'Vehicular'];
 
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos','designations','duty_personnels',
-        'occupancy_types'));
+        return view('reports.operation.operation_edit_form', compact(
+            'active',
+            'user',
+            'personnels',
+            'barangays',
+            'trucks',
+            'operation',
+            'responses',
+            'alarm_list',
+            'declared_alarms',
+            'occupancy_names',
+            'occupancy',
+            'casualties',
+            'used_equipments',
+            'duty_personnels',
+            'photos',
+            'designations',
+            'duty_personnels',
+            'occupancy_types'
+        )
+        );
     }
 
     public function operationUpdate(Request $request)
@@ -335,9 +356,11 @@ class OperationController extends Controller
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
             'first_responder' => $request->input('first_responder') ?? '',
+            'prepared_by' => $request->input('prepared_by') ?? '',
+            'noted_by' => $request->input('noted_by') ?? '',
         ];
 
-        $operation = AFor::findOrFail($request['operation_id']);
+        $operation = AFor::find($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
         $status = false;
 
@@ -426,6 +449,7 @@ class OperationController extends Controller
             }
         }
 
+
         // Declared Alarm 
         $alarm_names = $request->input('alarm_name', []);
         $time = $request->input('alarm_time', []);
@@ -478,6 +502,7 @@ class OperationController extends Controller
             }
         }
 
+
         // Occupancy
         $InfoUpdatedData = [
             'occupancy_name' => $request->input('occupancy_name') ?? '',
@@ -521,6 +546,9 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
+
+
 
         // Breathing equipment 
         $numbers = $request->input('no_breathing', []);
@@ -617,6 +645,7 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
 
         // extinguishing agent equipment 
         $length = $request->input('rope_ladder_length', []);
@@ -717,6 +746,7 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
         // Duty Personnel
         $personnels = $request->input('duty_personnel_id', []);
         $designations = $request->input('duty_designation', []);
@@ -769,9 +799,10 @@ class OperationController extends Controller
             }
         }
 
+
         $sketch_of_fire_operation = $request->input('sketch_of_fire_operation', []);
         $default_photos = $request->input('default_photos', []);
-        $existOperation = Afor::findOrFail($request['operation_id']);
+        $existOperation = Afor::find($request->operation_id);
         $sketchArray = explode(',', $existOperation->sketch_of_fire_operation);
         $requestIndexes = array_keys($default_photos);
         $existIndex = array_keys($sketchArray);
@@ -779,13 +810,14 @@ class OperationController extends Controller
         $publicPath = public_path() . '/assets/images/operation_images/';
 
         foreach ($sketchArray as $index => $array) {
-            // Check if the index of the existing response is not present in the request
-            if (!in_array($index, $requestIndexes)) {
-                // Delete the existing response
-                File::delete($publicPath . $sketchArray[$index]);
-                unset($sketchArray[$index]);
-                $status = true;
-                $change = true;
+            if ($array != '') {
+                if (!in_array($index, $requestIndexes)) {
+                    // Delete the existing response
+                    File::delete($publicPath . $sketchArray[$index]);
+                    unset($sketchArray[$index]);
+                    $status = true;
+                    $change = true;
+                }
             }
         }
 
@@ -813,13 +845,13 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        if($status){
+        if ($status) {
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
-        }else{
+        } else {
             return redirect('/reports/operation/index')->with('success', "Nothing's change.");
         }
 
-      
+
     }
 
     public function operationDelete($id, Request $request)
@@ -841,13 +873,15 @@ class OperationController extends Controller
         return redirect()->back()->with('success', 'Data deleted successfully.');
     }
 
-    public function printOperation(Afor $id){
+    public function printOperation(Afor $id)
+    {
 
         return view('reports.operation.printable', [
             'active' => 'operation',
             'user' => Auth::user(),
             'operation' => $id,
             'alarm_names' => Alarm_name::all(),
+            'personnels' => Personnel::all(),
         ]);
     }
 

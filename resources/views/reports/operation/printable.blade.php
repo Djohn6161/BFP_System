@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Operation</title>
 
     <style>
         body {
@@ -13,9 +14,7 @@
         }
 
         header {
-            /* background-color: #333; */
             color: rgb(0, 0, 0);
-            /* padding: 10px 20px; */
             text-align: center;
             display: flex;
             justify-content: space-between;
@@ -29,7 +28,6 @@
 
         header div p {
             margin: 0;
-            /* Remove default margin for paragraphs */
         }
 
         main {
@@ -37,12 +35,11 @@
         }
 
         footer {
-            text-align: left;
+            text-align: center;
             padding: 10px;
             background-color: #f5f5f5;
         }
 
-        /* Media query for printing */
         @media print {
             body {
                 margin-top: .25in;
@@ -51,97 +48,95 @@
                 margin-right: .5in;
             }
 
-            /* header {
-                display: none;
-            } */
+            header img {
+                margin-top: -2rem;
+            }
         }
 
-        table {
+        .a {
             width: 100%;
             border-collapse: collapse;
         }
 
-        th,
-        td {
-            padding: 8px;
+        .a th,
+        .a td {
+            padding-top: 8px;
+            padding-bottom: 8px;
             text-align: left;
             white-space: nowrap;
         }
 
-        th {
+        .a th {
             font-weight: bold;
-            width: 20%;
+            width: 15%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        td::before {
+        .a td::before {
             content: ": ";
             margin-left: 5px;
         }
 
-        td {
-            width: 80%;
+        .a td {
+            width: 85%;
         }
 
-        p b {
-            color: #0202b1;
-        }
-
-        table {
+        .b {
+            font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
-
         }
 
-        th,
-        td {
-            border: 1px solid black;
+        .b td,
+        .b th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            vertical-align: top;
             padding: 8px;
-            text-align: left;
         }
 
-        th {
-            background-color: #f2f2f2;
+        .paragraph {
+            text-align: justify;
+            text-indent: 40px;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .btn {
+            display: inline-block;
+            /* font-family: $btn-font-family; */
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+            cursor: pointer;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid transparent;
         }
 
-        tr:hover {
-            background-color: #ddd;
+        .btn-primary {
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
         }
 
-        .container {
-            display: flex;
-            justify-content: space-between;
-            /* Adjust as needed */
-        }
-
-        .table-wrapper {
-            width: 45%;
-            /* Adjust as needed */
-            margin-right: 20px;
-            /* Adjust as needed */
-        }
-
-        caption {
-            text-align: left;
-        }
-
-        th::before,
-        td::before {
-            content: none;
+        .d-none {
+            display: none !important;
         }
     </style>
 </head>
 
 <body>
+    <div style="margin: 30px 30px 30px 30px; text-align:end" id="download-btn">
+        <button class="btn btn-primary" style="padding: 10px 30px 10px 30px; border-radius: 30px"
+            onclick="download(this)">PRINT</button>
+    </div>
     <header>
         <div>
-            <img src="img/bfp logo.png" alt="Left Logo">
+            <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Left Logo">
         </div>
 
         <div>
@@ -157,7 +152,8 @@
 
         <div>
 
-            <img src="img/bfp tagasalbar logo.png" alt="Right Logo">
+            <img src="{{ asset('assets/images/logos/EDITED FINAL.png') }}" alt="Right Logo">
+
 
         </div>
 
@@ -422,14 +418,6 @@
                     <td style="font-size: 12px;">Fund Commander</td>
 
                 </tr>
-                {{-- @foreach ($operation->declaredAlarms as $alarm)
-                    <tr>
-                        <td>{{ $alarm->alarm_name }}</td>
-                        <td>{{ $alarm->time }}</td>
-                        <td>{{ $alarm->getGroundCommander->rank->slug . ' ' . $alarm->getGroundCommander->first_name . ' ' . $alarm->getGroundCommander->last_name }}
-                        </td>
-                    </tr>
-                @endforeach --}}
                 @foreach ($alarm_names as $name)
                     <tr>
                         <td style="font-size: 12px;">
@@ -437,7 +425,6 @@
                         </td>
                         <td style="font-size: 12px;">
                             @foreach ($operation->declaredAlarms as $alarm)
-                                {{dd($operation->declaredAlarms)}}
                                 @if ($name->name == $alarm->alarm_name)
                                     {{ $alarm->time }}
                                 @endif
@@ -456,98 +443,17 @@
 
                     </tr>
                 @endforeach
-                {{-- <tr>
-                    <td style="font-size: 12px;">
-                        1ST ALARM</td>
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-
-                <tr>
-                    <td style="font-size: 12px;">
-                        2ND ALARM</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        3RD ALARM</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        4TH ALARM</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        5TH ALARM</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE ALPHA</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE BRAVO</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE CHARLIE</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE DELTA</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE ECHO</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE HOTEL</td>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        TASK FORCE INDIA</td>
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-                    <td style="font-size: 12px;">
-                        GENERAL ALARM</td>
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr> --}}
             </table>
             <table>
                 <br>
+
+                {{-- @foreach ($operation->getBreathingApparatus as $equipment)
+                    <tr>
+                        <td>{{ $equipment->quantity }}</td>
+                        <td>{{ $equipment->type }}</td>
+                    </tr>
+                @endforeach --}}
+
                 <caption style="font-size: 12px;">
                     10 Extinguishing Agent Used: </caption>
 
@@ -555,29 +461,17 @@
                 <tr>
 
                     <td style="font-size: 12px;">
-                        Type</td>
+                        QTY</td>
                     <td style="font-size: 12px;">
-                        Length</td>
+                        TYPE/KIND</td>
 
                 </tr>
-                <tr>
-
-                    <td style="font-size: 12px;"></td>
-
-                    <td style="font-size: 12px;"> </td>
-
-
-                </tr>
-                <tr>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
-                <tr>
-
-                    <td style="font-size: 12px;"></td>
-                    <td style="font-size: 12px;"></td>
-                </tr>
+                @foreach ($operation->getExtinguishingAgent as $equipment)
+                    <tr>
+                        <td style="font-size: 12px;">{{ $equipment->quantity }}</td>
+                        <td style="font-size: 12px;">{{ $equipment->type }}</td>
+                    </tr>
+                @endforeach
             </table>
             <br>
             <table>
@@ -595,17 +489,13 @@
 
                 </thead>
                 <tbody>
+                    @foreach ($operation->getRopeAndLadder as $equipment)
+                        <tr>
+                            <td style="font-size: 12px; text-align:center;">{{ $equipment->type }}</td>
 
-                    <tr>
-                        <td style="font-size: 12px; text-align:center;"></td>
-
-                        <td style="font-size: 12px; text-align:center;"></td>
-
-                    </tr>
-                    <tr>
-                        <td style="font-size: 12px; text-align:center;"></td>
-                        <td style="font-size: 12px; text-align:center;"></td>
-                    </tr>
+                            <td style="font-size: 12px; text-align:center;">{{ $equipment->length }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             <br>
@@ -624,20 +514,13 @@
                         TOTAL ft.</td>
 
                 </tr>
-                <tr>
-
-                    <td style="font-size: 12px; text-align: center;"></td>
-                    <td style="font-size: 12px; text-align: center;"></td>
-                    <td style="font-size: 12px; text-align: center;"></td>
-
-                </tr>
-                <tr>
-
-                    <td style="font-size: 12px; text-align: center;"></td>
-                    <td style="font-size: 12px; text-align: center;"></td>
-                    <td style="font-size: 12px; text-align: center;"></td>
-
-                </tr>
+                @foreach ($operation->getHoseLine as $equipment)
+                    <tr>
+                        <td style="font-size: 12px; text-align: center;">{{ $equipment->nr }}</td>
+                        <td style="font-size: 12px; text-align: center;">{{ $equipment->type }}</td>
+                        <td style="font-size: 12px; text-align: center;">{{ $equipment->length }}</td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>
@@ -660,72 +543,19 @@
                 Remarks</td>
 
         </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-
-        </tr>
-        <tr>
-
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-            <td style="font-size: 12px; text-align:center"></td>
-
-
-        </tr>
+        @foreach ($operation->dutyPersonnels as $duty_personnel)
+            <tr>
+                @foreach ($personnels as $personnel)
+                    @if ($duty_personnel->personnels_id == $personnel->id)
+                        <td style="font-size: 12px; text-align:center">
+                            {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                        </td>
+                    @endif
+                @endforeach
+                <td style="font-size: 12px; text-align:center">{{ $duty_personnel->designation }}</td>
+                <td style="font-size: 12px; text-align:center">{{ $duty_personnel->remarks }}</td>
+            </tr>
+        @endforeach
     </table>
 
     <div>
@@ -733,19 +563,33 @@
         <caption style="font-size: 12px;">
             INSTRUCTION/SKETCH OF THE FIRE OPERATION
             <b>(SHOULD BE ATTACHED):</b>
-        </caption>
-
-        <br>
-        <caption style="font-size: 12px;">
-            (Indicate the data frame,legend,location, north arrow and scale)</caption>
+            <br>
+            <caption style="font-size: 12px;">
+                (Indicate the data frame,legend,location, north arrow and scale)</caption>
         <tr>
             <br>
             <br>
+            @if ($operation->sketch_of_fire_operation == null)
+                <div class="card-body p-1">
+                    <h3>No photos</h3>
+                </div>
+            @else
+                @php
+                    if ($operation->sketch_of_fire_operation != '') {
+                        $photos = explode(',', $operation->sketch_of_fire_operation);
+                    }
+                @endphp
+                <div class="card-body p-1">
+                    @foreach ($photos as $photo)
+                        <img style="height: 350px; object-fit: cover;" class="w-100"
+                            src="{{ asset('/assets/images/operation_images/' . $photo) }}">
+                    @endforeach
+                </div>
+            @endif
+            </caption>
     </div>
 
     <div>
-
-        <input type="file">
         <br>
 
     </div>
@@ -758,7 +602,7 @@
             DETAILS (NARRATIVE):</caption>
 
         <div>
-            <input type="text">
+            <input type="text" value="{{ $operation->details }}">
 
         </div>
 
@@ -766,26 +610,29 @@
             <p style="font-size: 12px;"> 16</p>
             <caption style="font-size: 12px;"> Problem/s Encountered during Operation:</caption>
             <br>
-            <input type="text">
+            <input type="text" value="{{ $operation->problem_encounter }}">
         </div>
 
         <div>
             <p style="font-size: 12px;"> 17</p>
             <caption style="font-size: 12px"> OBSERVATIONS/RECOMENDATIONS:</caption>
             <br>
-            <input type="text">
+            <input type="text" value="{{ $operation->observation_recommendation }}">
             <br>
             <br>
         </div>
 
 
         <div>
-
             <caption style="font-size: 11px;"> Prepared by: </caption>
             <br>
-            <input type="text">
-            <input type="text">
-
+            <input type="text" readonly value="{{ $operation->prepared_by }}">
+        </div>
+        <br>
+        <div>
+            <caption style="font-size: 11px;"> Noted by: </caption>
+            <br>
+            <input type="text" readonly value="{{ $operation->noted_by }}">
         </div>
 
 
@@ -803,6 +650,22 @@
         <footer>
             <h6 style="font-size: 11px;"> &copy; BFP-QSF-FSOD-006 Rev.00 (06.26.18) page 1 of 3</h6>
         </footer>
+        <script>
+            var elementToHide = document.getElementById("download-btn");
+
+            function download() {
+                // Replace "elementId" with the ID of your element
+
+                // Add the d-none class to the element
+                elementToHide.classList.add("d-none");
+                console.log('hello');
+                window.print();
+            }
+            window.addEventListener('afterprint', function() {
+                // Remove the d-none class after print dialog is closed
+                elementToHide.classList.remove("d-none");
+            });
+        </script>
 </body>
 
 </html>

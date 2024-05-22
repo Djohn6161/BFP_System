@@ -9,7 +9,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                    <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                         <div class="col d-flex justify-content-end mb-2">
                             <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal">Delete</button>
