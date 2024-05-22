@@ -8,14 +8,14 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
-                <form method="POST" action="{{ route('profile.update') }}">
+                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">My Profile</h3>
                             <div class="col-lg-3">
                                 <div class="col-lg-12 mb-3"> <!-- Photo column -->
-                                    <img id="personnel-picture" src="/assets/images/personnel_images/"
+                                    <img id="personnel-picture" src="/assets/images/personnel_images/{{$user->picture}}"
                                         class="object-fit-cover img-fluid w-100" style="height: 240px;"
                                         alt="Personnel Picture">
                                     <div class="row px-2">
@@ -34,25 +34,30 @@
                                     <input type="text" class="form-control" name="name" id="name"
                                         value="{{ $user->name }}">
                                 </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="inputName" class="form-label">Username</label>
+                                    <input type="text" class="form-control" name="username" id="username"
+                                        value="{{ $user->username }}">
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-6 mb-6">
                                         <label for="dateOfBirth" class="form-label">User Type</label>
-                                        {{-- <input type="text" class="form-control" name="type" id="type"
-                                            value="{{ $user->type }}"> --}}
-                                            <select type="text" class="form-select" value="{{ $user->type }}" id="status" name="status" placeholder="Truck Status">
-                                                {{-- <option type="text" value="{{ $truck->status }}"selected></option> --}}
-                                                <option type="text" id="type" name="type" value="admin">Admin</option>
-                                                <option type="text" id="type" name="type" value="user">User</option>
+                                            <select type="text" class="form-select" value="{{ $user->type }}" name="type" disabled>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
                                             </select>
                                     </div>
                                     <div class="col-lg-6 mb-6">
-                                        <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            value="{{ $user->email }}">
+                                        <label for="dateOfBirth" class="form-label">Privllege</label>
+                                        <select type="text" class="form-select" value="{{ $user->privillege }}" name="privillege" disabled>
+                                            <option value="AC">Admin Clerk</option>
+                                            <option value="OC">Operation Clerk</option>
+                                            <option value="IC">Investigation Clerk</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col d-flex justify-content-end mb-2 py-3">
-                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                                <div class="col d-flex justify-content-end mb-2 py-3">  
+                                    <a href="{{route('user.dashboard')}}" type="button" class="btn btn-secondary me-2">Cancel</a>
                                     <button id="saveChangesBtn" class="btn btn-primary">Update Profile</button>
                                 </div>
                                 
