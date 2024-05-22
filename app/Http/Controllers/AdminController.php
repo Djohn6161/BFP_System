@@ -49,7 +49,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
+            'username' => 'required|max:255|unique:users,username',
             'password' => 'required|string|min:8',
             'confirm_password' => 'required|string|min:8',
         ]);
@@ -65,8 +65,9 @@ class AdminController extends Controller
         }
 
         $account->name = $request['name'];
-        $account->email = $request['email'];
+        $account->username = $request['username'];
         $account->password = Hash::make($request['password']);
+        $account->picture = "default.png";
         $account->save();
 
         return redirect()->back()->with('success', 'Account created successfully.');
@@ -80,7 +81,7 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'username' => 'required|max:255',
             'admin_confirm_password' => 'required|min:8',
         ]);
 
@@ -92,12 +93,12 @@ class AdminController extends Controller
             $userInfoUpdatedData = [
                 'name' => $request->input('name'),
                 'privilege' => $request->input('privilege'),
-                'email' => $request->input('email'),
+                'username' => $request->input('username'),
             ];
         } else {
             $userInfoUpdatedData = [
                 'name' => $request->input('name'),
-                'email' => $request->input('email'),
+                'username' => $request->input('username'),
             ];
         }
 

@@ -26,6 +26,8 @@
                                 <div class="mb-3">
                                     <label for="privileges" class="form-label">Privileges:</label>
                                     <select class="form-select" name="privilege" >
+                                        <option selected value="">Select Privillege</option>
+                                        <option value="AC">Admin Clerk</option>
                                         <option value="OC">Operation Clerk</option>
                                         <option value="IC">Investigation Clerk</option>
                                     </select>
@@ -35,8 +37,8 @@
                     @endif
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter Email">
+                        <label for="email" class="form-label">Username:</label>
+                        <input type="text" class="form-control" name="username" placeholder="Enter Username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
