@@ -18,7 +18,7 @@ $(document).ready(function () {
     $(".alarmStatus").select2();
     $(".alarmApor").select2();
     $(".fundCommander").select2();
-    $(".typeOccupancy").select2();
+    $(".typeOccupancy").select2({tags: true});
     $(".specify").select2();
     $(".rankName").select2();
     $(".designation").select2({tags: true});

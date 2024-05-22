@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <div class="loader">
+    <div class="loader bg-gradient-blue">
         <img src="{{ asset('assets/images/logos/BFP_Ligao_logo.png') }}" width="170" alt="">
     </div>
     <!--  Body Wrapper -->
@@ -97,7 +97,6 @@
             <!--  Header End -->
             @yield('content')
             @include('partials.footer')
-            <x-flash-message></x-flash-message>
             {{-- Footer End --}}
         </div>
     </div>
