@@ -21,4 +21,7 @@ class Spot extends Model
     public function alarmed(){
         return $this->belongsTo(Alarm_name::class, 'alarm');
     }
+    public function spot(){
+        return $this->belongsTo(Afor::class, 'afor_id');
+    }
 }

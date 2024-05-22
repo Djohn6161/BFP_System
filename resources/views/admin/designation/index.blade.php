@@ -73,7 +73,7 @@
                             <x-designation.section.add-unit :section=$section></x-designation.section.add-unit>
 
                             <div class="col p-2">
-                                <div class="col-lg-12 card m">
+                                <div class="col-lg-12 card">
 
                                     <div class="card-body p-4">
 

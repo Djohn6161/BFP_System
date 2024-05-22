@@ -304,6 +304,18 @@
                 <div class="ps-5">
                     {{ $operation->observation_recommendation }}
                 </div>
+
+                <hr>
+                <h5 class="my-4 fw-bolder">Prepared By:</h5>
+                <div class="ps-5">
+                    {{ $operation->prepared_by }}
+                </div>
+
+                <hr>
+                <h5 class="my-4 fw-bolder">Noted By:</h5>
+                <div class="ps-5">
+                    {{ $operation->noted_by }}
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

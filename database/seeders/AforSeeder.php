@@ -45,6 +45,8 @@ class AforSeeder extends Seeder
                 'observation_recommendation' => $faker->paragraph(),
                 'alarm_status_arrival' => '1st Alarm',
                 'first_responder' => 'First',
+                'prepared_by' => 'FO2 Joenel C. Cerias',
+                'noted_by' => 'SF03 Marvin P. De Jesus',
             ];
 
             $reportID = DB::table('afors')->insertGetId($attributes);

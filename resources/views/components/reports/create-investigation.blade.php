@@ -25,7 +25,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal Investigation Reports</h1>
+                    <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -42,12 +42,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($afors as $item)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$item->alarm_received}}</td>
+                                    <td>{{$item->transmitted_by}}</td>
+                                    <td> {{$item->full_location}} </td>
+                                    <td> {{$item->td_under_control}} </td>
+                                    <td> {{$item->td_declared_fireout}} </td>
                                     <td>
                                         <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#viewOperationModal" data-operation="" data-responses=""
@@ -57,6 +58,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -71,7 +73,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot Investigation Reports</h1>
+                    <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -88,12 +90,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($afors as $item)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$item->alarm_received}}</td>
+                                    <td>{{$item->Transmitted_by}}</td>
+                                    <td> {{$item->full_location}} </td>
+                                    <td> {{$item->td_under_control}} </td>
+                                    <td> {{$item->td_declared_fireout}} </td>
                                     <td>
                                         <button type="button" data-bs-toggle="modal"
                                             data-bs-target="#viewOperationModal" data-operation="" data-responses=""
@@ -103,6 +106,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

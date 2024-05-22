@@ -33,6 +33,8 @@ return new class extends Migration
             $table->longText('observation_recommendation');
             $table->string('alarm_status_arrival');
             $table->string('first_responder');
+            $table->string('prepared_by')->nullable();
+            $table->string('noted_by')->nullable();
             $table->string('deleted_at')->nullable();
             $table->timestamps();
         });

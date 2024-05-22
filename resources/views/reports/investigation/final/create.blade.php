@@ -58,12 +58,12 @@
 
                         <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
 
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
 
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINAL INVESTIGATION REPORT (F.I.R)
                             </h3>
 
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-12 mb-3 bg-white">
                                 <label for="intelligence_unit" class="form-label">INVESTIGATION AND INTELLIGENCE
                                     UNIT</label>
                                 <input type="text" placeholder="Eg. Purok 5 Paubla, Ligao City" id="intelligence_unit"
@@ -210,7 +210,7 @@
                             @endif
                         </div>
                         <div class="mb-5"></div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">ORIGIN OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
                             <div class="col-lg-12 mb-1 pb-5 mb-3">
@@ -269,10 +269,10 @@
                                 <input type="hidden" id="origin_of_fire" name="origin_of_fire">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">CAUSE OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar7">
@@ -328,10 +328,10 @@
                                 <input type="hidden" id="cause_of_fire" name="cause_of_fire">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">SUBSTANTIATING DOCUMENTS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
@@ -387,10 +387,10 @@
                                 <input type="hidden" id="substantiating_documents" name="substantiating_documents">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FACTS OF THE CASE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-3">
+                            <div class="col-lg-12 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
@@ -447,10 +447,10 @@
 
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DISCUSSION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar3">
@@ -506,10 +506,10 @@
                                 <input type="hidden" id="discussion" name="discussion">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar4">
@@ -565,10 +565,10 @@
                                 <input type="hidden" id="findings" name="findings">
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-3">
+                            <div class="col-lg-12 pb-5 mb-5">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar5">

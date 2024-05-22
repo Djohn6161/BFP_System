@@ -70,7 +70,12 @@ class Afor extends Model
 
     public function personnel()
     {
-        $this->belongsTo(Personnel::class, 'personnel_id');
+        return $this->belongsTo(Personnel::class, 'personnel_id');
     }
-
+    public function minimals(){
+        return $this->hasOne(Minimal::class, 'afor_id');
+    }
+    public function spot(){
+        return $this->hasOne(Spot::class, 'afor_id');
+    }
 }
