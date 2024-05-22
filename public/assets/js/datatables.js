@@ -1,4 +1,9 @@
 $('#myTable').DataTable();
+
+$("#minimalModalTable").DataTable();
+$("#spotModalTable").DataTable();
+$("#progressModalTable").DataTable();
+$("#finalModalTable").DataTable();
 $("#operationTable").DataTable();
 $("#alarmTable").DataTable();
 $("#investigationTable").DataTable();
