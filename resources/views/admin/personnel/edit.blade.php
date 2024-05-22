@@ -332,7 +332,7 @@
                                                 <input type="hidden" name="default_files[]"
                                                     value="{{ $file }}">
                                                 {{ $file }}
-                                            </span>
+                                            </span> 
                                             <button type="button" class="btn btn-danger"
                                                 onclick="deleteFile(this)">Delete</button>
                                         </div>
