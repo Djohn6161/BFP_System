@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
                 'privilege' => 'All',
+                'picture' => 'default.png',
             ],      
 
             // User
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'AC',
+                'picture' => 'default.png',
             ],
             [
                 'name' => 'user IC',
@@ -38,6 +40,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'IC',
+                'picture' => 'default.png',
             ],
             [
                 'name' => 'user OC',
@@ -45,6 +48,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'OC',
+                'picture' => 'default.png',
             ],
 
         ];

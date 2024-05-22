@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('privilege', ['All', 'IC', 'OC', 'AC']);
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('picture');
             $table->rememberToken();
             $table->timestamps();
         });
