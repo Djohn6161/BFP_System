@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('type', ['admin','user']);
             $table->enum('privilege', ['All', 'IC', 'OC']);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
