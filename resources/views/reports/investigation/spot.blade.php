@@ -5,25 +5,6 @@
 </style>
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-       
-
-        <div class="col-lg-12">
-           
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#chooseInvestigation">Create</button>
-                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
-                </div>
-               
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 text-capitalize">
-                                {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5> --}}
-
     <div class="container-fluid">
         <div class="col-lg-12">
             <div class="row">
@@ -47,7 +28,7 @@
                                         <i class="ti ti-plus"></i>
                                         Create
                                     </button>
-                                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                    <x-reports.create-investigation :spots=$spots :afors=$afors></x-reports.create-investigation>
                                 </div>
                                 @endif
                             </div>

@@ -28,7 +28,7 @@
                                         <i class="ti ti-plus"></i>
                                         Create
                                     </button>
-                                <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
+                                <x-reports.create-investigation :spots=$spots :afors=$afors></x-reports.create-investigation>
                                 </div>
                                 @endif
                             </div>
