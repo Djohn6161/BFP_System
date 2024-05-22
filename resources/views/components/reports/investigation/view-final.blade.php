@@ -1,11 +1,12 @@
 <div class="modal fade" tabindex="-1" id="viewFinalModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h5>
+            <div class="modal-header pt-4 px-4 pb-1">
+                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <hr>
+            <div class="modal-body pt-4 px-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>

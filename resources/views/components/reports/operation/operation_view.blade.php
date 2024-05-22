@@ -1,11 +1,12 @@
 <div class="modal fade" tabindex="-1" id="viewOperationModal{{ $operation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bolder text-primary">AFTER FIRE OPERATION REPORT</h5>
+            <div class="modal-header pt-4 px-4 pb-1">
+                <h3 class="modal-title fw-bolder text-primary">AFTER FIRE OPERATION REPORT</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <hr>
+            <div class="modal-body px-4 pb-4 pt-0">
                 <table class="table table-striped">
                     <tr>
                         <th>Alarm received (Time):</th>
@@ -255,9 +256,9 @@
                         the data
                         frame, legend, location, north arrow and scale)</span>
                 </h5>
-                <div class="ps-5 row">
-                    <div class="col-sm-4">
-                        <div class="card">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
                             @if ($operation->sketch_of_fire_operation == null)
                                 <div class="card-body p-1">
                                     <h3>No photos</h3>
@@ -268,17 +269,22 @@
                                         $photos = explode(',', $operation->sketch_of_fire_operation);
                                     }
                                 @endphp
-                                <div class="card-body p-1">
+                
+                                <div class="row">
                                     @foreach ($photos as $photo)
-                                        <img style="height: 350px; object-fit: cover;" class="w-100"
-                                            src="{{asset('/assets/images/operation_images/' . $photo)}}">
+                                        <div class="col-lg-4">
+                                            <div class="card-body p-1">
+                                                <img style="height: 350px; object-fit: cover;" class="w-100"
+                                                    src="{{asset('/assets/images/operation_images/' . $photo)}}">
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             @endif
-
                         </div>
                     </div>
                 </div>
+                
                 <br>
 
                 <hr>

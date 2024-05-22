@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
 use App\Models\Spot;
 use App\Models\Afors;
 use App\Models\Truck;
@@ -15,8 +16,8 @@ use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
 use Illuminate\Support\Carbon;
-use App\Models\InvestigationLog;
 
+use App\Models\InvestigationLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use function Symfony\Component\String\b;
@@ -34,6 +35,7 @@ class InvestigationController extends Controller
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
         ]);
     }
     public function investigationMinimalIndex()
@@ -50,8 +52,8 @@ class InvestigationController extends Controller
         $spots = Spot::whereHas('investigation', function ($query) {
             $query->whereNull('deleted_at');
         })->latest()->get();
-
-        return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
+        $afors = Afor::all();
+        return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
     }
     public function createMinimal()
     {
@@ -78,6 +80,7 @@ class InvestigationController extends Controller
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
         ]);
     }
     public function createSpot()
@@ -176,11 +179,12 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'investigations' => Progress::whereHas('investigation', function ($query) {
-            $query->whereNull('deleted_at');
-        })->latest()->get(),
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
         ]);
     }
     public function createProgress(Spot $spot)
@@ -243,11 +247,12 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'investigations' => Ifinal::whereHas('investigation', function ($query) {
-            $query->whereNull('deleted_at');
-        })->latest()->get(),
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
         ]);
     }
     public function createFinal(Spot $spot)
@@ -920,7 +925,8 @@ class InvestigationController extends Controller
         $investigation->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
-    public function printSpot(Spot $spot){
+    public function printSpot(Spot $spot)
+    {
         // dd($spot);
         return view('reports.investigation.spot.printable', [
             'active' => 'spot',
@@ -928,7 +934,8 @@ class InvestigationController extends Controller
             'spot' => $spot,
         ]);
     }
-    public function printMinimal(Minimal $minimal){
+    public function printMinimal(Minimal $minimal)
+    {
         // dd($spot);
         return view('reports.investigation.minimal.printable', [
             'active' => 'minimal',
@@ -936,19 +943,20 @@ class InvestigationController extends Controller
             'minimal' => $minimal,
         ]);
     }
-    public function printProgress(Progress $progress){
+    public function printProgress(Progress $progress)
+    {
         return view('reports.investigation.progress.printable', [
             'active' => 'progress',
             'user' => Auth::user(),
             'progress' => $progress,
         ]);
     }
-    public function printFinal(Ifinal $final){
-        return view('reports.investigation.final.printable',[
+    public function printFinal(Ifinal $final)
+    {
+        return view('reports.investigation.final.printable', [
             'active' => 'final',
             'user' => Auth::user(),
             'final' => $final,
         ]);
     }
-
 }
