@@ -47,18 +47,18 @@
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Name</h6>
+                                            <th style="max-width:10%"
+                                                 class="fw-semibold mb-0">Name
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Slug</h6>
+                                            <th
+                                                 class="fw-semibold mb-0">Slug
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
+                                            <th
+                                                 class="fw-semibold mb-0 text-center">Action
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="table-group-divider">
                                         @foreach ($ranks as $rank)
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>
