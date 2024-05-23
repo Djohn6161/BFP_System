@@ -321,12 +321,15 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#">View Minimal</button>
                 <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#">View Spot</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#">View Progress</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#">View Final</button>
                 <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
+
 <script>
     $('#viewOperationModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
