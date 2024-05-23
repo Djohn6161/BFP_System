@@ -11,12 +11,13 @@ use App\Models\Victim;
 use App\Models\Minimal;
 use App\Models\Barangay;
 use App\Models\Progress;
+use App\Models\Response;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
-use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -36,6 +37,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function investigationMinimalIndex()
@@ -53,7 +56,9 @@ class InvestigationController extends Controller
             $query->whereNull('deleted_at');
         })->latest()->get();
         $afors = Afor::all();
-        return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
+        $responses = Response::all();
+        $personnels = Personnel::all();
+        return view('reports.investigation.minimal', compact('personnels', 'responses', 'active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
     }
     public function createMinimal(Afor $afor)
     {
@@ -88,6 +93,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createSpot(Afor $afor)
@@ -193,6 +200,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createProgress(Spot $spot)
@@ -261,6 +270,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createFinal(Spot $spot)

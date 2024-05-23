@@ -179,4 +179,4 @@
     </div>
 </div>
 
-<x-reports.investigation.view-operation :investigation=$investigation></x-reports.investigation.view-operation>
+<x-reports.investigation.view-operation :operation="$investigation->afor" :investigation="$investigation" :responses="$responses" :personnels="$personnels"></x-reports.investigation.view-operation>

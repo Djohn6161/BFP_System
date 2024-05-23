@@ -52,9 +52,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($investigations as $investigation)
-                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
-                                                {{-- {{dd($investigation)}} --}}
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
                                                     </h6>
@@ -74,7 +72,7 @@
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
                                                     <x-reports.Investigation.view-minimal
-                                                        :investigation=$investigation></x-reports.Investigation.view-minimal>
+                                                        :investigation=$investigation :personnels=$personnels responses=$responses></x-reports.Investigation.view-minimal>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
                                                             class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>

@@ -13,15 +13,15 @@ class Spot extends Model
         return $this->belongsTo(Investigation::class, 'investigation_id');
     }
     public function Progress(){
-        return $this->hasMany(Progress::class, 'spot_id');
+        return $this->hasOne(Progress::class, 'spot_id');
     }
     public function final(){
-        return $this->hasMany(Ifinal::class, 'spot_id');
+        return $this->hasOne(Ifinal::class, 'spot_id');
     }
     public function alarmed(){
         return $this->belongsTo(Alarm_name::class, 'alarm');
     }
-    public function spot(){
+    public function afor(){
         return $this->belongsTo(Afor::class, 'afor_id');
     }
 }
