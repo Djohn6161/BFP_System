@@ -31,29 +31,47 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'username' => 'required|string|max:255',
         ]);
+
+        $status = false;
 
         $userInfoUpdatedData = [
             'name' => $request->input('name'),
-            'email' => $request->input('email'),
+            'username' => $request->input('username'),
         ];
 
-        $user = User::findOrFail($request['user_id']);
+        $user = User::find($request['user_id']);
         $userChange = $this->hasChanges($user, $userInfoUpdatedData);
 
-        if (!$userChange) {
-            return redirect()->back()->with('status', 'No changes were made.');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+
+            if ($user->picture != $fileName) {
+                $file->move(public_path('assets/images/personnel_images/'), $fileName);
+                $profile = $fileName;
+                $user->picture = $profile;
+                $user->save();
+                $status = true;
+            }
         }
 
-        $user->update($userInfoUpdatedData);
+        if ($userChange) {
+            $user->update($userInfoUpdatedData);
+            $status = true;
 
-        return redirect()->back()->with('success', 'User updated successfully.');
+        }
 
-
+        if ($status) {
+            return redirect()->back()->with('success', 'User updated successfully.');
+        } else {
+            return redirect()->back()->with('status', 'No changes were made.');
+        }
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request)
+    {
         $request->validate([
             'current_password' => 'required|min:8',
             'password' => 'required|min:8',
