@@ -51,7 +51,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($investigations as $investigation)
+                                        @php
+            $sortedInvestigations = $investigations->sortBy(function($investigation) {
+                return \Carbon\Carbon::parse($investigation->investigation->date);
+            });
+        @endphp
+
+        @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td>
