@@ -1,5 +1,25 @@
 @extends('layouts.user-template')
 @section('content')
+
+<style>
+.earth-spinning {
+    perspective: 1000px;
+}
+
+.spinning-logo {
+    animation: spin 10s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+</style>
     <div class="container-fluid position-relative py-0" style="top: 10vh">
         <!--  Row 1 -->
         <div class="d-flex justify-content-center">

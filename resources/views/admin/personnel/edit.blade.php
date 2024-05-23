@@ -11,7 +11,7 @@
                 <form action="{{ route('admin.personnel.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                             <div class="col-lg-4">
                                 <div class="col-lg-12 mb-3"> <!-- Photo column -->
