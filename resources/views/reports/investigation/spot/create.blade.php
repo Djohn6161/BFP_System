@@ -35,7 +35,7 @@
                 <div class="row">
                     <form action="{{ route('investigation.spot.store') }}" class="needs-validation" novalidate method="POST">
                         @csrf
-
+                        <input type="hidden" name="afor_id" value="{{$afor->id}}" id="afor_id{{$afor->id}}">
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
                                 <a href="{{ route('investigation.spot.index') }}" class="btn btn-primary">
@@ -112,7 +112,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? ($afor->location ?? "") }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -172,7 +172,7 @@
                                 <label for="fatality" class="form-label">Fatality</label>
                                 <input type="number" placeholder="Eg. 1" id="fatality" name="fatality"
                                     class="form-control {{ $errors->has('fatality') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('fatality') }}" required min="0">
+                                    value="{{ old('fatality') ?? ($afor->casualties->sum('death') ?? "")  }}" required min="0">
                                 @error('fatality')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -182,7 +182,7 @@
                                 <label for="injured" class="form-label">Injured</label>
                                 <input type="number" placeholder="Eg. 3" id="injured" name="injured"
                                     class="form-control {{ $errors->has('injured') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('injured') }}" required min="0">
+                                    value="{{ old('injured') ?? ($afor->casualties->sum('injured') ?? "") }}" required min="0">
                                 @error('injured')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -220,7 +220,7 @@
                                 <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
                                     name="time_fire_out"
                                     class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_fire_out') }}" required>
+                                    value="{{ old('time_fire_out') ?? ($afor->td_declared_fireout ?? ' ') }}" required>
                                 @error('time_fire_out')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -232,7 +232,10 @@
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
                                     @foreach ($alarms as $item)
-                                        <option {{ old('alarm') == $item->id ? 'selected' : '' }}
+                                        <option 
+                                        @if (old('alarm_status_time') == $item->id  || ($afor->alarm_status_arrival ?? ' ') == $item->name )
+                                        selected
+                                        @endif
                                             value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>

@@ -101,7 +101,7 @@ class InvestigationController extends Controller
     {
         $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
         $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
-        // dd($afor, $firstResponse, $alarm);
+        // dd($afor->casualties, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
@@ -117,6 +117,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -157,6 +158,7 @@ class InvestigationController extends Controller
         $investigation->save();
         // dd($investigation);
         $spot->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'date_occurence' => $request->input('date_occurence') ?? '',
             'time_occurence' => $request->input('time_occurence') ?? '',
