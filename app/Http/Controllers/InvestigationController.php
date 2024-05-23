@@ -59,7 +59,7 @@ class InvestigationController extends Controller
     {
         $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
         $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
-        // dd($alarm);
+        // dd($firstResponse, $alarm, $afor);
         // dd($firstResponse->truck->name);
         return view('reports.investigation.minimal.create', [
             'active' => 'minimal',
@@ -386,6 +386,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -441,6 +442,7 @@ class InvestigationController extends Controller
         }
 
         $minimal->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',

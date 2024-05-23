@@ -33,11 +33,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    
+
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        
+                        <input type="hidden" name="afor_id" value="{{$afor->id}}" id="afor{{$afor->id}}">
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
                                 <a href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">
@@ -60,7 +60,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="dt_actual_occurence"
                                     name="dt_actual_occurence"
                                     class="form-control {{ $errors->has('dt_actual_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_actual_occurence')  }}" required>
+                                    value="{{ old('dt_actual_occurence') }}" required>
                                 @error('dt_actual_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -71,7 +71,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="reported"
                                     name="dt_reported"
                                     class="form-control {{ $errors->has('dt_reported') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ (old('dt_reported') ?? $afor->alarm_received ) ?? " " }}" required>
+                                    value="{{ old('dt_reported') ?? $afor->alarm_received ?? ' ' }}" required>
                                 @error('dt_reported')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -84,7 +84,8 @@
                                     value="{{ old('dt_reported') }}">
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') ?? ($afor->barangay_name ?? " ") == $barangay->name ? 'selected' : '' }}
+                                        <option
+                                            {{ old('barangay') ?? ($afor->barangay_name ?? ' ') == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">{{ $barangay->name }}</option>
                                     @endforeach
                                     <!-- Add more barangay options as needed -->
@@ -99,7 +100,7 @@
                                 <label for="zone-street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone-street"
                                     name="zone"class="form-control {{ $errors->has('zone') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone') ?? ($afor->zone ?? " ") }}" required>
+                                    value="{{ old('zone') ?? ($afor->zone ?? ' ') }}" required>
                                 @error('zone')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -110,7 +111,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') ?? ($afor->location ?? " ") }}" required>
+                                    value="{{ old('landmark') ?? ($afor->location ?? ' ') }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -145,7 +146,8 @@
                                     <select class="form-select alarmStatus" aria-label="" name="receiver">
                                         <option value="">Select Personnel</option>
                                         @foreach ($personnels as $personnel)
-                                            <option {{ old('receiver') ?? ($afor->received_by ?? " ") == $personnel->id ? 'selected' : '' }}
+                                            <option
+                                                {{ old('receiver') ?? ($afor->received_by ?? ' ') == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
@@ -161,7 +163,7 @@
                                     <input type="text" placeholder="Eg. SPO1 joseph d. Santos" name="caller_name"
                                         id="caller_name"
                                         class="form-control {{ $errors->has('caller_name') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_name') ?? ($afor->transmitted_by ?? " ") }}" required>
+                                        value="{{ old('caller_name') ?? ($afor->transmitted_by ?? ' ') }}" required>
                                     @error('caller_name')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -172,7 +174,7 @@
                                     <input type="text" placeholder="Eg. Guinobatan Albay" name="caller_address"
                                         id="caller_address"
                                         class="form-control {{ $errors->has('caller_address') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_address') ?? ($afor->caller_address ?? " ") }}" required>
+                                        value="{{ old('caller_address') ?? ($afor->caller_address ?? ' ') }}" required>
                                     @error('caller_address')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -198,14 +200,15 @@
                                     @enderror
                                 </div>
                                 <h5 class="  pb-1 mb-3">First Responding Unit</h5>
-                                
+
                                 <div class="col-lg-6 mb-3">
                                     <label for="timeReturned" class="form-label">Truck Deployed</label>
                                     <select class="form-select alarmStatus" aria-label=""
                                         name="first_responding_engine">
                                         <option value="">Select truck</option>
                                         @foreach ($engines as $truck)
-                                            <option {{ old('first_responding_engine') ?? ($firstRes->truck->id ?? " ") == $truck->id ? 'selected' : '' }}
+                                            <option
+                                                {{ old('first_responding_engine') ?? ($firstRes->truck->id ?? ' ') == $truck->id ? 'selected' : '' }}
                                                 value="{{ $truck->id }}">{{ $truck->name }}</option>
                                         @endforeach
                                     </select>
@@ -220,7 +223,7 @@
                                         <option value="">Select Team Leader</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                {{ old('first_responding_leader') ?? ($firstAlarm->getgroundCommander->id ?? " ") == $personnel->id ? 'selected' : '' }}
+                                                {{ old('first_responding_leader') ?? ($firstAlarm->getgroundCommander->id ?? ' ') == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
@@ -235,7 +238,8 @@
                                     <input type="text" placeholder="Eg. 1900h" name="time_arrival_on_scene"
                                         id="timeReturnedInput"
                                         class="form-control {{ $errors->has('time_arrival_on_scene') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('time_arrival_on_scene') }}" required>
+                                        value="{{ old('time_arrival_on_scene') ?? ($firstRes->time_arrived_at_scene ?? ' ') }}"
+                                        required>
                                     @error('time_arrival_on_scene')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -245,7 +249,11 @@
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
                                         @foreach ($alarms as $item)
-                                        <option {{ old('alarm_status_time') == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
+                                            <option
+                                            @if (old('alarm_status_time') == $item->id  || ($afor->alarm_status_arrival ?? ' ') == $item->name )
+                                                Selected
+                                            @endif
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('alarm_status_time')
@@ -256,7 +264,7 @@
                                     <label for="timeFireOut" class="form-label">Time Fire Out</label>
                                     <input type="text" placeholder="Eg. 0200H" name="Time_Fire_out" id="timeFireOut"
                                         class="form-control {{ $errors->has('Time_Fire_out') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('Time_Fire_out') }}" required>
+                                        value="{{ old('Time_Fire_out') ?? ($afor->td_declared_fireout ?? ' ') }}" required>
                                     @error('Time_Fire_out')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -513,78 +521,81 @@
     <script>
         $(document).ready(function() {
             $("#submit").click(function() {
-            $("#details").val($("#first").text());
-            $("#findings").val($("#second").html());
-            $("#recommendation").val($("#third").html());
-        });
+                $("#details").val($("#first").text());
+                $("#findings").val($("#second").html());
+                $("#recommendation").val($("#third").html());
+            });
 
-        $("#submit").click(function() {
-            $("#details").val(quillFirst.root.innerHTML);
-            $("#findings").val(quillSecond.root.innerHTML);
-            $("#recommendation").val(quillThird.root.innerHTML);
-        });
+            $("#submit").click(function() {
+                $("#details").val(quillFirst.root.innerHTML);
+                $("#findings").val(quillSecond.root.innerHTML);
+                $("#recommendation").val(quillThird.root.innerHTML);
+            });
 
-        $('#photos').on('change', function() {
-            var files = $(this)[0].files; // Get the files selected
-            var container = $('#photo'); // Get the preview container
+            $('#photos').on('change', function() {
+                var files = $(this)[0].files; // Get the files selected
+                var container = $('#photo'); // Get the preview container
 
-            // Clear previous previews
-            container.empty();
+                // Clear previous previews
+                container.empty();
 
-            // Loop through each file
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
+                // Loop through each file
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    var reader = new FileReader();
 
-                // Closure to capture the file information.
-                reader.onload = (function(file) {
-                    return function(e) {
-                        // Create image preview
-                        var mainContainer = $('<div class="image-preview mb-1 col-sm-4"></div>')
-                        var imgPreview = $('<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' + e.target.result +
-                            '" alt="' + '">'
-                        );
-                        mainContainer.append(imgPreview);
+                    // Closure to capture the file information.
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            // Create image preview
+                            var mainContainer = $(
+                                '<div class="image-preview mb-1 col-sm-4"></div>')
+                            var imgPreview = $(
+                                '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
+                                e.target.result +
+                                '" alt="' + '">'
+                            );
+                            mainContainer.append(imgPreview);
 
-                        // Append image preview to the container
-                        // container.append(imgPreview);
+                            // Append image preview to the container
+                            // container.append(imgPreview);
 
-                        // Create filename container with flex layout
-                        var fileInfoContainer = $(
-                            '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                        );
+                            // Create filename container with flex layout
+                            var fileInfoContainer = $(
+                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                            );
 
-                        // Filename element
-                        var fileInfo = $(
-                            '<div class="file-info flex-grow-1 me-2 text-break"></div>');
+                            // Filename element
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break"></div>');
 
-                        // Remove button
-                        // var removeBtn = $(
-                        //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                        // );
+                            // Remove button
+                            // var removeBtn = $(
+                            //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                            // );
 
-                        // Append filename and remove button to container
-                        fileInfoContainer.append(fileInfo);
-                        // fileInfoContainer.append(removeBtn);
-                        mainContainer.append(fileInfoContainer);
-                        // Append the filename container to the preview container
-                        container.append(mainContainer);
+                            // Append filename and remove button to container
+                            fileInfoContainer.append(fileInfo);
+                            // fileInfoContainer.append(removeBtn);
+                            mainContainer.append(fileInfoContainer);
+                            // Append the filename container to the preview container
+                            container.append(mainContainer);
 
-                        // Remove button click event
-                        // removeBtn.click(function() {
-                        //     imgPreview.remove(); // Remove the image preview
-                        //     $(this).closest('.d-flex')
-                        //         .remove(); // Remove the flex container
-                        //     $('#photos').val(
-                        //         ''); // Clear the file input (if needed)
-                        // });
-                    };
-                })(file);
+                            // Remove button click event
+                            // removeBtn.click(function() {
+                            //     imgPreview.remove(); // Remove the image preview
+                            //     $(this).closest('.d-flex')
+                            //         .remove(); // Remove the flex container
+                            //     $('#photos').val(
+                            //         ''); // Clear the file input (if needed)
+                            // });
+                        };
+                    })(file);
 
-                // Read in the image file as a data URL
-                reader.readAsDataURL(file);
-            }
-        });
+                    // Read in the image file as a data URL
+                    reader.readAsDataURL(file);
+                }
+            });
         });
         // Get the input element
         var input = document.getElementById('telephone');
@@ -601,7 +612,7 @@
         });
         var hiddenInput = document.getElementById('editorContent');
 
-        
+
         const quillFirst = new Quill('#first', {
             modules: {
                 toolbar: '#toolbar1',
@@ -624,6 +635,6 @@
             },
 
             placeholder: 'Compose an epic...',
-        }); 
+        });
     </script>
 @endsection
