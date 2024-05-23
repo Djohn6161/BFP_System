@@ -60,7 +60,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="dt_actual_occurence"
                                     name="dt_actual_occurence"
                                     class="form-control {{ $errors->has('dt_actual_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_actual_occurence') }}" required>
+                                    value="{{ old('dt_actual_occurence')  }}" required>
                                 @error('dt_actual_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -71,7 +71,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="reported"
                                     name="dt_reported"
                                     class="form-control {{ $errors->has('dt_reported') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_reported') }}" required>
+                                    value="{{ (old('dt_reported') ?? $afor->alarm_received ) ?? " " }}" required>
                                 @error('dt_reported')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -84,7 +84,7 @@
                                     value="{{ old('dt_reported') }}">
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }}
+                                        <option {{ old('barangay') ?? ($afor->barangay_name ?? " ") == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">{{ $barangay->name }}</option>
                                     @endforeach
                                     <!-- Add more barangay options as needed -->
@@ -99,7 +99,7 @@
                                 <label for="zone-street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone-street"
                                     name="zone"class="form-control {{ $errors->has('zone') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone') }}" required>
+                                    value="{{ old('zone') ?? ($afor->zone ?? " ") }}" required>
                                 @error('zone')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -110,7 +110,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? ($afor->location ?? " ") }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -145,7 +145,7 @@
                                     <select class="form-select alarmStatus" aria-label="" name="receiver">
                                         <option value="">Select Personnel</option>
                                         @foreach ($personnels as $personnel)
-                                            <option {{ old('receiver') == $personnel->id ? 'selected' : '' }}
+                                            <option {{ old('receiver') ?? ($afor->received_by ?? " ") == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
@@ -161,7 +161,7 @@
                                     <input type="text" placeholder="Eg. SPO1 joseph d. Santos" name="caller_name"
                                         id="caller_name"
                                         class="form-control {{ $errors->has('caller_name') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_name') }}" required>
+                                        value="{{ old('caller_name') ?? ($afor->transmitted_by ?? " ") }}" required>
                                     @error('caller_name')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -172,7 +172,7 @@
                                     <input type="text" placeholder="Eg. Guinobatan Albay" name="caller_address"
                                         id="caller_address"
                                         class="form-control {{ $errors->has('caller_address') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('caller_address') }}" required>
+                                        value="{{ old('caller_address') ?? ($afor->caller_address ?? " ") }}" required>
                                     @error('caller_address')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -198,13 +198,14 @@
                                     @enderror
                                 </div>
                                 <h5 class="  pb-1 mb-3">First Responding Unit</h5>
+                                
                                 <div class="col-lg-6 mb-3">
                                     <label for="timeReturned" class="form-label">Truck Deployed</label>
                                     <select class="form-select alarmStatus" aria-label=""
                                         name="first_responding_engine">
                                         <option value="">Select truck</option>
                                         @foreach ($engines as $truck)
-                                            <option {{ old('first_responding_engine') == $truck->id ? 'selected' : '' }}
+                                            <option {{ old('first_responding_engine') ?? ($firstRes->truck->id ?? " ") == $truck->id ? 'selected' : '' }}
                                                 value="{{ $truck->id }}">{{ $truck->name }}</option>
                                         @endforeach
                                     </select>
@@ -219,7 +220,7 @@
                                         <option value="">Select Team Leader</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                {{ old('first_responding_leader') == $personnel->id ? 'selected' : '' }}
+                                                {{ old('first_responding_leader') ?? ($firstAlarm->getgroundCommander->id ?? " ") == $personnel->id ? 'selected' : '' }}
                                                 value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                             </option>
