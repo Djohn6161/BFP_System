@@ -99,12 +99,17 @@ class InvestigationController extends Controller
     }
     public function createSpot(Afor $afor)
     {
+        $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
+        $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        // dd($afor, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'alarms' => Alarm_name::all(),
             'afor' => $afor,
+            'firstRes' => $firstResponse,
+            'firstAlarm' => $alarm,
 
         ]);
     }
