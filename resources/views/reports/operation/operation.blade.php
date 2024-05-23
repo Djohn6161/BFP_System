@@ -66,6 +66,9 @@
                                                 <h6 class="fw-semibold mb-0">Time/Date Declared Fireout</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
@@ -94,6 +97,7 @@
                                                         {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
+                                                <td>status</td>
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
