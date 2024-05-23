@@ -55,8 +55,12 @@ class InvestigationController extends Controller
         $afors = Afor::all();
         return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
     }
-    public function createMinimal()
+    public function createMinimal(Afor $afor)
     {
+        $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
+        $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        // dd($firstResponse, $alarm, $afor);
+        // dd($firstResponse->truck->name);
         return view('reports.investigation.minimal.create', [
             'active' => 'minimal',
             'user' => Auth::user(),
@@ -64,6 +68,9 @@ class InvestigationController extends Controller
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
             'alarms' => Alarm_name::all(),
+            'afor' => $afor,
+            'firstRes' => $firstResponse,
+            'firstAlarm' => $alarm
         ]);
     }
 
@@ -83,13 +90,14 @@ class InvestigationController extends Controller
             'afors' => Afor::all(),
         ]);
     }
-    public function createSpot()
+    public function createSpot(Afor $afor)
     {
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'alarms' => Alarm_name::all(),
+            'afor' => $afor,
 
         ]);
     }
@@ -378,6 +386,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -433,6 +442,7 @@ class InvestigationController extends Controller
         }
 
         $minimal->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',

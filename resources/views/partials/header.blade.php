@@ -22,7 +22,17 @@
                     <div id="military-time" class="fw-bold fs-4"></div> 
                 </div>
                 <div class="nav-item">
-                    <a id="" class="fw-bold fs-4 px-3">Welcome, {{ $user->name}}</a> 
+                    <a id="" class="fw-bold fs-4 px-3 text-capitalize">Welcome, 
+                        @if ($user->privilege == "All")
+                            Super {{$user->name}}
+                            @elseif($user->privilege == "OC")
+                                Operator {{$user->name}}
+                            @elseif($user->privilege == "IC")
+                                Investigator {{$user->name}}
+                            @elseif($user->privilege == "AC")
+                                Admin {{$user->name}}
+                        @endif    
+                    </a> 
                 </div>
                 <div class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover px-0" href="javascript:void(0)" id="drop2"

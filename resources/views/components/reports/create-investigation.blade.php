@@ -50,12 +50,11 @@
                                     <td> {{$item->td_under_control}} </td>
                                     <td> {{$item->td_declared_fireout}} </td>
                                     <td>
-                                        <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#viewOperationModal" data-operation="" data-responses=""
+                                        <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
                                             class="btn btn-primary hide-menu w-100 mb-1">
                                             <i class="ti ti-check"></i>
                                             Apply
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -93,17 +92,16 @@
                                 @foreach ($afors as $item)
                                 <tr>
                                     <td>{{$item->alarm_received}}</td>
-                                    <td>{{$item->Transmitted_by}}</td>
+                                    <td>{{$item->transmitted_by}}</td>
                                     <td> {{$item->full_location}} </td>
                                     <td> {{$item->td_under_control}} </td>
                                     <td> {{$item->td_declared_fireout}} </td>
                                     <td>
-                                        <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#viewOperationModal" data-operation="" data-responses=""
+                                        <a href="{{ route('investigation.spot.create', ['afor' => $item->id]) }}"
                                             class="btn btn-primary hide-menu w-100 mb-1">
                                             <i class="ti ti-check"></i>
                                             Apply
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -144,7 +142,7 @@
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
                                             <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1">apply</a>
+                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -184,7 +182,7 @@
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
                                             <a href="{{ route('investigation.final.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1">apply</a>
+                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
                                         </td>
                                     </tr>
                                 @endforeach

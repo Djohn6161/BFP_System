@@ -101,7 +101,9 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewFinalOperationModal"><i class="ti ti-files"></i> View Operation</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewMinimalFinalModal">View Minimal</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewSpotFinalModal">View Spot</button>
                 <a href="{{route('investigation.final.print', ['final' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
@@ -109,3 +111,6 @@
         </div>
     </div>
 </div>
+<x-reports.investigation.view-operation :investigation=$investigation></x-reports.investigation.view-operation>
+<x-reports.investigation.view-minimal-final :investigation=$investigation></x-reports.investigation.view-minimal-final>
+<x-reports.investigation.view-spot-final :investigation=$investigation></x-reports.investigation.view-spot-final>
