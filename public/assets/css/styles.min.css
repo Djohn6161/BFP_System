@@ -16972,4 +16972,14 @@ ul {
 #logoutModal .btn-danger:hover {
     background-color: #c0392b;
 }
+.modal-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
 
+.modal-icon img {
+    max-width: 40px; /* Adjust size as needed */
+    height: auto;
+}
