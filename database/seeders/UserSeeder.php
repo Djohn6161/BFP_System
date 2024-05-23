@@ -18,27 +18,37 @@ class UserSeeder extends Seeder
             // Admin
             [
                 'name' => 'admin',
-                'email' => 'admin@example.com',
+                'username' => 'admin',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
                 'privilege' => 'All',
+                'picture' => 'default.png',
             ],      
 
             // User
             [
+                'name' => 'user AC',
+                'username' => 'user1',
+                'password' => Hash::make('12341234'),
+                'type' => 'user',
+                'privilege' => 'AC',
+                'picture' => 'default.png',
+            ],
+            [
                 'name' => 'user IC',
-                'email' => 'user1@example.com',
+                'username' => 'user2',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'IC',
+                'picture' => 'default.png',
             ],
-
             [
                 'name' => 'user OC',
-                'email' => 'user2@example.com',
+                'username' => 'user3',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
                 'privilege' => 'OC',
+                'picture' => 'default.png',
             ],
 
         ];
