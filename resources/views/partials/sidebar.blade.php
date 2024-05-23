@@ -168,14 +168,14 @@
                             class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' ? '' : 'collapsed' }}" type="button"
+                                    <button class="accordion-button sidebar-link {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'viewConfigurationLogs') ? '' : 'collapsed' }}" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseLogs" aria-expanded="true"
                                         aria-controls="collapseOne">
                                         <span> <i class="ti ti-file-description"></i></span>
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' ? '' : 'collapse' }}"
+                                <div id="collapseLogs" class="accordion-collapse {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'viewConfigurationLogs') ? '' : 'collapse' }}"
                                     data-bs-parent="#logsAccordion">
 
                                     <a href="{{ route('admin.logs.operation.viewLogs') }}"
@@ -187,6 +187,11 @@
                                         class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewInvestigationLogs' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
+                                    </a>
+                                    <a href="{{ route('admin.logs.configuration.viewLogs') }}"
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewConfigurationLogs' ? 'bg-primary text-light' : '' }}">
+                                        <span><i class="ti ti-caret-right"></i></span>
+                                        Configurations
                                     </a>
                                 </div>
                             </div>
