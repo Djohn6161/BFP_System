@@ -184,7 +184,7 @@ class PersonnelController extends Controller
             'middle_name' => $request->input('middle_name') ?? '',
             'last_name' => $request->input('last_name') ?? '',
             'extension' => $request->input('extension') ?? '',
-            'contact_number' => $request->input('contact_number') ?? '',
+            'contact_number' => $request->input('contact_number') ?? null,
             'date_of_birth' => $request->input('date_of_birth') ?? null,
             'maritam_status' => $request->input('maritam_status') ?? '',
             'gender' => $request->input('gender') ?? '',
