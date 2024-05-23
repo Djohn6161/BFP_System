@@ -16,20 +16,21 @@
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
-                                <div class="d-flex column-gap-2">
-                                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                                        data-bs-target="#exportInvestigation">
-                                        <i class="ti ti-file-export"></i>
-                                        Export
-                                    </button>
-                                <x-reports.export></x-reports.export>
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#chooseInvestigation">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                <x-reports.create-investigation :spots=$spots :afors=$afors></x-reports.create-investigation>
-                                </div>
+                                    <div class="d-flex column-gap-2">
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#exportInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Export
+                                        </button>
+                                        <x-reports.export></x-reports.export>
+                                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#chooseInvestigation">
+                                            <i class="ti ti-plus"></i>
+                                            Create
+                                        </button>
+                                        <x-reports.create-investigation :spots=$spots
+                                            :afors=$afors></x-reports.create-investigation>
+                                    </div>
                                 @endif
                             </div>
                             <div class="table-responsive">
@@ -102,7 +103,7 @@
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-minimal
-                                                                :investigation=$investigation></x-reports.Investigation.view-minimal>
+                                                                :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-minimal>
                                                             <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
@@ -126,7 +127,7 @@
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-spot
-                                                                :investigation=$investigation></x-reports.Investigation.view-spot>
+                                                                :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-spot>
 
                                                             <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
@@ -150,7 +151,7 @@
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-progress
-                                                                :investigation=$investigation></x-reports.Investigation.view-progress>
+                                                                :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-progress>
 
                                                             <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
@@ -174,7 +175,7 @@
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-final
-                                                                :investigation=$investigation></x-reports.Investigation.view-final>
+                                                                :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-final>
                                                             <x-reports.investigation.investigation-delete :type="'final'"
                                                                 :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                             <a href="{{ route('investigation.final.edit', ['final' => $investigation->id]) }}"

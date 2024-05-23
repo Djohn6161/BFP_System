@@ -28,7 +28,7 @@
                                         <i class="ti ti-plus"></i>
                                         Create
                                     </button>
-                                    <x-reports.create-investigation :spots=$spots :afors=$afors></x-reports.create-investigation>
+                                    <x-reports.create-investigation :spots=$spots :afors=$afors ></x-reports.create-investigation>
                                 </div>
                                 @endif
                             </div>
@@ -73,7 +73,7 @@
                                                         data-bs-target="#viewSpotModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
-                                                    <x-reports.Investigation.view-spot
+                                                    <x-reports.Investigation.view-spot :personnels=$personnels :responses="$responses"
                                                         :investigation=$investigation></x-reports.Investigation.view-spot>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"

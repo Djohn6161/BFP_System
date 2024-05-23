@@ -70,7 +70,7 @@
                                                         data-bs-target="#viewFinalModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
-                                                    <x-reports.Investigation.view-final
+                                                    <x-reports.Investigation.view-final :responses=$responses :personnels=$personnels
                                                         :investigation=$investigation></x-reports.Investigation.view-final>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <x-reports.investigation.investigation-delete :type="'final'"
