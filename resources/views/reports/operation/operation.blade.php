@@ -72,7 +72,7 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            $sortedOperations = $operations->sortBy(function($operation) {
+                                            $sortedOperations = $operations->sortByDesc(function($operation) {
                                                 return \Carbon\Carbon::parse($operation->alarm_received);
                                             });
                                         @endphp
