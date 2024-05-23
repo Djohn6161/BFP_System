@@ -69,4 +69,14 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function myPassword()
+    {
+        $user = Auth::user();
+
+        return view('profile.update-myPassword', [
+            'active' => 'update-myPassword',
+            'user' => $user,
+            
+        ]);
+    }
 }

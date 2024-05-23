@@ -241,10 +241,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Profile 
     Route::get('/profile/myProfile', [ProfileController::class, 'myProfile'])->name('profile.myProfile');
+    Route::get('/profile/myPassword', [ProfileController::class, 'myPassword'])->name('profile.myPassword');
 
     // User Account
     Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
-    Route::post('/account/password/edit', [UsersController::class, 'updatePassword'])->name('profile.password.update');
 });
 
 

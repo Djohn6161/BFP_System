@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
+            {{-- <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
