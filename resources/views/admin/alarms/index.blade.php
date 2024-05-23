@@ -44,7 +44,7 @@
                                     <thead class="text-dark fs-4 ">
                                         <tr>
                                             <th class="border-bottom-0"> Alarm Name</th>
-                                            <th class="border-bottom-0">Action</th>
+                                            <th class="border-bottom-0 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
