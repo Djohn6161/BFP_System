@@ -43,6 +43,9 @@
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
                                             <th>
@@ -59,6 +62,25 @@
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->minimal)
+                                                            Minimal <br>
+                                                        @endif
+                                                        @if ($investigation->spot)
+                                                            Spot <br>
+                                                        @endif
+                                                        @if ($investigation->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                        @if ($investigation->spot->final)
+                                                            Final <br>
+                                                        @endif
+                                                    </p>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
