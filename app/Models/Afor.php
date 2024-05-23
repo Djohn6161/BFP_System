@@ -72,7 +72,7 @@ class Afor extends Model
     {
         return $this->belongsTo(Personnel::class, 'personnel_id');
     }
-    public function minimals(){
+    public function minimal(){
         return $this->hasOne(Minimal::class, 'afor_id');
     }
     public function spot(){

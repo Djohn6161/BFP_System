@@ -83,91 +83,97 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:user'])->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
     });
-    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::middleware(['checkPrivilege:AC'])->group(function () {
+            // Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
+            // Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
+            // Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
+            // Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
+            // Personnel    
+            Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
+            Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
+            Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
+            Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
+            Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
+            Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+        });
+        Route::middleware(['role:admin'])->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+            Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
 
+
+            // Accounts
+            Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
+            Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
+            //Rank
+            Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
+            Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
+            Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
+            Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
+
+            // Account
+            Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
+            // Accounts
+            Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
+            Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
+            Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
+            Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
+            Route::delete('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
+            Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
+
+            //Barangay
+            Route::get('/barangay/index', [BarangayController::class, 'viewBarangay'])->name('barangay.index');
+            Route::post('/barangay/create', [BarangayController::class, 'createBarangay'])->name('barangay.create');
+            Route::put('/barangay/edit/{id}', [BarangayController::class, 'updateBarangay'])->name('barangay.edit');
+            Route::delete('/barangay/delete/{id}', [BarangayController::class, 'deleteBarangay'])->name('barangay.delete');
+            //Trucks
+            Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+            Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+            Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+            Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
+            //Alarms
+            Route::get('/alarms/index', [AlarmController::class, 'alarmIndex'])->name('alarms.index');
+            Route::post('/alarm/create', [AlarmController::class, 'alarmCreate'])->name('alarms.create');
+            Route::put('/alarm/update/{id}', [AlarmController::class, 'alarmUpdate'])->name('alarms.update');
+            Route::delete('/alarm/delete/{id}', [AlarmController::class, 'alarmDelete'])->name('alarms.delete');
+
+            //Trash Operation
+            Route::get('/trash/operation/index', [TrashController::class, 'trashOperationIndex'])->name('trash.operation.index');
+            Route::delete('/trash/operation/delete/{id}', [TrashController::class, 'trashOperationDelete'])->name('trash.operation.delete');
+            Route::put('/trash/operation/restore/{id}', [TrashController::class, 'trashOperationRestore'])->name('trash.operation.restore');
+
+            //Trash Investigation
+            Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
+            Route::delete('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
+            Route::put('/trash/investigation/restore/{investigation}', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
+            //Trucks
+            Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
+            Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
+            Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
+            Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
+
+            //Occupancy
+            Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
+            Route::post('/occupancy/create', [OccupancyController::class, 'createOccupancyName'])->name('occupancy_name.create');
+            Route::put('/occupancy/update/{id}', [OccupancyController::class, 'updateOccupancyName'])->name('occupancy_name.update');
+            Route::delete('/occupancy/delete/{id}', [OccupancyController::class, 'deleteOccupancyName'])->name('occupancy_name.delete');
+
+
+            // Designation
+            Route::get('/designation/index', [DesignationController::class, 'designationIndex'])->name('designation.index');
+            Route::post('/designation/store', [DesignationController::class, 'store'])->name('designation.store');
+            Route::put('/designation/update/{designation}', [DesignationController::class, 'update'])->name('designation.update');
+            Route::delete('/designation/destroy', [DesignationController::class, 'destroy'])->name('designation.destroy');
+
+            // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
+            // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
+
+            //Logs 
+            Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
+            Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
+        });
         // Dashboard
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
-        Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
-        Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
-        Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
-        Route::get('/personnel/edit', [AdminController::class, 'editPersonnel'])->name('personnel.edit');
 
-        // Accounts
-        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
-        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
-        //Rank
-        Route::get('/rank/index', [RankController::class, 'viewRank'])->name('rank.index');
-        Route::post('/rank/store', [RankController::class, 'storeRank'])->name('rank.store');
-        Route::put('/rank/{id}/update', [RankController::class, 'updateRank'])->name('rank.update');
-        Route::delete('/rank/{id}', [RankController::class, 'deleteRank'])->name('rank.delete');
-
-        // Account
-        Route::get('/account', [AdminController::class, 'accountIndex'])->name('account');
-        // Accounts
-        Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
-        Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
-        Route::post('/account/create', [AdminController::class, 'accountCreate'])->name('account.create');
-        Route::post('/account/update', [AdminController::class, 'accountUpdate'])->name('account.update');
-        Route::delete('/account/delete', [AdminController::class, 'accountDelete'])->name('account.delete');
-        Route::post('/account/password/update', [AdminController::class, 'accountPasswordUpdate'])->name('account.password.update');
-
-        //Barangay
-        Route::get('/barangay/index', [BarangayController::class, 'viewBarangay'])->name('barangay.index');
-        Route::post('/barangay/create', [BarangayController::class, 'createBarangay'])->name('barangay.create');
-        Route::put('/barangay/edit/{id}', [BarangayController::class, 'updateBarangay'])->name('barangay.edit');
-        Route::delete('/barangay/delete/{id}', [BarangayController::class, 'deleteBarangay'])->name('barangay.delete');
-        //Trucks
-        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
-        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
-        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
-        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
-        //Alarms
-        Route::get('/alarms/index', [AlarmController::class, 'alarmIndex'])->name('alarms.index');
-        Route::post('/alarm/create', [AlarmController::class, 'alarmCreate'])->name('alarms.create');
-        Route::put('/alarm/update/{id}', [AlarmController::class, 'alarmUpdate'])->name('alarms.update');
-        Route::delete('/alarm/delete/{id}', [AlarmController::class, 'alarmDelete'])->name('alarms.delete');
-
-        //Trash Operation
-        Route::get('/trash/operation/index', [TrashController::class, 'trashOperationIndex'])->name('trash.operation.index');
-        Route::delete('/trash/operation/delete/{id}', [TrashController::class, 'trashOperationDelete'])->name('trash.operation.delete');
-        Route::put('/trash/operation/restore/{id}', [TrashController::class, 'trashOperationRestore'])->name('trash.operation.restore');
-
-        //Trash Investigation
-        Route::get('/trash/investigation/index', [TrashController::class, 'trashInvestigationIndex'])->name('trash.investigation.index');
-        Route::delete('/trash/investigation/delete', [TrashController::class, 'trashInvestigationDelete'])->name('trash.investigation.delete');
-        Route::put('/trash/investigation/restore/{investigation}', [TrashController::class, 'trashInvestigationRestore'])->name('trash.investigation.restore');
-        //Trucks
-        Route::get('/trucks/index', [TruckController::class, 'viewTrucks'])->name('trucks.index');
-        Route::post('/trucks/create', [TruckController::class, 'createTruck'])->name('trucks.create');
-        Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
-        Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
-
-        //Occupancy
-        Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
-        Route::post('/occupancy/create', [OccupancyController::class, 'createOccupancyName'])->name('occupancy_name.create');
-        Route::put('/occupancy/update/{id}', [OccupancyController::class, 'updateOccupancyName'])->name('occupancy_name.update');
-        Route::delete('/occupancy/delete/{id}', [OccupancyController::class, 'deleteOccupancyName'])->name('occupancy_name.delete');
-        // Personnel    
-        Route::get('/personnel/index', [PersonnelController::class, 'personnelIndex'])->name('personnel.index');
-        Route::get('personnel/view/{id}', [PersonnelController::class, 'personnelView'])->name('personnel.view');
-        Route::get('personnel/update/{id}', [PersonnelController::class, 'personnelUpdateForm'])->name('personnel.update.form');
-        Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
-        Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
-        Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
-
-        // Designation
-        Route::get('/designation/index', [DesignationController::class, 'designationIndex'])->name('designation.index');
-        Route::post('/designation/store', [DesignationController::class, 'store'])->name('designation.store');
-        Route::put('/designation/update/{designation}', [DesignationController::class, 'update'])->name('designation.update');
-        Route::delete('/designation/destroy', [DesignationController::class, 'destroy'])->name('designation.destroy');
-
-        // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
-        // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-
-        //Logs 
-        Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
-        Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
     });
 
     // Operation
@@ -201,14 +207,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::post('/export', [ExportController::class, 'exportInvestigation'])->name('export');
             
-            Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
+            Route::get('/minimal/create/{afor}', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
             Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
             Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
             Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
             Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
 
 
-            Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
+            Route::get('/spot/create/{afor}', [InvestigationController::class, 'createSpot'])->name('spot.create');
             Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
             Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
             Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');

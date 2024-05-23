@@ -20,7 +20,7 @@
                         <input type="hidden" value="{{ $type }}" name="type">
                         <input type="hidden" name="user_id" id="edit_user_id">
                         <input type="text" class="form-control" id="edit_name" name="name"
-                            placeholder="Enter Name">
+                            placeholder="Enter Name" >
                     </div>
                     @if ($type == 'user')
                         <div class="row">
@@ -28,6 +28,7 @@
                                 <div class="mb-3">
                                     <label for="privileges" class="form-label">Privileges:</label>
                                     <select class="form-select" name="privilege" id="edit_privilege">
+                                        <option value="AC">Admin Clerk</option>
                                         <option value="OC">Operation Clerk</option>
                                         <option value="IC">Investigation Clerk</option>
                                     </select>
@@ -37,9 +38,9 @@
                     @endif
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="edit_email" name="email"
-                            placeholder="Enter Email">
+                        <label for="email" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="edit_username" name="username"
+                            placeholder="Enter Username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Admin Confirmation Password:</label>
@@ -64,7 +65,7 @@
 
         $('#edit_name').val(user.name);
         $('#edit_user_id').val(user.id);
-        $('#edit_email').val(user.email);
+        $('#edit_username').val(user.username);
         if (type == 'user') {
             $('#edit_privilege').val(user.privilege);
         }

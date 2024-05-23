@@ -71,7 +71,7 @@
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
                                                     <x-reports.Investigation.view-progress
-                                                        :investigation=$investigation></x-reports.Investigation.view-progress>
+                                                        :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-progress>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
                                                             class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>

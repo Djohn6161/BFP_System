@@ -98,5 +98,5 @@
         </div>
     </div>
 </div>
-<x-reports.investigation.view-operation :investigation=$investigation></x-reports.investigation.view-operation>
+<x-reports.investigation.view-operation :operation="$investigation->afor" :personnels=$personnels :responses="$responses" :investigation=$investigation></x-reports.investigation.view-operation>
 

@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<x-reports.investigation.view-operation :investigation=$investigation></x-reports.investigation.view-operation>
+<x-reports.investigation.view-operation :investigation=$investigation :operation="$investigation->spot->afor" :responses=$responses :personnels=$personnels></x-reports.investigation.view-operation>
 <x-reports.investigation.view-minimal-progress :investigation=$investigation></x-reports.investigation.view-minimal-progress>
 <x-reports.investigation.view-spot-progress :investigation=$investigation></x-reports.investigation.view-spot-progress>
 

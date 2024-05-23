@@ -73,7 +73,7 @@
                                                                 data-type="{{ $type }}">
                                                                 <i class="ti ti-pencil"></i>
                                                                 Edit Profile
-                                                                
+
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
@@ -82,7 +82,7 @@
                                                                 data-account-id="{{ $account->id }}">
                                                                 <i class="ti ti-key"></i>
                                                                 Change Password
-                                                                
+
                                                             </button>
                                                         </div>
 
@@ -92,7 +92,7 @@
                                                                 data-account-id="{{ $account->id }}">
                                                                 <i class="ti ti-trash"></i>
                                                                 Delete
-                                                                
+
                                                             </button>
                                                         </div>
                                                     </div>
