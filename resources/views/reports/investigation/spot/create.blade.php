@@ -54,6 +54,7 @@
                             <h5><i>Date Time and Place of Occurence</i></h5>
                             {{-- <h5>Details</h5> --}}
                             <!-- Corrected "Date of Occurrence" -->
+                            {{-- {{dd($afor)}} --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="date_occurence" class="form-label">Date of Occurrence</label>
                                 <input type="date" id="date_occurence" name="date_occurence"
@@ -69,7 +70,7 @@
                                 <label for="time_occurence" class="form-label">Time of Occurrence</label>
                                 <input type="text" placeholder="Eg. 2300H" id="time_occurence" name="time_occurence"
                                     class="form-control {{ $errors->has('time_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_occurence') }}" required>
+                                    value="{{ old('time_occurence') ?? ($afor->alarm_received ?? "") }}" required>
                                 @error('time_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -84,7 +85,7 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }}
+                                        <option {{ old('barangay') ?? ($afor->barangay_name ?? "") == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
@@ -100,7 +101,7 @@
                                 <label for="zone_street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone_street" name="zone_street"
                                     class="form-control {{ $errors->has('zone_street') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone_street') }}" required>
+                                    value="{{ old('zone_street') ?? ($afor->zone ?? "")  }}" required>
                                 @error('zone_street')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
