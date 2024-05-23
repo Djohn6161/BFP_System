@@ -319,6 +319,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#">View Minimal</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#">View Spot</button>
                 <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
@@ -346,8 +348,5 @@
         $('#view_observation_recommendation').text(operation.observation_recommendation);
 
         $('#view_alarm_received').text(operation.alarm_received);
-
-
-
     });
 </script>
