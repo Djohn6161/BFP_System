@@ -52,7 +52,7 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                        $sortedInvestigations = $investigations->sortBy(function($investigation) {
+                                        $sortedInvestigations = $investigations->sortByDesc(function($investigation) {
                                             return \Carbon\Carbon::parse($investigation->investigation->date);
                                         });
                                     @endphp
