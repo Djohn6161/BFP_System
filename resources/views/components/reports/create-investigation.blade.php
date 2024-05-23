@@ -42,13 +42,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+                        
+                                @foreach ($sortedAfors as $item)
                                 <tr>
-                                    <td>{{$item->alarm_received}}</td>
-                                    <td>{{$item->transmitted_by}}</td>
-                                    <td> {{$item->full_location}} </td>
-                                    <td> {{$item->td_under_control}} </td>
-                                    <td> {{$item->td_declared_fireout}} </td>
+                                    <td>{{ $item->alarm_received }}</td>
+                                    <td>{{ $item->transmitted_by }}</td>
+                                    <td>{{ $item->full_location }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->td_under_control)->format('F j, Y H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->td_declared_fireout)->format('F j, Y H:i') }}</td>
                                     <td>
                                         <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
                                             class="btn btn-primary hide-menu w-100 mb-1">
@@ -60,6 +66,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -89,7 +96,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                $sortedAfors = $afors->sortByDesc(function($item) {
+                                    return \Carbon\Carbon::parse($item->td_under_control);
+                                });
+                            @endphp
+                    
+                            @foreach ($sortedAfors as $item)
                                 <tr>
                                     <td>{{$item->alarm_received}}</td>
                                     <td>{{$item->transmitted_by}}</td>
@@ -134,7 +147,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                $sortedSpots = $spots->sortByDesc(function($spot) {
+                                    return \Carbon\Carbon::parse($spot->investigation->date);
+                                });
+                            @endphp
+                    
+                            @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
@@ -174,7 +193,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                $sortedSpots = $spots->sortByDesc(function($spot) {
+                                    return \Carbon\Carbon::parse($spot->investigation->date);
+                                });
+                            @endphp
+                    
+                            @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
