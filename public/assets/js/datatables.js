@@ -54,5 +54,7 @@ $("#adminAccount").DataTable({
 $("#barangayTable").DataTable({
   "ordering": false,
 });
-
+$("#trucksTable").DataTable({
+  "ordering": false,
+});
 
