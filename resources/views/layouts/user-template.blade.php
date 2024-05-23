@@ -42,9 +42,9 @@
                             <h3 class="modal-title">Are you sure you want to logout? </h3>
                             <p class="mb-0">This action cannot be undone.</p>
                         </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-danger">Yes, Logout</a>
+                        <div class="modal-footer justify-content-flex-center">
+                            <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Cancel</button>
+                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes, Logout</a>
                         </div>
                     </div>
                 </div>
