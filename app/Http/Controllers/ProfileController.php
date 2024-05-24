@@ -57,4 +57,16 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function myProfile()
+    {
+        $user = Auth::user();
+
+        return view('profile.myProfile', [
+            'active' => 'myProfile',
+            'user' => $user,
+            
+        ]);
+    }
+
 }

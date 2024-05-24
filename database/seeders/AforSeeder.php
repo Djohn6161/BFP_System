@@ -26,7 +26,7 @@ class AforSeeder extends Seeder
 
             $attributes = [
                 'alarm_received' => $faker->time('H:i') . 'H',
-                'transmitted_by' => $faker->numberBetween(1, 16),
+                'transmitted_by' => $faker->firstName . ' ' . $faker->lastName,
                 'caller_address' => 'Ligao City',
                 'barangay_name' => 'Amtic',
                 'zone' => 'Zone 1',
@@ -45,6 +45,8 @@ class AforSeeder extends Seeder
                 'observation_recommendation' => $faker->paragraph(),
                 'alarm_status_arrival' => '1st Alarm',
                 'first_responder' => 'First',
+                'prepared_by' => 'FO2 Joenel C. Cerias',
+                'noted_by' => 'SF03 Marvin P. De Jesus',
             ];
 
             $reportID = DB::table('afors')->insertGetId($attributes);
@@ -53,6 +55,7 @@ class AforSeeder extends Seeder
             $attributes = [
                 'afor_id' => $reportID,
                 'occupancy_name' => 'Places of Assembly',
+                'type' => 'Structural',
                 'specify' => 'park',
                 'distance' => '1km',
                 'description' => 'description',
@@ -177,7 +180,6 @@ class AforSeeder extends Seeder
                 $attributes = [
                     'afor_id' => $reportID,
                     'personnels_id' => $faker->numberBetween(1, 16),
-                    'designation' => 'commander',
                     'remarks' => 'remarks'
                 ];
 

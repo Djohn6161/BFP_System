@@ -42,7 +42,6 @@ class PersonnelSeeder extends Seeder
                 'appointment_status' => 'status',
                 'unit_code' => '123',
                 'unit_assignment' => 'asiignment',
-                'designation' => 'destination',
                 'admin_operation_remarks' => 'remarks',
             ];
 

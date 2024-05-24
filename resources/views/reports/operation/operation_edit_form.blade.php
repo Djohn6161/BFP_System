@@ -1,50 +1,30 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <div class="col d-flex justify-content-start mb-2">
-            <a href="{{route('operation.index')}}" class="btn btn-primary">Back</a>
-        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Oops!</strong> There were some errors with your submission:
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('operation.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
                             </div>
-                        @endif
-
-                        @if (session('status'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif --}}
-
+                        </div>
+                        
                         <!-- Intro -->
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
-                                <input type="hidden" name="operation_id" value="{{$operation->id}}">
+                                <input type="hidden" name="operation_id" value="{{ $operation->id }}">
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>
@@ -109,7 +89,7 @@
                         </div>
 
                         {{-- Response --}}
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <div class="row m-0 p-0" id="divApor">
                                 <div class="row m-0 p-0 border-0" id="addApor">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
@@ -199,7 +179,7 @@
                         </div>
 
                         <!-- Alarm -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
                                 9</h3>
                             <div class="col-lg-6">
@@ -303,14 +283,13 @@
                         </div>
 
                         <!-- Occupancy -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
                             </h3>
-                            <div class="col-lg-6 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Occupancy name</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
-                                    <option value="">Select type of occupancy</option>
+                                    <option value="">Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
                                         @if ($names->name == $occupancy->occupancy_name)
                                             <option selected value="{{ $names->name }}">{{ $names->name }}</option>
@@ -320,7 +299,21 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
+                                <label for="typeOfOccupancy" class="form-label">Type of
+                                    Occupancy</label>
+                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_type">
+                                    <option value="">Select type of occupancy</option>
+                                    @foreach ($occupancy_types as $type)
+                                        @if ($type == $occupancy->type)
+                                            <option selected value="{{ $type }}">{{ $type }}</option>
+                                        @else
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     name="occupancy_specify" value="{{ $occupancy->specify }}">
@@ -341,7 +334,7 @@
                         </div>
 
                         <!-- Casualties -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
                             </h3>
@@ -385,7 +378,7 @@
                         </div>
 
                         <!-- Material Used -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divBreathingApparatus">
                                 <div class="row m-0 p-0 border-0" id="addBreathingApparatus">
@@ -421,7 +414,7 @@
                                     another breathing apparatus used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divExtinguishing">
                                 <div class="row m-0 p-0" id="addExtinguishing">
@@ -461,7 +454,7 @@
                                     another extinguishing agent</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <div class="row m-0 p-0" id="divRopeLadder">
                                 <div class="row m-0 p-0" id="addRopeLadder">
@@ -497,7 +490,7 @@
                                     rope and ladder used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
 
                             <div class="row m-0 p-0" id="divHoseLine">
@@ -544,27 +537,26 @@
                         </div>
 
                         <!-- Duty Personnel -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
                             </h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row" id="thirdAddApor">
-                                    <h3></h3>
-                                    @foreach ($duty_personnels as $duty)
-                                        <div class="row third-remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
-                                            </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="fundCommander" class="form-label">Rank /
-                                                    Name</label>
-                                                <select class="form-select rankName" aria-label=""
+                                    <div class="row third-remove-button-container m-0 p-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5></h5> <button type="button"
+                                                class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
+                                        </div>
+                                        @foreach ($operation->dutyPersonnels as $dutyPersonnel)
+                                            <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                    class="form-label">Rank /
+                                                    Name</label> <select class="form-select rankName" aria-label=""
                                                     name="duty_personnel_id[]">
                                                     <option value="" selected>Select Fund Commander</option>
+
                                                     @foreach ($personnels as $personnel)
-                                                        @if ($personnel->id == $duty->personnels_id)
+                                                        @if ($dutyPersonnel->personnels_id == $personnel->id)
                                                             <option selected value="{{ $personnel->id }}">
                                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
                                                                 {{ $personnel->last_name }}</option>
@@ -576,52 +568,68 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Designation</label>
-                                                <input type="text" placeholder="Designation" class="form-control"
-                                                    name="duty_designation[]" value="{{ $duty->designation }}">
+                                            <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                    class="form-label">Designation</label> <select class="form-select"
+                                                    aria-label="" name="duty_designation[]">
+                                                    <option value="" selected>Select designation</option>
+                                                    @foreach ($designations as $designation)
+                                                        @if ($dutyPersonnel->designation == $designation->name)
+                                                            <option selected value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select> </div>
+                                            <div class="col-lg-12 mb-3"> <label for="firefighterDeath"
+                                                    class="form-label">Remarks</label>
+                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $dutyPersonnel->remarks }}</textarea>
                                             </div>
-                                            <div class="col-lg-12 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Remarks</label>
-                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $duty->remarks }}</textarea>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    @endforeach
-
+                                        @endforeach
+                                        <hr>
+                                    </div>
                                 </div>
+                                <hr>
                             </div>
                             <div class="row m-0 p-0">
-                                <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+
-                                    Add
+                                <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
                                     another duty
                                     personnel</button>
                             </div>
                         </div>
 
+
                         <!-- Photos -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
                                 name="sketch_of_fire_operation[]" multiple>
                             <div id="image-preview-container" class="mt-3"></div>
                             @foreach ($photos as $photo)
-                                <div class="mt-3">
-                                    <div class="image-preview mb-1">
-                                        <input type="hidden" name="default_photos[]" value="{{$photo}}">
-                                        <img class="img-thumbnail w-100" src="/operation_image/{{$photo}}">
+                                @if ($photo != '')
+                                    <div class="mt-3">
+                                        <div class="image-preview mb-1">
+                                            <input type="hidden" name="default_photos[]" value="{{ $photo }}">
+                                            <img class="img-thumbnail w-100"
+                                                src="/assets/images/operation_images/{{ $photo }}">
+                                        </div>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                                            <div class="file-info flex-grow-1 me-2 text-break">{{ $photo }}</div>
+                                            <button type="button" class="btn btn-sm btn-danger remove-photo"
+                                                id="remove-photo">Remove</button>
+                                        </div>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
-                                        <div class="file-info flex-grow-1 me-2 text-break">{{$photo}}</div>
-                                        <button type="button" class="btn btn-sm btn-danger remove-photo" id="remove-photo">Remove</button>
-                                    </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
 
                         <!-- Details narrative -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
                             </h3>
@@ -633,7 +641,7 @@
                         </div>
 
                         <!-- Problem encounterd -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
                             </h3>
@@ -645,7 +653,7 @@
                         </div>
 
                         <!-- Observation Recommendation -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
                             </h3>
@@ -657,8 +665,73 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                            <div class="col-lg-6 mb-3">
+                                <label for="alarmReceived" class="form-label">Prepared By:</label>
+                                <select class="form-select rankName" aria-label="" name="prepared_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="caller" class="form-label">Noted By:</label>
+                                <select class="form-select rankName" aria-label="" name="noted_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -713,7 +786,7 @@
             $('#addNewDutyPersonnelAtFireScene').click(function() {
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Designation</label> <input type="text" placeholder="Designation" class="form-control" name="duty_designation[]"> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select" aria-label="" name="designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -722,6 +795,20 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
+                mnewDiv.find('.designation').select2();
+            });
+            $(document).on('click', '.addDesignation', function() {
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation").select2();
+            });
+            $(document).on('click', '.remove-designation', function() {
+                $(this).closest('.col-lg-6').remove();
             });
 
             $('#divBreathingApparatus').on('click', '.breathing-remove-section-btn', function() {
@@ -747,7 +834,7 @@
                 // Find the parent div with class "mt-3" and remove it
                 $(this).closest('.mt-3').remove();
             });
-            
+
             $('#photos').on('change', function() {
                 var files = $(this)[0].files; // Get the files selected
                 var container = $('#image-preview-container'); // Get the preview container
@@ -780,7 +867,8 @@
                             );
 
                             // Filename element
-                            var fileInfo = $('<div class="file-info flex-grow-1 me-2 text-break">' + file
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
                                 .name + '</div>');
 
                             // Remove button
@@ -799,9 +887,9 @@
                             removeBtn.click(function() {
                                 imgPreview.remove(); // Remove the image preview
                                 $(this).closest('.d-flex')
-                            .remove(); // Remove the flex container
+                                    .remove(); // Remove the flex container
                                 $('#photos').val(
-                                ''); // Clear the file input (if needed)
+                                    ''); // Clear the file input (if needed)
                             });
                         };
                     })(file);

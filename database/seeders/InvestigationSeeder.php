@@ -17,19 +17,19 @@ class InvestigationSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 20) as $index) {
 
             if ($index <= 5) {
                 # code...
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $time = ["1400", "1800", "1600", "0800"];
-                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
+                $alarm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
                 $minimals = [
                     'investigation_id' => $reportID,
                     'dt_actual_occurence' => $faker->date(),
@@ -57,12 +57,12 @@ class InvestigationSeeder extends Seeder
             } else if ($index <= 10) {
                 $attributes = [
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
-                    'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
-                    'date' => $faker->date(),
+                    'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
+                $alarm = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
                 $time = ["1400", "1800", "1600", "0800"];
-                $alarm = ["First Alarm", "Second Alarm", "Third Alarm", "Fourth Alarm", "Fifth Alarm"];
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
                 $spot = [
                     'investigation_id' => $reportID,
@@ -81,9 +81,17 @@ class InvestigationSeeder extends Seeder
                     'disposition' => $faker->sentence(10),
                 ];
                 $spotid = DB::table('spots')->insertGetId($spot);
-
+            } else if ($index <= 15) {
+                $attributes = [
+                    'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
+                    'subject' => 'FIRE INCIDENT REPORTS -PROGRESS DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                ];
+                $reportID = DB::table('investigations')->insertGetId($attributes);
+                $i = 0;
+                $spotID = [1, 2, 3, 4, 5];
                 $progress = [
-                    "spot_id" => $spotid,
+                    "spot_id" => $spotID[$i],
                     "investigation_id" => $reportID,
                     "authority" => $faker->paragraph(5),
                     "matters_investigated" => $faker->paragraph(5),
@@ -91,13 +99,25 @@ class InvestigationSeeder extends Seeder
                     "disposition" => $faker->paragraph(2),
                 ];
                 DB::table('progresses')->insertGetId($progress);
+                $i++;
+            } else if ($index <= 20) {
+                $attributes = [
+                    'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
+                    'subject' => 'FIRE INCIDENT REPORTS -FINAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
+                    'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                ];
+                $reportID = DB::table('investigations')->insertGetId($attributes);
+                $time = ["1400", "1800", "1600", "0800"];
+                $i = 0;
+                $spotID = [1,2,3,4,5];
+                $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
 
                 $final = [
-                    "spot_id" => $spotid,
+                    "spot_id" => $spotID[$i],
                     'investigation_id' => $reportID,
                     'intelligence_unit' => "Ligao City Fire Station, Ligao City Albay",
                     "place_of_fire" => $faker->city . " " . $faker->streetname,
-                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H" . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
+                    "td_alarm" => $time[$faker->numberBetween(0, 3)] . "H " . $faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d'),
                     "establishment_burned" => $properties[$faker->numberBetween(0, 3)],
                     "damage_to_property" => $faker->numberBetween(10000, 100000),
                     "origin_of_fire" => $faker->sentence(10),
@@ -108,9 +128,9 @@ class InvestigationSeeder extends Seeder
                     "findings" => $faker->paragraph(5),
                     "recommendation" => $faker->paragraph(5),
                 ];
+                $i++;
                 DB::table('ifinals')->insertGetId($final);
-
-            } 
+            }
         }
     }
 }

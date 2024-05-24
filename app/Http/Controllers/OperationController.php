@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor_designation;
+use Carbon\Carbon;
 use App\Models\Afor;
-use App\Models\Afor_casualties;
-use App\Models\Afor_duty_personnel;
-use App\Models\Alarm_name;
-use App\Models\AlarmName;
-use App\Models\Duty_personnel;
-use App\Models\Occupancy_name;
 use App\Models\Truck;
+use App\Models\AforLog;
 use App\Models\Barangay;
 use App\Models\Response;
 use App\Models\Occupancy;
-use App\Models\Operation;
 use App\Models\Personnel;
-use App\Models\Used_equipment;
+use App\Models\Alarm_name;
+use App\Models\Designation;
 use Illuminate\Http\Request;
 use App\Models\Declared_alarm;
-use Illuminate\Support\MessageBag;
+use App\Models\Occupancy_name;
+use App\Models\Used_equipment;
+use App\Models\Afor_casualties;
+use App\Models\Afor_duty_personnel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class OperationController extends Controller
 {
@@ -27,8 +29,11 @@ class OperationController extends Controller
     {
         $user = Auth::user();
         $active = 'operation';
-        $operations = Afor::all();
-        return view('reports.operation.operation', compact('active', 'operations', 'user'));
+        $operations = Afor::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+        $responses = Response::all();
+        $personnels = Personnel::all();
+
+        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels', 'responses'));
     }
 
     public function operationCreateForm()
@@ -40,24 +45,33 @@ class OperationController extends Controller
         $trucks = Truck::all();
         $alarm_list = Alarm_name::all();
         $occupancy_names = Occupancy_name::all();
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names'));
+        $designations = Designation::all();
+
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations'));
     }
 
     public function operationStore(Request $request)
     {
-        //Afor
+
+        $request->validate([
+            'alarm_received' => 'required|string|max:255',
+            'transmitted_by' => 'required|string|max:255',
+            'caller_address' => 'required|string|max:255',
+            'received_by' => 'required',
+        ]);
+
         $afor = new Afor();
-        if ($request->has('barangay_name')) {
+        if ($request->has('location')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
         } else {
             $location = 'Location: ' . $request->input('location');
         }
 
         $afor->fill([
-            'alarm_received' => $request->input('alarm_received') ?? '',
-            'transmitted_by' => $request->input('transmitted_by') ?? '',
-            'caller_address' => $request->input('caller_address') ?? '',
-            'received_by' => $request->input('received_by') ?? '',
+            'alarm_received' => $request->input('alarm_received'),
+            'transmitted_by' => $request->input('transmitted_by'),
+            'caller_address' => $request->input('caller_address'),
+            'received_by' => $request->input('received_by'),
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
@@ -74,10 +88,19 @@ class OperationController extends Controller
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
             'first_responder' => $request->input('first_responder') ?? '',
+            'prepared_by' => $request->input('prepared_by') ?? '',
+            'noted_by' => $request->input('noted_by') ?? '',
         ]);
         $afor->save();
         $afor_id = $afor->id;
-
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an AFOR Report about the operation in " . $afor->location,
+            'action' => "Store",
+        ]);
+        $log->save();
         //Response
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -124,6 +147,7 @@ class OperationController extends Controller
         $occupancy->fill([
             'afor_id' => $afor_id,
             'occupancy_name' => $request->input('occupancy_name') ?? '',
+            'type' => $request->input('occupancy_type') ?? '',
             'specify' => $request->input('occupancy_specify') ?? '',
             'distance' => $request->input('distance_to_fire_incident') ?? '',
             'description' => $request->input('structure_description') ?? '',
@@ -219,7 +243,7 @@ class OperationController extends Controller
 
         // Duty Personnel
         $duty_personnel_ids = $request->input('duty_personnel_id', []);
-        $duty_designation = $request->input('duty_designation', []);
+        $duty_designations = $request->input('duty_designation', []);
         $duty_remarks = $request->input('duty_remarks', []);
 
         if ($this->hasValues($duty_personnel_ids)) {
@@ -227,12 +251,20 @@ class OperationController extends Controller
                 $personnel = new Afor_duty_personnel();
                 $personnel->afor_id = $afor_id;
                 $personnel->personnels_id = $duty_personnel_id;
-                $personnel->designation = isset($duty_designation[$key]) ? $duty_designation[$key] : '';
+                $personnel->designation = isset($duty_designations[$key]) ? $duty_designations[$key] : '';
                 $personnel->remarks = isset($duty_remarks[$key]) ? $duty_remarks[$key] : '';
                 $personnel->save();
+
+                // if (isset($duty_designations[$key])) {
+                //     foreach ($duty_designations[$key] as $designation) {
+                //         $designationModel = new Afor_designation();
+                //         $designationModel->afor_id = $afor_id;
+                //         $designationModel->name = $designation;
+                //         $designationModel->save();
+                //     }
+                // }
             }
         }
-
 
         // Photos
         $files = $request->file('sketch_of_fire_operation');
@@ -248,7 +280,7 @@ class OperationController extends Controller
             $afor->save();
         }
 
-        return redirect()->back()->with('success', "Operation report added successfully.");
+        return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
     public function operationUpdateForm($id)
@@ -269,12 +301,35 @@ class OperationController extends Controller
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $sketch = $operation->sketch_of_fire_operation;
         $photos = explode(',', $sketch);
-        return view('reports.operation.operation_edit_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'operation', 'responses', 'alarm_list', 'declared_alarms', 'occupancy_names', 'occupancy', 'casualties', 'used_equipments', 'duty_personnels', 'photos'));
+        $designations = Designation::where('section', 4)->get();
+        $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
+        $occupancy_types = ['Structural', 'Non-Structural', 'Vehicular'];
+
+        return view('reports.operation.operation_edit_form', compact(
+            'active',
+            'user',
+            'personnels',
+            'barangays',
+            'trucks',
+            'operation',
+            'responses',
+            'alarm_list',
+            'declared_alarms',
+            'occupancy_names',
+            'occupancy',
+            'casualties',
+            'used_equipments',
+            'duty_personnels',
+            'photos',
+            'designations',
+            'duty_personnels',
+            'occupancy_types'
+        )
+        );
     }
 
     public function operationUpdate(Request $request)
     {
-
         if ($request->has('barangay_name')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
         } else {
@@ -301,9 +356,11 @@ class OperationController extends Controller
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
             'alarm_status_arrival' => $request->input('alarm_status_arrival') ?? '',
             'first_responder' => $request->input('first_responder') ?? '',
+            'prepared_by' => $request->input('prepared_by') ?? '',
+            'noted_by' => $request->input('noted_by') ?? '',
         ];
 
-        $operation = AFor::findOrFail($request['operation_id']);
+        $operation = AFor::find($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
         $status = false;
 
@@ -312,6 +369,14 @@ class OperationController extends Controller
             $operation->update($InfoUpdatedData);
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Updated an AFOR Report about the operation in " . $operation->location,
+            'action' => "Update",
+        ]);
+        $log->save();
         // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -369,7 +434,7 @@ class OperationController extends Controller
                 }
             } else {
                 // No existing record for this index, create a new one
-                $newResponse = new Response($changes);
+                $newResponse = new Response();
                 $newResponse->afor_id = $request->operation_id;
                 $newResponse->engine_dispatched = $newDispatched;
                 $newResponse->time_dispatched = $new_time_dispatched;
@@ -383,6 +448,7 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
 
         // Declared Alarm 
         $alarm_names = $request->input('alarm_name', []);
@@ -436,9 +502,11 @@ class OperationController extends Controller
             }
         }
 
+
         // Occupancy
         $InfoUpdatedData = [
             'occupancy_name' => $request->input('occupancy_name') ?? '',
+            'type' => $request->input('occupancy_type') ?? '',
             'specify' => $request->input('occupancy_specify') ?? '',
             'distance' => $request->input('distance_to_fire_incident') ?? '',
             'description' => $request->input('structure_description') ?? '',
@@ -478,6 +546,9 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
+
+
 
         // Breathing equipment 
         $numbers = $request->input('no_breathing', []);
@@ -574,6 +645,7 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
 
         // extinguishing agent equipment 
         $length = $request->input('rope_ladder_length', []);
@@ -674,6 +746,7 @@ class OperationController extends Controller
                 $status = true;
             }
         }
+
         // Duty Personnel
         $personnels = $request->input('duty_personnel_id', []);
         $designations = $request->input('duty_designation', []);
@@ -713,6 +786,7 @@ class OperationController extends Controller
                     $status = true;
                     $personnel->update($changes);
                 }
+
             } else {
                 // No existing record for this index, create a new one
                 $newPersonnel = new Afor_duty_personnel();
@@ -725,21 +799,25 @@ class OperationController extends Controller
             }
         }
 
+
         $sketch_of_fire_operation = $request->input('sketch_of_fire_operation', []);
         $default_photos = $request->input('default_photos', []);
-        $existOperation = Afor::findOrFail($request['operation_id']);
+        $existOperation = Afor::find($request->operation_id);
         $sketchArray = explode(',', $existOperation->sketch_of_fire_operation);
         $requestIndexes = array_keys($default_photos);
         $existIndex = array_keys($sketchArray);
         $change = false;
+        $publicPath = public_path() . '/assets/images/operation_images/';
 
         foreach ($sketchArray as $index => $array) {
-            // Check if the index of the existing response is not present in the request
-            if (!in_array($index, $requestIndexes)) {
-                // Delete the existing response
-                unset($sketchArray[$index]);
-                $status = true;
-                $change = true;
+            if ($array != '') {
+                if (!in_array($index, $requestIndexes)) {
+                    // Delete the existing response
+                    File::delete($publicPath . $sketchArray[$index]);
+                    unset($sketchArray[$index]);
+                    $status = true;
+                    $change = true;
+                }
             }
         }
 
@@ -757,7 +835,7 @@ class OperationController extends Controller
                 $fileName = $file->getClientOriginalName();
 
                 if (!in_array($fileName, $sketchArray)) {
-                    $file->move(public_path('operation_image'), $fileName);
+                    $file->move(public_path('/assets/images/operation_images'), $fileName);
                     array_push($sketchArray, $fileName);
                     $status = true;
                 }
@@ -767,7 +845,44 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        return redirect()->back()->with('success', 'Operation updated successfully.');
+        if ($status) {
+            return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
+        } else {
+            return redirect('/reports/operation/index')->with('success', "Nothing's change.");
+        }
+
+
+    }
+
+    public function operationDelete($id, Request $request)
+    {
+        $operation = Afor::find($id);
+        $currentDateTime = Carbon::now();
+        $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+
+        $operation->deleted_at = $formattedDateTime;
+        $operation->save();
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => "Deleted an AFOR Report about the operation in " . $operation->location,
+            'action' => "Delete",
+        ]);
+        $log->save();
+        return redirect()->back()->with('success', 'Data deleted successfully.');
+    }
+
+    public function printOperation(Afor $id)
+    {
+
+        return view('reports.operation.printable', [
+            'active' => 'operation',
+            'user' => Auth::user(),
+            'operation' => $id,
+            'alarm_names' => Alarm_name::all(),
+            'personnels' => Personnel::all(),
+        ]);
     }
 
     private function hasValues($array)
@@ -777,15 +892,11 @@ class OperationController extends Controller
 
     private function hasChanges($info, $updatedData)
     {
-
         foreach ($updatedData as $key => $value) {
-
             if ($info->{$key} != $value) {
-
                 return $value;
             }
         }
-
         return false;
     }
 }

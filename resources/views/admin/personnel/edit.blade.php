@@ -2,18 +2,6 @@
     .btn-reports {
         width: 200px
     }
-
-    /* Styles for file list container */
-    /* #file-list-container {
-        margin-top: 20px;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    } */
 </style>
 @extends('layouts.user-template')
 @section('content')
@@ -23,7 +11,7 @@
                 <form action="{{ route('admin.personnel.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                             <div class="col-lg-4">
                                 <div class="col-lg-12 mb-3"> <!-- Photo column -->
@@ -33,6 +21,7 @@
                                         alt="Personnel Picture">
                                     <div class="row px-2">
                                         <label for="photo-upload" class="btn btn-primary mt-2">Change Photo</label>
+                                        <input type="hidden" name="operation_id" value="{{ $personnel->id }}">
                                         <input type="file" id="photo-upload" style="display: none;" accept="image/*"
                                             onchange="previewPhoto(event)" name="image">
                                     </div>
@@ -155,7 +144,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="tertiaryCourses" class="form-label ">Tertiary Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
                                                 id="editTertiaryCourse">+ ADD</button>
@@ -183,7 +172,7 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="col-lg-12">
                                     <div class="row m-0 p-0">
-                                        <div class="col-lg-6 m-0 p-0">
+                                        <div class="col-lg-12 m-0 p-0">
                                             <label for="postGraduateCourses" class="form-label">Post Graduate
                                                 Course/s</label>
                                             <button type="button" class="btn btn-sm btn-primary ms-3"
@@ -204,7 +193,6 @@
                                             </div>
                                         @endforeach
 
-
                                     </div>
                                     <!-- Input fields will be appended here -->
                                 </div>
@@ -217,7 +205,9 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="highestTraining" class="form-label">Highest Training</label>
-                                <input type="text" placeholder="Enter highest training" class="form-control" id="highestTraining" value="{{ $personnel->highest_training }}" name="highest_training">
+                                <input type="text" placeholder="Enter highest training" class="form-control"
+                                    id="highestTraining" value="{{ $personnel->highest_training }}"
+                                    name="highest_training">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="specializedTraining" class="form-label">Specialized Training</label>
@@ -233,8 +223,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="pagibig" class="form-label">PAGIBIG</label>
-                                <input class="form-control" type="text" id="pagibig" placeholder="XXXX-XXXX-XXXX"
-                                    name="pagibig" value="{{ $personnel->pagibig }}">
+                                <input class="form-control" type="text" id="pagibig" name="pagibig"
+                                    value="{{ $personnel->pagibig }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="gsis" class="form-label">GSIS</label>
@@ -270,27 +260,59 @@
                                 <input type="date" class="form-control" id="dateOfLastPromotion"
                                     name="last_date_promotion" value="{{ $personnel->last_date_promotion }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="appointmentStatus" class="form-label">Appointment Status</label>
                                 <input type="text" placeholder="Enter appointment status" class="form-control"
                                     id="appointmentStatus" name="appointment_status"
                                     value="{{ $personnel->appointment_status }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitCode" class="form-label">Unit Code</label>
                                 <input type="text" placeholder="Enter unit code" class="form-control" id="unitCode"
                                     name="unit_code" value="{{ $personnel->unit_code }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-4 mb-3">
                                 <label for="unitAssignment" class="form-label">Unit Assignment</label>
                                 <input type="text" placeholder="Enter unit assignment" class="form-control"
                                     id="unitAssignment" name="unit_assignment"
                                     value="{{ $personnel->unit_assignment }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="designation" class="form-label">Designation</label>
-                                <input type="text" placeholder="Enter designation" class="form-control"
-                                    id="designation" name="designation" value="{{ $personnel->designation }}">
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0 p-0 designationContainer">
+                                    <div class="col-lg-12 px-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-lg-6 m-0 p-0">
+                                                <label for="designation" class="form-label me-2">Designation</label>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary mb-1 addPersonnelDesignationEdit">+
+                                                    ADD</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @foreach ($old_designations as $old_designation)
+                                        <div class="col-lg-6 mb-3 ps-0">
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-control designation_select_edit" id="designation[{{$loop->index}}]" aria-label="designationSelect" name="designations[]">
+                                                    <option selected>Select designation</option>
+                                                    @foreach ($designations as $designation)
+                                                        @if ($old_designation->name == $designation->name)
+                                                            <option selected value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                <button type="button"
+                                                    class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    
+                                </div>
                             </div>
 
                             <div class="col-lg-12 mb-3">
@@ -300,42 +322,51 @@
                             </div>
 
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Uploaded Personal File</h3>
+                            <br>
+                            <!-- File List Container -->
+                            <div id="file-list-container mb-3">
+                                @foreach ($files as $file)
+                                    @if ($file != '')
+                                        <div class="file-item d-flex justify-content-between mb-2 align-items-center">
+                                            <span>
+                                                <input type="hidden" name="default_files[]"
+                                                    value="{{ $file }}">
+                                                {{ $file }}
+                                            </span> 
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="deleteFile(this)">Delete</button>
+                                        </div>
+                                    @else
+                                        <p>No files uploaded</p>
+                                    @endif
+                                @endforeach
+
+                            </div>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Added Personal File</h3>
+                            <div id="file-list"></div>
+
                             <div>
                                 <label for="file-input" class="form-label"></label>
                                 <input class="form-control" type="file" id="file-input" style="display: none;"
-                                    multiple>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary" type="button"
-                                        onclick="document.getElementById('file-input').click();">+
-                                        Choose File</button>
-                                    <p id="file-count">No files selected</p>
-                                </div>
-                            </div>
-
-                            <!-- File List Container -->
-                            <div id="file-list-container">
-                                <div id="file-list"></div>
+                                    multiple name="files[]">
+                                <button class="btn btn-primary" type="button"
+                                    onclick="document.getElementById('file-input').click();">+
+                                    Choose File</button>
+                                <p id="file-count">No files selected</p>
                             </div>
                         </div>
-
                         <!-- File List Container -->
                         <div id="file-list-container">
-                            <div class="file-item d-flex justify-content-between mb-2 align-items-center">
-                                <span>
-                                    {{-- sadi su file name naka butang --}}
-                                    jnhbgvsjfjsj
-                                </span>
-                                <button class="btn btn-danger">Delete</button>
-                            </div>
                             <div id="file-list"></div>
                         </div>
+                        <div class="col d-flex justify-content-end mb-2">
+                            <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-end mb-2">
-                        <button id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 
     </div>
@@ -361,6 +392,20 @@
             // Remove dynamically added input field
             $(document).on('click', '.removePostGraduateInputEdit', function() {
                 $(this).closest('.col-lg-12').remove();
+            });
+
+            $(document).on('click', '.addPersonnelDesignationEdit', function() {
+                // console.log("hello");
+                var inputField =
+                    '<div class="col-lg-6 mb-3 ps-0"> <div class="d-flex align-items-center"> <select class="form-control designation-select-edit" aria-label="designationSelect" name="designations[]"> <option selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}">{{ $designation->name }}</option> @endforeach </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-edit-personnel-designation">x</button> </div> </div>';
+                // $(".designationContainer").append(inputField);
+                $(this).closest('.designationContainer').append(inputField);
+
+                // inputField.find('.designation').select2();
+                $(".designation-select-edit").select2();
+            });
+            $(document).on('click', '.remove-edit-personnel-designation', function() {
+                $(this).closest('.col-lg-6').remove();
             });
         });
 
@@ -388,59 +433,103 @@
             saveDataAndRedirect();
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const tinInput = document.getElementById('tin');
-            const pagibigInput = document.getElementById('pagibig');
-            const gsisInput = document.getElementById('gsis');
-            const philhealthInput = document.getElementById('philhealth');
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const tinInput = document.getElementById('tin');
+        //     const pagibigInput = document.getElementById('pagibig');
+        //     const gsisInput = document.getElementById('gsis');
+        //     const philhealthInput = document.getElementById('philhealth');
+
+        //     const restrictToNumbers = function(inputElement) {
+        //         inputElement.addEventListener('input', function(event) {
+        //             const inputValue = event.target.value;
+        //             const cleanedValue = inputValue.replace(/[^0-9\-]/g,
+        //                 ''); // Remove any characters that are not numbers or hyphens
+        //             event.target.value = cleanedValue;
+        //         });
+        //     };
+
+        //     restrictToNumbers(tinInput);
+        //     restrictToNumbers(pagibigInput);
+        //     restrictToNumbers(gsisInput);
+        //     restrictToNumbers(philhealthInput);
+
+        //     const formatGovernmentID = function(inputElement, format) {
+        //         inputElement.addEventListener('input', function(event) {
+        //             const inputValue = event.target.value;
+        //             const cleanedValue = inputValue.replace(/[^0-9]/g,
+        //                 ''); // Remove any characters that are not numbers
+        //             let formattedValue = '';
+        //             if (format === 'TIN') {
+        //                 formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+        //             } else if (format === 'PAGIBIG') {
+        //                 formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
+        //             } else if (format === 'GSIS') {
+        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
+        //             } else if (format === 'PHILHEALTH') {
+        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
+        //             }
+        //             event.target.value = formattedValue;
+        //         });
+        //     };
+
+        //     formatGovernmentID(tinInput, 'TIN');
+        //     formatGovernmentID(pagibigInput, 'PAGIBIG');
+        //     formatGovernmentID(gsisInput, 'GSIS');
+        //     formatGovernmentID(philhealthInput, 'PHILHEALTH');
+        // });
+
         //personnel file upload
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#file-input').change(handleFileSelect);
         });
 
-            function handleFileSelect(event) {
+        function handleFileSelect(event) {
+            var fileList = $('#file-list');
+            fileList.html('');
+
+            var files = event.target.files;
+
+            // Update file count
+            var fileCountSpan = $('#file-count');
+            fileCountSpan.text(files.length + ' file(s)');
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = $(
+                    '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
+
+                var fileName = $('<span></span>').text(file.name);
+                listItem.append(fileName);
+
+                var deleteButton = $('<button class="btn btn-danger">Delete</button>');
+                deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
+                listItem.append(deleteButton);
+
+                fileList.append(listItem);
+            }
+        }
+
+        function createDeleteHandler(file, fileCountSpan) {
+            return function() {
                 var fileList = $('#file-list');
-                fileList.html('');
-
-                var files = event.target.files;
-
-                // Update file count
-                var fileCountSpan = $('#file-count');
-                fileCountSpan.text(files.length + ' file(s)');
-
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var listItem = $(
-                        '<div class="file-item d-flex justify-content-between mb-2 align-items-center"></div>');
-
-                    var fileName = $('<span></span>').text(file.name);
-                    listItem.append(fileName);
-
-                    var deleteButton = $('<button class="btn btn-danger">Delete</button>');
-                    deleteButton.on('click', createDeleteHandler(file, fileCountSpan));
-                    listItem.append(deleteButton);
-
-                    fileList.append(listItem);
-                }
-            }
-
-            function createDeleteHandler(file, fileCountSpan) {
-                return function() {
-                    var fileList = $('#file-list');
-                    var fileItems = fileList.find('.file-item');
-                    for (var i = 0; i < fileItems.length; i++) {
-                        if ($(fileItems[i]).find('span').text() === file.name) {
-                            $(fileItems[i]).remove();
-                            break;
-                        }
+                var fileItems = fileList.find('.file-item');
+                for (var i = 0; i < fileItems.length; i++) {
+                    if ($(fileItems[i]).find('span').text() === file.name) {
+                        $(fileItems[i]).remove();
+                        break;
                     }
+                }
 
-                    // Update file count after deletion
-                    var remainingFiles = fileList.find('.file-item').length;
-                    fileCountSpan.text(remainingFiles + ' file(s)');
-                };
-            }
-        });
+                // Update file count after deletion
+                var remainingFiles = fileList.find('.file-item').length;
+                fileCountSpan.text(remainingFiles + ' file(s)');
+            };
+        }
+
+        // uploaded personal file delete button
+        function deleteFile(button) {
+            var fileItem = button.parentNode;
+            fileItem.parentNode.removeChild(fileItem);
+        }
     </script>
 @endsection

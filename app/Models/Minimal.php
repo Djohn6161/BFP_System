@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Minimal extends Model
 {
     use HasFactory;
-    public function Investigation(){
+    public function investigation(){
         return $this->belongsTo(Investigation::class, 'investigation_id');
     }
-    public function receiver(){
+    public function receiverPersonnel(){
         return $this->belongsTo(Personnel::class, 'receiver');
     }
     public function respondingEngine(){
@@ -19,5 +19,8 @@ class Minimal extends Model
     }
     public function respondingLeader(){
         return $this->belongsTo(Personnel::class, 'first_responding_leader');
+    }
+    public function alarm(){
+        return $this->belongsTo(Alarm_name::class, 'alarm_status_time');
     }
 }
