@@ -10,7 +10,7 @@
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
-                    <h4 class="modal-title" id="deleteAlarmModalLabel">Delete this <strong>"{{ $list->name }}"</strong> truck?</h4>
+                    <h4 class="modal-title" id="deleteAlarmModalLabel">Delete this <strong>"{{ $list->name }}"</strong>?</h4>
                     <p>The data associated with this alarm will be lost.</p>
                 </div>
                 <div class="modal-footer justify-content-center">
