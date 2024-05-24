@@ -29,12 +29,12 @@
             <form method="POST" action="{{ route('admin.barangay.delete', ['id' => $barangay->id]) }}">
                 @csrf
                 @method('DELETE')
-                <div class="modal-body text-center p-0">
+                <div class="modal-body text-center p-1">
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
-                    <h4 class="modal-title" id="deleteBarangayModalLabel">Delete this <strong>"{{ $barangay->name }}"</strong> truck?</h4>
-                    <p>The data associated with this baramgay will be lost.</p>
+                    <h4 class="modal-title" id="deleteBarangayModalLabel">Delete this <strong>"{{ $barangay->name }}"</strong> barangay?</h4>
+                    <p>The data associated with this barangay will be lost.</p>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
