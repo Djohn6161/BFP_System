@@ -35,11 +35,11 @@
             <form method="POST" action="{{route('admin.occupancy_name.delete', ['id' =>$occupancyName->id])}}" enctype="multipart/form-data">
                 @csrf
                 @method('DELETE')
-                <div class="modal-body text-center p-0">
+                <div class="modal-body text-center p-1">
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
-                    <h4 class="modal-title" id="deleteOccupancyModal">Delete this <strong>"{{ $occupancyName->name }}"</strong> occupancy?</h4>
+                    <h5 class="modal-title" id="deleteOccupancyModal">Delete this <strong>"{{ $occupancyName->name }}"</strong> ?</h5>
                     <p>The data associated with this occupancy will be lost.</p>
                 </div>
                 <div class="modal-footer justify-content-center">
