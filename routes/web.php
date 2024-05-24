@@ -206,15 +206,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['checkPrivilege:IC'])->group(function () {
 
             Route::post('/export', [ExportController::class, 'exportInvestigation'])->name('export');
-
-            Route::get('/minimal/create', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
+            
+            Route::get('/minimal/create/{afor}', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
             Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');
             Route::get('/minimal/edit/{minimal}', [InvestigationController::class, 'editMinimal'])->name('minimal.edit');
             Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
             Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
 
 
-            Route::get('/spot/create', [InvestigationController::class, 'createSpot'])->name('spot.create');
+            Route::get('/spot/create/{afor}', [InvestigationController::class, 'createSpot'])->name('spot.create');
             Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
             Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
             Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');

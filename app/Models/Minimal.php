@@ -23,4 +23,7 @@ class Minimal extends Model
     public function alarm(){
         return $this->belongsTo(Alarm_name::class, 'alarm_status_time');
     }
+    public function afor(){
+        return $this->belongsTo(Afor::class, 'afor_id');
+    }
 }

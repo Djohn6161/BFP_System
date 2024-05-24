@@ -1,11 +1,12 @@
 <div class="modal fade" tabindex="-1" id="viewProgressModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h5>
+            <div class="modal-header pt-4 px-4 pb-1">
+                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <hr>
+            <div class="modal-body pt-4 px-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>
@@ -43,11 +44,17 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{route('investigation.progress.print', ['progress' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-files"></i> View Operation</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewMinimalProgressModal">View Minimal</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewSpotProgressModal">View Spot</button>
+                <a href="{{route('investigation.progress.print', ['progress' => $investigation->id])}}" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
+<x-reports.investigation.view-operation :act="'progress'"  :investigation=$investigation :operation="$investigation->spot->afor" :responses=$responses :personnels=$personnels></x-reports.investigation.view-operation>
+<x-reports.investigation.view-minimal-progress :investigation=$investigation></x-reports.investigation.view-minimal-progress>
+<x-reports.investigation.view-spot-progress :investigation=$investigation></x-reports.investigation.view-spot-progress>
+

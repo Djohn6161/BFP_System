@@ -1,5 +1,7 @@
-<div class="modal fade" tabindex="-1" id="viewOperationModal{{ $operation->id }}">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+{{-- View Final Operation Modal --}}
+<div class="modal fade" id="viewOperationModal{{ $investigation->investigation_id }}" tabindex="-1"
+    aria-labelledby="viewFinalOperationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
                 <h3 class="modal-title fw-bolder text-primary">AFTER FIRE OPERATION REPORT</h3>
@@ -241,7 +243,8 @@
                         <tr>
                             @foreach ($personnels as $personnel)
                                 @if ($duty_personnel->personnels_id == $personnel->id)
-                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}</td>
+                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                    </td>
                                 @endif
                             @endforeach
                             <td>{{ $duty_personnel->designation }}</td>
@@ -269,13 +272,13 @@
                                         $photos = explode(',', $operation->sketch_of_fire_operation);
                                     }
                                 @endphp
-                
+
                                 <div class="row">
                                     @foreach ($photos as $photo)
                                         <div class="col-lg-4">
                                             <div class="card-body p-1">
                                                 <img style="height: 350px; object-fit: cover;" class="w-100"
-                                                    src="{{asset('/assets/images/operation_images/' . $photo)}}">
+                                                    src="{{ asset('/assets/images/operation_images/' . $photo) }}">
                                             </div>
                                         </div>
                                     @endforeach
@@ -284,7 +287,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <br>
 
                 <hr>
@@ -317,37 +320,29 @@
                     {{ $operation->noted_by }}
                 </div>
             </div>
+            {{-- {{dd($act)}} --}}
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                @if ($act == 'minimal')
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#viewMinimalModal{{ $investigation->id }}"><span><i
+                                class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                @elseif($act == 'spot')
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotModal{{ $investigation->id }}"><span><i
+                                class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                @elseif($act == 'progress')
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#viewProgressModal{{ $investigation->id }}"><span><i
+                                class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                @elseif($act == 'final')
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#viewFinalModal{{ $investigation->id }}"><span><i
+                                class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                @endif
+
+                {{-- <a href="#" type="button" class="btn btn-warning"><i class="ti ti-printer"></i>Print</a> --}}
             </div>
         </div>
+
     </div>
 </div>
-<script>
-    $('#viewOperationModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var operation = button.data('operation');
-        var responses = button.data('responses');
-        console.log(responses);
-
-        // Intro
-        $('#view_alarm_received').text(operation.alarm_received);
-        $('#view_transmitted_by').text(operation.transmitted_by);
-        $('#view_caller_address').text(operation.caller_address);
-        $('#view_received_by').text(operation.recieved_by);
-        $('#view_location').text(operation.full_location);
-        $('#view_td_under_control').text(operation.td_under_control);
-        $('#view_first_responder').text(operation.first_responder);
-        $('#view_time_date_declared_fire_out').text(operation.td_declared_fireout);
-        $('#view_details_narrative').text(operation.details);
-        $('#view_problems_rencountered_during_operation').text(operation.problem_encounter);
-        $('#view_observation_recommendation').text(operation.observation_recommendation);
-
-        $('#view_alarm_received').text(operation.alarm_received);
-
-
-
-    });
-</script>

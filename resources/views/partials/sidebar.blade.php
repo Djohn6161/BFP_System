@@ -78,28 +78,28 @@
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
-                                    Minimal
+                                    Minimals
                                 </a>
                                 <a href="{{ route('investigation.spot.index') }}"
                                     class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'spot' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
-                                    Spot
+                                    Spots
                                 </a>
                                 <a href="{{ route('investigation.progress.index') }}"
                                     class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'progress' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
-                                    Progress
+                                    Progresses
                                 </a>
                                 <a href="{{ route('investigation.final.index') }}"
                                     class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'final' ? 'bg-primary text-light' : '' }}">
                                     <span>
                                         <i class="ti ti-caret-right"></i>
                                     </span>
-                                    Final
+                                    Finals
                                 </a>
 
 

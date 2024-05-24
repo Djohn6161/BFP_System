@@ -11,7 +11,10 @@ $("#trashOperationTable").DataTable();
 $("#trashInvestigationTable").DataTable();
 $("#allInvestigation").DataTable();
 $("#spotInvestigationTable").DataTable();
-$("#minimalInvestigationTable").DataTable();
+$("#minimalInvestigationTable").DataTable({
+    // "scrollY": "500px",
+    "order": [[2, "asc"]]
+  });
 $("#progressInvestigationTable").DataTable();
 $("#finalInvestigationTable").DataTable();s
 $("#rankTable").DataTable();

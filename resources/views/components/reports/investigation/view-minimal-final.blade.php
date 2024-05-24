@@ -1,23 +1,23 @@
-<div class="modal fade" tabindex="-1" id="viewMinimalModal{{ $investigation->id }}">
+<div class="modal fade" tabindex="-1" id="viewMinimalFinalModal">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
-                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h3>
+                <h3 class="modal-title fw-bolder text-primary">Investigation Subject (MINIMA FINAL)</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
             <div class="modal-body px-4 pb-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
-                    <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>
+                    <div class="col-sm-10"><b>John Doe</b></div>
                 </div>
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">Subject:</div>
-                    <div class="col-sm-10"><b>{{ $investigation->investigation->subject }}</b></div>
+                    <div class="col-sm-10"><b>Investigation Subject</b></div>
                 </div>
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">Date:</div>
-                    <div class="col-sm-10"><b>{{ $investigation->investigation->date }}</b></div>
+                    <div class="col-sm-10"><b>May 1, 2024</b></div>
                 </div>
                 <hr>
                 <table class="table table-striped">
@@ -29,23 +29,23 @@
                     <tbody>
                         <tr>
                             <td>Date and Time of Actual Occurence:</td>
-                            <td>{{ $investigation->dt_actual_occurence }}</td>
+                            <td>May 1, 2024, 12:34 PM</td>
                         </tr>
                         <tr>
                             <td>Date and Time reported:</td>
-                            <td>{{ $investigation->dt_reported }}</td>
+                            <td>May 1, 2024, 12:35 PM</td>
                         </tr>
                         <tr>
                             <td>Incident Location:</td>
-                            <td>{{ $investigation->incident_location }}</td>
+                            <td>456 Elm St, Springfield</td>
                         </tr>
                         <tr>
                             <td>Involved Property/ Establishment:</td>
-                            <td>{{ $investigation->involved_property }}</td>
+                            <td>Residential House</td>
                         </tr>
                         <tr>
                             <td>Property Data:</td>
-                            <td>{{ $investigation->property_data }}</td>
+                            <td>2 stories, wooden frame</td>
                         </tr>
                     </tbody>
                 </table>
@@ -53,55 +53,50 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <td colspan="2" class="fw-bolder">RESPONSE AND SUPRESSION DATA</td>
+                            <td colspan="2" class="fw-bolder">RESPONSE AND SUPPRESSION DATA</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            {{-- {{dd($investigation->receiver)}} --}}
                             <td colspan="1" class="fw-bold">Receiver</td>
-                            <td colspan="1" class="fw-bold">{{$investigation->receiverPersonnel->rank->slug . " " . $investigation->receiverPersonnel->last_name . " " . $investigation->receiverPersonnel->first_name}}</td>
+                            <td colspan="1" class="fw-bold">Lt. Jane Smith</td>
                         </tr>
                         <tr>
                             <td>Caller Information:</td>
                             <td>
                                 <div class="row">
                                     <div class="col-sm-4">Complete Name:</div>
-                                    <div class="col-sm">{{ $investigation->caller_name }}</div>
+                                    <div class="col-sm">John Doe</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">Address:</div>
-                                    <div class="col-sm">{{ $investigation->caller_address }}</div>
+                                    <div class="col-sm">123 Main St, Springfield</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4">Telephone Number:</div>
-                                    <div class="col-sm">{{ $investigation->caller_number }}</div>
+                                    <div class="col-sm">555-1234</div>
                                 </div>
-
                             </td>
                         </tr>
                         <tr>
                             <td>Notification Originator:</td>
-                            <td>{{ $investigation->notification_originator }}</td>
+                            <td>Dispatch Center</td>
                         </tr>
                         <tr>
                             <td>First Responding Unit:</td>
-                            <td> <b>{{ $investigation->respondingEngine->name }}</b> and Crew,
-                                <b>{{ $investigation->respondingLeader->rank->slug . ' ' . $investigation->respondingLeader->last_name . ' ' . $investigation->respondingLeader->first_name }}</b>
-                                Team Leader
-                            </td>
+                            <td> <b>Engine 1</b> and Crew, <b>Lt. Jane Smith</b> Team Leader</td>
                         </tr>
                         <tr>
                             <td>Time of Arrival on Scene:</td>
-                            <td>{{ $investigation->time_arrival_on_scene }}</td>
+                            <td>12:45 PM</td>
                         </tr>
                         <tr>
                             <td>Alarm Status-Time:</td>
-                            <td>{{ $investigation->alarm->name }}</td>
+                            <td>First Alarm</td>
                         </tr>
                         <tr>
                             <td>Time Fire Out:</td>
-                            <td>{{ $investigation->Time_Fire_out }}</td>
+                            <td>2:00 PM</td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,68 +110,52 @@
                     <tbody>
                         <tr>
                             <td>Owner of property/establishment:</td>
-                            <td>{{ $investigation->property_owner }}</td>
+                            <td>Jane Doe</td>
                         </tr>
                         <tr>
                             <td>Occupant of property/establishment</td>
-                            <td>{{ $investigation->property_occupant != '' ? $investigation->property_occupant : 'N/A' }}
-                            </td>
+                            <td>John Doe</td>
                         </tr>
                     </tbody>
                 </table>
                 <h3 class="my-4 fw-bolder">DETAILS OF INVESTIGATION</h3>
                 <div class="ps-5">
                     <p class="text-dark">
-                        {!! $investigation->details !!}
+                        The fire started in the kitchen and spread quickly to the rest of the house. The cause is suspected to be a grease fire.
                     </p>
                 </div>
                 <hr>
                 <h3 class="my-4 fw-bolder">FINDINGS</h3>
                 <div class="ps-5">
                     <p class="text-dark">
-                        {!! $investigation->findings !!}
+                        The fire was contained to the kitchen and dining area. No structural damage to the second floor.
                     </p>
                 </div>
                 <hr>
-                <h3 class="my-4 fw-bolder ">RECOMMENDATION</h3>
+                <h3 class="my-4 fw-bolder">RECOMMENDATION</h3>
                 <div class="ps-5">
                     <p class="text-dark">
-                        {!! $investigation->recommendation !!}
+                        Recommend additional training for handling kitchen fires and maintaining equipment readiness.
                     </p>
                 </div>
                 <hr>
-                <h3 class="my-4 fw-bolder ">PHOTOGRAPH OF FIRE SCENE</h3>
-                @if ($investigation->photos == '' || $investigation->photos == null)
-                    <div class="w-100 text-center fw-bolder">No photos found!</div>
-                @else
-                    @php
-                        if ($investigation->photos != '') {
-                            $photos = explode(', ', $investigation->photos);
-                        }
-                    @endphp
-                    <div class="ps-5 row">
-                        @foreach ($photos as $photo)
-                            <div class="col-sm-4">
-                                <div class="card">
-                                    <div class="card-body p-1">
-                                        <a href="{{ asset('storage/minimal/' . $photo) }}" data-toggle="lightbox" data-gallery="example-gallery">
-                                            <img style="height: 350px; object-fit: cover;" class="w-100" src="{{ asset('storage/minimal/' . $photo) }}" alt="Sample Image">
-                                        </a>
-                                    </div>
-                                </div>
+                <h3 class="my-4 fw-bolder">PHOTOGRAPH OF FIRE SCENE</h3>
+                <div class="ps-5 row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body p-1">
+                                <a href="sample-photo1.jpg" data-toggle="lightbox" data-gallery="example-gallery">
+                                    <img style="height: 350px; object-fit: cover;" class="w-100" src="sample-photo1.jpg" alt="Sample Image 1">
+                                </a>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                @endif
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-files"></i> View Operation</button>
-                <a href="{{route('investigation.minimal.print', ['minimal' => $investigation->id])}}" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
-
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewFinalModal{{ $investigation->id }}"><span><i class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                <a href="#" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
             </div>
         </div>
     </div>
 </div>
-
-<x-reports.investigation.view-operation :act="'minimal'" :operation="$investigation->afor" :investigation="$investigation" :responses="$responses" :personnels="$personnels"></x-reports.investigation.view-operation>
