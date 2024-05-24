@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
-                <h3 class="modal-title fw-bolder text-primary">Investigation Subject (PROGRESS SPOT)</h3>
+                <h3 class="modal-title fw-bolder text-primary">Investigation Subject </h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
             <div class="modal-body px-4 pb-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
-                    <div class="col-sm-10"><b>John Doe</b></div>
+                    <div class="col-sm-10"><b>John Doe fasdf as</b></div>
                 </div>
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">Subject:</div>

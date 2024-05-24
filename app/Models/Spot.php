@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Progress;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Spot extends Model
 {
@@ -12,7 +13,7 @@ class Spot extends Model
     public function investigation(){
         return $this->belongsTo(Investigation::class, 'investigation_id');
     }
-    public function Progress(){
+    public function progress(){
         return $this->hasOne(Progress::class, 'spot_id');
     }
     public function final(){
