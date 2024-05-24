@@ -1,8 +1,8 @@
-<div class="modal fade" tabindex="-1" id="viewMinimalProgressModal">
+<div class="modal fade" tabindex="-1" id="viewProgressFinalModal">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
-                <h3 class="modal-title fw-bolder text-primary">Investigation Subject (MINIMAL PROGRESS)</h3>
+                <h3 class="modal-title fw-bolder text-primary">Investigation Subject (FINAL PROGRESS)</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewProgressModal{{ $investigation->id }}"><span><i class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewFinalModal{{ $investigation->id }}"><span><i class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
                 <a href="#" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
             </div>
         </div>

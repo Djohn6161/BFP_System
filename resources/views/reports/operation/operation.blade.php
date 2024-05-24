@@ -5,24 +5,6 @@
 </style>
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-        <!--  Row 1 -->
-
-        <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button href="{{ route('operation.create.form') }}" class="btn btn-primary">
-                        <i class="ti ti-plus"></i>
-                        Create
-                       
-                    </button>
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4">Operation Reports</h5> --}}
     <div class="container-fluid">
         <div class="col-lg-12">
             <div class="row">
@@ -66,6 +48,9 @@
                                                 <h6 class="fw-semibold mb-0">Time/Date Declared Fireout</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
@@ -94,6 +79,7 @@
                                                         {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
+                                                <td>status</td>
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"

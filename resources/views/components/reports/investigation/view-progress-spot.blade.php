@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewSpotModal{{ $investigation->id }}"><span><i class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewProgressModal{{ $investigation->id }}"><span><i class="ti ti-arrow-back"></i></span><span> Go Back</span></button>
                 <a href="#" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
             </div>
         </div>
