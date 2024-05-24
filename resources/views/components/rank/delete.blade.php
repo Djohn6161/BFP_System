@@ -5,7 +5,7 @@
             <form method="POST" action="{{ route('admin.rank.delete', ['id' => $rank->id]) }}">
                 @csrf
                 @method('DELETE')
-                <div class="modal-body text-center p-0">
+                <div class="modal-body text-center p-1">
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
