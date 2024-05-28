@@ -330,7 +330,7 @@ class PersonnelController extends Controller
             'password' => 'required',
         ]);
 
-        $personnel = Personnel::find($id);
+        $personnel = Personnel::findorFail($id);
         $user = Auth::user();
         $user = Auth::user();
         $active = 'personnel';
