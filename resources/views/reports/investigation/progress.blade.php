@@ -44,6 +44,9 @@
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
                                             <th>
@@ -71,6 +74,25 @@
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->minimal)
+                                                            Minimal <br>
+                                                        @endif
+                                                        @if ($investigation->spot)
+                                                            Spot <br>
+                                                        @endif
+                                                        @if ($investigation->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                        @if ($investigation->spot->final)
+                                                            Final <br>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
                                                         {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
@@ -80,7 +102,7 @@
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
                                                     <x-reports.Investigation.view-progress
-                                                        :investigation=$investigation></x-reports.Investigation.view-progress>
+                                                        :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-progress>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
                                                             class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>

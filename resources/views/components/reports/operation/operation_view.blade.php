@@ -318,13 +318,19 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewMinimalOperationModal{{ $operation->id }}">View Minimal</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewSpotOperationModal{{ $operation->id }}">View Spot</button>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#viewProgressOperationModal{{ $operation->id }}">View Progress</button>
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#viewFinalOperationModal{{ $operation->id }}">View Final</button>
                 <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
+
+<x-reports.operation.view-investigations :operation="$operation"></x-reports.operation.view-investigations>
+
 <script>
     $('#viewOperationModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
@@ -346,8 +352,5 @@
         $('#view_observation_recommendation').text(operation.observation_recommendation);
 
         $('#view_alarm_received').text(operation.alarm_received);
-
-
-
     });
 </script>
