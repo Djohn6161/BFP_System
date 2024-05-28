@@ -360,23 +360,33 @@ class OperationController extends Controller
             'noted_by' => $request->input('noted_by') ?? '',
         ];
 
-        $operation = AFor::find($request['operation_id']);
+        $operation = Afor::find($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
         $status = false;
 
+        $string = '';
+
         if ($operationChange) {
+
+            foreach ($operationChange as $index => $change) {
+                $string = $string . $index . ": " . $operation[$index] . " -> " . $change . ", ";
+            }
+
             $status = true;
             $operation->update($InfoUpdatedData);
         }
+
+
 
         $log = new AforLog();
         $log->fill([
             'afor_id' => $operation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated an AFOR Report about the operation in " . $operation->location,
+            'details' => "Updated an AFOR Report about the operation in " . $string,
             'action' => "Update",
         ]);
         $log->save();
+
         // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -892,11 +902,20 @@ class OperationController extends Controller
 
     private function hasChanges($info, $updatedData)
     {
+        // foreach ($updatedData as $key => $value) {
+        //     if ($info->{$key} != $value) {
+        //         return $value;
+        //     }
+        // }
+        // return false;
+        $changes = [];
+    
         foreach ($updatedData as $key => $value) {
             if ($info->{$key} != $value) {
-                return $value;
+                $changes[$key] = $value;
             }
         }
-        return false;
+        
+        return $changes;
     }
 }
