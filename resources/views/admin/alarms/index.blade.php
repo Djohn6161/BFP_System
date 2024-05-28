@@ -43,36 +43,46 @@
                                 <table class="table mb-0 align-middle w-100" id="alarmTable">
                                     <thead class="text-dark fs-4 ">
                                         <tr>
-                                            <th class="border-bottom-0"> Alarm Name</th>
+                                            <th class="border-bottom-0">ID</th>
+                                            <th class="border-bottom-0">Alarm Name</th>
                                             <th class="border-bottom-0">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
                                         @foreach ($alarm_list as $list)
                                             <x-alarm.edit :list="$list"></x-alarm.edit>
-                                            
+
                                             <tr>
+                                                <td>{{ $list->id }}</td>
                                                 <td>{{ $list->name }}</td>
 
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
-                                                            <button class="btn btn-success w-100"
-                                                                data-bs-toggle="modal"
+                                                            <button class="btn btn-success w-100" data-bs-toggle="modal"
                                                                 data-bs-target="#editAlarmModal{{ $list->id }}">
                                                                 <i class="ti ti-pencil"></i>
                                                                 Update
-                                                                
+
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
-                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteAlarmModalll{{ $list->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
-                                                               
-                                                            </button>
-                                                            <x-alarm.delete :list="$list"></x-alarm.delete>
+                                                            {{-- {{ dd(count($list->spots)) }} --}}
+                                                            @if (count($list->minimals ?? []) != 0 || count($list->spots ?? []) != 0)
+                                                                <button disabled class="btn btn-secondary w-100" data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteAlarmModalll{{ $list->id }}">
+                                                                    <i class="ti ti-x"></i>
+                                                                    Invalid
+                                                                </button>
+                                                            @else
+                                                                <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteAlarmModalll{{ $list->id }}">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete
+
+                                                                </button>
+                                                                <x-alarm.delete :list="$list"></x-alarm.delete>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </td>
