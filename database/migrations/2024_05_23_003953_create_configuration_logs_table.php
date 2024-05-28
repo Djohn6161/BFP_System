@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('configuration_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("userID")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
-            $table->string('Details');
+            $table->foreignId("user_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
+            $table->longText('details');
             $table->enum("type", ['occupancy','barangay','alarm', 'truck', 'rank', 'designation', 'personnel', ]);
             $table->string("action");
             $table->timestamps();
