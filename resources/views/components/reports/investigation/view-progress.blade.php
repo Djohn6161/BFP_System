@@ -45,8 +45,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-files"></i> View Operation</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewFinalProgressModal">View Final</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewSpotProgressModal">View Spot</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewFinalProgressModal{{$investigation->investigation_id}}">View Final</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewSpotProgressModal{{$investigation->investigation_id}}">View Spot</button>
                 <a href="{{route('investigation.progress.print', ['progress' => $investigation->id])}}" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
@@ -55,6 +55,6 @@
     </div>
 </div>
 <x-reports.investigation.view-operation :act="'progress'"  :investigation=$investigation :operation="$investigation->spot->afor" :responses=$responses :personnels=$personnels></x-reports.investigation.view-operation>
-<x-reports.investigation.view-progress-final :investigation=$investigation></x-reports.investigation.view-progress-final>
+<x-reports.investigation.view-progress-final :investigation=$investigation :final="$investigation->spot->final" ></x-reports.investigation.view-progress-final>
 <x-reports.investigation.view-progress-spot :investigation=$investigation></x-reports.investigation.view-progress-spot>
 
