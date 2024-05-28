@@ -20,7 +20,8 @@
                                             <th>Investigation ID</th>
                                             <th>Details</th>
                                             <th>Investigation Date</th>
-                                            <th>Action/Changes Made</th>
+                                            <th>Changes Made</th>
+                                            <th>Action</th>   
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -72,6 +73,13 @@
                                                         </div>
                                                     @endif
                                                 </td>
+                                                <td>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#viewInvestigationLogs"
+                                                    class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                        class="ti ti-eye"></i> View</button>
+                                                        <x-logs.view-investigation :log="$log"></x-logs.view-investigation>
+                                                </td>
                                             </tr>
                                         @endforeach
 
@@ -84,4 +92,6 @@
                     </div>
                 </div>
             </div>
+
+      
         @endsection
