@@ -85,7 +85,23 @@
                                                         {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
-                                                <td>status</td>
+
+                                                <td>
+                                                    @php
+                                                        if($operation->minimal){
+                                                            echo "Minimal";
+                                                        }
+                                                        if($operation->spot){
+                                                            echo ",Spot";
+                                                        }
+                                                        if($operation->spot->progress){
+                                                            echo ",Progress";
+                                                        }
+                                                        if($operation->spot->final){
+                                                            echo ",Final";
+                                                        }
+                                                    @endphp
+                                                </td>                                                
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
