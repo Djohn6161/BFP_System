@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfigurationLog;
 use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +27,20 @@ class DesignationController extends Controller
         ]);
         
         $designation = Designation::create($formFields);
+
         if($formFields['class'] == 'B'){
             $designation->section = $designation->id;
             $designation->name = "C, " . $designation->name;
             $designation->save();
         }
+        // $log = new ConfigurationLog();
+        // $log->fill([
+        //     'investigation_id' => $final->investigation->id,
+        //     'user_id' => auth()->user()->id,
+        //     'details' => json_encode($changes),
+        //     'action' => "Update",
+        // ]);
+        // $log->save();
         return redirect()->back()->with('success', 'Designation Added Successfully!');
     }
     public function update(Request $request, Designation $designation){
