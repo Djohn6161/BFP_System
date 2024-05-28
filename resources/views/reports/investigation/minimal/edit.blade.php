@@ -354,7 +354,8 @@
                                         </span>
                                     </div>
                                     <div id="first">
-                                        {!! old('details') ?? $minimal->details !!}
+                                        {{-- {{dd($minimal)}} --}}
+                                        {!!  old('details') ?? $minimal->details !!}
                                     </div>
 
                                 </div>
@@ -530,7 +531,7 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-end px-0">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" id="submit" class="btn btn-success">
                             <span>
                                 <i class="ti ti-send"></i>
                             </span>
@@ -546,36 +547,6 @@
     </div>
     <script>
         $(document).ready(function() {
-            // $('#photos').on('change', function() {
-            //     // Get the selected files
-            //     var files = $(this)[0].files;
-
-            //     // Clear any existing previews
-            //     $('#preview-container').empty();
-
-            //     // Loop through each selected file
-            //     for (var i = 0; i < files.length; i++) {
-            //         var file = files[i];
-            //         var reader = new FileReader();
-
-            //         // Closure to capture the file information
-            //         reader.onload = (function(file) {
-            //             return function(e) {
-            //                 // Create a new image element
-            //                 var imgElement = $(
-            //                     '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
-            //                 ).addClass('preview-image').attr('src', e.target.result);
-
-            //                 // Append the image to the preview container
-            //                 $('#preview-container').append(imgElement);
-            //             };
-            //         })(file);
-
-            //         // Read the file as a data URL
-            //         reader.readAsDataURL(file);
-            //     }
-            // });
-            // Get the input element
             var input = document.getElementById('telephone');
 
             // Listen for input events
@@ -618,6 +589,7 @@
 
                 placeholder: 'Compose an epic...',
             });
+            // console.log($("#details").val());
             $("#submit").click(function() {
                 $("#details").val(quillFirst.root.innerHTML);
                 $("#findings").val(quillSecond.root.innerHTML);
@@ -674,15 +646,6 @@
                             mainContainer.append(fileInfoContainer);
                             // Append the filename container to the preview container
                             container.append(mainContainer);
-
-                            // Remove button click event
-                            // removeBtn.click(function() {
-                            //     imgPreview.remove(); // Remove the image preview
-                            //     $(this).closest('.d-flex')
-                            //         .remove(); // Remove the flex container
-                            //     $('#photos').val(
-                            //         ''); // Clear the file input (if needed)
-                            // });
                         };
                     })(file);
 

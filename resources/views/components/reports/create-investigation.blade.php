@@ -57,11 +57,11 @@
                                         <td> {{ $item->td_declared_fireout }} </td>
                                         <td>
 
-                                            @if ($item->spot || $item->minimal)
+                                            @if ($item->minimal)
                                                 <button disabled type="button"
                                                     class="disabled btn btn-primary hide-menu w-100 mb-1">
                                                     <i class="ti ti-x"></i>
-                                                    Not Applicable
+                                                    Applied Already
                                                 </button>
                                             @else
                                                 <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
@@ -120,11 +120,11 @@
                                         <td> {{ $item->td_under_control }} </td>
                                         <td> {{ $item->td_declared_fireout }} </td>
                                         <td>
-                                            @if ($item->spot || $item->minimal)
+                                            @if ($item->spot)
                                                 <button disabled type="button"
                                                     class="disabled btn btn-primary hide-menu w-100 mb-1">
                                                     <i class="ti ti-x"></i>
-                                                    Not Applicable
+                                                    Applied Already
                                                 </button>
                                             @else
                                                 <a href="{{ route('investigation.spot.create', ['afor' => $item->id]) }}"
