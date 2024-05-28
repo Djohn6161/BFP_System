@@ -241,7 +241,8 @@
                         <tr>
                             @foreach ($personnels as $personnel)
                                 @if ($duty_personnel->personnels_id == $personnel->id)
-                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}</td>
+                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                    </td>
                                 @endif
                             @endforeach
                             <td>{{ $duty_personnel->designation }}</td>
@@ -269,13 +270,13 @@
                                         $photos = explode(',', $operation->sketch_of_fire_operation);
                                     }
                                 @endphp
-                
+
                                 <div class="row">
                                     @foreach ($photos as $photo)
                                         <div class="col-lg-4">
                                             <div class="card-body p-1">
                                                 <img style="height: 350px; object-fit: cover;" class="w-100"
-                                                    src="{{asset('/assets/images/operation_images/' . $photo)}}">
+                                                    src="{{ asset('/assets/images/operation_images/' . $photo) }}">
                                             </div>
                                         </div>
                                     @endforeach
@@ -284,7 +285,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <br>
 
                 <hr>
@@ -318,11 +319,28 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewMinimalOperationModal{{ $operation->id }}">View Minimal</button>
-                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewSpotOperationModal{{ $operation->id }}">View Spot</button>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#viewProgressOperationModal{{ $operation->id }}">View Progress</button>
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#viewFinalOperationModal{{ $operation->id }}">View Final</button>
-                <a href="{{route('operation.print', $operation->id)}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+                @if ($operation->minimal)
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#viewMinimalOperationModal{{ $operation->id }}">View Minimal</button>
+                @endif
+
+                @if ($operation->spot)
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotOperationModal{{ $operation->id }}">View Spot</button>
+                @endif
+
+                @if ($operation->spot->progress)
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#viewProgressOperationModal{{ $operation->id }}">View Progress</button>
+                @endif
+
+                @if ($operation->spot->final)
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                        data-bs-target="#viewFinalOperationModal{{ $operation->id }}">View Final</button>
+                @endif
+
+                <a href="{{ route('operation.print', $operation->id) }}" type="button" class="btn btn-warning"> <i
+                        class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
