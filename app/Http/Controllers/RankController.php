@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rank;
 use Illuminate\Http\Request;
+use App\Models\ConfigurationLog;
 use Illuminate\Support\Facades\Auth;
 
 class RankController extends Controller
@@ -23,7 +24,16 @@ class RankController extends Controller
             'slug' => 'required|unique:ranks'
         ]);
 
-        Rank::create($validatedData);
+        $rank = Rank::create($validatedData);
+        $log = new ConfigurationLog();
+
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Created a rank with a name of " . $rank->name,
+                'type' => 'rank',
+                'action' => 'Store',
+        ]);
+        $log->save();
         return redirect()->back()->with('success', 'Rank created successfully.');
     }
 
