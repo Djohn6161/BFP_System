@@ -12,7 +12,7 @@
                     <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                         <div class="col d-flex justify-content-end mb-2">
                             @if ((count($personnel->aforTransmitted ?? []) != 0 || count($personnel->aforReceived ?? []) != 0 || count($personnel->minimalReceived ?? []) != 0) || (count($personnel->minimalLeader ?? []) != 0 || count($personnel->alarmCommand ?? []) != 0 || count($personnel->aforDuty ?? []) != 0))
-                            <button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
                                 disabled> <i class="ti ti-x"></i> Invalid</button>
                                 @else
                                 <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
