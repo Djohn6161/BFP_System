@@ -20,6 +20,7 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\ConfigurationLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,7 +102,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
             Route::get('/account/accounts', [AdminController::class, 'viewAccount'])->name('account.accounts');
 
-
             // Accounts
             Route::get('/account/admins', [AdminController::class, 'adminAccountIndex'])->name('account.admin');
             Route::get('/account/users', [AdminController::class, 'userAccountIndex'])->name('account.user');
@@ -171,9 +171,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             //Logs 
             Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
             Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
+            Route::get('/logs/configuration/viewLogs', [ConfigurationLogController::class, 'index'])->name('logs.configuration.viewLogs');
         });
         // Dashboard
-
     });
 
     // Operation
@@ -185,11 +185,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
             Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
             Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
-
             Route::get('/print/{id}', [OperationController::class, 'printOperation'])->name('print');
         });
     });
-
 
     // Investigation
     Route::prefix('reports/investigation')->name('investigation.')->group(function () {
@@ -213,13 +211,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/minimal/update/{minimal}', [InvestigationController::class, 'updateMinimal'])->name('minimal.update');
             Route::delete('/minimal/destroy', [InvestigationController::class, 'destroyMinimal'])->name('minimal.destroy');
 
-
             Route::get('/spot/create/{afor}', [InvestigationController::class, 'createSpot'])->name('spot.create');
             Route::post('/spot/store', [InvestigationController::class, 'storeSpot'])->name('spot.store');
             Route::get('/spot/edit/{spot}', [InvestigationController::class, 'editSpot'])->name('spot.edit');
             Route::put('/spot/update/{spot}', [InvestigationController::class, 'updateSpot'])->name('spot.update');
             Route::delete('/spot/destroy', [InvestigationController::class, 'destroySpot'])->name('spot.destroy');
-
 
             Route::get('/progress/create/{spot}', [InvestigationController::class, 'createProgress'])->name('progress.create');
             Route::post('/propress/store/{spot}', [InvestigationController::class, 'storeProgress'])->name('progress.store');
@@ -233,9 +229,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/final/update/{final}', [InvestigationController::class, 'updateFinal'])->name('final.update');
             Route::delete('/final/destroy', [InvestigationController::class, 'destroyFinal'])->name('final.destroy');
         });
-
-
-
         // Route::get('/create/form', [InvestigationController::class, 'investigationMinimalCreateForm'])->name('minimal.create.form');
     });
 
