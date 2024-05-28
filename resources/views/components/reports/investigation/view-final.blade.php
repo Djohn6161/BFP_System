@@ -28,31 +28,31 @@
                     </tr>
                     <tr>
                         <th colspan="2">INVESTIGATION AND INTELLIGENCE UNIT</th>
-                        <td colspan="2">{{$investigation->intelligence_unit}}</td>
+                        <td colspan="2">{{ $investigation->intelligence_unit }}</td>
                     </tr>
                     <tr>
                         <th colspan="2">01. PLACE OF FIRE:</th>
-                        <td colspan="2">{{$investigation->place_of_fire}}</td>
+                        <td colspan="2">{{ $investigation->place_of_fire }}</td>
                     </tr>
                     <tr>
                         <th colspan="2">02. TIME AND DATE OF ALARM:</th>
                         @php
-                            $td = explode(" ", $investigation->td_alarm)
-                            
+                            $td = explode(' ', $investigation->td_alarm);
+
                         @endphp
                         {{-- {{dd($td);}} --}}
-                        <td colspan="2">{{$td[0]. " " . date('F d, Y', strtotime($td[1]))}}</td>
+                        <td colspan="2">{{ $td[0] . ' ' . date('F d, Y', strtotime($td[1])) }}</td>
                     </tr>
                     <tr>
                         <th colspan="2">03. ESTABLISHMENT BURNED:</th>
-                        <td colspan="2">{{$investigation->establishment_burned}}</td>
+                        <td colspan="2">{{ $investigation->establishment_burned }}</td>
                     </tr>
                     <tr>
                         <th colspan="2">04. FIRE VICTIM/S:</th>
                         <td colspan="2">
                             @unless (count($investigation->investigation->victims) == 0)
                                 @foreach ($investigation->investigation->victims as $victim)
-                                    <p>{{$victim->name}}</p>
+                                    <p>{{ $victim->name }}</p>
                                 @endforeach
                             @else
                                 <p class="fw-bold">None Found</p>
@@ -62,7 +62,8 @@
                     </tr>
                     <tr>
                         <th colspan="2">05. DAMAGE PROPERTY:</th>
-                        <td colspan="2">{{'₱ ' . number_format($investigation->damage_to_property, 0, '.', ','); }}</td>
+                        <td colspan="2">{{ '₱ ' . number_format($investigation->damage_to_property, 0, '.', ',') }}
+                        </td>
                     </tr>
                     <tr>
                         <th colspan="2">06. ORIGIN OF FIRE:</th>
@@ -101,16 +102,23 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-files"></i> View Operation</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewProgressFinalModal">View Progress</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewSpotFinalModal">View Spot</button>
-                <a href="{{route('investigation.final.print', ['final' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
+                        class="ti ti-files"></i> View Operation</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                    data-bs-target="#viewProgressFinalModal">View Progress</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                    data-bs-target="#viewSpotFinalModal">View Spot</button>
+                <a href="{{ route('investigation.final.print', ['final' => $investigation->id]) }}" type="button"
+                    class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
-<x-reports.investigation.view-operation :act="'final'"  :investigation=$investigation :operation="$investigation->spot->afor" :responses=$responses :personnels=$personnels></x-reports.investigation.view-operation>
-<x-reports.investigation.view-final-progress :investigation=$investigation></x-reports.investigation.view-final-progress>
+<x-reports.investigation.view-operation :act="'final'" :investigation=$investigation :operation="$investigation->spot->afor"
+    :responses=$responses :personnels=$personnels></x-reports.investigation.view-operation>
+<x-reports.investigation.view-final-progress
+    :investigation=$investigation></x-reports.investigation.view-final-progress>
 <x-reports.investigation.view-final-spot :investigation=$investigation></x-reports.investigation.view-final-spot>
