@@ -37,6 +37,9 @@
                                 <table class="table mb-0 align-middle w-100" id="allInvestigation">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
@@ -68,6 +71,9 @@
                                 
                                         @foreach ($sortedInvestigations as $investigation)
                                             <tr>
+                                                <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
+                                                </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
                                                 </td>

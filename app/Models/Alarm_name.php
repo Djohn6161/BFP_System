@@ -11,9 +11,9 @@ class Alarm_name extends Model
     public function afor(){
         return $this->belongsTo(Afor::class,'afor_id');
     }
-    public function personnel(){
-        return $this->belongsTo(Personnel::class,'personnels_id');
-    }
+    // public function personnel(){
+    //     return $this->belongsTo(Personnel::class,'personnels_id');
+    // }
     public function minimals(){
         return $this->hasMany(Minimal::class, 'alarm_status_time');
     }
