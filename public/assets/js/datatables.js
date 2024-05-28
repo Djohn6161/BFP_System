@@ -19,3 +19,4 @@ $("#progressInvestigationTable").DataTable();
 $("#finalInvestigationTable").DataTable();s
 $("#rankTable").DataTable();
 $("#adminAccount").DataTable();
+$("#invesLog").DataTable();

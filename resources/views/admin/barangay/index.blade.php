@@ -44,6 +44,7 @@
                                 <table class="table mb-0 align-middle w-100" id="barangayTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th class="border-bottom-0">ID</th>
                                             <th class="border-bottom-0">Name</th>
                                             <th class="border-bottom-0">Unit</th>
                                             <th class="border-bottom-0 text-center">Action</th>
@@ -58,6 +59,9 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
+                                                <td>
+                                                    {{ $barangay->id }}
+                                                </td>
                                                 <td>
                                                     {{ $barangay->name }}
                                                 </td>
