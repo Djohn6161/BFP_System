@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
-                <h3 class="modal-title fw-bolder text-primary">Investigation Subject (FINAL SPOT)</h3>
+                <h3 class="modal-title fw-bolder text-primary">{{ $final->investigation->subject }} (FINAL SPOT)</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
