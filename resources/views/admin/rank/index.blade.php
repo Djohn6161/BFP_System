@@ -47,18 +47,15 @@
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Name</h6>
+                                            <th style="max-width:10%" class="fw-semibold mb-0">Name
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Slug</h6>
+                                            <th class="fw-semibold mb-0">Slug
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
+                                            <th class="fw-semibold mb-0 text-center">Action
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="table-group-divider">
                                         @foreach ($ranks as $rank)
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>
@@ -68,12 +65,11 @@
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
-                                                            <button class="btn btn-success w-100"
-                                                                data-bs-toggle="modal"
+                                                            <button class="btn btn-success w-100" data-bs-toggle="modal"
                                                                 data-bs-target="#editRankModal{{ $rank->id }}">
                                                                 <i class="ti ti-pencil"></i>
                                                                 Update
-                                                                
+
                                                             </button>
                                                         </div>
                                                         <div class="me-1">
@@ -81,7 +77,7 @@
                                                                 data-bs-target="#deleteRankModal{{ $rank->id }}">
                                                                 <i class="ti ti-trash"></i>
                                                                 Delete
-                                                                
+
                                                             </button>
                                                         </div>
                                                     </div>

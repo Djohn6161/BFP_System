@@ -29,8 +29,8 @@
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 Occupancy Name
                                             </th>
-                                            <th class="border-bottom-0" style="max-width:10%">
-                                                Actions
+                                            <th class="border-bottom-0 text-center" style="max-width:10%">
+                                                Action
                                             </th>
                                         </tr>
                                     </thead>
