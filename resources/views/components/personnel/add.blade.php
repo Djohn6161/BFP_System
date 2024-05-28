@@ -222,7 +222,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
-                                <input class="form-control government-id" type="text" name="philhealth" placeholder="XX-XXXXXXXXX-X">
+                                <input class="form-control government-id" type="text" name="philhealth"
+                                    placeholder="XX-XXXXXXXXX-X">
                             </div>
                         </div>
 
@@ -328,7 +329,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <script>
     //personnel file upload
