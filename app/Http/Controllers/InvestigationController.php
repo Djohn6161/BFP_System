@@ -11,12 +11,13 @@ use App\Models\Victim;
 use App\Models\Minimal;
 use App\Models\Barangay;
 use App\Models\Progress;
+use App\Models\Response;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
-use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -36,6 +37,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function investigationMinimalIndex()
@@ -53,7 +56,9 @@ class InvestigationController extends Controller
             $query->whereNull('deleted_at');
         })->latest()->get();
         $afors = Afor::all();
-        return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
+        $responses = Response::all();
+        $personnels = Personnel::all();
+        return view('reports.investigation.minimal', compact('personnels', 'responses', 'active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
     }
     public function createMinimal(Afor $afor)
     {
@@ -88,16 +93,23 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createSpot(Afor $afor)
     {
+        $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
+        $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        // dd($afor->casualties, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'alarms' => Alarm_name::all(),
             'afor' => $afor,
+            'firstRes' => $firstResponse,
+            'firstAlarm' => $alarm,
 
         ]);
     }
@@ -105,6 +117,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -145,6 +158,7 @@ class InvestigationController extends Controller
         $investigation->save();
         // dd($investigation);
         $spot->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'date_occurence' => $request->input('date_occurence') ?? '',
             'time_occurence' => $request->input('time_occurence') ?? '',
@@ -193,6 +207,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createProgress(Spot $spot)
@@ -261,6 +277,8 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createFinal(Spot $spot)

@@ -44,6 +44,9 @@
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
                                             <th>
@@ -71,6 +74,22 @@
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->minimal)
+                                                            Minimal <br>
+                                                        @endif
+                                                        @if ($investigation->spot)
+                                                            Spot <br>
+                                                        @endif
+                                                        @if ($investigation->spot->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
                                                         {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
@@ -79,7 +98,7 @@
                                                         data-bs-target="#viewFinalModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
-                                                    <x-reports.Investigation.view-final
+                                                    <x-reports.Investigation.view-final :responses=$responses :personnels=$personnels
                                                         :investigation=$investigation></x-reports.Investigation.view-final>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <x-reports.investigation.investigation-delete :type="'final'"
