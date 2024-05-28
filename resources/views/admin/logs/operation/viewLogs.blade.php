@@ -43,8 +43,8 @@
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->name }}</td>
-                                                <td>{{ $log->details }}</td>
-                                                <td>{{ $log->afor != null ? $log->afor->alarm_received : 'Unavailable' }}
+                                                <td>{!! $log->details !!}</td>
+                                                <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
