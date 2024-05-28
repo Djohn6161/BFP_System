@@ -79,11 +79,13 @@
                                                         </div>
                                                         {{-- {{dd(count($truck->minimalEngine ?? []))}} --}}
                                                         @if (count($truck->responses ?? []) != 0 || count($truck->minimalEngine ?? []) != 0)
-                                                            <button disabled class="btn btn-secondary"
-                                                                data-bs-toggle="modal">
-                                                                <i class="ti ti-x"></i>
-                                                                Invalid
-                                                            </button>
+                                                            <div class="me-1">
+                                                                <button disabled class="btn btn-secondary"
+                                                                    data-bs-toggle="modal">
+                                                                    <i class="ti ti-x"></i>
+                                                                    Invalid
+                                                                </button>
+                                                            </div>
                                                         @else
                                                             <div class="me-1">
                                                                 <button class="btn btn-danger w-100" data-bs-toggle="modal"
