@@ -155,7 +155,7 @@ class PersonnelController extends Controller
             $personnel->save();
         }
 
-        return redirect()->back()->with('success', "Operation report added successfully.");
+        return redirect()->back()->with('success', "Personnel added successfully.");
     }
 
     public function personnelUpdateForm($id)
