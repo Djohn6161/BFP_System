@@ -26,6 +26,7 @@ class DesignationController extends Controller
             'section' => 'nullable',
         ]);
         
+        
         $designation = Designation::create($formFields);
 
         if($formFields['class'] == 'B'){
@@ -33,14 +34,16 @@ class DesignationController extends Controller
             $designation->name = "C, " . $designation->name;
             $designation->save();
         }
-        // $log = new ConfigurationLog();
-        // $log->fill([
-        //     'investigation_id' => $final->investigation->id,
-        //     'user_id' => auth()->user()->id,
-        //     'details' => json_encode($changes),
-        //     'action' => "Update",
-        // ]);
-        // $log->save();
+
+        $log = new ConfigurationLog();
+
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Created a designation with a name of " . $designation->name,
+                'type' => 'designation',
+                'action' => 'Store',
+        ]);
+        $log->save();
         return redirect()->back()->with('success', 'Designation Added Successfully!');
     }
     public function update(Request $request, Designation $designation){
@@ -48,7 +51,28 @@ class DesignationController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
         ]);
+        $designationChanges = $this->hasChanges($designation, $formFields);
+        $string = "Updated Designation " . $designation->name;
+
+        if ($designationChanges) {
+            foreach ($designationChanges as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $designation[$index] . " -> " . $change . "</li>";
+            }
+        }
+
+        // dd($formFields, $InfoUpdatedData);
         $designation->update($formFields);
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => $string,
+                'type' => 'designation',
+                'action' => 'Update',
+        ]);
+        $log->save();
         return redirect()->back()->with('success', $designation->name . ' Updated Successfully!');
     }
     public function destroy(Request $request){
@@ -60,5 +84,16 @@ class DesignationController extends Controller
         }
         $designation->delete();
         return redirect()->back()->with('success', 'Designation Deleted Successfully!');
+    }
+    private function hasChanges($info, $updatedData) {
+        $changes = [];
+
+        foreach ($updatedData as $key => $value) {
+            if ($info->{$key} != $value) {
+                $changes[$key] = $value;
+            }
+        }
+
+        return $changes;
     }
 }

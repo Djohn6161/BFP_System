@@ -51,7 +51,7 @@ class BarangayController extends Controller
             'unit' => $request->input('unit'),
         ];
 
-        $barangayChanges = $this->hasChanges($barangays, $InfoUpdatedData);
+        $barangayChanges = $this->hasChanges($barangays, $validatedData);
 
         $string = "Updated Barangay " . $barangays->name;
 
