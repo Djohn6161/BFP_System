@@ -18,6 +18,7 @@
                                             <th>Date and Time</th>
                                             <th>User</th>
                                             <th>Details</th>
+                                            <th>Type</th>
                                             <th>Action/Changes Made</th>
                                         </tr>
                                     </thead>
@@ -29,6 +30,7 @@
                                                 <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->name }}</td>
                                                 <td>{!! $log->Details !!}</td>
+                                                <td class="text-capitalize fw-bolder">{{ $log->type }}</td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
                                                     <div class="text-light rounded-pill bg-danger p-2 text-center ">{{ $log->action }}</div>

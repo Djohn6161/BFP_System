@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("userID")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
             // $table->string('configName');
-            $table->string('Details');
+            $table->longText('Details');
             $table->enum("type", ['occupancy','barangay','alarm', 'truck', 'rank', 'designation', 'personnel', ]);
             $table->string("action");
             $table->timestamps();
