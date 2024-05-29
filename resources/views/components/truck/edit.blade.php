@@ -20,12 +20,16 @@
                         <input type="text" class="form-control" value="{{ $truck->plate_num }}" id="plate_num" name="plate_num" placeholder="Enter Plate Number">
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status:</label>
+                        {{-- <label for="status" class="form-label">Status:</label> --}}
                         {{-- <input type="text" class="form-select" value="{{ $truck->status }}" id="status" name="status" placeholder="Truck Status"> --}}
-                        <select type="text" class="form-select" value="{{ $truck->status }}" id="status" name="status" placeholder="Truck Status">
-                            {{-- <option type="text" value="{{ $truck->status }}"selected></option> --}}
-                            <option type="text" id="status" name="status" value="active">Active</option>
-                            <option type="text" id="status" name="status" value="inactive">Inactive</option>
+                        {{-- <select type="text" class="form-select" id="status" name="status" placeholder="Truck Status">
+                            <option type="text" id="status" name="status" value="active" {{ $truck->status == 'active'? 'elected' : '' }}>Active</option>
+                            <option type="text" id="status" name="status" value="inactive" {{ $truck->status == 'inactive'? 'elected' : '' }}>Inactive</option>
+                        </select> --}}
+                        <label for="status" class="form-label">Status:</label>
+                        <select type="text" class="form-select" id="status" name="status" placeholder="Truck Status">
+                            <option type="text" id="status" name="status" value="active" {{ $truck->status == 'active'? 'selected' : '' }}>Active</option>
+                            <option type="text" id="status" name="status" value="inactive" {{ $truck->status == 'inactive'? 'selected' : '' }}>Inactive</option>
                         </select>
                         
                     </div>
