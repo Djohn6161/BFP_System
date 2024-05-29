@@ -20,6 +20,7 @@
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update Alarm</button>
                     </div>
+                </div>
             </form>
         </div>
     </div>
