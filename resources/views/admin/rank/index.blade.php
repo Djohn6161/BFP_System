@@ -47,7 +47,11 @@
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th style="max-width:10%" class="fw-semibold mb-0">Name
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
+                                            <th style="max-width:10%">
+                                                <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
                                             <th class="fw-semibold mb-0">Slug
                                             </th>
@@ -60,6 +64,7 @@
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>
                                             <tr>
+                                                <td>{{ $rank->id }}</td>
                                                 <td>{{ $rank->name }}</td>
                                                 <td>{{ $rank->slug }}</td>
                                                 <td class="w-25 py-2">
@@ -72,14 +77,25 @@
 
                                                             </button>
                                                         </div>
-                                                        <div class="me-1">
-                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteRankModal{{ $rank->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
+                                                        @if (count($rank->personnels ?? []) != 0)
+                                                            <div class="me-1">
+                                                                <button disabled class="btn btn-secondary"
+                                                                    data-bs-toggle="modal">
+                                                                    <i class="ti ti-x"></i>
+                                                                    Invalid
+                                                                </button>
+                                                            </div>
+                                                        @else
+                                                            <div class="me-1">
+                                                                <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteRankModal{{ $rank->id }}">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete
 
-                                                            </button>
-                                                        </div>
+                                                                </button>
+                                                            </div>
+                                                        @endif
+
                                                     </div>
                                                 </td>
                                             </tr>

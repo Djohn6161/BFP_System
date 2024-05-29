@@ -168,8 +168,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}"
+                            {{-- class="sidebar-link accordion-body ms-2 reports-collapse > --}}
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel</span>
                         </a>
@@ -182,14 +182,14 @@
                             class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'viewConfigurationLogs') ? '' : 'collapsed' }}" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseLogs" aria-expanded="true"
+                                    <button class="accordion-button sidebar-link {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'configurationLog') ? '' : 'collapsed' }}" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseLogs" aria-expanded="{{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'configurationLog') ? 'true' : 'false' }}"
                                         aria-controls="collapseOne">
                                         <span> <i class="ti ti-file-description"></i></span>
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'viewConfigurationLogs') ? '' : 'collapse' }}"
+                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapsed' }}"
                                     data-bs-parent="#logsAccordion">
 
                                     <a href="{{ route('admin.logs.operation.viewLogs') }}"
@@ -202,9 +202,9 @@
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
                                     </a>
-                                    <a href="#"
-                                    {{-- <a href="{{ route('admin.logs.configuration.viewLogs') }}" --}}
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewConfigurationLogs' ? 'bg-primary text-light' : '' }}">
+                                    {{-- <a href="#" --}}
+                                    <a href="{{ route('admin.logs.configuration.viewLogs') }}"
+                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'configurationLog' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Configurations
                                     </a>
