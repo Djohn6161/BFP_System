@@ -46,11 +46,6 @@ class BarangayController extends Controller
             'unit' => 'required'
         ]);
 
-        $InfoUpdatedData = [
-            'name' => $request->input('name'),
-            'unit' => $request->input('unit'),
-        ];
-
         $barangayChanges = $this->hasChanges($barangays, $validatedData);
 
         $string = "Updated Barangay " . $barangays->name;
