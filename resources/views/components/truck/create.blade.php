@@ -22,7 +22,11 @@
                 
                 <div class="mb-3">
                     <label for="status" class="form-label">Status:</label>
-                    <input name="status" type="text" class="form-control" id="status" placeholder="Enter Truck Status">
+                    <select name="status" id="status" class="form-select" aria-label="truckStatus">
+                        <option selected>Select status</option>
+                        <option value="active">active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
                 </div>
                 
             </div>

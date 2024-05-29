@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Truck;
 use Illuminate\Http\Request;
+use App\Models\ConfigurationLog;
 use Illuminate\Support\Facades\Auth;
 
 class TruckController extends Controller
@@ -25,7 +26,18 @@ class TruckController extends Controller
             'status' => 'required'
         ]);
 
-        Truck::create($validatedData);
+        $trucks = Truck::create($validatedData);
+
+        $log = new ConfigurationLog();
+
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Created a truck with a name of " . $trucks->name,
+                'type' => 'truck',
+                'action' => 'Store',
+        ]);
+        $log->save();
+        
         return redirect()->back()->with('success', 'Truck, created Successfully.');
     }
 
@@ -39,10 +51,30 @@ class TruckController extends Controller
             'status' => 'required'
         ]);
             
+        $truckChanges = $this->hasChanges($trucks, $validatedData);
+
+        $string = "Updated Truck " . $trucks->name;
+
+        if ($truckChanges) {
+            foreach ($truckChanges as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $trucks[$index] . " -> " . $change . "</li>";
+            }
+        }
+
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => $string,
+                'type' => 'truck',
+                'action' => 'Update',
+        ]);
+        $log->save();
 
         $trucks->update($validatedData);
         return redirect()->back()->with('success', 'Truck, update Successfully.');
-       
     }
 
     public function deleteTruck($id)
@@ -50,6 +82,27 @@ class TruckController extends Controller
         $trucks = Truck::findOrFail($id);
         $trucks->delete();
 
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Deleted Truck " . $trucks->name,
+                'type' => 'truck',
+                'action' => 'Delete',
+        ]);
+        $log->save();
+
         return redirect()->back()->with('success', 'Truck deleted successfully.');
+    }
+
+    private function hasChanges($info, $updatedData) {
+        $changes = [];
+
+        foreach ($updatedData as $key => $value) {
+            if ($info->{$key} != $value) {
+                $changes[$key] = $value;
+            }
+        }
+
+        return $changes;
     }
 }
