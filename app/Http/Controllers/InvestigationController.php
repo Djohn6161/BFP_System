@@ -101,7 +101,7 @@ class InvestigationController extends Controller
     {
         $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
         $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
-        // dd($afor, $firstResponse, $alarm);
+        // dd($afor->casualties, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
@@ -117,6 +117,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -157,6 +158,7 @@ class InvestigationController extends Controller
         $investigation->save();
         // dd($investigation);
         $spot->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'date_occurence' => $request->input('date_occurence') ?? '',
             'time_occurence' => $request->input('time_occurence') ?? '',
@@ -531,6 +533,7 @@ class InvestigationController extends Controller
         // dd($validatedData, $request->all());
 
         $inves = Investigation::findOrFail($minimal->investigation_id);
+        $originalInvestigationData = $inves->getOriginal();
         $updateInve = [
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
@@ -579,7 +582,7 @@ class InvestigationController extends Controller
             }
         }
         $photos = implode(", ", $remainingPhotos);
-
+        $originalData = $minimal->getOriginal();
         $updatedMinimal = [
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',
@@ -608,11 +611,28 @@ class InvestigationController extends Controller
         ];
         $minimal->touch();
         $minimal->update($updatedMinimal);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedMinimal as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $minimal->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Minimal Investigation with a subject of " . $minimal->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -661,6 +681,7 @@ class InvestigationController extends Controller
         ]);
 
         $investigation = Investigation::findOrFail($spot->investigation_id);
+        $originalInvestigationData = $investigation->getOriginal();
         $updateInve = [
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
@@ -694,13 +715,31 @@ class InvestigationController extends Controller
             'details' => $validatedData['details'] ?? '',
             'disposition' => $validatedData['disposition'] ?? '',
         ];
+        $originalData = $spot->getOriginal();
         $spot->touch();
         $spot->update($updatedSpot);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedSpot as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $spot->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Spot Investigation with a subject of " . $spot->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -734,6 +773,7 @@ class InvestigationController extends Controller
             'subject' => $validatedData['subject'],
             'date' => $validatedData['date'],
         ];
+        $originalInvestigationData = $investigation->getOriginal();
         $investigation->touch();
         $investigation->update($updateInve);
         // dd($investigation);
@@ -743,13 +783,31 @@ class InvestigationController extends Controller
             'facts_of_the_case' => $validatedData['facts_of_the_case'] ?? "",
             'disposition' => $validatedData['disposition'] ?? "",
         ];
+        $originalData = $progress->getOriginal();
         $progress->touch();
         $progress->update($updatedProg);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedProg as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $progress->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Progress Investigation with a subject of " . $progress->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -800,8 +858,9 @@ class InvestigationController extends Controller
             'recommendation' => 'required',
         ]);
         // dd($validatedData);
+        
         $investigation = Investigation::find($final->investigation_id);
-
+        $originalInvestigationData = $investigation->getOriginal();
         if ($request->has('barangay')) {
             # code...
             $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
@@ -848,12 +907,30 @@ class InvestigationController extends Controller
             'recommendation' => $request->input('recommendation') ?? '',
         ];
         // dd($spot);
+        $originalData = $final->getOriginal();
         $final->update($updateFinal);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updateFinal as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $final->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Final Investigation with a subject of " . $final->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();

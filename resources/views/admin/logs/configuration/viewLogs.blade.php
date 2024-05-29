@@ -18,7 +18,6 @@
                                             <th>Date and Time</th>
                                             <th>User</th>
                                             <th>Details</th>
-                                            <th>Alarm Received</th>
                                             <th>Action/Changes Made</th>
                                         </tr>
                                     </thead>
@@ -29,9 +28,7 @@
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->name }}</td>
-                                                <td>{{ $log->details }}</td>
-                                                <td>{{ $log->afor != null ? $log->afor->alarm_received : 'Unavailable' }}
-                                                </td>
+                                                <td>{!! $log->Details !!}</td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
                                                     <div class="text-light rounded-pill bg-danger p-2 text-center ">{{ $log->action }}</div>

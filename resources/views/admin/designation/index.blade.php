@@ -17,7 +17,7 @@
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#addOtherDesignationModal">
                                     <i class="ti ti-plus"></i>
-                                    
+
                                     Add Designation
                                 </button>
                             </div>
@@ -27,6 +27,7 @@
                                     <thead class="text-dark fs-4">
 
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
@@ -34,6 +35,7 @@
                                     <tbody>
                                         @foreach ($otherDes as $item)
                                             <tr>
+                                                <td class="py-2">{{ $item->id }}</td>
                                                 <td class="py-2">{{ $item->name }}</td>
                                                 <td class="w-25 py-2">
                                                     <div class="d-flex flex-row">
@@ -41,10 +43,11 @@
                                                             <button type="button" class="btn btn-success"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editOtherDesignationModal{{ $item->id }}">
-                                                                    <i class="ti ti-plus"></i>
+                                                                <i class="ti ti-pencil"></i>
                                                                 Update</button>
                                                         </div>
-                                                        <div>
+                                                        <div class="me-1">
+
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteOtherDesignationModal{{ $item->id }}"
                                                                 class="btn btn-danger hide-menu">
@@ -107,6 +110,7 @@
                                                 <table class="table mb-0 align-middle w-100" id="designationTable">
                                                     <thead class="text-dark fs-4">
                                                         <tr>
+                                                            <th>ID</th>
                                                             <th>Name</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -114,6 +118,7 @@
                                                     <tbody>
                                                         @foreach ($designations->where('section', $section->id) as $item)
                                                             <tr>
+                                                                <td class="py-2">{{ $item->id }}</td>
                                                                 <td class="py-2">{{ $item->name }}</td>
                                                                 <td class="py-2">
                                                                     <div class="d-flex flex-row">
@@ -124,7 +129,7 @@
                                                                                 <i class="ti ti-pencil"></i>
                                                                                 Update</button>
                                                                         </div>
-                                                                        <div>
+                                                                        <div >
                                                                             <button type="button" data-bs-toggle="modal"
                                                                                 data-bs-target="#deleteUnitModal{{ $item->id }}"
                                                                                 class="btn btn-danger hide-menu w-100">

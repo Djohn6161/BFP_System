@@ -42,27 +42,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $sortedAfors = $afors->sortByDesc(function($item) {
-                                        return \Carbon\Carbon::parse($item->td_under_control);
-                                    });
-                                @endphp
-                        
-                                @foreach ($sortedAfors as $item)
-                                <tr>
-                                    <td>{{ $item->alarm_received }}</td>
-                                    <td>{{ $item->transmitted_by }}</td>
-                                    <td>{{ $item->full_location }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->td_under_control)->format('F j, Y H:i') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->td_declared_fireout)->format('F j, Y H:i') }}</td>
-                                    <td>
-                                        <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
-                                            class="btn btn-primary hide-menu w-100 mb-1">
-                                            <i class="ti ti-check"></i>
-                                            Apply
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($afors as $item)
+                                    <tr>
+                                        <td>{{ $item->alarm_received }}</td>
+                                        <td>{{ $item->transmitted_by }}</td>
+                                        <td> {{ $item->full_location }} </td>
+                                        <td> {{ $item->td_under_control }} </td>
+                                        <td> {{ $item->td_declared_fireout }} </td>
+                                        <td>
+
+                                            @if ($item->minimal)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
+                                                    class=" btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-check"></i>
+                                                    Apply
+                                                </a>
+                                            @endif
+
+                                            {{-- <button disabled></button> --}}
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -74,8 +79,7 @@
     </div>
 
     {{-- Spot Table Modal --}}
-    <div class="modal fade" id="spotTableModal" tabindex="-1" aria-labelledby="spotTableModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="spotTableModal" tabindex="-1" aria-labelledby="spotTableModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
@@ -96,27 +100,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                $sortedAfors = $afors->sortByDesc(function($item) {
-                                    return \Carbon\Carbon::parse($item->td_under_control);
-                                });
-                            @endphp
-                    
-                            @foreach ($sortedAfors as $item)
-                                <tr>
-                                    <td>{{$item->alarm_received}}</td>
-                                    <td>{{$item->transmitted_by}}</td>
-                                    <td> {{$item->full_location}} </td>
-                                    <td> {{$item->td_under_control}} </td>
-                                    <td> {{$item->td_declared_fireout}} </td>
-                                    <td>
-                                        <a href="{{ route('investigation.spot.create', ['afor' => $item->id]) }}"
-                                            class="btn btn-primary hide-menu w-100 mb-1">
-                                            <i class="ti ti-check"></i>
-                                            Apply
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($afors as $item)
+                                    <tr>
+                                        <td>{{ $item->alarm_received }}</td>
+                                        <td>{{ $item->transmitted_by }}</td>
+                                        <td> {{ $item->full_location }} </td>
+                                        <td> {{ $item->td_under_control }} </td>
+                                        <td> {{ $item->td_declared_fireout }} </td>
+                                        <td>
+                                            @if ($item->spot)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.spot.create', ['afor' => $item->id]) }}"
+                                                    class="btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-check"></i>
+                                                    Apply
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -207,7 +213,8 @@
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
                                             <a href="{{ route('investigation.final.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
+                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
+                                                Apply</a>
                                         </td>
                                     </tr>
                                 @endforeach

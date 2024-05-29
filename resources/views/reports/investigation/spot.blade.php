@@ -36,11 +36,17 @@
                                 <table class="table mb-0 align-middle w-100" id="spotInvestigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
@@ -62,11 +68,28 @@
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->id }}
+                                                    </h6>
+                                                </td>
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
                                                     </h6>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                        @if ($investigation->final)
+                                                            Final <br>
+                                                        @endif
                                                     </p>
                                                 </td>
                                                 <td>

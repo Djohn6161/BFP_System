@@ -202,6 +202,7 @@
                                         <span><i class="ti ti-caret-right"></i></span>
                                         Investigation
                                     </a>
+                                    {{-- <a href="#" --}}
                                     <a href="{{ route('admin.logs.configuration.viewLogs') }}"
                                         class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewConfigurationLogs' ? 'bg-primary text-light' : '' }}">
                                         <span><i class="ti ti-caret-right"></i></span>

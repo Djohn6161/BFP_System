@@ -39,22 +39,8 @@ $("#minimalInvestigationTable").DataTable({
     // "scrollY": "500px",
     "ordering": false,
   });
-$("#progressInvestigationTable").DataTable({
-  "ordering": false,
-});
-$("#finalInvestigationTable").DataTable({
-  "ordering": false,
-});
-$("#rankTable").DataTable({
-  "ordering": false,
-});
-$("#adminAccount").DataTable({
-  "ordering": false,
-});
-$("#barangayTable").DataTable({
-  "ordering": false,
-});
-$("#trucksTable").DataTable({
-  "ordering": false,
-});
-
+$("#progressInvestigationTable").DataTable();
+$("#finalInvestigationTable").DataTable();s
+$("#rankTable").DataTable();
+$("#adminAccount").DataTable();
+$("#invesLog").DataTable();

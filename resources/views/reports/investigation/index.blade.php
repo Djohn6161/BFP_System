@@ -37,6 +37,9 @@
                                 <table class="table mb-0 align-middle w-100" id="allInvestigation">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
@@ -45,6 +48,9 @@
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Type</h6>
@@ -66,6 +72,9 @@
                                         @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
+                                                </td>
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
                                                 </td>
                                                 <td>
@@ -78,17 +87,64 @@
                                                 </td>
                                                 @if ($investigation->minimal != null)
                                                     <td>
+                                                        <p class="mb-0 fw-normal">
+                                                            {{-- {{dd($investigation->Minimal->afor)}} --}}
+                                                            @if ($investigation->Minimal->afor)
+                                                                Operation <br>
+                                                            @endif
+                                                        </p>
+                                                    </td>
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Minimal</p>
                                                     </td>
                                                 @elseif($investigation->spot != null)
+                                                    <td>
+                                                        <p class="mb-0 fw-normal">
+                                                            @if ($investigation->Spot->afor)
+                                                                Operation <br>
+                                                            @endif
+                                                            @if ($investigation->Spot->progress)
+                                                                Progress <br>
+                                                            @endif
+                                                            @if ($investigation->Spot->final)
+                                                                Final <br>
+                                                            @endif
+                                                        </p>
+                                                    </td>
                                                     <td>
                                                         <p class="mb-0 fw-normal">Spot</p>
                                                     </td>
                                                 @elseif($investigation->progress != null)
                                                     <td>
+                                                        <p class="mb-0 fw-normal">
+                                                            @if ($investigation->progress->Spot->afor)
+                                                                Operation <br>
+                                                            @endif
+                                                            @if ($investigation->progress->Spot)
+                                                                Spot <br>
+                                                            @endif
+                                                            @if ($investigation->progress->Spot->final)
+                                                                Final <br>
+                                                            @endif
+                                                        </p>
+                                                    </td>
+                                                    <td>
                                                         <p class="mb-0 fw-normal">Progress</p>
                                                     </td>
                                                 @elseif($investigation->final != null)
+                                                    <td>
+                                                        <p class="mb-0 fw-normal">
+                                                            @if ($investigation->final->Spot->afor)
+                                                                Operation <br>
+                                                            @endif
+                                                            @if ($investigation->final->Spot)
+                                                                Spot <br>
+                                                            @endif
+                                                            @if ($investigation->final->Spot->Progress)
+                                                                Progress <br>
+                                                            @endif
+                                                        </p>
+                                                    </td>
                                                     <td>
                                                         <p class="mb-0 fw-normal">Final</p>
                                                     </td>
@@ -100,11 +156,17 @@
                                                         @endphp
                                                         <td>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewMinimalModal{{ $investigationDetail->id }}"
-                                                                class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
-                                                            <x-reports.Investigation.view-minimal :investigation="$investigationDetail"></x-reports.Investigation.view-minimal>
-                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigationDetail->id]) }}"
-                                                                class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
+                                                                data-bs-target="#viewMinimalModal{{ $investigation->id }}"
+                                                                class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                    class="ti ti-eye"></i> View</button>
+                                                            <x-reports.Investigation.view-minimal
+                                                                :investigation=$investigation :responses=$responses
+                                                                :personnels=$personnels></x-reports.Investigation.view-minimal>
+                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
+                                                                class="btn btn-success w-100 mb-1"><i
+                                                                    class="ti ti-pencil"></i>
+                                                                Update</a>
+
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteModal{{ $investigationDetail->id }}"
@@ -118,11 +180,17 @@
                                                         @endphp
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewSpotModal{{ $investigationDetail->id }}"
-                                                                class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
-                                                            <x-reports.Investigation.view-spot :investigation="$investigationDetail"></x-reports.Investigation.view-spot>
-                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigationDetail->id]) }}"
-                                                                class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
+                                                                data-bs-target="#viewSpotModal{{ $investigation->id }}"
+                                                                class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                    class="ti ti-eye"></i> View</button>
+                                                            <x-reports.Investigation.view-spot :investigation=$investigation
+                                                                :responses=$responses
+                                                                :personnels=$personnels></x-reports.Investigation.view-spot>
+
+                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
+                                                                class="btn btn-success w-100 mb-1"><i
+                                                                    class="ti ti-pencil"></i>
+                                                                Update</a>
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteModal{{ $investigationDetail->id }}"
@@ -136,11 +204,17 @@
                                                         @endphp
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewProgressModal{{ $investigationDetail->id }}"
-                                                                class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
-                                                            <x-reports.Investigation.view-progress :investigation="$investigationDetail"></x-reports.Investigation.view-progress>
-                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigationDetail->id]) }}"
-                                                                class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i> Update</a>
+                                                                data-bs-target="#viewProgressModal{{ $investigation->id }}"
+                                                                class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                    class="ti ti-eye"></i> View</button>
+                                                            <x-reports.Investigation.view-progress
+                                                                :investigation=$investigation :responses=$responses
+                                                                :personnels=$personnels></x-reports.Investigation.view-progress>
+
+                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
+                                                                class="btn btn-success w-100 mb-1"><i
+                                                                    class="ti ti-pencil"></i>
+                                                                Update</a>
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteModal{{ $investigationDetail->id }}"
@@ -154,9 +228,12 @@
                                                         @endphp
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewFinalModal{{ $investigationDetail->id }}"
-                                                                class="btn btn-primary hide-menu w-100 mb-1"><i class="ti ti-eye"></i> View</button>
-                                                            <x-reports.Investigation.view-final :investigation="$investigationDetail"></x-reports.Investigation.view-final>
+                                                                data-bs-target="#viewFinalModal{{ $investigation->id }}"
+                                                                class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                    class="ti ti-eye"></i> View</button>
+                                                            <x-reports.Investigation.view-final
+                                                                :investigation=$investigation :responses=$responses
+                                                                :personnels=$personnels></x-reports.Investigation.view-final>
                                                             <x-reports.investigation.investigation-delete :type="'final'"
                                                                 :investigation="$investigationDetail"></x-reports.investigation.investigation-delete>
                                                             <a href="{{ route('investigation.final.edit', ['final' => $investigationDetail->id]) }}"
