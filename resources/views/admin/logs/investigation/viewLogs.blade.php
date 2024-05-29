@@ -75,15 +75,13 @@
                                                 </td>
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#viewInvestigationLogs"
+                                                    data-bs-target="#viewInvestigationLogs{{ $log->id }}"
                                                     class="btn btn-primary hide-menu w-100 mb-1"><i
                                                         class="ti ti-eye"></i> View</button>
                                                         <x-logs.view-investigation :log="$log"></x-logs.view-investigation>
                                                 </td>
                                             </tr>
                                         @endforeach
-
-
                                         <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>
