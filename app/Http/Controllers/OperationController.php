@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Afor_designation;
 use Carbon\Carbon;
 use App\Models\Afor;
 use App\Models\Truck;
@@ -349,8 +348,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'occupancy' => $request->input('occupancy') ?? '',
-            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
             'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
             'structure_description' => $request->input('structure_description') ?? '',
             'details' => $request->input('details') ?? '',
@@ -394,12 +391,11 @@ class OperationController extends Controller
         $existingResponses = Response::where('afor_id', $request->operation_id)->get();
         $requestIndexes = array_keys($engine_dispatched);
 
-
         foreach ($existingResponses as $index => $existingResponse) {
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
-                $string = $string . "<br>Response Info: <br>";
-                $string = $string . "<li>" . "<b> Engine Dispatched </b>" . ": " . $existingResponse->truck->name . " -> Deleted</li>";
+                $string = $string . "Response Info: <br>";
+                $string = $string . "<li>" . "<b> Engine Dispatched: </b>" . $existingResponse->truck->name . " -> Deleted</li>";
 
                 $existingResponse->delete();
                 $status = true;
@@ -430,12 +426,28 @@ class OperationController extends Controller
                     'gas_consumed' => $new_gas_consumed,
                 ];
 
-                if ($this->hasChanges($existingResponse, $changes)) {
+                $responseChange = $this->hasChanges($existingResponse, $changes);
+
+                if ($responseChange) {
                     $status = true;
+                    $string = $string . "Engine Dispatched:" . $existingResponse->truck->name . "<br> Update: <br>";
+
+                    foreach ($responseChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+                        $engineResponse = Truck::where('id', $change)->first();
+
+                        if ($format == "Engine Dispatched") {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->truck->name . " -> " . $engineResponse->name . "</li>";
+                        } else {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse[$index] . " -> " . $change . "</li>";
+                        }
+                    }
                     $existingResponse->update($changes);
                 }
             } else {
                 // No existing record for this index, create a new one
+                $nameNewDispatched = Truck::where('id', $newDispatched)->first();
                 $newResponse = new Response();
                 $newResponse->afor_id = $request->operation_id;
                 $newResponse->engine_dispatched = $newDispatched;
@@ -446,11 +458,20 @@ class OperationController extends Controller
                 $newResponse->water_tank_refilled = $new_water_tank_refilled;
                 $newResponse->gas_consumed = $new_gas_consumed;
 
-                $newResponse->save(); // Save the new record
+
+                $string = $string . "New Engine Dispatched: " . $nameNewDispatched->name . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Engine Dispatached: </b>" . $nameNewDispatched->name . "</li>";
+                $string = $string . "<li>" . "<b> Time Dispatched: </b>" . $new_time_dispatched . "</li>";
+                $string = $string . "<li>" . "<b> Time Arrived At Scene: </b>" . $new_time_arrived_at_scene . "</li>";
+                $string = $string . "<li>" . "<b> Response Duration: </b>" . $new_response_duration . "</li>";
+                $string = $string . "<li>" . "<b> Time Return to Base: </b>" . $new_time_return_to_base . "</li>";
+                $string = $string . "<li>" . "<b> Water Tank Refilled: </b>" . $new_water_tank_refilled . "</li>";
+                $string = $string . "<li>" . "<b> Gas Consumed: </b>" . $new_gas_consumed . "</li>";
+
+                $newResponse->save();
                 $status = true;
             }
         }
-
 
         // Declared Alarm 
         $alarm_names = $request->input('alarm_name', []);
@@ -466,6 +487,8 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $string = $string . "Declared Alarm Info: <br>";
+                $string = $string . "<li>" . "<b> Alarm Declared: </b>"  . $existingAlarm->alarm_name . " -> Deleted</li>";
                 $existingAlarm->delete();
                 $status = true;
             }
@@ -488,7 +511,23 @@ class OperationController extends Controller
                     'ground_commander' => $new_ground_commander,
                 ];
 
-                if ($this->hasChanges($existingAlarm, $changes)) {
+                $existingAlarmChange = $this->hasChanges($existingAlarm, $changes);
+
+                if ($existingAlarmChange) {
+
+                    $string = $string . "Declated Alarm:" . $existingAlarm->alarm_name . " <br> Updated: <br>";
+
+                    foreach ($existingAlarmChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+                        $personnel = Personnel::where('id', $change)->first();
+
+                        if ($format == "Ground Commander") {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . $existingAlarm->getgroundCommander->rank->slug . " " . $existingAlarm->getgroundCommander->first_name . " " . $existingAlarm->getgroundCommander->last_name . " -> " . $personnel->rank->slug . " " . $personnel->first_name . " " . $personnel->last_name . "</li>";
+                        } else {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingAlarm[$index] . " -> " . $change . "</li>";
+                        }
+                    }
                     $existingAlarm->update($changes);
                     $status = true;
                 }
@@ -499,11 +538,18 @@ class OperationController extends Controller
                 $newAlarm->alarm_name = $new_alarm_name;
                 $newAlarm->time = $new_time;
                 $newAlarm->ground_commander = $new_ground_commander;
+                $personnel = Personnel::where('id', $new_ground_commander)->first();
+
+                $string = $string . "New Declared Alarm: " . $new_alarm_name . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Alarm Name: </b>" . $new_alarm_name . "</li>";
+                $string = $string . "<li>" . "<b> Time: </b>" . $new_time . "</li>";
+                $string = $string . "<li>" . "<b> Ground Commander </b>" . ": " . $personnel->rank->slug . " " . $personnel->first_name . " " . $personnel->last_name . "</li>";
+
                 $newAlarm->save(); // Save the new record
                 $status = true;
+
             }
         }
-
 
         // Occupancy
         $InfoUpdatedData = [
@@ -518,6 +564,16 @@ class OperationController extends Controller
         $occupancyChange = $this->hasChanges($occupancy, $InfoUpdatedData);
 
         if ($occupancyChange) {
+
+            $string = $string . "Occupancy Name: " . $occupancy->occupancy_name . "<br>Update: <br>";
+
+            foreach ($occupancyChange as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $occupancy[$index] . " -> " . $change . "</li>";
+            }
+
             $occupancy->update($InfoUpdatedData);
             $status = true;
         }
@@ -533,24 +589,34 @@ class OperationController extends Controller
                     'injured' => $request->input('civilian_injured', 0),
                     'death' => $request->input('civilian_deaths', 0),
                 ];
+
+                $title = "Civillian Casualties: <br>Update: <br>";
             } else {
                 $infoUpdatedData = [
                     'injured' => $request->input('firefighter_injured', 0),
                     'death' => $request->input('firefighter_deaths', 0),
                 ];
+                $title = "Firefighter Casualties: <br>Update: <br>";
             }
 
             // Check if any field has changed
-            $hasChanges = $this->hasChanges($casualty, $infoUpdatedData);
+            $casualtiesChange = $this->hasChanges($casualty, $infoUpdatedData);
 
-            if ($hasChanges) {
+            if ($casualtiesChange) {
+
+                $string = $string . " " . $title;
+
+                foreach ($casualtiesChange as $index => $change) {
+                    $format = str_replace('_', ' ', $index);
+                    $format = ucwords($format);
+
+                    $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $casualty[$index] . " -> " . $change . "</li>";
+                }
+
                 $casualty->update($infoUpdatedData);
                 $status = true;
             }
         }
-
-
-
 
         // Breathing equipment 
         $numbers = $request->input('no_breathing', []);
@@ -564,6 +630,8 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $string = $string . "Breathing Apparatus Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $breathing->type . " -> Deleted</li>";
                 $breathing->delete();
                 $status = true;
             }
@@ -584,10 +652,23 @@ class OperationController extends Controller
                     'type' => $new_type,
                 ];
 
-                if ($this->hasChanges($breathing, $changes)) {
+                $breathingChange = $this->hasChanges($breathing, $changes);
+
+                if ($breathingChange) {
+
+                    $string = $string . "Breathing Apparatus Equipment:" . $breathing->type . " <br> Updated: <br>";
+
+                    foreach ($breathingChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+
+                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $breathing[$index] . " -> " . $change . "</li>";
+                    }
+
                     $status = true;
                     $breathing->update($changes);
                 }
+
             } else {
                 // No existing record for this index, create a new one
                 $newbreathing = new Used_equipment();
@@ -597,6 +678,10 @@ class OperationController extends Controller
                 $newbreathing->category = 'breathing apparatus';
                 $newbreathing->save(); // Save the new record
                 $status = true;
+
+                $string = $string . "New Breathing Apparatus Equipment: " . $newbreathing->type . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $newbreathing->type . "</li>";
+                $string = $string . "<li>" . "<b> Quantity: </b>" . $newbreathing->quantity . "</li>";
             }
         }
 
@@ -612,6 +697,8 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $string = $string . "Extinguishing Agend Used Equipment Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $extinguishing->type . " -> Deleted</li>";
                 $extinguishing->delete();
                 $status = true;
             }
@@ -632,7 +719,19 @@ class OperationController extends Controller
                     'type' => $new_type,
                 ];
 
-                if ($this->hasChanges($extinguishing, $changes)) {
+                $extinguishingChange = $this->hasChanges($extinguishing, $changes);
+
+                if ($extinguishingChange) {
+
+                    $string = $string . "Extinguishing Agend Used Equipment: " . $extinguishing->type . " <br> Updated: <br>";
+
+                    foreach ($extinguishingChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+
+                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $extinguishing[$index] . " -> " . $change . "</li>";
+                    }
+
                     $status = true;
                     $extinguishing->update($changes);
                 }
@@ -645,11 +744,15 @@ class OperationController extends Controller
                 $newExtinguishing->category = 'extinguishing agent';
                 $newExtinguishing->save(); // Save the new record
                 $status = true;
+
+                $string = $string . "New Extinguishing Agend Used Equipment: " . $newExtinguishing->type . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $newExtinguishing->type . "</li>";
+                $string = $string . "<li>" . "<b> Quantity: </b>" . $newExtinguishing->quantity . "</li>";
             }
         }
 
 
-        // extinguishing agent equipment 
+        // Rope and Ladder equipment 
         $length = $request->input('rope_ladder_length', []);
         $types = $request->input('rope_ladder', []);
 
@@ -661,6 +764,8 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $string = $string . "Rope and Ladder Used Equipment Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $ropeLadder->type . " -> Deleted</li>";
                 $ropeLadder->delete();
                 $status = true;
             }
@@ -681,10 +786,22 @@ class OperationController extends Controller
                     'type' => $new_type,
                 ];
 
-                if ($this->hasChanges($ropeLadder, $changes)) {
+                $ropeLadderChange = $this->hasChanges($ropeLadder, $changes);
+
+                if ($ropeLadderChange) {
+
+                    $string = $string . "Rope and Ladder Used Equipment: " . $ropeLadder->type . " <br> Updated: <br>";
+
+                    foreach ($ropeLadderChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+
+                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $ropeLadder[$index] . " -> " . $change . "</li>";
+                    }
                     $status = true;
                     $ropeLadder->update($changes);
                 }
+
             } else {
                 // No existing record for this index, create a new one
                 $newRopeLadder = new Used_equipment();
@@ -694,6 +811,10 @@ class OperationController extends Controller
                 $newRopeLadder->category = 'rope and ladder';
                 $newRopeLadder->save(); // Save the new record
                 $status = true;
+
+                $string = $string . "Rope and Ladder Used Equipment: " . $newRopeLadder->type . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $newRopeLadder->type . "</li>";
+                $string = $string . "<li>" . "<b> Length: </b>" . $newRopeLadder->length . "</li>";
             }
         }
 
@@ -710,6 +831,8 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $string = $string . "Hose Line Used Equipment Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $hose->type . " -> Deleted</li>";
                 $hose->delete();
                 $status = true;
             }
@@ -732,10 +855,22 @@ class OperationController extends Controller
                     'type' => $new_type,
                 ];
 
-                if ($this->hasChanges($hose, $changes)) {
+                $hoseChange = $this->hasChanges($hose, $changes);
+
+                if ($hoseChange) {
+
+                    $string = $string . "Hose Line Used Equipment: " . $hose->type . " <br> Updated: <br>";
+
+                    foreach ($hoseChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+
+                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $hose[$index] . " -> " . $change . "</li>";
+                    }
                     $status = true;
                     $hose->update($changes);
                 }
+
             } else {
                 // No existing record for this index, create a new one
                 $newHose = new Used_equipment();
@@ -746,6 +881,11 @@ class OperationController extends Controller
                 $newHose->category = 'hose line';
                 $newHose->save(); // Save the new record
                 $status = true;
+
+                $string = $string . "New Hose Line Used Used Equipment: " . $newHose->type . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Type: </b>" . $newHose->type . "</li>";
+                $string = $string . "<li>" . "<b> Quantity: </b>" . $newHose->quantity . "</li>";
+                $string = $string . "<li>" . "<b> Length: </b>" . $newHose->length . "</li>";
             }
         }
 
@@ -762,6 +902,9 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
+                $string = $string . "Duty Personnel Info: <br>";
+                $string = $string . "<li> <b> Personnel: </b>" . $personnelName->rank->slug . " ". $personnelName->first_name . " " . $personnelName->last_name . " -> Deleted</li>";
                 $personnel->delete();
                 $status = true;
             }
@@ -783,8 +926,18 @@ class OperationController extends Controller
                     'designation' => $new_desgination,
                     'remarks' => $new_remarks,
                 ];
+                $hoseChange = $this->hasChanges($hose, $changes);
 
-                if ($this->hasChanges($personnel, $changes)) {
+                if ($hoseChange) {
+
+                    $string = $string . "Duty Personnel: " . $hose->type . " <br> Updated: <br>";
+
+                    foreach ($hoseChange as $index => $change) {
+                        $format = str_replace('_', ' ', $index);
+                        $format = ucwords($format);
+
+                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $hose[$index] . " -> " . $change . "</li>";
+                    }
                     $status = true;
                     $personnel->update($changes);
                 }
@@ -904,12 +1057,6 @@ class OperationController extends Controller
 
     private function hasChanges($info, $updatedData)
     {
-        // foreach ($updatedData as $key => $value) {
-        //     if ($info->{$key} != $value) {
-        //         return $value;
-        //     }
-        // }
-        // return false;
         $changes = [];
 
         foreach ($updatedData as $key => $value) {
