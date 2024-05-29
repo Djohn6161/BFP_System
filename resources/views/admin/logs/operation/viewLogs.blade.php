@@ -33,7 +33,8 @@
                                             <th>User</th>
                                             <th>Details</th>
                                             <th>Alarm Received</th>
-                                            <th>Action/Changes Made</th>
+                                            <th>Changes Made</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -56,6 +57,13 @@
                                                     @else
                                                     <div class="rounded-pill p-2 text-center ">{{ $log->action }}</div>
                                                 @endif
+                                                </td>
+                                                <td>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#viewOperationLogs{{ $log->id }}"
+                                                    class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                        class="ti ti-eye"></i> View</button>
+                                                        <x-logs.view-operation :log="$log"></x-logs.view-operation>
                                                 </td>
                                         </tr>
                                         @endforeach
