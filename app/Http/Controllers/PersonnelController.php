@@ -389,6 +389,14 @@ class PersonnelController extends Controller
 
 
         if (Hash::check($request->input('password'), $user->password)) {
+            $log = new ConfigurationLog();
+            $log->fill([
+                'userID' => auth()->user()->id,
+                'Details' => "Deleted Personnel <b>" . $personnel->rank->slug . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>",
+                'type' => 'personnel',
+                'action' => 'Delete',
+            ]);
+            $log->save();
             $personnel->delete();
             return redirect()->route('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'))->with('success', 'Personnel deleted successfully.');
         } else {
