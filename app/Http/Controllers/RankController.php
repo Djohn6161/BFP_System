@@ -46,6 +46,29 @@ class RankController extends Controller
             'slug' => 'required|unique:ranks,slug,' . $rank->id
         ]);
 
+        $rankChanges = $this->hasChanges($rank, $validatedData);
+
+        $string = "Updated Rank " . $rank->name;
+
+        if ($rankChanges) {
+            foreach ($rankChanges as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $rank[$index] . " -> " . $change . "</li>";
+            }
+        }
+
+        // dd($string);
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => $string,
+                'type' => 'rank',
+                'action' => 'Update',
+        ]);
+        $log->save();
+
         $rank->update($validatedData);
 
         return redirect()->back()->with('success', 'Rank updated successfully.');
@@ -56,6 +79,27 @@ class RankController extends Controller
         $rank = Rank::findOrFail($id);
         $rank->delete();
 
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Deleted Rank " . $rank->name,
+                'type' => 'rank',
+                'action' => 'Delete',
+        ]);
+        $log->save();
+
         return redirect()->back()->with('success', 'Rank deleted successfully.');
+    }
+
+    private function hasChanges($info, $updatedData) {
+        $changes = [];
+
+        foreach ($updatedData as $key => $value) {
+            if ($info->{$key} != $value) {
+                $changes[$key] = $value;
+            }
+        }
+
+        return $changes;
     }
 }
