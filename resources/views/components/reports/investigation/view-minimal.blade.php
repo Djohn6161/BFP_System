@@ -170,7 +170,7 @@
                 @endif
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-files"></i> View Operation</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-eye"></i> View Operation</button>
                 <a href="{{route('investigation.minimal.print', ['minimal' => $investigation->id])}}" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
