@@ -305,26 +305,28 @@ class OperationController extends Controller
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $occupancy_types = ['Structural', 'Non-Structural', 'Vehicular'];
 
-        return view('reports.operation.operation_edit_form', compact(
-            'active',
-            'user',
-            'personnels',
-            'barangays',
-            'trucks',
-            'operation',
-            'responses',
-            'alarm_list',
-            'declared_alarms',
-            'occupancy_names',
-            'occupancy',
-            'casualties',
-            'used_equipments',
-            'duty_personnels',
-            'photos',
-            'designations',
-            'duty_personnels',
-            'occupancy_types'
-        )
+        return view(
+            'reports.operation.operation_edit_form',
+            compact(
+                'active',
+                'user',
+                'personnels',
+                'barangays',
+                'trucks',
+                'operation',
+                'responses',
+                'alarm_list',
+                'declared_alarms',
+                'occupancy_names',
+                'occupancy',
+                'casualties',
+                'used_equipments',
+                'duty_personnels',
+                'photos',
+                'designations',
+                'duty_personnels',
+                'occupancy_types'
+            )
         );
     }
 
@@ -360,23 +362,25 @@ class OperationController extends Controller
             'noted_by' => $request->input('noted_by') ?? '',
         ];
 
-        $operation = AFor::find($request['operation_id']);
+        $operation = Afor::find($request['operation_id']);
         $operationChange = $this->hasChanges($operation, $InfoUpdatedData);
         $status = false;
+        $string = '';
 
         if ($operationChange) {
+            $string = "Operation Info: <br>";
+
+            foreach ($operationChange as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $operation[$index] . " -> " . $change . "</li>";
+            }
+
             $status = true;
             $operation->update($InfoUpdatedData);
         }
 
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $operation->id,
-            'user_id' => auth()->user()->id,
-            'details' => "Updated an AFOR Report about the operation in " . $operation->location,
-            'action' => "Update",
-        ]);
-        $log->save();
         // Response 
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -390,11 +394,13 @@ class OperationController extends Controller
         $existingResponses = Response::where('afor_id', $request->operation_id)->get();
         $requestIndexes = array_keys($engine_dispatched);
 
-        // Loop through existing responses
+
         foreach ($existingResponses as $index => $existingResponse) {
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
-                // Delete the existing response
+                $string = $string . "<br>Response Info: <br>";
+                $string = $string . "<li>" . "<b> Engine Dispatched </b>" . ": " . $existingResponse->truck->name . " -> Deleted</li>";
+
                 $existingResponse->delete();
                 $status = true;
             }
@@ -425,11 +431,7 @@ class OperationController extends Controller
                 ];
 
                 if ($this->hasChanges($existingResponse, $changes)) {
-                    // At least one of the fields has been updated
                     $status = true;
-                    // You can log or perform other actions here
-
-                    // Update the existing record with the new data
                     $existingResponse->update($changes);
                 }
             } else {
@@ -845,6 +847,16 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
+
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $operation->id,
+            'user_id' => auth()->user()->id,
+            'details' => $string,
+            'action' => "Update",
+        ]);
+        $log->save();
+
         if ($status) {
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
         } else {
@@ -892,11 +904,20 @@ class OperationController extends Controller
 
     private function hasChanges($info, $updatedData)
     {
+        // foreach ($updatedData as $key => $value) {
+        //     if ($info->{$key} != $value) {
+        //         return $value;
+        //     }
+        // }
+        // return false;
+        $changes = [];
+
         foreach ($updatedData as $key => $value) {
             if ($info->{$key} != $value) {
-                return $value;
+                $changes[$key] = $value;
             }
         }
-        return false;
+
+        return $changes;
     }
 }
