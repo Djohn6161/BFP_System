@@ -347,17 +347,17 @@ class PersonnelController extends Controller
                 $status = true;
             }
         }
-
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+            'Details' => $string,
+            'type' => 'personnel',
+            'action' => 'Update',
+        ]);
+        $log->save();
         if ($status) {
             return redirect()->back()->with('success', "Personnel Information Updated successfully.");
-            $log = new ConfigurationLog();
-            $log->fill([
-                'userID' => auth()->user()->id,
-                'Details' => $string,
-                'type' => 'personnel',
-                'action' => 'Update',
-            ]);
-            $log->save();
+            
         } else {
             return redirect()->back()->with('status', "Nothing's change.");
         }
