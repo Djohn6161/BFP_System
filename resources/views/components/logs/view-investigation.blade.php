@@ -53,8 +53,8 @@
                     </tr>
                 </table>
                 <hr>
-                <div>
-                    <h6 class="my-4 fw-bolder">Details</h6>
+                <div class="px-4 py-2 bg-secondary">
+                    <h6 class="h3 my-4 fw-bolder">Details</h6>
                     <p>
                         @if ($log->action == 'Update')
                         @php

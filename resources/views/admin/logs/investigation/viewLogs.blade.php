@@ -18,7 +18,6 @@
                                             <th>Date and Time</th>
                                             <th>User</th>
                                             <th>Investigation ID</th>
-                                            <th>Details</th>
                                             <th>Investigation Date</th>
                                             <th>Changes Made</th>
                                             <th>Action</th>   
@@ -40,22 +39,6 @@
                                                     @elseif($log->investigation->final)
                                                     Final
                                                 @endif</td>
-                                                <td>
-                                                    @if ($log->action == 'Update')
-                                                        @php
-                                                            $changes = json_decode($log->details, true);
-                                                            // dd($changes);
-                                                        @endphp
-                                                        @foreach ($changes as $column => $change)
-                                                            <h6 class="text-capitalize text-primary"><strong>{{ $column }}</strong></h6>
-                                                            <p>
-                                                                <b><i>FROM: </i></b> "{{" ". $change['old'] }}" <br> <b><i>TO: </i></b>"{!! $change['new'] !!}"<br>
-                                                            </p>
-                                                        @endforeach
-                                                        @else
-                                                        {{ $log->details }}
-                                                    @endif
-                                                </td>
                                                 <td>{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
                                                 </td>
                                                 <td>
@@ -77,7 +60,7 @@
                                                     <button type="button" data-bs-toggle="modal"
                                                     data-bs-target="#viewInvestigationLogs{{ $log->id }}"
                                                     class="btn btn-primary hide-menu w-100 mb-1"><i
-                                                        class="ti ti-eye"></i> View</button>
+                                                        class="ti ti-eye"></i> View Details</button>
                                                         <x-logs.view-investigation :log="$log"></x-logs.view-investigation>
                                                 </td>
                                             </tr>
