@@ -30,8 +30,7 @@
                                     <thead class="text-dark">
                                         <tr>
                                             <th>Date and Time</th>
-                                            <th>User</th>
-                                            <th>Details</th>
+                                            <th>ID - User</th>
                                             <th>Alarm Received</th>
                                             <th>Changes Made</th>
                                             <th>Action</th>
@@ -43,8 +42,7 @@
 
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
-                                                <td>{{ $log->user->name }}</td>
-                                                <td>{!! $log->details !!}</td>
+                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
                                                 <td>
