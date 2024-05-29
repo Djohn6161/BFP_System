@@ -39,7 +39,7 @@ class DesignationController extends Controller
 
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Created a designation with a name of " . $designation->name,
+                'Details' => "Created a designation with a name of <b>" . $designation->name . "</b>",
                 'type' => 'designation',
                 'action' => 'Store',
         ]);
@@ -78,10 +78,20 @@ class DesignationController extends Controller
     public function destroy(Request $request){
         // dd($request->all());
         $designation = Designation::findOrFail($request->input('id'));
-        
+        $status = ": <b>" .  $designation->name . "</b>";
         if ($designation->class == "B") {
             Designation::where('section', $designation->id)->delete();
+            $status = "Entire Section: <b> " . $designation->name . "</b>";
         }
+        
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+                'Details' => "Deleted Designation ". $status,
+                'type' => 'designation',
+                'action' => 'Delete',
+        ]);
+        $log->save();
         $designation->delete();
         return redirect()->back()->with('success', 'Designation Deleted Successfully!');
     }
