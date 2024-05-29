@@ -22,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Create Truck</button>
+                <button type="submit" class="btn btn-primary">Create Barangay</button>
             </div>
             </form>
             

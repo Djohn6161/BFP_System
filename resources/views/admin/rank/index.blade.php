@@ -53,11 +53,9 @@
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
-                                            <th
-                                                 class="fw-semibold mb-0">Slug
+                                            <th class="fw-semibold mb-0">Slug
                                             </th>
-                                            <th
-                                                 class="fw-semibold mb-0 text-center">Action
+                                            <th class="fw-semibold mb-0 text-center">Action
                                             </th>
                                         </tr>
                                     </thead>
@@ -76,6 +74,14 @@
                                                                 data-bs-target="#editRankModal{{ $rank->id }}">
                                                                 <i class="ti ti-pencil"></i>
                                                                 Update
+
+                                                            </button>
+                                                        </div>
+                                                        <div class="me-1">
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteRankModal{{ $rank->id }}">
+                                                                <i class="ti ti-trash"></i>
+                                                                Delete
 
                                                             </button>
                                                         </div>
