@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Personnel_designation;
 use Carbon\Carbon;
 use App\Models\Rank;
 use App\Models\Tertiary;
 use App\Models\Personnel;
 use App\Models\Designation;
 use Illuminate\Http\Request;
+use App\Models\ConfigurationLog;
 use App\Models\Post_graduate_course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Personnel_designation;
 
 class PersonnelController extends Controller
 {
@@ -90,7 +91,15 @@ class PersonnelController extends Controller
         ]);
         $personnel->save();
         $personnel_id = $personnel->id;
+        $log = new ConfigurationLog();
 
+        $log->fill([
+            'userID' => auth()->user()->id,
+            'Details' => "Created Personnel: <b>" . $personnel->rank->slug . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>",
+            'type' => 'personnel',
+            'action' => 'Store',
+        ]);
+        $log->save();
         //Response
         $tertiaries = $request->input('tertiary', []);
         $postGraduateCourses = $request->input('postGraduateCourses', []);
@@ -208,7 +217,22 @@ class PersonnelController extends Controller
 
         $personnel = Personnel::find($request['personnel_id']);
         $personnelChange = $this->hasChanges($personnel, $InfoUpdatedData);
+        $personnelChanges = $this->hasChangesMultip($personnel, $InfoUpdatedData);
+        // dd($personnelChanges,$personnel, $InfoUpdatedData);
         $status = false;
+        $string = "Updated Personnel: <b>" . $personnel->rank->slug . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>";
+        if ($personnelChanges) {
+            foreach ($personnelChanges as $index => $change) {
+                $format = str_replace('_', ' ', $index);
+                $format = ucwords($format);
+
+                $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $personnel[$index] . " -> " . $change . "</li>";
+            }
+        }
+        // dd($string);
+
+
+
 
         if ($personnelChange) {
             $status = true;
@@ -300,11 +324,20 @@ class PersonnelController extends Controller
                 $changes = [
                     'name' => $new_designation,
                 ];
-
+                // dd($designation);
                 if ($this->hasChanges($personnelDesignation, $changes)) {
                     $status = true;
                     $designation->update($changes);
                 }
+                // $designationChanges = $this->hasChangesMultip($personnelDesignation, $changes);
+                // if ($designationChanges) {
+                //     foreach ($designationChanges as $index => $change) {
+                //         $format = str_replace('_', ' ', $index);
+                //         $format = ucwords($format);
+
+                //         $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $new_designation[$index] . " -> " . $change . "</li>";
+                //     }
+                // }
             } else {
                 // No existing record for this index, create a new one
                 $newRopeLadder = new Personnel_designation();
@@ -314,13 +347,20 @@ class PersonnelController extends Controller
                 $status = true;
             }
         }
-
+        $log = new ConfigurationLog();
+        $log->fill([
+            'userID' => auth()->user()->id,
+            'Details' => $string,
+            'type' => 'personnel',
+            'action' => 'Update',
+        ]);
+        $log->save();
         if ($status) {
             return redirect()->back()->with('success', "Personnel Information Updated successfully.");
+            
         } else {
             return redirect()->back()->with('status', "Nothing's change.");
         }
-
     }
 
     public function personnelDelete($id, Request $request)
@@ -366,5 +406,17 @@ class PersonnelController extends Controller
         }
 
         return false;
+    }
+    private function hasChangesMultip($info, $updatedData)
+    {
+        $changes = [];
+
+        foreach ($updatedData as $key => $value) {
+            if ($info->{$key} != $value) {
+                $changes[$key] = $value;
+            }
+        }
+
+        return $changes;
     }
 }

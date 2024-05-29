@@ -16,12 +16,12 @@ return new class extends Migration
             // $table->foreignId('departments_id')->constrained('departments')->onUpdate('cascade');
             $table->foreignId('ranks_id')->constrained('ranks')->onUpdate('cascade');
             $table->string('account_number');
-            $table->integer('item_number')->nullable();
+            $table->string('item_number')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('extension')->nullable();
-            $table->integer('contact_number')->nullable(); 
+            $table->string('contact_number')->nullable(); 
             $table->date('date_of_birth')->nullable();
             $table->string('maritam_status')->nullable();
             $table->string('gender');
