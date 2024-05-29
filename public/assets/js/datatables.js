@@ -16,7 +16,7 @@ $("#minimalInvestigationTable").DataTable({
     "order": [[2, "asc"]]
   });
 $("#progressInvestigationTable").DataTable();
-$("#finalInvestigationTable").DataTable();s
+$("#finalInvestigationTable").DataTable();
 $("#rankTable").DataTable();
 $("#adminAccount").DataTable();
 $("#invesLog").DataTable();
