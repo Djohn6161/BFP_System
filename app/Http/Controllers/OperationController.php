@@ -488,7 +488,7 @@ class OperationController extends Controller
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
                 $string = $string . "Declared Alarm Info: <br>";
-                $string = $string . "<li>" . "<b> Alarm Declared: </b>"  . $existingAlarm->alarm_name . " -> Deleted</li>";
+                $string = $string . "<li>" . "<b> Alarm Declared: </b>" . $existingAlarm->alarm_name . " -> Deleted</li>";
                 $existingAlarm->delete();
                 $status = true;
             }
@@ -904,7 +904,7 @@ class OperationController extends Controller
                 // Delete the existing response
                 $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
                 $string = $string . "Duty Personnel Info: <br>";
-                $string = $string . "<li> <b> Personnel: </b>" . $personnelName->rank->slug . " ". $personnelName->first_name . " " . $personnelName->last_name . " -> Deleted</li>";
+                $string = $string . "<li> <b> Personnel: </b>" . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> Deleted</li>";
                 $personnel->delete();
                 $status = true;
             }
@@ -931,13 +931,18 @@ class OperationController extends Controller
                 if ($dutyPersonnelChange) {
 
                     $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
-                    $string = $string . "Duty Personnel: " . $hose->type . " <br> Updated: <br>";
-
-                    foreach ($hoseChange as $index => $change) {
+                    $string = $string . "Duty Personnel: " . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " <br> Updated: <br>";
+                    foreach ($dutyPersonnelChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
                         $format = ucwords($format);
+                        $personnelData = Personnel::where('id', $change)->first();
 
-                        $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $hose[$index] . " -> " . $change . "</li>";
+
+                        if ($format == "Personnels Id") {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "</li>";
+                        } else {
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingAlarm[$index] . " -> " . $change . "</li>";
+                        }
                     }
                     $status = true;
                     $personnel->update($changes);
@@ -952,9 +957,13 @@ class OperationController extends Controller
                 $newPersonnel->remarks = $new_remarks;
                 $newPersonnel->save();
                 $status = true;
+                $personnelData = Personnel::where('id', $newPersonnel->personnels_id)->first();
+
+                $string = $string . "New Duty Personnel: " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Designation: </b>" . $newPersonnel->designation . "</li>";
+                $string = $string . "<li>" . "<b> Remarks: </b>" . $newPersonnel->remarks . "</li>";
             }
         }
-
 
         $sketch_of_fire_operation = $request->input('sketch_of_fire_operation', []);
         $default_photos = $request->input('default_photos', []);
@@ -969,6 +978,8 @@ class OperationController extends Controller
             if ($array != '') {
                 if (!in_array($index, $requestIndexes)) {
                     // Delete the existing response
+                    $string = $string . "Sketch of Fire Operation Image: <br>";
+                    $string = $string . "<li>" . "<b> Image File Name: </b>" . $sketchArray[$index] . " -> Deleted</li>";
                     File::delete($publicPath . $sketchArray[$index]);
                     unset($sketchArray[$index]);
                     $status = true;
@@ -994,6 +1005,8 @@ class OperationController extends Controller
                     $file->move(public_path('/assets/images/operation_images'), $fileName);
                     array_push($sketchArray, $fileName);
                     $status = true;
+
+                    $string = $string . "New Sketch of Fire Operation Image: " . $fileName;
                 }
             }
             $sketch = implode(',', $sketchArray);
