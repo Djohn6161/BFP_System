@@ -40,7 +40,7 @@ $("#minimalInvestigationTable").DataTable({
     "ordering": false,
   });
 $("#progressInvestigationTable").DataTable();
-$("#finalInvestigationTable").DataTable();s
+$("#finalInvestigationTable").DataTable();
 $("#rankTable").DataTable();
 $("#adminAccount").DataTable();
 $("#invesLog").DataTable();
