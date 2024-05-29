@@ -894,16 +894,18 @@ class OperationController extends Controller
         $designations = $request->input('duty_designation', []);
         $remarks = $request->input('duty_remarks', []);
 
+
         // Retrieve the existing data from the database
         $existDutyPersonnels = Afor_duty_personnel::where('afor_id', $request->operation_id)->get();
         $requestIndexes = array_keys($personnels);
 
         foreach ($existDutyPersonnels as $index => $personnel) {
+
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
                 $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
-                $string = $string . "Duty Personnel Info: <br>";
+                $string = $string . "Duty Personnel Info: <br>" . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name;
                 $string = $string . "<li> <b> Personnel: </b>" . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> Deleted</li>";
                 $personnel->delete();
                 $status = true;
@@ -960,6 +962,7 @@ class OperationController extends Controller
                 $personnelData = Personnel::where('id', $newPersonnel->personnels_id)->first();
 
                 $string = $string . "New Duty Personnel: " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Personnel: </b>" . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "</li>";
                 $string = $string . "<li>" . "<b> Designation: </b>" . $newPersonnel->designation . "</li>";
                 $string = $string . "<li>" . "<b> Remarks: </b>" . $newPersonnel->remarks . "</li>";
             }
@@ -1013,7 +1016,6 @@ class OperationController extends Controller
             $existOperation->sketch_of_fire_operation = $sketch;
             $existOperation->save();
         }
-
 
         $log = new AforLog();
         $log->fill([
