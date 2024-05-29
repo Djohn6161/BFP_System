@@ -539,13 +539,13 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
-                                <div class="row" id="thirdAddApor">
-                                    <div class="row third-remove-button-container m-0 p-0">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5></h5> <button type="button"
-                                                class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
-                                        </div>
-                                        @foreach ($operation->dutyPersonnels as $dutyPersonnel)
+                                <div class="row m-0 p-0" id="thirdAddApor">
+                                    @foreach ($operation->dutyPersonnels as $dutyPersonnel)
+                                        <div class="row third-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
+                                            </div>
                                             <div class="col-lg-6 mb-3"> <label for="fundCommander"
                                                     class="form-label">Rank /
                                                     Name</label> <select class="form-select rankName" aria-label=""
@@ -585,11 +585,10 @@
                                                     class="form-label">Remarks</label>
                                                 <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $dutyPersonnel->remarks }}</textarea>
                                             </div>
-                                        @endforeach
-                                        <hr>
-                                    </div>
+                                        </div>
+                                    @endforeach
+                                    <hr>
                                 </div>
-                                <hr>
                             </div>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
@@ -597,7 +596,6 @@
                                     personnel</button>
                             </div>
                         </div>
-
 
                         <!-- Photos -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
