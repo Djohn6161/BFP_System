@@ -926,10 +926,11 @@ class OperationController extends Controller
                     'designation' => $new_desgination,
                     'remarks' => $new_remarks,
                 ];
-                $hoseChange = $this->hasChanges($hose, $changes);
+                $dutyPersonnelChange = $this->hasChanges($personnel, $changes);
 
-                if ($hoseChange) {
+                if ($dutyPersonnelChange) {
 
+                    $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
                     $string = $string . "Duty Personnel: " . $hose->type . " <br> Updated: <br>";
 
                     foreach ($hoseChange as $index => $change) {
