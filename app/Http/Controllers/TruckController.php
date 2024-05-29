@@ -32,7 +32,7 @@ class TruckController extends Controller
 
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Created a truck with a name of " . $trucks->name,
+                'Details' => "Created a Truck with a name of: <b>" . $trucks->name . "</b>",
                 'type' => 'truck',
                 'action' => 'Store',
         ]);
@@ -53,7 +53,7 @@ class TruckController extends Controller
             
         $truckChanges = $this->hasChanges($trucks, $validatedData);
 
-        $string = "Updated Truck " . $trucks->name;
+        $string = "Updated Truck: <b>" . $trucks->name . "</b>";
 
         if ($truckChanges) {
             foreach ($truckChanges as $index => $change) {
@@ -85,7 +85,7 @@ class TruckController extends Controller
         $log = new ConfigurationLog();
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Deleted Truck " . $trucks->name,
+                'Details' => "Deleted Truck: <b>" . $trucks->name . "</b>",
                 'type' => 'truck',
                 'action' => 'Delete',
         ]);

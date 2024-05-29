@@ -32,7 +32,7 @@ class AlarmController extends Controller
 
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Created an alarm with a name of " . $alarms->name,
+                'Details' => "Created an Alarm with a name of: <b>" . $alarms->name . "</b>",
                 'type' => 'alarm',
                 'action' => 'Store',
         ]);
@@ -51,7 +51,7 @@ class AlarmController extends Controller
 
         $alarmChanges = $this->hasChanges($alarm_list, $validatedData);
 
-        $string = "Updated Rank " . $alarm_list->name;
+        $string = "Updated Alarm: <b>" . $alarm_list->name . "</b>";
 
         if ($alarmChanges) {
             foreach ($alarmChanges as $index => $change) {
@@ -85,7 +85,7 @@ class AlarmController extends Controller
         $log = new ConfigurationLog();
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Deleted Alarm " . $alarm_list->name,
+                'Details' => "Deleted Alarm: <b>" . $alarm_list->name . "</b>",
                 'type' => 'alarm',
                 'action' => 'Delete',
         ]);

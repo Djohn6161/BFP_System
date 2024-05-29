@@ -29,7 +29,7 @@ class BarangayController extends Controller
 
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Created a barangay with a name of " . $barangay->name,
+                'Details' => "Created a barangay with a name of: <b>" . $barangay->name . "</b>",
                 'type' => 'barangay',
                 'action' => 'Store',
         ]);
@@ -48,7 +48,7 @@ class BarangayController extends Controller
 
         $barangayChanges = $this->hasChanges($barangays, $validatedData);
 
-        $string = "Updated Barangay " . $barangays->name;
+        $string = "Updated Barangay: <b>" . $barangays->name . "</b>";
 
         if ($barangayChanges) {
             foreach ($barangayChanges as $index => $change) {
@@ -81,7 +81,7 @@ class BarangayController extends Controller
         $log = new ConfigurationLog();
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Deleted Barangay " . $barangays->name,
+                'Details' => "Deleted Barangay: <b>" . $barangays->name . "</b>",
                 'type' => 'barangay',
                 'action' => 'Delete',
         ]);

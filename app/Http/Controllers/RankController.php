@@ -29,7 +29,7 @@ class RankController extends Controller
 
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Created a rank with a name of " . $rank->name,
+                'Details' => "Created a Rank with a name of: <b>" . $rank->name . "</b>",
                 'type' => 'rank',
                 'action' => 'Store',
         ]);
@@ -48,7 +48,7 @@ class RankController extends Controller
 
         $rankChanges = $this->hasChanges($rank, $validatedData);
 
-        $string = "Updated Rank " . $rank->name;
+        $string = "Updated Rank: <b>" . $rank->name . "</b>";
 
         if ($rankChanges) {
             foreach ($rankChanges as $index => $change) {
@@ -82,7 +82,7 @@ class RankController extends Controller
         $log = new ConfigurationLog();
         $log->fill([
             'userID' => auth()->user()->id,
-                'Details' => "Deleted Rank " . $rank->name,
+                'Details' => "Deleted Rank: <b>" . $rank->name . "</b>",
                 'type' => 'rank',
                 'action' => 'Delete',
         ]);
