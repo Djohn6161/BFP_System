@@ -189,7 +189,7 @@
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapsed' }}"
+                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapse' }}"
                                     data-bs-parent="#logsAccordion">
 
                                     <a href="{{ route('admin.logs.operation.viewLogs') }}"

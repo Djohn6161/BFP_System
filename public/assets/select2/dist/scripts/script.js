@@ -5,8 +5,15 @@ $(document).ready(function () {
     $(".crew-name").select2();
     $(".barangay").select2();
     $(".caller").select2({tags: true});
+    //operation designation
+    $(".designationSelect").select2();
+    $(".designationSelectEdit").select2();
+
+    // personnel select2
     $(".designation_select_edit").select2();
     $(".designation-select").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelect").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelectEdit").select2();
     $(".edit-designation-select").select2({
         tags: true,
     });
