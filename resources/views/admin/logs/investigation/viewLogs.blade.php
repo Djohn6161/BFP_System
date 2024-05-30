@@ -15,12 +15,12 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date and Time</th>
-                                            <th>User</th>
+                                            <th class="text-center">Date and Time</th>
+                                            <th>ID - User</th>
                                             <th>Investigation ID</th>
-                                            <th>Details</th>
-                                            <th>Investigation Date</th>
-                                            <th>Action/Changes Made</th>
+                                            <th class="text-center">Investigation Date</th>
+                                            <th class="text-center">Changes Made</th>
+                                            <th class="text-center">Action</th>   
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -28,8 +28,8 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td>{{ $log->updated_at }}</td>
-                                                <td>{{ $log->user->name }}</td>
+                                                <td class="text-center">{{ $log->updated_at }}</td>
+                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td>{{$log->investigation->id}} - @if ($log->investigation->spot)
                                                     Spot
                                                     @elseif($log->investigation->minimal)
@@ -39,23 +39,7 @@
                                                     @elseif($log->investigation->final)
                                                     Final
                                                 @endif</td>
-                                                <td>
-                                                    @if ($log->action == 'Update')
-                                                        @php
-                                                            $changes = json_decode($log->details, true);
-                                                            // dd($changes);
-                                                        @endphp
-                                                        @foreach ($changes as $column => $change)
-                                                            <h6 class="text-capitalize text-primary"><strong>{{ $column }}</strong></h6>
-                                                            <p>
-                                                                <b><i>FROM: </i></b> "{{" ". $change['old'] }}" <br> <b><i>TO: </i></b>"{!! $change['new'] !!}"<br>
-                                                            </p>
-                                                        @endforeach
-                                                        @else
-                                                        {{ $log->details }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
+                                                <td class="text-center">{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                     @if ($log->action == 'Delete')
