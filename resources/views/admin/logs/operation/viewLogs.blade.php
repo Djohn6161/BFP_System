@@ -29,8 +29,9 @@
                                 <table class="table table-hover table-striped">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th class="text-center">Date and Time</th>
-                                            <th>ID - User</th>
+                                            <th>Date and Time</th>
+                                            <th>User</th>
+                                            <th>Details</th>
                                             <th>Alarm Received</th>
                                             <th>Action/Changes Made</th>
                                         </tr>
@@ -40,8 +41,9 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td class="text-center">{{ $log->updated_at }}</td>
-                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
+                                                <td>{{ $log->updated_at }}</td>
+                                                <td>{{ $log->user->name }}</td>
+                                                <td>{!! $log->details !!}</td>
                                                 <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
                                                 <td>
