@@ -143,13 +143,16 @@ class InvestigationController extends Controller
         $investigation = new Investigation();
         $spot = new Spot();
 
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
         }
+        if ($request->input('zone_street')) {
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+        }
+
         $investigation->fill([
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
@@ -318,13 +321,16 @@ class InvestigationController extends Controller
         $investigation = new Investigation();
         $final = new Ifinal();
 
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
         }
+        if ($request->input('zone_street')) {
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+        }
+
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
         $investigation->fill([
             'for' => $request->input('for') ?? '',
@@ -434,13 +440,14 @@ class InvestigationController extends Controller
         ]);
         $investigation = new Investigation();
         $minimal = new Minimal();
-
-        if ($request->has('barangay')) {
-            # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ', Ligao City, Albay';
-        } else {
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
+        }
+        if ($request->input('zone')) {
+            $location = $location . ', ' .  $request->input('zone');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $investigation->fill([
             'for' => $request->input('for') ?? '',
@@ -500,7 +507,7 @@ class InvestigationController extends Controller
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-        // dd($request->all());
+
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -544,12 +551,14 @@ class InvestigationController extends Controller
 
         // dd($inves);
 
-        if ($request->has('barangay')) {
-            # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
-        } else {
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
+        }
+        if ($request->input('zone')) {
+            $location = $location . ', ' .  $request->input('zone');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $remainingPhotos = array();
@@ -689,11 +698,14 @@ class InvestigationController extends Controller
         ];
         $investigation->touch();
         $investigation->update($updateInve);
-
-        if ($request->has('barangay')) {
-            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        if($request->input('landmark')){
             $location = $request->input('landmark');
+        }
+        if($request->input('zone_street')){
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if($request->input('barangay')){
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $updatedSpot = [
             'date_occurence' => $validatedData['date_occurence'] ?? '',
@@ -858,15 +870,17 @@ class InvestigationController extends Controller
             'recommendation' => 'required',
         ]);
         // dd($validatedData);
-        
+
         $investigation = Investigation::find($final->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        if($request->input('landmark')){
             $location = $request->input('landmark');
-            # code...
+        }
+        if($request->input('zone_street')){
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if($request->input('barangay')){
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
         $updateInve = [
