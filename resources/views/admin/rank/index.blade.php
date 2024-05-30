@@ -1,34 +1,14 @@
 @extends('layouts.user-template')
 
 @section('content')
-    {{-- <div class="container-fluid">
-        <!-- Row 1 -->
-        <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRankModal">
-                        <span>
-                            <i class="ti ti-plus"></i>
-                        </span>
-                        <span class="hide-menu">Add Rank</span>
-                    </button>
-
-                </div>
-                <div class="col-lg-12">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-
-                            <!-- Display Total Personnel -->
-                            <h5 class="card-title fw-semibold mb-4 p-3 rounded bg-gradient-blue text-light">
-                                Ranks
-                                <span class=" ms-3 badge rounded-pill bg-secondary"></span>
-                            </h5>
-
-                            
-                            <!-- Accordion for Ranks --> --}}
-
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ranks</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
