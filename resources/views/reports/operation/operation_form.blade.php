@@ -246,7 +246,7 @@
                             </h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Occupancies
                             </h3>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-6 mb-2">
                                 <label for="typeOfOccupancy" class="form-label">Occupancy Name</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select occupancy name</option>
@@ -255,20 +255,28 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
-                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_type">
-                                    <option value="" selected>Select type of occupancy</option>
-                                    <option value="Structural">Structural</option>
-                                    <option value="Non-Structural">Non-Structural</option>
-                                    <option value="Vehicular">Vehicular</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 mb-3">
+                           
+                            <div class="col-lg-6 mb-2">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     name="occupancy_specify">
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <label class="form-label"></label>
+                                <div class="d-flex">
+                                    <div class="col-lg-4 mb-3 form-check me-5">
+                                        <input class="form-check-input" type="radio" name="occupancy_type" id="occupancyStructural" value="Structural">
+                                        <label class="form-check-label" for="occupancyStructural">Structural</label>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 form-check me-5">
+                                        <input class="form-check-input" type="radio" name="occupancy_type" id="occupancyNonStructural" value="Non-Structural">
+                                        <label class="form-check-label" for="occupancyNonStructural"> Non-Structural</label>
+                                    </div>
+                                    <div class="col-lg-4 mb-3 form-check me-5">
+                                        <input class="form-check-input" type="radio" name="occupancy_type" id="occupancyVehicular" value="Vehicular">
+                                        <label class="form-check-label" for="occupancyVehicular">Vehicular</label>
+                                    </div>
+                                </div>
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">

@@ -294,7 +294,7 @@
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Occupancies
                             </h3>
-                            <div class="col-lg-4 mb-3">
+                            <div class="col-lg-6 mb-2">
                                 <label for="typeOfOccupancy" class="form-label">Occupancy name</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="">Select occupancy name</option>
@@ -307,25 +307,25 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-4 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
-                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_type">
-                                    <option value="">Select type of occupancy</option>
-                                    @foreach ($occupancy_types as $type)
-                                        @if ($type == $occupancy->type)
-                                            <option selected value="{{ $type }}">{{ $type }}</option>
-                                        @else
-                                            <option value="{{ $type }}">{{ $type }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-4 mb-3">
+                           
+                            <div class="col-lg-6 mb-2">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
                                     name="occupancy_specify" value="{{ $occupancy->specify }}">
                             </div>
+
+                            <div class="col-lg-12 mb-3">
+                                <label class="form-label">Type of Occupancy</label>
+                                <div class="d-flex">
+                                    @foreach ($occupancy_types as $type)
+                                        <div class="col-lg-4 mb-3 form-check me-5">
+                                            <input class="form-check-input" type="radio" name="occupancy_type" id="occupancy{{ $type }}" value="{{ $type }}" {{ $type == $occupancy->type ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="occupancy{{ $type }}">{{ $type }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            
                             <hr>
                             <div class="col-lg-6 mb-3">
                                 <label for="approxDistanceFireIncident" class="form-label">Approximate Distance of Fire
