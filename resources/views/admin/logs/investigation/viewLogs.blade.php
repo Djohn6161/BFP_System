@@ -15,7 +15,7 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date and Time</th>
+                                            <th class="text-center">Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Investigation ID</th>
                                             <th>Investigation Date</th>

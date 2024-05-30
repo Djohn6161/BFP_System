@@ -15,11 +15,11 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date and Time</th>
+                                            <th class="text-center">Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Type</th>
-                                            <th>Changes Made</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Changes Made</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
