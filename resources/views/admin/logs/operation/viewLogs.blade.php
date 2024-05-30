@@ -26,14 +26,14 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped" id="myTable">
+                                <table class="table table-hover table-striped">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>Date and Time</th>
-                                            <th>ID - User</th>
+                                            <th>User</th>
+                                            <th>Details</th>
                                             <th>Alarm Received</th>
-                                            <th class="text-center">Changes Made</th>
-                                            <th class="text-center">Action</th>
+                                            <th>Action/Changes Made</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -42,7 +42,8 @@
 
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
-                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
+                                                <td>{{ $log->user->name }}</td>
+                                                <td>{!! $log->details !!}</td>
                                                 <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
                                                 <td>
@@ -55,13 +56,6 @@
                                                     @else
                                                     <div class="rounded-pill p-2 text-center ">{{ $log->action }}</div>
                                                 @endif
-                                                </td>
-                                                <td>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#viewOperationLogs{{ $log->id }}"
-                                                    class="btn btn-primary hide-menu w-100 mb-1"><i
-                                                        class="ti ti-eye"></i> View Details</button>
-                                                        <x-logs.view-operation :log="$log"></x-logs.view-operation>
                                                 </td>
                                         </tr>
                                         @endforeach

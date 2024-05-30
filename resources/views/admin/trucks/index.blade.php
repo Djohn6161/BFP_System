@@ -22,7 +22,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table mb-0 align-middle w-100" id="trucksTable">
+                                <table class="table mb-0 align-middle w-100">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>ID</th>
