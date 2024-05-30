@@ -91,6 +91,7 @@ class PersonnelController extends Controller
         ]);
         $personnel->save();
         $personnel_id = $personnel->id;
+
         $log = new ConfigurationLog();
 
         $log->fill([
@@ -99,6 +100,7 @@ class PersonnelController extends Controller
             'type' => 'personnel',
             'action' => 'Store',
         ]);
+
         $log->save();
         //Response
         $tertiaries = $request->input('tertiary', []);
@@ -229,10 +231,6 @@ class PersonnelController extends Controller
                 $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $personnel[$index] . " -> " . $change . "</li>";
             }
         }
-        // dd($string);
-
-
-
 
         if ($personnelChange) {
             $status = true;
@@ -263,11 +261,13 @@ class PersonnelController extends Controller
         $publicPath = public_path() . '/assets/images/personnel_files/';
 
         foreach ($personnelFiles as $index => $file) {
-            if (!in_array($index, $requestIndexes)) {
-                File::delete($publicPath . $personnelFiles[$index]);
-                unset($personnelFiles[$index]);
-                $status = true;
-                $change = true;
+            if($file != ''){
+                if (!in_array($index, $requestIndexes)) {
+                    File::delete($publicPath . $personnelFiles[$index]);
+                    unset($personnelFiles[$index]);
+                    $status = true;
+                    $change = true;
+                }
             }
         }
 
@@ -307,19 +307,9 @@ class PersonnelController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
-                // dd($index, $requestIndexes, $designation);
                 $string = $string . "<li>" . "<b> Designation </b>" . ": " . $designation->name . " <i>  Removed </i> </li>";
                 $designation->delete();
                 $status = true;
-                // $designationChanges = $this->hasChangesMultip($designation, $changes);
-                // if ($designationChanges) {
-                //     dd($designationChanges);
-                // foreach ($designationChanges as $index => $change) {
-                //     $format = str_replace('_', ' ', $index);
-                //     $format = ucwords($format);
-
-                //     $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $new_designation[$index] . " -> " . $change . "</li>";
-                // }
             }
         }
 
@@ -355,15 +345,16 @@ class PersonnelController extends Controller
                 $status = true;
             }
         }
-        $log = new ConfigurationLog();
-        $log->fill([
-            'userID' => auth()->user()->id,
-            'Details' => $string,
-            'type' => 'personnel',
-            'action' => 'Update',
-        ]);
-        $log->save();
+
         if ($status) {
+            $log = new ConfigurationLog();
+            $log->fill([
+                'userID' => auth()->user()->id,
+                'Details' => $string,
+                'type' => 'personnel',
+                'action' => 'Update',
+            ]);
+            $log->save();
             return redirect()->back()->with('success', "Personnel Information Updated successfully.");
         } else {
             return redirect()->back()->with('status', "Nothing's change.");
