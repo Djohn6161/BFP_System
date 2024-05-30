@@ -8,63 +8,8 @@
 
     <link rel="stylesheet" href="{{ asset('/assets/libs/bootstrap/dist/css/bootstrap.min.css') }}">
     <script src="{{ asset('/assets/libs/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
-
-    <style>
-        .animated-card {
-            background-color: black;
-            border: 1px solid transparent;
-            animation: glowBorder 3s infinite alternate;
-        }
-
-        @keyframes glowBorder {
-            0% {
-                border-color: grey;
-                box-shadow: 0 0 5px 0px rgba(255, 165, 0, 0.7);
-            }
-
-            100% {
-                border-color: rgba(255, 165, 0, 0.7);
-                box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.7);
-            }
-        }
-
-        .white-text {
-            color: white;
-        }
-
-        .form-control {
-            background-color: white;
-            /* Set background color to white */
-        }
-
-        .form-control:focus {
-            background-color: white !important;
-        }
-
-        @keyframes shiningEffect {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .shining-text {
-            background: linear-gradient(-45deg, #ff6a00, #e0e0e0);
-            /* Diagonal gradient from orange to gold */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: shiningEffect 3s linear infinite;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
 </head>
 
 <body
@@ -76,7 +21,7 @@
             <div class="d-flex align-items-center justify-content-center w-100">
 
                 <div class="col-md-8 col-lg-6 col-xxl-3">
-                    <div class="animated-card mb-0">
+                    <div class="card animated-card mb-0">
                         <div class="card-body">
                             <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
                                 <img src="../assets/images/logos/login.gif" width="150" height="auto"
