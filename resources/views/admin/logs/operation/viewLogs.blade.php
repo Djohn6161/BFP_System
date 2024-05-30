@@ -29,7 +29,7 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date and Time</th>
+                                            <th class="text-center">Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Alarm Received</th>
                                             <th class="text-center">Changes Made</th>
@@ -41,7 +41,7 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td>{{ $log->updated_at }}</td>
+                                                <td class="text-center">{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
