@@ -82,20 +82,22 @@
 
                                                 <td>
                                                     @php
-                                                        if($operation->minimal){
-                                                            echo "Minimal";
-                                                        }
-                                                        if($operation->spot){
-                                                            echo ",Spot";
-                                                        }
-                                                        if($operation->spot->progress){
-                                                            echo ",Progress";
-                                                        }
-                                                        if($operation->spot->final){
-                                                            echo ",Final";
+                                                        if (isset($operation)) {
+                                                            if ($operation->minimal) {
+                                                                echo 'Minimal';
+                                                            }
+                                                            if (isset($operation->spot)) {
+                                                                echo ',Spot';
+                                                                if (isset($operation->spot->progress)) {
+                                                                    echo ',Progress';
+                                                                }
+                                                                if (isset($operation->spot->final)) {
+                                                                    echo ',Final';
+                                                                }
+                                                            }
                                                         }
                                                     @endphp
-                                                </td>                                                
+                                                </td>
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
@@ -106,8 +108,8 @@
                                                         View
 
                                                     </button>
-                                                    <x-reports.operation.operation_view :operation="$operation"
-                                                        :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
+                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses"
+                                                        :personnels="$personnels"></x-reports.operation.operation_view>
                                                     @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                                         <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                             class="btn btn-success w-100 mb-1">
