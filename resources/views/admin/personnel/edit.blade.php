@@ -1,8 +1,4 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -14,7 +10,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                             <div class="col-lg-4">
-                                <div class="col-lg-12 mb-3"> <!-- Photo column -->
+                                <div class="col-lg-12 mb-3"> 
                                     <img id="personnel-picture"
                                         src="/assets/images/personnel_images/{{ $personnel->picture }}"
                                         class="object-fit-cover img-fluid w-100" style="height: 340px;"
@@ -166,7 +162,7 @@
 
 
                                     </div>
-                                    <!-- Input fields will be appended here -->
+                                 
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">
@@ -194,7 +190,6 @@
                                         @endforeach
 
                                     </div>
-                                    <!-- Input fields will be appended here -->
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">

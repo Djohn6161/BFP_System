@@ -1,33 +1,4 @@
-<style>
-    .btn-reports {
-        width 200px
-    }
 
-    .second-div {
-        border: 1px solid #e5e5e5;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-between {
-        justify-content: space-between;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    /* .preview-image {
-        max-width: 200px;
-        height: auto;
-        margin: 10px;
-    } */
-
-</style>
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -36,9 +7,7 @@
                 <div class="row">
                     <form>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
-                            {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received (Time)</label>
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
@@ -295,7 +264,6 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">8, 10-12</h3>
                             <h5>Breathing Apparatus Used</h5>
                             <div class="col-lg-6 mb-3">
@@ -349,7 +317,6 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13</h3>
                             <div class="row m-0 p-0 duty-personnel-at-fire-scene">
                                 <h3></h3>
@@ -381,7 +348,6 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" value="" id="photos" name="photos">
@@ -390,7 +356,6 @@
                         </div>
                                               
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Remarks</label>
@@ -400,7 +365,6 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16</h3>
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Remarks</label>
@@ -410,7 +374,6 @@
                         </div>
 
                         <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17</h3>
                             <div class="col-lg-12 mb-3">
                                 <label for="firefighterDeath" class="form-label">Remarks</label>

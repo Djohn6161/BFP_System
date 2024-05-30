@@ -1,6 +1,10 @@
 .btn-width {
     width: 200px;
 }
+
+.btn-reports {
+    width: 200px;
+}
 .image-container {
     position: relative;
     overflow: hidden;
@@ -107,5 +111,32 @@
     to {
         transform: rotateY(360deg);
     }
+}
+
+.second-div {
+    border: 1px solid #e5e5e5;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+h3.a {
+    text-align: center;
+}
+
+.hidden-label {
+    color: transparent;
+    /* Make label content transparent */
 }
 

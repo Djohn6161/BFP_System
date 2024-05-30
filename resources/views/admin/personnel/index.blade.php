@@ -48,7 +48,6 @@
                                                             style="width: calc(25% - 1rem); p-1;">
                                                             <a href="{{ route('admin.personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
-                                                                    <!-- Display Personnel Details -->
                                                                     <img src="{{ asset('assets/images/personnel_images/'.$personnel->picture) }}"
                                                                         class="card-img-top object-fit-cover rounded"
                                                                         height="300" alt="personnel picture">

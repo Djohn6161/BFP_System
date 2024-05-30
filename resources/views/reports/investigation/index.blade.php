@@ -1,8 +1,4 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -86,7 +82,6 @@
                                                 @if ($investigation->minimal != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            {{-- {{dd($investigation->Minimal->afor)}} --}}
                                                             @if ($investigation->Minimal->afor)
                                                                 Operation <br>
                                                             @endif

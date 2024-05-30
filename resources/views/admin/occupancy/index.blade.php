@@ -1,8 +1,4 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -42,10 +38,9 @@
                                             <x-occupancy.edit :occupancyName=$occupancyName></x-occupancy.edit>
                                             <x-occupancy.delete :occupancyName=$occupancyName></x-occupancy.delete>
 
-                                            {{-- <x-reports.view-modal :report=$investigation></x-reports.view-modal> --}}
-                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
+                                           
                                             <tr>
-                                                {{-- {{dd($occupancies)}} --}}
+                                           
                                                 <td>
                                                     {{ $occupancyName->id}}
                                                 </td>

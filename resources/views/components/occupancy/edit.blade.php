@@ -1,4 +1,4 @@
-{{-- {{dd($occupancyName)}} --}}
+
 <div class="modal fade" data-bs-backdrop="static" id="updateOccupancyModal{{ $occupancyName->id }}" tabindex="-1" aria-labelledby="updateOccupancyModalLabel"
     aria-hidden="true">
   

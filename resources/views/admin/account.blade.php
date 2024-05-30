@@ -1,16 +1,9 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <!--  Row 1 -->
-
         <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
+           
             <div class="modal fade" data-bs-backdrop="static" id="addModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -19,7 +12,6 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <!-- Monthly Earnings -->
                                 <form method="POST" action="{{ route('admin.account.create') }}">
                                     @csrf
                                     <div class="mb-3">

@@ -43,7 +43,7 @@
                                                     @if ($log->action == 'Update')
                                                         @php
                                                             $changes = json_decode($log->details, true);
-                                                            // dd($changes);
+                                                            
                                                         @endphp
                                                         @foreach ($changes as $column => $change)
                                                             <h6 class="text-capitalize text-primary"><strong>{{ $column }}</strong></h6>

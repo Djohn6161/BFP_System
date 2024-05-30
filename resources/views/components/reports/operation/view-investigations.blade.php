@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-{{-- <x-reports.investigation.view-operation :act="'minimal'" :operation="$investigation->afor" :investigation="$investigation" :responses="$responses" :personnels="$personnels"></x-reports.investigation.view-operation> --}}
+
 
 <div class="modal fade" tabindex="-1" id="viewSpotOperationModal{{ $operation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">

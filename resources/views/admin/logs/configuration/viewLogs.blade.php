@@ -24,7 +24,7 @@
                                     </thead>
                                     <tbody class="table-group-divider">
                                         @foreach ($logs as $log)
-                                            {{-- {{dd($log->user)}} --}}
+                                   
 
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
