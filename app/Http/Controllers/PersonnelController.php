@@ -164,7 +164,7 @@ class PersonnelController extends Controller
             $personnel->save();
         }
 
-        return redirect()->back()->with('success', "Operation report added successfully.");
+        return redirect()->back()->with('success', "Personnel added successfully.");
     }
 
     public function personnelUpdateForm($id)
@@ -193,7 +193,7 @@ class PersonnelController extends Controller
             'middle_name' => $request->input('middle_name') ?? '',
             'last_name' => $request->input('last_name') ?? '',
             'extension' => $request->input('extension') ?? '',
-            'contact_number' => $request->input('contact_number') ?? '',
+            'contact_number' => $request->input('contact_number') ?? null,
             'date_of_birth' => $request->input('date_of_birth') ?? null,
             'maritam_status' => $request->input('maritam_status') ?? '',
             'gender' => $request->input('gender') ?? '',
@@ -307,8 +307,19 @@ class PersonnelController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
+                // dd($index, $requestIndexes, $designation);
+                $string = $string . "<li>" . "<b> Designation </b>" . ": " . $designation->name . " <i>  Removed </i> </li>";
                 $designation->delete();
                 $status = true;
+                // $designationChanges = $this->hasChangesMultip($designation, $changes);
+                // if ($designationChanges) {
+                //     dd($designationChanges);
+                // foreach ($designationChanges as $index => $change) {
+                //     $format = str_replace('_', ' ', $index);
+                //     $format = ucwords($format);
+
+                //     $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $new_designation[$index] . " -> " . $change . "</li>";
+                // }
             }
         }
 
@@ -327,23 +338,20 @@ class PersonnelController extends Controller
                 // dd($designation);
                 if ($this->hasChanges($personnelDesignation, $changes)) {
                     $status = true;
-                    $designation->update($changes);
+                    // dd($personnelDesignation);
+                    $string = $string . "<li>" . "<b>Designation</b>" . ": " . $personnelDesignation->name . " -> " . $changes['name'] . "</li>";
+                    $personnelDesignation->update($changes);
                 }
-                // $designationChanges = $this->hasChangesMultip($personnelDesignation, $changes);
-                // if ($designationChanges) {
-                //     foreach ($designationChanges as $index => $change) {
-                //         $format = str_replace('_', ' ', $index);
-                //         $format = ucwords($format);
-
-                //         $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $new_designation[$index] . " -> " . $change . "</li>";
-                //     }
-                // }
+                // $format = str_replace('_', ' ', $index);
+                // $format = ucwords($format);
+                // dd($personnelDesignation->name);
             } else {
                 // No existing record for this index, create a new one
                 $newRopeLadder = new Personnel_designation();
                 $newRopeLadder->personnel_id = $personnel->id;
                 $newRopeLadder->name = $new_designation;
                 $newRopeLadder->save(); // Save the new record
+                $string = $string . "<li>" . "<b>Designation</b>" . ": " . $newRopeLadder->name . " <i> Added </i></li>";
                 $status = true;
             }
         }
@@ -357,7 +365,6 @@ class PersonnelController extends Controller
         $log->save();
         if ($status) {
             return redirect()->back()->with('success', "Personnel Information Updated successfully.");
-            
         } else {
             return redirect()->back()->with('status', "Nothing's change.");
         }
@@ -370,7 +377,7 @@ class PersonnelController extends Controller
             'password' => 'required',
         ]);
 
-        $personnel = Personnel::find($id);
+        $personnel = Personnel::findorFail($id);
         $user = Auth::user();
         $user = Auth::user();
         $active = 'personnel';
@@ -382,6 +389,14 @@ class PersonnelController extends Controller
 
 
         if (Hash::check($request->input('password'), $user->password)) {
+            $log = new ConfigurationLog();
+            $log->fill([
+                'userID' => auth()->user()->id,
+                'Details' => "Deleted Personnel <b>" . $personnel->rank->slug . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>",
+                'type' => 'personnel',
+                'action' => 'Delete',
+            ]);
+            $log->save();
             $personnel->delete();
             return redirect()->route('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders'))->with('success', 'Personnel deleted successfully.');
         } else {

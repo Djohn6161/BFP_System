@@ -12,7 +12,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
                                             <th class="text-center">Date and Time</th>
@@ -27,7 +27,7 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td class="text-center">{{ $log->updated_at }}</td>
+                                                <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td class="text-capitalize fw-bolder">{{ $log->type }}</td>
                                                 <td>

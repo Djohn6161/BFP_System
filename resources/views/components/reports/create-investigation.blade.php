@@ -42,7 +42,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
                                     <tr>
                                         <td>{{ $item->alarm_received }}</td>
                                         <td>{{ $item->transmitted_by }}</td>
@@ -71,6 +77,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -99,7 +106,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
                                     <tr>
                                         <td>{{ $item->alarm_received }}</td>
                                         <td>{{ $item->transmitted_by }}</td>
@@ -152,7 +165,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
@@ -192,7 +211,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>

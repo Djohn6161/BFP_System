@@ -74,7 +74,7 @@ class OperationController extends Controller
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
-            'full_location' => $location, 
+            'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
