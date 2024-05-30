@@ -15,7 +15,7 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th>Date and Time</th>
+                                            <th class="text-center">Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Investigation ID</th>
                                             <th>Investigation Date</th>
@@ -28,7 +28,7 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td>{{ $log->updated_at }}</td>
+                                                <td class="text-center">{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td>{{$log->investigation->id}} - @if ($log->investigation->spot)
                                                     Spot
