@@ -77,8 +77,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'occupancy' => $request->input('occupancy') ?? '',
-            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
             'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
             'structure_description' => $request->input('structure_description') ?? '',
             'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',

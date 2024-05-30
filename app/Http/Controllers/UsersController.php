@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\User;
 // use App\Models\Occupancy;
-use Illuminate\Http\Request;
+use App\Models\Occupancy;
 
+use Illuminate\Http\Request;
 use App\Models\Occupancy_name;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +25,7 @@ class UsersController extends Controller
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
             'afor' => Afor::all(),
+            'occup' => Occupancy::all(),
         ]);
     }
 
