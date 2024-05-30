@@ -23,8 +23,6 @@ return new class extends Migration
             $table->foreignId('received_by')->nullable()->constrained('personnels')->onupdate('cascade')->onDelete('set null');
             $table->string('td_under_control')->nullable();
             $table->string('td_declared_fireout')->nullable();
-            $table->string('distance_to_fire_incident');
-            $table->string('structure_description');
             $table->string('sketch_of_fire_operation');
             $table->longText('details');
             $table->longText('problem_encounter');

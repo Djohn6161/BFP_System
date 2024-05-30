@@ -338,8 +338,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
@@ -1017,7 +1015,7 @@ class OperationController extends Controller
                 'action' => "Update",
             ]);
             $log->save();
-            
+
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
         } else {
             return redirect('/reports/operation/index')->with('success', "Nothing's change.");
