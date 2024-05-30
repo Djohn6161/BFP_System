@@ -42,7 +42,7 @@
             <div class="col-lg-11 p-4">
                 <div class="row mb-4">
                     <div class="col d-flex justify-content-start px-0">
-                        <a href="{{ route('investigation.progress.index') }}" class="btn btn-primary">
+                        <a href="{{ route('investigation.final.index') }}" class="btn btn-primary">
                             <span>
                                 <i class="ti ti-arrow-back"></i>
                             </span>
