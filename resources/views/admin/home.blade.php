@@ -69,7 +69,6 @@
                     </div>
                 </div>
             </div>
-            
             @foreach ($occupancies as $occupancy)
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-start border-danger border-5 overflow-hidden">
@@ -80,7 +79,6 @@
                                     <div class="row align-items-center">
                                         <div class="col-8">
                                             <h5 class="mb-0 fw-semibold">
-                                                {{-- {{dd(count($occup->where('occupancy_name', $occupancy->name)))}} --}}
                                                 {{ count($occup->where('occupancy_name', $occupancy->name) ?? []) }}</h5>
                                         </div>
                                     </div>

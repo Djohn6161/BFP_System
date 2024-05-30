@@ -1,4 +1,4 @@
-{{-- <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" data-bs-backdrop="static" id="deleteUnitModal{{$designation->id}}" tabindex="-1" aria-labelledby="deleteUnitModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -25,31 +25,4 @@
             </form>
         </div>
     </div>
-</div> --}}
-
-
-<!-- Modal -->
-<div  class="modal fade" data-bs-backdrop="static" id="deleteUnitModal{{$designation->id}}" tabindex="-1" aria-labelledby="deleteUnitModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form method="POST" action="{{route('admin.designation.destroy')}}" enctype="multipart/form-data">
-                @csrf
-                @method("delete")
-                <input type="hidden" name="id" id="id" value="{{$designation->id}}">
-                <div class="modal-body text-center p-1">
-                    <div class="modal-icon mt-3">
-                        <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
-                    </div>
-                    <h4 class="modal-title" id="deleteOtherDesignationModalLabel">Delete this <strong>"{{$designation->name}}"</strong> designation?</h4>
-                    <p>The data associated with this designation will be lost.</p>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes, Delete!</button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
-

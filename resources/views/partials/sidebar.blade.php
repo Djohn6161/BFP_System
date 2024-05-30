@@ -168,8 +168,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}"
-                            {{-- class="sidebar-link accordion-body ms-2 reports-collapse > --}}
+                        <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel</span>
                         </a>
