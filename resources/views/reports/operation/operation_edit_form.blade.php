@@ -1,6 +1,15 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('operation.index') }}">Operation Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Operation Reports</li>
+                {{-- <li class="breadcrumb-item active" aria-current="page">Operation Reports</li> --}}
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">

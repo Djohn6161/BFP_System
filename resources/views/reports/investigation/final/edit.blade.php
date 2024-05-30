@@ -38,11 +38,20 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('investigation.final.index') }}">Final Investigation Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Final Investigation Reports</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row mb-4">
                     <div class="col d-flex justify-content-start px-0">
-                        <a href="{{ route('investigation.progress.index') }}" class="btn btn-primary">
+                        <a href="{{ route('investigation.final.index') }}" class="btn btn-primary">
                             <span>
                                 <i class="ti ti-arrow-back"></i>
                             </span>
