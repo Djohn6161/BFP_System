@@ -142,7 +142,7 @@ class InvestigationController extends Controller
         // dd($validatedData);
         $investigation = new Investigation();
         $spot = new Spot();
-
+        $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
@@ -320,7 +320,7 @@ class InvestigationController extends Controller
         // dd($validatedData);
         $investigation = new Investigation();
         $final = new Ifinal();
-
+        $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
@@ -440,6 +440,7 @@ class InvestigationController extends Controller
         ]);
         $investigation = new Investigation();
         $minimal = new Minimal();
+        $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
@@ -550,7 +551,7 @@ class InvestigationController extends Controller
         $inves->update($updateInve);
 
         // dd($inves);
-
+        $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
@@ -698,6 +699,7 @@ class InvestigationController extends Controller
         ];
         $investigation->touch();
         $investigation->update($updateInve);
+        $location = "";
         if($request->input('landmark')){
             $location = $request->input('landmark');
         }
@@ -873,6 +875,7 @@ class InvestigationController extends Controller
 
         $investigation = Investigation::find($final->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
+        $location = "";
         if($request->input('landmark')){
             $location = $request->input('landmark');
         }
