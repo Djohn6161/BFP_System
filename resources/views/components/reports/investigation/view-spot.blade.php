@@ -94,15 +94,15 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                     data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
-                        class="ti ti-files"></i> View Operation</button>
+                        class="ti ti-eye"></i> View Operation</button>
                 @if ($investigation->progress)
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#viewSpotProgressModal{{ $investigation->investigation_id }}">View
+                        data-bs-target="#viewSpotProgressModal{{ $investigation->investigation_id }}"><i class="ti ti-eye"></i> View
                         Progress</button>
                 @endif
                 @if ($investigation->final)
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#viewSpotFinalModal{{$investigation->investigation_id}}">View Final</button>
+                        data-bs-target="#viewSpotFinalModal{{$investigation->investigation_id}}"><i class="ti ti-eye"></i> View Final</button>
                 @endif
 
                 <a href="{{ route('investigation.spot.print', ['spot' => $investigation->id]) }}" type="button"

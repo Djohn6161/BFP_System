@@ -37,6 +37,9 @@
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Deleted at</h6>
                                             </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
@@ -55,6 +58,9 @@
                                                 :investigation=$investigation></x-trash.investigation.restore>
                                             <tr class="text-center">
                                                 {{-- {{dd($investigation)}} --}}
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
+                                                </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">
                                                         {{ \Carbon\Carbon::parse($investigation->deleted_at)->format('F j, Y') }}

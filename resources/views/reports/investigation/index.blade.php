@@ -60,15 +60,19 @@
                                                     <h6 class="fw-semibold mb-0">Action</h6>
                                                 </th>
                                             @endif
-
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $sortedInvestigations = $investigations->sortByDesc(function (
+                                                $investigation,
+                                            ) {
+                                                return \Carbon\Carbon::parse($investigation->date);
+                                            });
+                                        @endphp
 
-                                        @foreach ($investigations as $investigation)
-                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
+                                        @foreach ($sortedInvestigations as $investigation)
                                             <tr>
-                                                {{-- {{dd($investigation)}} --}}
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
                                                 </td>
@@ -147,19 +151,18 @@
                                                         <p class="mb-0 fw-normal">Final</p>
                                                     </td>
                                                 @endif
-                                                {{-- {{dd($investigation->minimal)}} --}}
                                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                     @if ($investigation->minimal != null)
                                                         @php
-                                                            $investigation = $investigation->minimal;
+                                                            $investigationDetail = $investigation->minimal;
                                                         @endphp
                                                         <td>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewMinimalModal{{ $investigation->id }}"
+                                                                data-bs-target="#viewMinimalModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-minimal
-                                                                :investigation=$investigation :responses=$responses
+                                                                :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-minimal>
                                                             <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
@@ -168,23 +171,24 @@
 
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteModal{{ $investigation->id }}"
+                                                                data-bs-target="#deleteModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-danger hide-menu w-100 mb-1"><i
                                                                     class="ti ti-trash"></i> Delete</button>
                                                             <x-reports.investigation.investigation-delete :type="'minimal'"
-                                                                :investigation=$investigation></x-reports.investigation.investigation-delete>
+                                                                :investigation="$investigationDetail"></x-reports.investigation.investigation-delete>
                                                         </td>
                                                     @elseif($investigation->spot != null)
                                                         @php
-                                                            $investigation = $investigation->spot;
+                                                            $investigationDetail = $investigation->spot;
                                                         @endphp
+                                                        {{-- {{ dd($investigationDetail) }} --}}
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewSpotModal{{ $investigation->id }}"
+                                                                data-bs-target="#viewSpotModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
-                                                            <x-reports.Investigation.view-spot :investigation=$investigation
-                                                                :responses=$responses
+                                                            <x-reports.Investigation.view-spot
+                                                                :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-spot>
 
                                                             <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
@@ -193,23 +197,23 @@
                                                                 Update</a>
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteModal{{ $investigation->id }}"
+                                                                data-bs-target="#deleteModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-danger hide-menu w-100 mb-1"><i
                                                                     class="ti ti-trash"></i> Delete</button>
                                                             <x-reports.investigation.investigation-delete :type="'spot'"
-                                                                :investigation=$investigation></x-reports.investigation.investigation-delete>
+                                                                :investigation="$investigationDetail"></x-reports.investigation.investigation-delete>
                                                         </td>
                                                     @elseif($investigation->progress != null)
                                                         @php
-                                                            $investigation = $investigation->progress;
+                                                            $investigationDetail = $investigation->progress;
                                                         @endphp
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewProgressModal{{ $investigation->id }}"
+                                                                data-bs-target="#viewProgressModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-progress
-                                                                :investigation=$investigation :responses=$responses
+                                                                :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-progress>
 
                                                             <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
@@ -218,44 +222,42 @@
                                                                 Update</a>
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteModal{{ $investigation->id }}"
+                                                                data-bs-target="#deleteModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-danger hide-menu w-100 mb-1"><i
                                                                     class="ti ti-trash"></i> Delete</button>
                                                             <x-reports.investigation.investigation-delete :type="'progress'"
-                                                                :investigation=$investigation></x-reports.investigation.investigation-delete>
+                                                                :investigation="$investigationDetail"></x-reports.investigation.investigation-delete>
                                                         </td>
                                                     @elseif($investigation->final != null)
                                                         @php
-                                                            $investigation = $investigation->final;
+                                                            $investigationDetail = $investigation->final;
                                                         @endphp
                                                         <td class="border-bottom-0">
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#viewFinalModal{{ $investigation->id }}"
+                                                                data-bs-target="#viewFinalModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-primary hide-menu w-100 mb-1"><i
                                                                     class="ti ti-eye"></i> View</button>
                                                             <x-reports.Investigation.view-final
-                                                                :investigation=$investigation :responses=$responses
+                                                                :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-final>
                                                             <x-reports.investigation.investigation-delete :type="'final'"
-                                                                :investigation=$investigation></x-reports.investigation.investigation-delete>
-                                                            <a href="{{ route('investigation.final.edit', ['final' => $investigation->id]) }}"
+                                                                :investigation="$investigationDetail"></x-reports.investigation.investigation-delete>
+                                                            <a href="{{ route('investigation.final.edit', ['final' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
-                                                                    class="ti ti-pencil"></i>
-                                                                Update</a>
+                                                                    class="ti ti-pencil"></i> Update</a>
                                                             <br>
                                                             <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteModal{{ $investigation->id }}"
+                                                                data-bs-target="#deleteModal{{ $investigationDetail->id }}"
                                                                 class="btn btn-danger hide-menu w-100 mb-1"><i
                                                                     class="ti ti-trash"></i> Delete</button>
                                                         </td>
                                                     @endif
                                                 @endif
-
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
