@@ -164,7 +164,7 @@
                                                             <x-reports.Investigation.view-minimal
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-minimal>
-                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>
@@ -191,7 +191,7 @@
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-spot>
 
-                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>
@@ -216,7 +216,7 @@
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-progress>
 
-                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>

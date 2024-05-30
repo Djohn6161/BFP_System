@@ -32,6 +32,9 @@
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Alarm Received</h6>
                                             </th>
@@ -56,14 +59,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{-- {{dd($operations)}} --}}
                                         @php
                                             $sortedOperations = $operations->sortByDesc(function($operation) {
-                                                return \Carbon\Carbon::parse($operation->alarm_received);
+                                                return \Carbon\Carbon::parse($operation->created_at);
                                             });
                                         @endphp
                                 
                                         @foreach ($sortedOperations as $operation)
                                             <tr>
+                                                <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $operation->id }}</h6>
+                                                </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
                                                 </td>
@@ -93,12 +100,12 @@
                                                         }
                                                         if($operation->spot){
                                                             echo ",Spot";
+                                                            if($operation->spot->progress){
+                                                                echo ",Progress";
+                                                            }
+                                                            if($operation->spot->final){
+                                                                echo ",Final";
                                                         }
-                                                        if($operation->spot->progress){
-                                                            echo ",Progress";
-                                                        }
-                                                        if($operation->spot->final){
-                                                            echo ",Final";
                                                         }
                                                     @endphp
                                                 </td>                                                
