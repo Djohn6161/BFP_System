@@ -1,4 +1,4 @@
-<div class="modal fade" id="deleteModal{{ $investigation->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+{{-- <div class="modal fade" id="deleteModal{{ $investigation->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -25,6 +25,30 @@
                 </form>
                 
             </div>
+        </div>
+    </div>
+</div> --}}
+
+<div  class="modal fade" id="deleteModal{{ $investigation->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-1">
+            <form action="{{ route('investigation.'. $type .'.destroy') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" id="id[{{$investigation->id}}]" value="{{ $investigation->id }}">
+                <div class="modal-body text-center p-0">
+                    <div class="modal-icon mt-3">
+                        <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
+                    </div>
+                    <h5 class="modal-title" id="deleteModalLabel">Delete this investigation <strong>{{ $investigation->investigation->subject }} </strong></h5>
+                    
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete!</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
