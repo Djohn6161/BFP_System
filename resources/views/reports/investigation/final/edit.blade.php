@@ -38,9 +38,6 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <div class="col d-flex justify-content-start mb-2">
-            <a href="{{ route('investigation.final.index') }}" class="btn btn-primary">Back</a>
-        </div>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row mb-4">

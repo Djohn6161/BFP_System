@@ -5,25 +5,6 @@
 </style>
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-      
-
-        <div class="col-lg-12">
-           
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#chooseInvestigation">Create</button>
-                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
-                </div>
-              
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 text-capitalize">
-                                {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports</h5> --}}
-
     <div class="container-fluid">
         <div class="col-lg-12">
             <div class="row">
@@ -35,31 +16,38 @@
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
-                                <div class="d-flex column-gap-2">
-                                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                                        data-bs-target="#exportInvestigation">
-                                        <i class="ti ti-file-export"></i>
-                                        Export
-                                    </button>
-                                <x-reports.export></x-reports.export>
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#chooseInvestigation">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
-                                </div>
+                                    <div class="d-flex column-gap-2">
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#exportInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Export
+                                        </button>
+                                        <x-reports.export></x-reports.export>
+                                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#chooseInvestigation">
+                                            <i class="ti ti-plus"></i>
+                                            Create
+                                        </button>
+                                        <x-reports.create-investigation :spots=$spots
+                                            :afors=$afors></x-reports.create-investigation>
+                                    </div>
                                 @endif
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0 align-middle w-100" id="progressInvestigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
@@ -70,14 +58,43 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($investigations as $investigation)
+                                        @php
+                                            $sortedInvestigations = $investigations->sortByDesc(function ($investigation) {
+                                                return \Carbon\Carbon::parse($investigation->investigation->date);
+                                            });
+                                        @endphp
+
+                                        @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
+                                                <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->id }}</h6>
+                                                </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}</h6>
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->minimal)
+                                                            Minimal <br>
+                                                        @endif
+                                                        @if ($investigation->spot)
+                                                            Spot <br>
+                                                        @endif
+                                                        @if ($investigation->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                        @if ($investigation->spot->final)
+                                                            Final <br>
+                                                        @endif
+                                                    </p>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
@@ -90,7 +107,7 @@
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
                                                     <x-reports.Investigation.view-progress
-                                                        :investigation=$investigation></x-reports.Investigation.view-progress>
+                                                        :investigation=$investigation :responses=$responses :personnels=$personnels></x-reports.Investigation.view-progress>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
                                                             class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>

@@ -16,31 +16,39 @@
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
-                                <div class="d-flex column-gap-2">
-                                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                                        data-bs-target="#exportInvestigation">
-                                        <i class="ti ti-file-export"></i>
-                                        Export
-                                    </button>
-                                <x-reports.export></x-reports.export>
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#chooseInvestigation">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                    <x-reports.create-investigation :spots=$spots></x-reports.create-investigation>
-                                </div>
+                                    <div class="d-flex column-gap-2">
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#exportInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Export
+                                        </button>
+                                        <x-reports.export></x-reports.export>
+                                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#chooseInvestigation">
+                                            <i class="ti ti-plus"></i>
+                                            Create
+                                        </button>
+                                        <x-reports.create-investigation :spots=$spots
+                                            :afors=$afors></x-reports.create-investigation>
+                                    </div>
                                 @endif
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0 align-middle w-100" id="finalInvestigationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                            </th>
+                                            
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Subject</h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
@@ -51,14 +59,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($investigations as $investigation)
+                                        @php
+                                            $sortedInvestigations = $investigations->sortByDesc(function ($investigation) {
+                                                return \Carbon\Carbon::parse($investigation->investigation->date);
+                                            });
+                                        @endphp
+
+                                        @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
+                                                <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->id }}</h6>
+                                                </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}</h6>
                                                 </td>
                                                 <td>
-                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}</p>
+                                                    <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="mb-0 fw-normal">
+                                                        @if ($investigation->afor)
+                                                            Operation <br>
+                                                        @endif
+                                                        @if ($investigation->minimal)
+                                                            Minimal <br>
+                                                        @endif
+                                                        @if ($investigation->spot)
+                                                            Spot <br>
+                                                        @endif
+                                                        @if ($investigation->spot->progress)
+                                                            Progress <br>
+                                                        @endif
+                                                    </p>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
@@ -70,7 +104,7 @@
                                                         data-bs-target="#viewFinalModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
-                                                    <x-reports.Investigation.view-final
+                                                    <x-reports.Investigation.view-final :responses=$responses :personnels=$personnels
                                                         :investigation=$investigation></x-reports.Investigation.view-final>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                                         <x-reports.investigation.investigation-delete :type="'final'"

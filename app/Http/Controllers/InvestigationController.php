@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afor;
 use App\Models\Spot;
 use App\Models\Afors;
 use App\Models\Truck;
@@ -10,13 +11,14 @@ use App\Models\Victim;
 use App\Models\Minimal;
 use App\Models\Barangay;
 use App\Models\Progress;
+use App\Models\Response;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
+
 use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use function Symfony\Component\String\b;
@@ -34,6 +36,9 @@ class InvestigationController extends Controller
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function investigationMinimalIndex()
@@ -50,11 +55,17 @@ class InvestigationController extends Controller
         $spots = Spot::whereHas('investigation', function ($query) {
             $query->whereNull('deleted_at');
         })->latest()->get();
-
-        return view('reports.investigation.minimal', compact('active', 'investigations', 'user', 'minimals', 'spots'));
+        $afors = Afor::all();
+        $responses = Response::all();
+        $personnels = Personnel::all();
+        return view('reports.investigation.minimal', compact('personnels', 'responses', 'active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
     }
-    public function createMinimal()
+    public function createMinimal(Afor $afor)
     {
+        $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
+        $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        // dd($firstResponse, $alarm, $afor);
+        // dd($firstResponse->truck->name);
         return view('reports.investigation.minimal.create', [
             'active' => 'minimal',
             'user' => Auth::user(),
@@ -62,6 +73,9 @@ class InvestigationController extends Controller
             'personnels' => Personnel::all(),
             'engines' => Truck::all(),
             'alarms' => Alarm_name::all(),
+            'afor' => $afor,
+            'firstRes' => $firstResponse,
+            'firstAlarm' => $alarm
         ]);
     }
 
@@ -78,15 +92,24 @@ class InvestigationController extends Controller
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
-    public function createSpot()
+    public function createSpot(Afor $afor)
     {
+        $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
+        $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        // dd($afor->casualties, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'alarms' => Alarm_name::all(),
+            'afor' => $afor,
+            'firstRes' => $firstResponse,
+            'firstAlarm' => $alarm,
 
         ]);
     }
@@ -94,6 +117,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -118,14 +142,17 @@ class InvestigationController extends Controller
         // dd($validatedData);
         $investigation = new Investigation();
         $spot = new Spot();
-
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        $location = "";
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
         }
+        if ($request->input('zone_street')) {
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+        }
+
         $investigation->fill([
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
@@ -134,6 +161,7 @@ class InvestigationController extends Controller
         $investigation->save();
         // dd($investigation);
         $spot->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'date_occurence' => $request->input('date_occurence') ?? '',
             'time_occurence' => $request->input('time_occurence') ?? '',
@@ -176,11 +204,14 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'investigations' => Progress::whereHas('investigation', function ($query) {
-            $query->whereNull('deleted_at');
-        })->latest()->get(),
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createProgress(Spot $spot)
@@ -243,11 +274,14 @@ class InvestigationController extends Controller
                 $query->whereNull('deleted_at');
             })->latest()->get(),
             'investigations' => Ifinal::whereHas('investigation', function ($query) {
-            $query->whereNull('deleted_at');
-        })->latest()->get(),
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
             'spots' => Spot::whereHas('investigation', function ($query) {
                 $query->whereNull('deleted_at');
             })->latest()->get(),
+            'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
         ]);
     }
     public function createFinal(Spot $spot)
@@ -286,14 +320,17 @@ class InvestigationController extends Controller
         // dd($validatedData);
         $investigation = new Investigation();
         $final = new Ifinal();
-
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        $location = "";
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
         }
+        if ($request->input('zone_street')) {
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+        }
+
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
         $investigation->fill([
             'for' => $request->input('for') ?? '',
@@ -373,6 +410,7 @@ class InvestigationController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
+            'afor_id' => 'required',
             'for' => 'required',
             'subject' => 'required',
             'date' => 'required|date',
@@ -402,13 +440,15 @@ class InvestigationController extends Controller
         ]);
         $investigation = new Investigation();
         $minimal = new Minimal();
-
-        if ($request->has('barangay')) {
-            # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ', Ligao City, Albay';
-        } else {
+        $location = "";
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
+        }
+        if ($request->input('zone')) {
+            $location = $location . ', ' .  $request->input('zone');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $investigation->fill([
             'for' => $request->input('for') ?? '',
@@ -428,6 +468,7 @@ class InvestigationController extends Controller
         }
 
         $minimal->fill([
+            'afor_id' => $validatedData['afor_id'],
             'investigation_id' => $investigation->id,
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',
@@ -467,7 +508,7 @@ class InvestigationController extends Controller
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-        // dd($request->all());
+
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -500,6 +541,7 @@ class InvestigationController extends Controller
         // dd($validatedData, $request->all());
 
         $inves = Investigation::findOrFail($minimal->investigation_id);
+        $originalInvestigationData = $inves->getOriginal();
         $updateInve = [
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
@@ -509,13 +551,15 @@ class InvestigationController extends Controller
         $inves->update($updateInve);
 
         // dd($inves);
-
-        if ($request->has('barangay')) {
-            # code...
-            $location = "Brgy " . $request->input('barangay') . ', ' . $request->input('zone') . ",  " . ($request->input('landmark') ?? '') . ' Ligao City, Albay';
-        } else {
+        $location = "";
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
-            # code...
+        }
+        if ($request->input('zone')) {
+            $location = $location . ', ' .  $request->input('zone');
+        }
+        if ($request->input('barangay')) {
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $remainingPhotos = array();
@@ -548,7 +592,7 @@ class InvestigationController extends Controller
             }
         }
         $photos = implode(", ", $remainingPhotos);
-
+        $originalData = $minimal->getOriginal();
         $updatedMinimal = [
             'dt_actual_occurence' => $request->input('dt_actual_occurence') ?? '',
             'dt_reported' => $request->input('dt_reported') ?? '',
@@ -577,11 +621,28 @@ class InvestigationController extends Controller
         ];
         $minimal->touch();
         $minimal->update($updatedMinimal);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedMinimal as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $minimal->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Minimal Investigation with a subject of " . $minimal->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -630,6 +691,7 @@ class InvestigationController extends Controller
         ]);
 
         $investigation = Investigation::findOrFail($spot->investigation_id);
+        $originalInvestigationData = $investigation->getOriginal();
         $updateInve = [
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
@@ -637,11 +699,15 @@ class InvestigationController extends Controller
         ];
         $investigation->touch();
         $investigation->update($updateInve);
-
-        if ($request->has('barangay')) {
-            $location = ($request->input('landmark') ?? '') . ", " . $request->input('zone_street') . ", " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        $location = "";
+        if($request->input('landmark')){
             $location = $request->input('landmark');
+        }
+        if($request->input('zone_street')){
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if($request->input('barangay')){
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $updatedSpot = [
             'date_occurence' => $validatedData['date_occurence'] ?? '',
@@ -663,13 +729,31 @@ class InvestigationController extends Controller
             'details' => $validatedData['details'] ?? '',
             'disposition' => $validatedData['disposition'] ?? '',
         ];
+        $originalData = $spot->getOriginal();
         $spot->touch();
         $spot->update($updatedSpot);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedSpot as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $spot->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Spot Investigation with a subject of " . $spot->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -703,6 +787,7 @@ class InvestigationController extends Controller
             'subject' => $validatedData['subject'],
             'date' => $validatedData['date'],
         ];
+        $originalInvestigationData = $investigation->getOriginal();
         $investigation->touch();
         $investigation->update($updateInve);
         // dd($investigation);
@@ -712,13 +797,31 @@ class InvestigationController extends Controller
             'facts_of_the_case' => $validatedData['facts_of_the_case'] ?? "",
             'disposition' => $validatedData['disposition'] ?? "",
         ];
+        $originalData = $progress->getOriginal();
         $progress->touch();
         $progress->update($updatedProg);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updatedProg as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $progress->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Progress Investigation with a subject of " . $progress->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -769,14 +872,18 @@ class InvestigationController extends Controller
             'recommendation' => 'required',
         ]);
         // dd($validatedData);
-        $investigation = Investigation::find($final->investigation_id);
 
-        if ($request->has('barangay')) {
-            # code...
-            $location = ($request->input('landmark') ?? '') . " " . $request->input('zone_street') . " " . $request->input('barangay') . ', Ligao City, Albay';
-        } else {
+        $investigation = Investigation::find($final->investigation_id);
+        $originalInvestigationData = $investigation->getOriginal();
+        $location = "";
+        if($request->input('landmark')){
             $location = $request->input('landmark');
-            # code...
+        }
+        if($request->input('zone_street')){
+            $location = $location . ', ' .  $request->input('zone_street');
+        }
+        if($request->input('barangay')){
+            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
         $updateInve = [
@@ -817,12 +924,30 @@ class InvestigationController extends Controller
             'recommendation' => $request->input('recommendation') ?? '',
         ];
         // dd($spot);
+        $originalData = $final->getOriginal();
         $final->update($updateFinal);
+        $changes = [];
+        foreach ($updateInve as $key => $value) {
+            if ($originalInvestigationData[$key] != $value) {
+                $changes['investigation_' . $key] = [
+                    'old' => $originalInvestigationData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
+        foreach ($updateFinal as $key => $value) {
+            if ($originalData[$key] != $value) {
+                $changes[$key] = [
+                    'old' => $originalData[$key],
+                    'new' => $value,
+                ];
+            }
+        }
         $log = new InvestigationLog();
         $log->fill([
             'investigation_id' => $final->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Updated a Final Investigation with a subject of " . $final->investigation->subject,
+            'details' => json_encode($changes),
             'action' => "Update",
         ]);
         $log->save();
@@ -920,7 +1045,8 @@ class InvestigationController extends Controller
         $investigation->save();
         return redirect()->back()->with('success', 'Investigation Deleted Successfully');
     }
-    public function printSpot(Spot $spot){
+    public function printSpot(Spot $spot)
+    {
         // dd($spot);
         return view('reports.investigation.spot.printable', [
             'active' => 'spot',
@@ -928,7 +1054,8 @@ class InvestigationController extends Controller
             'spot' => $spot,
         ]);
     }
-    public function printMinimal(Minimal $minimal){
+    public function printMinimal(Minimal $minimal)
+    {
         // dd($spot);
         return view('reports.investigation.minimal.printable', [
             'active' => 'minimal',
@@ -936,19 +1063,20 @@ class InvestigationController extends Controller
             'minimal' => $minimal,
         ]);
     }
-    public function printProgress(Progress $progress){
+    public function printProgress(Progress $progress)
+    {
         return view('reports.investigation.progress.printable', [
             'active' => 'progress',
             'user' => Auth::user(),
             'progress' => $progress,
         ]);
     }
-    public function printFinal(Ifinal $final){
-        return view('reports.investigation.final.printable',[
+    public function printFinal(Ifinal $final)
+    {
+        return view('reports.investigation.final.printable', [
             'active' => 'final',
             'user' => Auth::user(),
             'final' => $final,
         ]);
     }
-
 }

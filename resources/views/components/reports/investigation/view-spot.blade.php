@@ -1,11 +1,12 @@
 <div class="modal fade" tabindex="-1" id="viewSpotModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h5>
+            <div class="modal-header pt-4 px-4 pb-1">
+                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <hr>
+            <div class="modal-body pt-4 px-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>
@@ -61,8 +62,9 @@
                     </tr>
                     <tr>
                         <th colspan="2">ESTIMATED DAMAGE</th>
-                        <td colspan="2">{{'₱ ' . number_format($investigation->estimate_damage, 0, '.', ',') }}</td>
-                    </tr>   
+                        <td colspan="2">{{ '₱ ' . number_format($investigation->estimate_damage, 0, '.', ',') }}
+                        </td>
+                    </tr>
                     <tr>
                         <th colspan="2">TIME FIRE STARTED</th>
                         <td colspan="2">{{ $investigation->time_fire_start }}</td>
@@ -90,10 +92,33 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> <i class="ti ti-x"></i> Close</button>
-                <a href="{{route('investigation.spot.print', ['spot' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
+                        class="ti ti-eye"></i> View Operation</button>
+                @if ($investigation->progress)
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotProgressModal{{ $investigation->investigation_id }}"><i class="ti ti-eye"></i> View
+                        Progress</button>
+                @endif
+                @if ($investigation->final)
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotFinalModal{{$investigation->investigation_id}}"><i class="ti ti-eye"></i> View Final</button>
+                @endif
+
+                <a href="{{ route('investigation.spot.print', ['spot' => $investigation->id]) }}" type="button"
+                    class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
+@if ($investigation->progress)
+    <x-reports.investigation.view-spot-progress :investigation=$investigation
+        :progress="$investigation->Progress"></x-reports.investigation.view-spot-progress>
+@endif
+@if ($investigation->final)
+    <x-reports.investigation.view-spot-final :investigation=$investigation :final="$investigation->final" ></x-reports.investigation.view-spot-final>
+@endif
+<x-reports.investigation.view-operation :act="'spot'" :operation="$investigation->afor" :personnels=$personnels :responses="$responses"
+    :investigation=$investigation></x-reports.investigation.view-operation>
+{{-- {{dd($investigation->progress)}} --}}

@@ -22,10 +22,9 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status:</label>
                         {{-- <input type="text" class="form-select" value="{{ $truck->status }}" id="status" name="status" placeholder="Truck Status"> --}}
-                        <select type="text" class="form-select" value="{{ $truck->status }}" id="status" name="status" placeholder="Truck Status">
-                            {{-- <option type="text" value="{{ $truck->status }}"selected></option> --}}
-                            <option type="text" id="status" name="status" value="active">Active</option>
-                            <option type="text" id="status" name="status" value="inactive">Inactive</option>
+                        <select class="form-control" value="{{ $truck->status }}" id="status" name="status" placeholder="Truck Status">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
                         </select>
                         
                     </div>

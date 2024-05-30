@@ -27,10 +27,13 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
-                                                Occupancy Name
+                                                ID
                                             </th>
                                             <th class="border-bottom-0" style="max-width:10%">
-                                                Actions
+                                                Occupancy Name
+                                            </th>
+                                            <th class="border-bottom-0 text-center" style="max-width:10%">
+                                                Action
                                             </th>
                                         </tr>
                                     </thead>
@@ -43,6 +46,9 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
+                                                <td>
+                                                    {{ $occupancyName->id}}
+                                                </td>
                                                 <td>
                                                     {{ $occupancyName->name}}
                                                 </td>

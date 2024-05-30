@@ -1,11 +1,13 @@
 <div class="modal fade" tabindex="-1" id="viewMinimalModal{{ $investigation->id }}">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h5>
+            <div class="modal-header pt-4 px-4 pb-1">
+                {{-- {{dd($investigation)}} --}}
+                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <hr>
+            <div class="modal-body px-4 pb-4 pt-0">
                 <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $investigation->investigation->for }}</b></div>
@@ -167,16 +169,15 @@
                         @endforeach
                     </div>
                 @endif
-
-
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{route('investigation.minimal.print', ['minimal' => $investigation->id])}}" type="button" class="btn btn-warning" > <i class="ti ti-printer"></i> Print</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewOperationModal{{$investigation->investigation_id}}"><i class="ti ti-eye"></i> View Operation</button>
+                <a href="{{route('investigation.minimal.print', ['minimal' => $investigation->id])}}" type="button" class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 
                 {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>
 </div>
+
+<x-reports.investigation.view-operation :act="'minimal'" :operation="$investigation->afor" :investigation="$investigation" :responses="$responses" :personnels="$personnels"></x-reports.investigation.view-operation>

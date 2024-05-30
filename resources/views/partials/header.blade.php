@@ -22,12 +22,22 @@
                     <div id="military-time" class="fw-bold fs-4"></div> 
                 </div>
                 <div class="nav-item">
-                    <a id="" class="fw-bold fs-4 px-3">Welcome, {{ $user->name}}</a> 
+                    <a id="" class="fw-bold fs-4 px-3 text-capitalize">Welcome, 
+                        @if ($user->privilege == "All")
+                            Super {{$user->name}}
+                            @elseif($user->privilege == "OC")
+                                Operator {{$user->name}}
+                            @elseif($user->privilege == "IC")
+                                Investigator {{$user->name}}
+                            @elseif($user->privilege == "AC")
+                                Admin {{$user->name}}
+                        @endif    
+                    </a> 
                 </div>
                 <div class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover px-0" href="javascript:void(0)" id="drop2"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="" width="40"
+                        <img d="personnel-picture" src="/assets/images/personnel_images/{{$user->picture}}" alt="" width="40"
                             height="40" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">

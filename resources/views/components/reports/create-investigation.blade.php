@@ -25,7 +25,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal Investigation Reports</h1>
+                    <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -42,23 +42,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#viewOperationModal" data-operation="" data-responses=""
-                                            class="btn btn-primary hide-menu w-100 mb-1">
-                                            <i class="ti ti-check"></i>
-                                            Apply
-                                        </button>
-                                    </td>
-                                </tr>
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
+                                    <tr>
+                                        <td>{{ $item->alarm_received }}</td>
+                                        <td>{{ $item->transmitted_by }}</td>
+                                        <td> {{ $item->full_location }} </td>
+                                        <td> {{ $item->td_under_control }} </td>
+                                        <td> {{ $item->td_declared_fireout }} </td>
+                                        <td>
+
+                                            @if ($item->minimal)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.minimal.create', ['afor' => $item->id]) }}"
+                                                    class=" btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-check"></i>
+                                                    Apply
+                                                </a>
+                                            @endif
+
+                                            {{-- <button disabled></button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -66,12 +85,11 @@
     </div>
 
     {{-- Spot Table Modal --}}
-    <div class="modal fade" id="spotTableModal" tabindex="-1" aria-labelledby="spotTableModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="spotTableModal" tabindex="-1" aria-labelledby="spotTableModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot Investigation Reports</h1>
+                    <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -88,21 +106,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#viewOperationModal" data-operation="" data-responses=""
-                                            class="btn btn-primary hide-menu w-100 mb-1">
-                                            <i class="ti ti-check"></i>
-                                            Apply
-                                        </button>
-                                    </td>
-                                </tr>
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
+                                    <tr>
+                                        <td>{{ $item->alarm_received }}</td>
+                                        <td>{{ $item->transmitted_by }}</td>
+                                        <td> {{ $item->full_location }} </td>
+                                        <td> {{ $item->td_under_control }} </td>
+                                        <td> {{ $item->td_declared_fireout }} </td>
+                                        <td>
+                                            @if ($item->spot)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.spot.create', ['afor' => $item->id]) }}"
+                                                    class="btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-check"></i>
+                                                    Apply
+                                                </a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -132,7 +165,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
@@ -140,7 +179,7 @@
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
                                             <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1">apply</a>
+                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -172,7 +211,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
                                         <td>{{ $spot->id }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
@@ -180,7 +225,8 @@
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
                                             <a href="{{ route('investigation.final.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1">apply</a>
+                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
+                                                Apply</a>
                                         </td>
                                     </tr>
                                 @endforeach

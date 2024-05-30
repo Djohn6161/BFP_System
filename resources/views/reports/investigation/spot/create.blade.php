@@ -35,7 +35,7 @@
                 <div class="row">
                     <form action="{{ route('investigation.spot.store') }}" class="needs-validation" novalidate method="POST">
                         @csrf
-
+                        <input type="hidden" name="afor_id" value="{{$afor->id}}" id="afor_id{{$afor->id}}">
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
                                 <a href="{{ route('investigation.spot.index') }}" class="btn btn-primary">
@@ -54,6 +54,7 @@
                             <h5><i>Date Time and Place of Occurence</i></h5>
                             {{-- <h5>Details</h5> --}}
                             <!-- Corrected "Date of Occurrence" -->
+                            {{-- {{dd($afor)}} --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="date_occurence" class="form-label">Date of Occurrence</label>
                                 <input type="date" id="date_occurence" name="date_occurence"
@@ -69,7 +70,7 @@
                                 <label for="time_occurence" class="form-label">Time of Occurrence</label>
                                 <input type="text" placeholder="Eg. 2300H" id="time_occurence" name="time_occurence"
                                     class="form-control {{ $errors->has('time_occurence') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_occurence') }}" required>
+                                    value="{{ old('time_occurence') ?? ($afor->alarm_received ?? "") }}" required>
                                 @error('time_occurence')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -84,7 +85,7 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }}
+                                        <option {{ old('barangay') ?? ($afor->barangay_name ?? "") == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
@@ -100,7 +101,7 @@
                                 <label for="zone_street" class="form-label">Zone/Street</label>
                                 <input type="text" placeholder="Eg. Zone 4" id="zone_street" name="zone_street"
                                     class="form-control {{ $errors->has('zone_street') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('zone_street') }}" required>
+                                    value="{{ old('zone_street') ?? ($afor->zone ?? "")  }}" required>
                                 @error('zone_street')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -111,7 +112,7 @@
                                 <label for="landmark" class="form-label">Other Location/Landmark</label>
                                 <input type="text" placeholder="Eg. LCC Mall" id="landmark" name="landmark"
                                     class="form-control {{ $errors->has('landmark') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('landmark') }}" required>
+                                    value="{{ old('landmark') ?? ($afor->location ?? "") }}" required>
                                 @error('landmark')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -171,7 +172,7 @@
                                 <label for="fatality" class="form-label">Fatality</label>
                                 <input type="number" placeholder="Eg. 1" id="fatality" name="fatality"
                                     class="form-control {{ $errors->has('fatality') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('fatality') }}" required min="0">
+                                    value="{{ old('fatality') ?? ($afor->casualties->sum('death') ?? "")  }}" required min="0">
                                 @error('fatality')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -181,7 +182,7 @@
                                 <label for="injured" class="form-label">Injured</label>
                                 <input type="number" placeholder="Eg. 3" id="injured" name="injured"
                                     class="form-control {{ $errors->has('injured') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('injured') }}" required min="0">
+                                    value="{{ old('injured') ?? ($afor->casualties->sum('injured') ?? "") }}" required min="0">
                                 @error('injured')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -219,7 +220,7 @@
                                 <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
                                     name="time_fire_out"
                                     class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('time_fire_out') }}" required>
+                                    value="{{ old('time_fire_out') ?? ($afor->td_declared_fireout ?? ' ') }}" required>
                                 @error('time_fire_out')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -231,7 +232,10 @@
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
                                     @foreach ($alarms as $item)
-                                        <option {{ old('alarm') == $item->id ? 'selected' : '' }}
+                                        <option 
+                                        @if (old('alarm_status_time') == $item->id  || ($afor->alarm_status_arrival ?? ' ') == $item->name )
+                                        selected
+                                        @endif
                                             value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>

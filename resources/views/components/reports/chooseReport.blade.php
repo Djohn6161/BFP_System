@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body m-3 text-center">
-                <h3 class="mb-2">{{$category}} Reports</h3>
+                <h3 class="mb-2">{{$category}} Reports aaaa</h3>
                 <div class="shadow rounded p-4">
                     <table class="table w-100 " id="myTable">
                         <thead class="text-dark fs-4">

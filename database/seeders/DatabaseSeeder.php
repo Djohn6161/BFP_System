@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             AforSeeder::class,
             StationSeeder::class,
             InvestigationSeeder::class,
+            ConfigurationLogSeeder::class,
         ]);
     }
 }

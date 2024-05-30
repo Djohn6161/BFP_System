@@ -35,30 +35,23 @@
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
                         <div class="modal-body text-center">
-                            <h3>Are you sure you want to logout?</h3>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <div class="row">
-                                <div class="col">
-                                    <button type="button" class="btn btn-secondary btn-block"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                </div>
-                                <div class="col">
-                                    <a href="{{ route('user.logout') }}" class="btn btn-danger btn-block">Logout</a>
-                                </div>
+                            <div class="modal-icon">
+                                <img src="/assets/images/icons/logout.gif" alt="Warning Icon">
                             </div>
+                            <h3 class="modal-title">Are you sure you want to logout? </h3>
+                            <p class="mb-0">This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer justify-content-flex-center">
+                            <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Cancel</button>
+                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes, Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
+
+            <div class="modal fade" data-bs-backdrop="static" id="userPasswordModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">

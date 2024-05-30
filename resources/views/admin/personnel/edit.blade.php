@@ -98,7 +98,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 mb-3">
                                         <label for="maritalStatus" class="form-label">Marital Status</label>
-                                        <select class="form-select" id="maritalStatus">
+                                        <select class="form-select" id="maritalStatus" name="maritam_status">
                                             <option selected>Select marital status</option>
                                             @foreach ($maritals as $marital)
                                                 @if ($marital == $personnel->marital_status)

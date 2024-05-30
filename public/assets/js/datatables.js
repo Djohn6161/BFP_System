@@ -1,18 +1,46 @@
-$('#myTable').DataTable();
+$('#myTable').DataTable({
+  "ordering": false,
+});
 
-$("#minimalModalTable").DataTable();
-$("#spotModalTable").DataTable();
-$("#progressModalTable").DataTable();
-$("#finalModalTable").DataTable();
-$("#operationTable").DataTable();
-$("#alarmTable").DataTable();
-$("#investigationTable").DataTable();
-$("#trashOperationTable").DataTable();
-$("#trashInvestigationTable").DataTable();
-$("#allInvestigation").DataTable();
-$("#spotInvestigationTable").DataTable();
-$("#minimalInvestigationTable").DataTable();
+$("#minimalModalTable").DataTable({
+  "ordering": false,
+});
+$("#spotModalTable").DataTable({
+  "ordering": false,
+});
+$("#progressModalTable").DataTable({
+  "ordering": false,
+});
+$("#finalModalTable").DataTable({
+  "ordering": false,
+});
+$("#operationTable").DataTable({
+  "ordering": false,
+});
+$("#alarmTable").DataTable({
+  "ordering": false,
+});
+$("#investigationTable").DataTable({
+  "ordering": false,
+});
+$("#trashOperationTable").DataTable({
+  "ordering": false,
+});
+$("#trashInvestigationTable").DataTable({
+  "ordering": false,
+});
+$("#allInvestigation").DataTable({
+  "ordering": false,
+});
+$("#spotInvestigationTable").DataTable({
+  "ordering": false,
+});
+$("#minimalInvestigationTable").DataTable({
+    // "scrollY": "500px",
+    "ordering": false,
+  });
 $("#progressInvestigationTable").DataTable();
-$("#finalInvestigationTable").DataTable();s
+$("#finalInvestigationTable").DataTable();
 $("#rankTable").DataTable();
 $("#adminAccount").DataTable();
+$("#invesLog").DataTable();

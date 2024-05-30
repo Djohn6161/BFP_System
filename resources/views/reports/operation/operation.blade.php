@@ -5,24 +5,6 @@
 </style>
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-        <!--  Row 1 -->
-
-        <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button href="{{ route('operation.create.form') }}" class="btn btn-primary">
-                        <i class="ti ti-plus"></i>
-                        Create
-                       
-                    </button>
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4">Operation Reports</h5> --}}
     <div class="container-fluid">
         <div class="col-lg-12">
             <div class="row">
@@ -66,12 +48,21 @@
                                                 <h6 class="fw-semibold mb-0">Time/Date Declared Fireout</h6>
                                             </th>
                                             <th>
+                                                <h6 class="fw-semibold mb-0">Status</h6>
+                                            </th>
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($operations as $operation)
+                                        @php
+                                            $sortedOperations = $operations->sortByDesc(function($operation) {
+                                                return \Carbon\Carbon::parse($operation->alarm_received);
+                                            });
+                                        @endphp
+                                
+                                        @foreach ($sortedOperations as $operation)
                                             <tr>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
@@ -86,7 +77,7 @@
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
-                                                        {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
+                                                        {{ \Carbon\Carbon::parse($operation->td_under_control)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
                                                 <td>
@@ -94,40 +85,51 @@
                                                         {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
+
+                                                <td>
+                                                    @php
+                                                        if($operation->minimal){
+                                                            echo "Minimal";
+                                                        }
+                                                        if($operation->spot){
+                                                            echo ",Spot";
+                                                        }
+                                                        if($operation->spot->progress){
+                                                            echo ",Progress";
+                                                        }
+                                                        if($operation->spot->final){
+                                                            echo ",Final";
+                                                        }
+                                                    @endphp
+                                                </td>                                                
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
                                                         data-operation="{{ json_encode($operation) }}"
                                                         data-responses="{{ json_encode($operation->responses) }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1">
-                                                        <i class="ti ti-eye"></i>
-                                                        View
-
+                                                        <i class="ti ti-eye"></i> View
                                                     </button>
-                                                    <x-reports.operation.operation_view :operation="$operation"
-                                                        :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
+                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
                                                     @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                                         <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                             class="btn btn-success w-100 mb-1">
-                                                            <i class="ti ti-pencil"></i>
-                                                            Update
-
+                                                            <i class="ti ti-pencil"></i> Update
                                                         </a>
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $operation->id }}"
                                                             class="btn btn-danger hide-menu w-100 mb-1">
-                                                            <i class="ti ti-trash"></i>
-                                                            Delete
+                                                            <i class="ti ti-trash"></i> Delete
                                                         </button>
-                                                        <x-reports.operation.delete :operation="$operation">
-                                                        </x-reports.operation.delete>
+                                                        <x-reports.operation.delete :operation="$operation"></x-reports.operation.delete>
                                                     @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
