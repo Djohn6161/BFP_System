@@ -98,10 +98,12 @@
                                                     </p>
                                                 </td>
                                                 <td>
+                                                    {{-- {{dd($investigation)}} --}}
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewMinimalModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
+                                                            
                                                     <x-reports.Investigation.view-minimal
                                                         :investigation=$investigation :personnels=$personnels responses=$responses></x-reports.Investigation.view-minimal>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')

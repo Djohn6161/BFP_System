@@ -57,4 +57,4 @@ $("#barangayTable").DataTable({
 $("#trucksTable").DataTable({
   "ordering": false,
 });
-
+$("#invesLog").DataTable();

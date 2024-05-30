@@ -77,14 +77,6 @@
 
                                                             </button>
                                                         </div>
-                                                        <div class="me-1">
-                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteRankModal{{ $rank->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
-
-                                                            </button>
-                                                        </div>
                                                         @if (count($rank->personnels ?? []) != 0)
                                                             <div class="me-1">
                                                                 <button disabled class="btn btn-secondary"

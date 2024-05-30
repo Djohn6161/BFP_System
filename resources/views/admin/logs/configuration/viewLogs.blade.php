@@ -12,13 +12,13 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>Date and Time</th>
-                                            <th>User</th>
+                                            <th>ID - User</th>
                                             <th>Details</th>
-                                            <th>Alarm Received</th>
+                                            <th>Type</th>
                                             <th>Action/Changes Made</th>
                                         </tr>
                                     </thead>
@@ -28,10 +28,9 @@
 
                                             <tr class="text-dark">
                                                 <td>{{ $log->updated_at }}</td>
-                                                <td>{{ $log->user->name }}</td>
-                                                <td>{{ $log->details }}</td>
-                                                <td>{{ $log->afor != null ? $log->afor->alarm_received : 'Unavailable' }}
-                                                </td>
+                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
+                                                <td>{!! $log->Details !!}</td>
+                                                <td class="text-capitalize fw-bolder">{{ $log->type }}</td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
                                                     <div class="text-light rounded-pill bg-danger p-2 text-center ">{{ $log->action }}</div>

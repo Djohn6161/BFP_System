@@ -5,23 +5,6 @@
 </style>
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTruckModal">
-                        <i class="ti ti-plus"></i>
-                        Create
-                    </button>
-                    <x-truck.create :category="$active"></x-truck.create>
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 p-3 rounded bg-gradient-blue text-light">
-                                Station Trucks
-                            </h5> --}}
-
     <div class="container-fluid">
         <div class="col-lg-12">
             <div class="row">

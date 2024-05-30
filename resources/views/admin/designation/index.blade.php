@@ -43,7 +43,7 @@
                                                             <button type="button" class="btn btn-success"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editOtherDesignationModal{{ $item->id }}">
-                                                                <i class="ti ti-plus"></i>
+                                                                <i class="ti ti-pencil"></i>
                                                                 Update</button>
                                                         </div>
                                                         <div class="me-1">
