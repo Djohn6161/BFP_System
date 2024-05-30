@@ -57,13 +57,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                        $sortedInvestigations = $investigations->sortByDesc(function($investigation) {
-                                            return \Carbon\Carbon::parse($investigation->investigation->date);
-                                        });
-                                    @endphp
-                            
-                                    @foreach ($sortedInvestigations as $investigation)
+                                        @foreach ($investigations as $investigation)
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}

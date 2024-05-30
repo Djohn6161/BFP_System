@@ -53,13 +53,15 @@
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
-                                            <th class="fw-semibold mb-0">Slug
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">Slug</h6>
                                             </th>
-                                            <th class="fw-semibold mb-0 text-center">Action
+                                            <th>
+                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-group-divider">
+                                    <tbody>
                                         @foreach ($ranks as $rank)
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>

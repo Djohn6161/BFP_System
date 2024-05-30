@@ -49,13 +49,13 @@
                     @if ($investigation->spot->operation)
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
-                                class="ti ti-eye"></i> View Operation</button>
+                                class="ti ti-files"></i> View Operation</button>
                     @endif
                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                        data-bs-target="#viewSpotProgressModal{{ $investigation->investigation_id }}"><i class="ti ti-eye"></i> View Spot</button>
+                        data-bs-target="#viewSpotProgressModal{{ $investigation->investigation_id }}">View Spot</button>
                     @if ($investigation->spot->final)
                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#viewFinalProgressModal{{ $investigation->investigation_id }}"><i class="ti ti-eye"></i> View
+                            data-bs-target="#viewFinalProgressModal{{ $investigation->investigation_id }}">View
                             Final</button>
                     @endif
                 @endif
