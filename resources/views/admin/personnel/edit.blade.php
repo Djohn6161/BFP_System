@@ -152,20 +152,17 @@
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0" id="editTertiaryCourseContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-
-                                        @foreach ($tertiaries as $tertiary)
-                                            <div class="input-group mb-1">
-                                                <input type="text" placeholder="Enter tertiary course/s"
-                                                    class="form-control" id="tertiaryCourses" name="tertiary[]"
-                                                    value="{{ $tertiary->name }}">
-                                                <button type="button"
-                                                    class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
-                                            </div>
-                                        @endforeach
-
-
+                                    @foreach ($tertiaries as $tertiary)
+                                    <div class="col-lg-12 px-0 mb-2">
+                                        <div class="input-group mb-1">
+                                            <input type="text" placeholder="Enter tertiary course/s"
+                                                class="form-control" id="tertiaryCourses" name="tertiary[]"
+                                                value="{{ $tertiary->name }}">
+                                            <button type="button"
+                                                class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
+                                        </div>
                                     </div>
+                                    @endforeach
                                     <!-- Input fields will be appended here -->
                                 </div>
                             </div>
@@ -181,19 +178,17 @@
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0" id="editPostGraduateCoursesContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-
-                                        @foreach ($courses as $course)
-                                            <div class="input-group mb-1">
-                                                <input type="text" placeholder="Enter post graduate course/s"
-                                                    class="form-control" id="postGraduateCourses" name="courses[]"
-                                                    value="{{ $course->name }}">
-                                                <button type="button"
-                                                    class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
-                                            </div>
-                                        @endforeach
-
+                                    @foreach ($courses as $course)
+                                    <div class="col-lg-12 px-0 mb-2">
+                                        <div class="input-group mb-1">
+                                            <input type="text" placeholder="Enter post graduate course/s"
+                                                class="form-control" id="postGraduateCourses" name="courses[]"
+                                                value="{{ $course->name }}">
+                                            <button type="button"
+                                                class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
+                                        </div>
                                     </div>
+                                    @endforeach
                                     <!-- Input fields will be appended here -->
                                 </div>
                             </div>
