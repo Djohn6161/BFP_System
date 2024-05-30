@@ -11,34 +11,26 @@
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
 
     <style>
-        .card {
+        .animated-card {
             background-color: black;
-            /* Set background color to black */
             border: 1px solid transparent;
-            /* Set initial border color to transparent */
             animation: glowBorder 3s infinite alternate;
-            /* Apply animation for glowing effect */
         }
 
         @keyframes glowBorder {
             0% {
                 border-color: grey;
-                /* Start with white border color */
                 box-shadow: 0 0 5px 0px rgba(255, 165, 0, 0.7);
-                /* Start with orange shadow */
             }
 
             100% {
                 border-color: rgba(255, 165, 0, 0.7);
-                /* Transition to orange border color */
                 box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.7);
-                /* Transition to larger orange shadow */
             }
         }
 
         .white-text {
             color: white;
-            /* White text color */
         }
 
         .form-control {
@@ -84,7 +76,7 @@
             <div class="d-flex align-items-center justify-content-center w-100">
 
                 <div class="col-md-8 col-lg-6 col-xxl-3">
-                    <div class="card mb-0">
+                    <div class="animated-card mb-0">
                         <div class="card-body">
                             <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
                                 <img src="../assets/images/logos/login.gif" width="150" height="auto"
@@ -115,6 +107,42 @@
                             </form>
                         </div>
                     </div>
+
+                    {{-- BACK UP LOGIN PAGE FOR COMPATIBILITY --}}
+                    {{-- UNCOMMENT IF NECESSARY --}}
+                        {{-- <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                                    <img src="{{ asset('assets/images/logos/BFP_Ligao_logo.png') }}" width="120" height="auto"
+                                        alt="">
+                                </a>
+                                <h4 class="text-center"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger text-center py-2" role="">
+                                            Invalid Credentials
+                                        </div>
+                                    @endif
+
+                                    <div class="mb-3 ">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input name="username" required value="{{ old('username') }}" type="text"
+                                            class="form-control" id="InputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" required class="form-control" id="InputPassword1"
+                                            name="password">
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-dark w-100 py-8 fs-4 mb-4 rounded-2">Login</button>
+                                </form>
+                            </div>
+                        </div> --}}
+                    {{-- END OF BACKUP LOGIN PAGE --}}
+
                 </div>
 
             </div>
