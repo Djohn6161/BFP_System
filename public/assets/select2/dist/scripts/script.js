@@ -9,9 +9,11 @@ $(document).ready(function () {
     $(".designationSelect").select2();
     $(".designationSelectEdit").select2();
 
-    // personnel designation
+    // personnel select2
     $(".designation_select_edit").select2();
     $(".designation-select").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelect").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelectEdit").select2();
     $(".edit-designation-select").select2({
         tags: true,
     });

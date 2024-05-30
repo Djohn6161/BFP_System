@@ -416,13 +416,13 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
                             </h3> --}}
                             <div class="row m-0 p-0" id="thirdDivApor">
-                                <div class="row" id="thirdAddApor">
+                                <div class="row m-0 p-0" id="thirdAddApor">
                                     <h3></h3>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="fundCommander" class="form-label">Rank /
+                                        <label for="dutyPersonnel" class="form-label">Rank /
                                             Name</label>
                                         <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
-                                            <option value="" selected>Select Fund Commander</option>
+                                            <option value="" selected>Select Duty Personnel</option>
                                             @foreach ($personnels as $personnel)
                                                 <option value="{{ $personnel->id }}">
                                                     {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
@@ -431,7 +431,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="fundCommander" class="form-label">Designation</label>
+                                        <label for="dutyPersonnel" class="form-label">Designation</label>
                                         <select class="form-select designationSelect" aria-label="" name="designations[]">
                                             <option value="" selected>Select designation</option>
                                             @foreach ($designations as $designation)
@@ -732,6 +732,7 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.alarmApor').select2();
+                mnewDiv.find('.fundCommander').select2();
             });
 
             $('#thirdDivApor').on('click', '.third-remove-section-btn', function() {
@@ -745,7 +746,7 @@
                 console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select designationSelect" aria-label="" name="designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Duty Personnel</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Designation</label> <select class="form-select designationSelect" aria-label="" name="designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);

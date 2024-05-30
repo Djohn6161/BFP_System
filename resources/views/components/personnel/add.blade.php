@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="rank" class="form-label">Rank</label>
-                                <select class="form-select  {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
+                                <select class="form-select rankSelect {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
                                     id="rank" name="rank">
                                     <option value="" selected>Select Rank</option>
                                     @foreach ($ranks as $rank)
