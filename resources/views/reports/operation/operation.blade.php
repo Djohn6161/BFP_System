@@ -56,7 +56,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($operations as $operation)
+                                        @php
+                                            $sortedOperations = $operations->sortByDesc(function($operation) {
+                                                return \Carbon\Carbon::parse($operation->alarm_received);
+                                            });
+                                        @endphp
+                                
+                                        @foreach ($sortedOperations as $operation)
                                             <tr>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
@@ -71,7 +77,7 @@
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">
-                                                        {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
+                                                        {{ \Carbon\Carbon::parse($operation->td_under_control)->format('F j, Y | g:i:s A') }}
                                                     </p>
                                                 </td>
                                                 <td>
@@ -82,56 +88,48 @@
 
                                                 <td>
                                                     @php
-                                                        if (isset($operation)) {
-                                                            if ($operation->minimal) {
-                                                                echo 'Minimal';
-                                                            }
-                                                            if (isset($operation->spot)) {
-                                                                echo ',Spot';
-                                                                if (isset($operation->spot->progress)) {
-                                                                    echo ',Progress';
-                                                                }
-                                                                if (isset($operation->spot->final)) {
-                                                                    echo ',Final';
-                                                                }
-                                                            }
+                                                        if($operation->minimal){
+                                                            echo "Minimal";
+                                                        }
+                                                        if($operation->spot){
+                                                            echo ",Spot";
+                                                        }
+                                                        if($operation->spot->progress){
+                                                            echo ",Progress";
+                                                        }
+                                                        if($operation->spot->final){
+                                                            echo ",Final";
                                                         }
                                                     @endphp
-                                                </td>
+                                                </td>                                                
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
                                                         data-operation="{{ json_encode($operation) }}"
                                                         data-responses="{{ json_encode($operation->responses) }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1">
-                                                        <i class="ti ti-eye"></i>
-                                                        View
-
+                                                        <i class="ti ti-eye"></i> View
                                                     </button>
-                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses"
-                                                        :personnels="$personnels"></x-reports.operation.operation_view>
+                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
                                                     @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                                         <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                             class="btn btn-success w-100 mb-1">
-                                                            <i class="ti ti-pencil"></i>
-                                                            Update
-
+                                                            <i class="ti ti-pencil"></i> Update
                                                         </a>
                                                         <br>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal{{ $operation->id }}"
                                                             class="btn btn-danger hide-menu w-100 mb-1">
-                                                            <i class="ti ti-trash"></i>
-                                                            Delete
+                                                            <i class="ti ti-trash"></i> Delete
                                                         </button>
-                                                        <x-reports.operation.delete :operation="$operation">
-                                                        </x-reports.operation.delete>
+                                                        <x-reports.operation.delete :operation="$operation"></x-reports.operation.delete>
                                                     @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

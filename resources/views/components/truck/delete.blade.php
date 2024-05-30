@@ -12,12 +12,9 @@
                     <h4 class="modal-title"id="deleteTruckModalLabel">Delete this <strong>"{{ $truck->name }}"</strong> truck?</h4>
                     <p>The data associated with this truck will be lost.</p>
                 </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete this truck?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete!</button>
                 </div>
             </form>
         </div>
