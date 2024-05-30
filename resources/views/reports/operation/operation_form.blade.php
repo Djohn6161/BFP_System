@@ -21,7 +21,7 @@
 
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Operation Information</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
@@ -95,7 +95,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <div class="row m-0 p-0" id="divApor">
                                 <div class="row m-0 p-0 border-0" id="addApor">
-                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Engine Dispatched
                                     </h3>
                                     <div class="col-lg-3 mb-3">
                                         <label for="vehicle" class="form-label">Engine
@@ -160,8 +160,9 @@
 
                         <!-- Alarm -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
-                                9</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
+                                9</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Alarm Declared</h3>
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
@@ -232,7 +233,9 @@
 
                         <!-- Occupancy -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
+                            </h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Occupancies
                             </h3>
                             <div class="col-lg-4 mb-3">
                                 <label for="typeOfOccupancy" class="form-label">Occupancy Name</label>
@@ -274,7 +277,7 @@
 
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
                             </h3>
                             <div class="col-lg-6">
@@ -408,17 +411,17 @@
 
                         <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
-                            </h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
+                            </h3> --}}
                             <div class="row m-0 p-0" id="thirdDivApor">
-                                <div class="row" id="thirdAddApor">
+                                <div class="row m-0 p-0" id="thirdAddApor">
                                     <h3></h3>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="fundCommander" class="form-label">Rank /
+                                        <label for="dutyPersonnel" class="form-label">Rank /
                                             Name</label>
                                         <select class="form-select rankName" aria-label="" name="duty_personnel_id[]">
-                                            <option value="" selected>Select Fund Commander</option>
+                                            <option value="" selected>Select Duty Personnel</option>
                                             @foreach ($personnels as $personnel)
                                                 <option value="{{ $personnel->id }}">
                                                     {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
@@ -427,8 +430,8 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="fundCommander" class="form-label">Designation</label>
-                                        <select class="form-select" aria-label="" name="duty_designations[]">
+                                        <label for="dutyPersonnel" class="form-label">Designation</label>
+                                        <select class="form-select designationSelect" aria-label="" name="duty_designations[]">
                                             <option value="" selected>Select designation</option>
                                             @foreach ($designations as $designation)
                                                 <option value="{{ $designation->name }}">
@@ -452,7 +455,8 @@
 
                         <!-- Photos -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14</h3> --}}
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Sketch of Fire Operation</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
                                 name="sketch_of_fire_operation[]" multiple>
@@ -461,8 +465,8 @@
 
                         <!-- Details narrative -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3> --}}
                             <label for="firefighterDeath" class="form-label">Details (Narrative)</label>
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <label for="dateTime" class="form-label"></label>
@@ -521,8 +525,8 @@
 
                         <!-- Problem encounterd -->
                         <div class="row border border-light-subtle shadow rounded my-4 p-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16</h3> --}}
                             <label for="firefighterDeath" class="form-label">Problems / Encountered during
                                 operation:</label>
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
@@ -582,8 +586,8 @@
 
                         <!-- Observation Recommendation -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17 </h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17 </h3> --}}
                             <label for="firefighterDeath" class="form-label">Observation / Recommendation</label>
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <div style="height: 150px;">
@@ -727,6 +731,7 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.alarmApor').select2();
+                mnewDiv.find('.fundCommander').select2();
             });
 
             $('#thirdDivApor').on('click', '.third-remove-section-btn', function() {
@@ -740,7 +745,7 @@
                 console.log(parentCounter, childCounter);
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select" aria-label="" name="duty_designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Duty Personnel</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Designation</label> <select class="form-select designationSelect" aria-label="" name="duty_designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -749,22 +754,9 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
-                mnewDiv.find('.designation').select2();
+                mnewDiv.find('.designationSelect').select2();
             });
-            $(document).on('click', '.addDesignation', function() {
-                childCounter++;
-                console.log(parentCounter, childCounter);
-                // console.log("hello");
-                var inputField =
-                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[' +
-                    parentCounter + '][' + childCounter +
-                    ']"> <option value="" selected>Select Designation</option>@foreach ($designations as $designation) <option value = "{{ $designation->name }}"> {{ $designation->name }} </option> @endforeach</select><button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button></div></div>';
-                // $(".designationContainer").append(inputField);
-                $(this).closest('.designationContainer').append(inputField);
-
-                // inputField.find('.designation').select2();
-                $(".designation").select2();
-            });
+            
             $(document).on('click', '.remove-designation', function() {
                 $(this).closest('.col-lg-6').remove();
             });
