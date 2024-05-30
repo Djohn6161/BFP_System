@@ -240,7 +240,7 @@ class OperationController extends Controller
 
         // Duty Personnel
         $duty_personnel_ids = $request->input('duty_personnel_id', []);
-        $duty_designations = $request->input('duty_designation', []);
+        $duty_designations = $request->input('duty_designations', []);
         $duty_remarks = $request->input('duty_remarks', []);
 
         if ($this->hasValues($duty_personnel_ids)) {
@@ -252,14 +252,6 @@ class OperationController extends Controller
                 $personnel->remarks = isset($duty_remarks[$key]) ? $duty_remarks[$key] : '';
                 $personnel->save();
 
-                // if (isset($duty_designations[$key])) {
-                //     foreach ($duty_designations[$key] as $designation) {
-                //         $designationModel = new Afor_designation();
-                //         $designationModel->afor_id = $afor_id;
-                //         $designationModel->name = $designation;
-                //         $designationModel->save();
-                //     }
-                // }
             }
         }
 
@@ -269,7 +261,7 @@ class OperationController extends Controller
         if ($request->hasFile('sketch_of_fire_operation')) {
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
-                $file->move(public_path('operation_image'), $fileName);
+                $file->move(public_path('/assets/images/operation_images'), $fileName);
                 $sketch_format[] = $fileName;
             }
             $sketch = implode(',', $sketch_format);
