@@ -47,11 +47,11 @@
                                 <i class="ti ti-user fs-6"></i>
                                 <p class="mb-0 fs-5">My Profile</p> <!-- Updated: Use consistent font size -->
                             </a>
-                            <a href="{{ route('profile.myPassword') }}"
-                                class="d-flex align-items-center gap-2 dropdown-item">
+                            <button data-bs-toggle="modal" data-bs-target="#userPasswordModal"
+                                class="d-flex align-items-center gap-2 dropdown-item mb-2">
                                 <i class="ti ti-mail fs-6"></i>
                                 <p class="mb-0 fs-5">My Password</p> <!-- Updated: Use consistent font size -->
-                            </a>
+                            </button>
                             <button class="btn btn-outline-danger text-center w-100" data-bs-toggle="modal"
                                 data-bs-target="#logoutModal">Logout</button>
                         </div>
