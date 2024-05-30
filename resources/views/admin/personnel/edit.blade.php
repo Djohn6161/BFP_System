@@ -2,6 +2,14 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.personnel.index') }}">Personnel</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Personnel Information</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <form action="{{ route('admin.personnel.update') }}" method="POST" enctype="multipart/form-data">
@@ -40,7 +48,7 @@
                                     </div>
                                     <div class="col-lg-4 mb-3">
                                         <label for="rank" class="form-label">Rank</label>
-                                        <select class="form-select" id="rank" name="rank">
+                                        <select class="form-select rankSelectEdit" id="rank" name="rank">
                                             <option selected>Select Rank</option>
                                             @foreach ($ranks as $rank)
                                                 @if ($rank->id == $personnel->ranks_id)

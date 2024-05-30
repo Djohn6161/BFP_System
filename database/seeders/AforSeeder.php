@@ -33,18 +33,16 @@ class AforSeeder extends Seeder
                 'location' => 'Mayon',
                 'full_location' => $full_location,
                 'received_by' => $faker->numberBetween(1, 16),
-                'td_under_control' => $stringDate,
-                'td_declared_fireout' => $td_declared_fireout,
-                'distance_to_fire_incident' => '7 kilometers',
-                'structure_description' => '',
+                'td_under_control' => null,
+                'td_declared_fireout' => null,
                 'sketch_of_fire_operation' => 'sample - Copy.jpg,sample.jpg',
                 'details' => $faker->paragraph(),
                 'problem_encounter' => $faker->paragraph(),
                 'observation_recommendation' => $faker->paragraph(),
                 'alarm_status_arrival' => '1st Alarm',
                 'first_responder' => 'First',
-                'prepared_by' => 'FO2 Joenel C. Cerias',
-                'noted_by' => 'SF03 Marvin P. De Jesus',
+                'prepared_by' => '',
+                'noted_by' => '',
             ];
 
             $reportID = DB::table('afors')->insertGetId($attributes);

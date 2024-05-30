@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-lg-4 mb-3">
                                 <label for="rank" class="form-label">Rank</label>
-                                <select class="form-select  {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
+                                <select style="width: 100%" class=" form-select rankSelect {{ $errors->has('rank') != '' ? 'is-invalid' : '' }}"
                                     id="rank" name="rank">
                                     <option value="" selected>Select Rank</option>
                                     @foreach ($ranks as $rank)
@@ -222,7 +222,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="philhealth" class="form-label">PHILHEALTH</label>
-                                <input class="form-control government-id" type="text" name="philhealth" placeholder="XX-XXXXXXXXX-X">
+                                <input class="form-control government-id" type="text" name="philhealth"
+                                    placeholder="XX-XXXXXXXXX-X">
                             </div>
                         </div>
 
@@ -280,7 +281,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 ps-0">
                                         <div class="d-flex align-items-center">
-                                            <select class="form-control designation-select" id="designationSelect"
+                                            <select style="width: 100%" class="form-control designation-select" id="designationSelect"
                                                 aria-label="designationSelect" name="designations[]">
                                                 <option selected>Select designation</option>
                                                 @foreach ($designations as $designation)
@@ -327,7 +328,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>

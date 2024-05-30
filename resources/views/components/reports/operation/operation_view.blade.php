@@ -319,25 +319,29 @@
                 </div>
             </div>
             <div class="modal-footer">
-                @if (isset($operation->minimal))
+                @if ($operation->minimal)
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                        data-bs-target="#viewMinimalOperationModal{{ $operation->id }}">View Minimal</button>
+                        data-bs-target="#viewMinimalOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i> View
+                        Minimal</button>
                 @endif
 
-                @if (isset($operation->spot))
+                @if ($operation->spot)
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#viewSpotOperationModal{{ $operation->id }}">View Spot</button>
+                        data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i> View
+                        Spot</button>
+                    @if ($operation->spot->progress)
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#viewProgressOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
+                            View Progress</button>
+                    @endif
+
+                    @if ($operation->spot->final)
+                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                            data-bs-target="#viewFinalOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
+                            View Final</button>
+                    @endif
                 @endif
 
-                @if (isset($operation->spot->progress))
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                        data-bs-target="#viewProgressOperationModal{{ $operation->id }}">View Progress</button>
-                @endif
-
-                @if (isset($operation->spot->final))
-                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                        data-bs-target="#viewFinalOperationModal{{ $operation->id }}">View Final</button>
-                @endif
 
                 <a href="{{ route('operation.print', $operation->id) }}" type="button" class="btn btn-warning"> <i
                         class="ti ti-printer"></i> Print</a>

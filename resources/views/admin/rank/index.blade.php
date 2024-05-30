@@ -1,9 +1,14 @@
 @extends('layouts.user-template')
 
 @section('content')
-
-
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ranks</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -28,15 +33,13 @@
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Slug</h6>
+                                            <th class="fw-semibold mb-0">Slug
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0 text-center">Action</h6>
+                                            <th class="fw-semibold mb-0 text-center">Action
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="table-group-divider">
                                         @foreach ($ranks as $rank)
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>

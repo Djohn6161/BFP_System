@@ -1,11 +1,20 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('operation.index') }}">Operation Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Operation Reports</li>
+                {{-- <li class="breadcrumb-item active" aria-current="page">Operation Reports</li> --}}
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
 
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
@@ -17,7 +26,7 @@
                                 </a>
                             </div>
                         </div>
-
+                        
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Operation Information</h3>
@@ -180,8 +189,6 @@
 
                         <!-- Alarm -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
-                                9</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Alarm Declared</h3>
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
@@ -208,14 +215,16 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
-                                <input type="datetime-local" class="form-control" id="firstResponderInput"
-                                    name="td_under_control" value="{{ $operation->td_under_control }}">
+                                <input type="datetime-local" class="form-control"
+                                    id="firstResponderInput" name="td_under_control"
+                                    value="{{ $operation->td_under_control }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
-                                <input type="datetime-local" class="form-control" id="firstResponderInput"
-                                    name="td_declared_fireout" value="{{ $operation->td_under_control }}">
+                                <input type="datetime-local" class="form-control"
+                                    id="firstResponderInput" name="td_declared_fireout"
+                                    value="{{ $operation->td_under_control }}">
                             </div>
                             <hr>
                             <div class="row m-0 p-0" id="secondDivApor">
@@ -334,6 +343,8 @@
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
+                            </h3> --}}
 
                             @foreach ($casualties as $casualty)
                                 @if ($casualty->type == 'civilian')
@@ -534,8 +545,7 @@
 
                         <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene
-                            </h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row m-0 p-0" id="thirdAddApor">
                                     @foreach ($operation->dutyPersonnels as $dutyPersonnel)
@@ -564,7 +574,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 mb-3"> <label for="fundCommander"
-                                                    class="form-label">Designation</label> <select class="form-select"
+                                                    class="form-label">Designation</label> <select class="form-select designationSelectEdit"
                                                     aria-label="" name="duty_designation[]">
                                                     <option value="" selected>Select designation</option>
                                                     @foreach ($designations as $designation)
@@ -597,7 +607,7 @@
 
                         <!-- Photos -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Sketch of Fire Operation</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
                             <input type="file" class="form-control uncheable" id="photos"
                                 name="sketch_of_fire_operation[]" multiple>
@@ -924,7 +934,7 @@
             $('#addNewDutyPersonnelAtFireScene').click(function() {
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select" aria-label="" name="duty_designation[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select designationSelectEdit" aria-label="" name="duty_designation[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -933,18 +943,18 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
-                mnewDiv.find('.designation').select2();
+                mnewDiv.find('.designationSelectEdit').select2();
             });
-            $(document).on('click', '.addDesignation', function() {
-                // console.log("hello");
-                var inputField =
-                    '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
-                // $(".designationContainer").append(inputField);
-                $(this).closest('.designationContainer').append(inputField);
+            // $(document).on('click', '.addDesignation', function() {
+            //     // console.log("hello");
+            //     var inputField =
+            //         '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+            //     // $(".designationContainer").append(inputField);
+            //     $(this).closest('.designationContainer').append(inputField);
 
-                // inputField.find('.designation').select2();
-                $(".designation").select2();
-            });
+            //     // inputField.find('.designation').select2();
+            //     $(".designation").select2();
+            // });
             $(document).on('click', '.remove-designation', function() {
                 $(this).closest('.col-lg-6').remove();
             });
@@ -1093,28 +1103,6 @@
                 // Re-initialize Select2 on the cloned select element
                 // mnewDiv.find('.rankName').select2();
             });
-        });
-
-        const quillFirst = new Quill('#first', {
-            modules: {
-                toolbar: '#toolbar1',
-            },
-            theme: 'snow',
-            placeholder: 'Compose an epic...',
-        });
-        const quillSecond = new Quill('#second', {
-            modules: {
-                toolbar: '#toolbar2',
-            },
-            theme: 'snow',
-            placeholder: 'Compose an epic...',
-        });
-        const quillThird = new Quill('#third', {
-            modules: {
-                toolbar: '#toolbar3',
-            },
-            theme: 'snow',
-            placeholder: 'Compose an epic...',
         });
     </script>
 @endsection

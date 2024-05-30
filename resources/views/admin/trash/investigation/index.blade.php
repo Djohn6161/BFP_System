@@ -4,6 +4,14 @@
    
 
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Activities</a></li>
+                <li class="breadcrumb-item"><a href="">Trash</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Investigation Trash</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -18,6 +26,9 @@
                                         <tr class="text-center">
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Deleted at</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">ID</h6>
                                             </th>
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -37,6 +48,9 @@
                                                 :investigation=$investigation></x-trash.investigation.restore>
                                             <tr class="text-center">
                                                 {{-- {{dd($investigation)}} --}}
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
+                                                </td>
                                                 <td class="border-bottom-0">
                                                     <h6 class="fw-semibold mb-0">
                                                         {{ \Carbon\Carbon::parse($investigation->deleted_at)->format('F j, Y') }}

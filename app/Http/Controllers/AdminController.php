@@ -23,6 +23,7 @@ class AdminController extends Controller
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
             'afor' => Afor::all(), 
+            'occup' => Occupancy::all(),
         ]);
     }
 
