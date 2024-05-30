@@ -1007,16 +1007,17 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $operation->id,
-            'user_id' => auth()->user()->id,
-            'details' => $string,
-            'action' => "Update",
-        ]);
-        $log->save();
-
         if ($status) {
+
+            $log = new AforLog();
+            $log->fill([
+                'afor_id' => $operation->id,
+                'user_id' => auth()->user()->id,
+                'details' => $string,
+                'action' => "Update",
+            ]);
+            $log->save();
+            
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
         } else {
             return redirect('/reports/operation/index')->with('success', "Nothing's change.");
