@@ -180,13 +180,13 @@ Route::middleware(['PreventBack'])->group(function () {
         // Operation
         Route::prefix('reports/operation')->name('operation.')->group(function () {
             Route::get('/index', [OperationController::class, 'operationIndex'])->name('index');
+            Route::get('/print/{id}', [OperationController::class, 'printOperation'])->name('print');
             Route::middleware(['checkPrivilege:OC'])->group(function () {
                 Route::get('/create/form', [OperationController::class, 'operationCreateForm'])->name('create.form');
                 Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
                 Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
                 Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
                 Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
-                Route::get('/print/{id}', [OperationController::class, 'printOperation'])->name('print');
             });
         });
 
