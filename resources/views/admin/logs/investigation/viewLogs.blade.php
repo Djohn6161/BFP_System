@@ -18,7 +18,7 @@
                                             <th class="text-center">Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Investigation ID</th>
-                                            <th>Investigation Date</th>
+                                            <th class="text-center">Investigation Date</th>
                                             <th class="text-center">Changes Made</th>
                                             <th class="text-center">Action</th>   
                                         </tr>
@@ -39,7 +39,7 @@
                                                     @elseif($log->investigation->final)
                                                     Final
                                                 @endif</td>
-                                                <td>{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
+                                                <td class="text-center">{{ $log->investigation != null ? $log->investigation->date : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                     @if ($log->action == 'Delete')
