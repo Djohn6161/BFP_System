@@ -26,14 +26,14 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>Date and Time</th>
                                             <th>ID - User</th>
                                             <th>Alarm Received</th>
-                                            <th>Changes Made</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Changes Made</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -60,7 +60,7 @@
                                                     <button type="button" data-bs-toggle="modal"
                                                     data-bs-target="#viewOperationLogs{{ $log->id }}"
                                                     class="btn btn-primary hide-menu w-100 mb-1"><i
-                                                        class="ti ti-eye"></i> View</button>
+                                                        class="ti ti-eye"></i> View Details</button>
                                                         <x-logs.view-operation :log="$log"></x-logs.view-operation>
                                                 </td>
                                         </tr>

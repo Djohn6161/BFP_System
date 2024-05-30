@@ -12,7 +12,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>Date and Time</th>

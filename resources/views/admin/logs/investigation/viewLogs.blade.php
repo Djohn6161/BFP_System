@@ -19,8 +19,8 @@
                                             <th>ID - User</th>
                                             <th>Investigation ID</th>
                                             <th>Investigation Date</th>
-                                            <th>Changes Made</th>
-                                            <th>Action</th>   
+                                            <th class="text-center">Changes Made</th>
+                                            <th class="text-center">Action</th>   
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
