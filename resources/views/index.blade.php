@@ -95,6 +95,16 @@
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                // disable the submit button 
+                $('button[type="submit"]').attr('disabled', true);
+                // submit the form
+                return true;
+            });
+        });
+    </script>
 </body>
 
 </html>
