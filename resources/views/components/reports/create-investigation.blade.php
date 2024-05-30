@@ -25,6 +25,12 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
                     <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -82,6 +88,12 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
                     <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -136,10 +148,16 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
+                    <h3 class="mb-2">Spot Reports - Progress</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body m-3 text-center">
-                    <h3 class="mb-2">Spot Reports - Progress</h3>
+                <div class="modal-body mx-3 mb-3 text-center">
                     <div class="shadow rounded p-4">
                         <table class="table w-100 " id="progressModalTable">
                             <thead class="text-dark fs-4">
@@ -171,15 +189,22 @@
             </div>
         </div>
     </div>
+
     <!-- Second Modal (Spot table for final) -->
     <div class="modal fade" id="spotTableFinal" tabindex="-1" aria-labelledby="yesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
+                    <h3 class="mb-2">Spot Reports - Final</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m-3 text-center">
-                    <h3 class="mb-2">Spot Reports - Final</h3>
                     <div class="shadow rounded p-4">
                         <table class="table w-100 " id="finalModalTable">
                             <thead class="text-dark fs-4">
