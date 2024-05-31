@@ -14,7 +14,7 @@
                         <label for="selectInvestigation" class="form-label">Type:</label>
                         <select class="form-select" name="Type" id="selectInvestigation">
                             <option selected>Choose investigation type</option>
-                            <option value="All">All</option>
+                            {{-- <option value="All">All</option> --}}
                             <option value="Minimal">Minimal</option>
                             <option value="Spot">Spot</option>
                             <option value="Progress">Progress</option>
@@ -31,7 +31,7 @@
                         <div class="mx-1">to</div>
                         <div class="ms-2 w-100">
                             {{-- <label for="exportTo" class="form-label">To</label> --}}
-                            <input type="date" class="form-control" id="exportTo" name="dateTo"
+                            <input type="date" class="form-control" id="exportTo" name="dateTo" value="{{Illuminate\Support\Carbon::now()->format('Y-m-d') }}"
                                 aria-describedby="exportTo">
                         </div>
                     </div>

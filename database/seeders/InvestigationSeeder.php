@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,10 @@ class InvestigationSeeder extends Seeder
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+
+
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $properties = ["House", "Vacant Lot", "Garbage", "Vehicle"];
@@ -58,6 +63,8 @@ class InvestigationSeeder extends Seeder
                     'details' => $faker->paragraph(5),
                     'findings' => $faker->paragraph(5),
                     'recommendation' => $faker->paragraph(5),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $i++;
                 DB::table('minimals')->insertGetId($minimals);
@@ -66,6 +73,8 @@ class InvestigationSeeder extends Seeder
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $aforID = [1, 2, 3, 4, 5];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
@@ -88,6 +97,8 @@ class InvestigationSeeder extends Seeder
                     'details' => $faker->paragraph(5),
                     'alarm' => 1,
                     'disposition' => $faker->sentence(10),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $x++;
                 $spotid = DB::table('spots')->insertGetId($spot);
@@ -96,6 +107,8 @@ class InvestigationSeeder extends Seeder
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -PROGRESS DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $spotID = [1, 2, 3, 4, 5];
@@ -106,6 +119,8 @@ class InvestigationSeeder extends Seeder
                     "matters_investigated" => $faker->paragraph(5),
                     "facts_of_the_case" => $faker->paragraph(5),
                     "disposition" => $faker->paragraph(2),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 DB::table('progresses')->insertGetId($progress);
                 $o++;
@@ -114,6 +129,8 @@ class InvestigationSeeder extends Seeder
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -FINAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $reportID = DB::table('investigations')->insertGetId($attributes);
                 $time = ["1400", "1800", "1600", "0800"];
@@ -134,6 +151,8 @@ class InvestigationSeeder extends Seeder
                     "discussion" => $faker->paragraph(5),
                     "findings" => $faker->paragraph(5),
                     "recommendation" => $faker->paragraph(5),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 $y++;
                 DB::table('ifinals')->insertGetId($final);

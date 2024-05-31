@@ -4,13 +4,12 @@ namespace App\Exports;
 
 use App\Models\Investigation;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 
-class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithColumnWidths
+class InvestigationExport implements FromCollection, WithStyles, WithColumnWidths
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -23,18 +22,59 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
     }
     public function collection()
     {
-
+        
         // dd($this->investigations);
         foreach ($this->investigations as $investigation) {
-            if ($investigation->progress != null) {
+            if ($investigation->Minimal != null) {
                 $data[] = [
+                    $investigation->id,
                     $investigation->for,
                     $investigation->subject,
-                    $investigation->date,
-                    $investigation->progress->authority,
-                    $investigation->progress->matters_investigated,
-                    $investigation->progress->facts_of_the_case,
-                    $investigation->progress->disposition,
+                    $investigation->Minimal->dt_actual_occurence,
+                    $investigation->Minimal->dt_reported,
+                    $investigation->Minimal->incident_location,
+                    $investigation->Minimal->involved_property,
+                    $investigation->Minimal->property_data,
+                    $investigation->Minimal->receiverPersonnel->rank->slug . " " . $investigation->Minimal->receiverPersonnel->last_name . " " . $investigation->Minimal->receiverPersonnel->first_name,
+                    $investigation->Minimal->caller_name,
+                    $investigation->Minimal->caller_address,
+                    $investigation->Minimal->caller_number,
+                    $investigation->Minimal->notification_originator,
+                    $investigation->Minimal->respondingEngine->name,
+                    $investigation->Minimal->respondingLeader->rank->slug . ' ' . $investigation->Minimal->respondingLeader->last_name . ' ' . $investigation->Minimal->respondingLeader->first_name,
+                    $investigation->Minimal->time_arrival_on_scene,
+                    $investigation->Minimal->alarm->name,
+                    $investigation->Minimal->time_Fire_out,
+                    $investigation->Minimal->property_owner,
+                    $investigation->Minimal->property_occupant,
+                    $investigation->Minimal->details,
+                    $investigation->Minimal->findings,
+                    $investigation->Minimal->recommendation, 
+                ];
+            } else if ($investigation->Spot != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                    // $investigation->Spot->
+                ];
+            } else if ($investigation->progress != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                ];
+            } else if ($investigation->final != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                ];
+            } else {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
                 ];
             }
         }
@@ -46,7 +86,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
     {
         return [
             // Style the first row as bold text.
-            1 => ['font' => ['bold' => true], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER]],
+            // 1 => ['font' => ['bold' => true], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER]],
 
             'A' => ['alignment' => ['wrapText' => true]],
             'B' => ['alignment' => ['wrapText' => true]],
@@ -79,7 +119,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
     public function columnWidths(): array
     {
         return [
-            'A' => 50,
+            'A' => 100,
             'B' => 100,
             'C' => 100,
             'D' => 100,
@@ -105,18 +145,6 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'X' => 100,
             'Y' => 100,
             'Z' => 100,
-        ];
-    }
-    public function headings(): array
-    {
-        return [
-            'For',
-            'Subject',
-            'Date',
-            'Authority',
-            'Matters Investigated',
-            'Facts of the Case',
-            'Disposition',
         ];
     }
 }
