@@ -77,8 +77,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
             'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
@@ -90,14 +88,7 @@ class OperationController extends Controller
         ]);
         $afor->save();
         $afor_id = $afor->id;
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $afor_id,
-            'user_id' => auth()->user()->id,
-            'details' => "Created an AFOR Report about the operation in " . $afor->location,
-            'action' => "Store",
-        ]);
-        $log->save();
+
         //Response
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -1004,6 +995,16 @@ class OperationController extends Controller
             $existOperation->sketch_of_fire_operation = $sketch;
             $existOperation->save();
         }
+
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an AFOR Report about the operation in " . $afor->location,
+            'action' => "Store",
+        ]);
+        $log->save();
+        
 
         if ($status) {
 

@@ -247,7 +247,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Occupancies
                             </h3>
                             <div class="col-lg-6 mb-2">
-                                <label for="typeOfOccupancy" class="form-label">Occupancy Name</label>
+                                <label for="typeOfOccupancy" class="form-label">Occupancy Type</label>
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="" selected>Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
