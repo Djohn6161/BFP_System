@@ -74,7 +74,7 @@ class OperationController extends Controller
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
-            'full_location' => $location, 
+            'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
@@ -240,7 +240,7 @@ class OperationController extends Controller
 
         // Duty Personnel
         $duty_personnel_ids = $request->input('duty_personnel_id', []);
-        $duty_designations = $request->input('duty_designation', []);
+        $duty_designations = $request->input('duty_designations', []);
         $duty_remarks = $request->input('duty_remarks', []);
 
         if ($this->hasValues($duty_personnel_ids)) {
@@ -252,14 +252,6 @@ class OperationController extends Controller
                 $personnel->remarks = isset($duty_remarks[$key]) ? $duty_remarks[$key] : '';
                 $personnel->save();
 
-                // if (isset($duty_designations[$key])) {
-                //     foreach ($duty_designations[$key] as $designation) {
-                //         $designationModel = new Afor_designation();
-                //         $designationModel->afor_id = $afor_id;
-                //         $designationModel->name = $designation;
-                //         $designationModel->save();
-                //     }
-                // }
             }
         }
 
@@ -269,7 +261,7 @@ class OperationController extends Controller
         if ($request->hasFile('sketch_of_fire_operation')) {
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
-                $file->move(public_path('operation_image'), $fileName);
+                $file->move(public_path('/assets/images/operation_images'), $fileName);
                 $sketch_format[] = $fileName;
             }
             $sketch = implode(',', $sketch_format);
@@ -346,8 +338,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
@@ -1015,16 +1005,17 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $operation->id,
-            'user_id' => auth()->user()->id,
-            'details' => $string,
-            'action' => "Update",
-        ]);
-        $log->save();
-
         if ($status) {
+
+            $log = new AforLog();
+            $log->fill([
+                'afor_id' => $operation->id,
+                'user_id' => auth()->user()->id,
+                'details' => $string,
+                'action' => "Update",
+            ]);
+            $log->save();
+
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
         } else {
             return redirect('/reports/operation/index')->with('success', "Nothing's change.");

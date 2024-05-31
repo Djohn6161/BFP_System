@@ -48,7 +48,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
                                     <tr>
                                         <td>{{ $item->alarm_received }}</td>
                                         <td>{{ $item->transmitted_by }}</td>
@@ -77,6 +83,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -111,7 +118,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($afors as $item)
+                                @php
+                                    $sortedAfors = $afors->sortByDesc(function ($item) {
+                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedAfors as $item)
                                     <tr>
                                         <td>{{ $item->alarm_received }}</td>
                                         <td>{{ $item->transmitted_by }}</td>
@@ -162,7 +175,7 @@
                         <table class="table w-100 " id="progressModalTable">
                             <thead class="text-dark fs-4">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>For</th>
                                     <th>Subject</th>
                                     <th>Date</th>
@@ -170,15 +183,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
-                                        <td>{{ $spot->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
                                         <td>{{ $spot->investigation->subject }}</td>
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
-                                            <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
+                                            @if ($spot->progress)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
+                                                    class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
+                                                    Apply</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -209,7 +237,7 @@
                         <table class="table w-100 " id="finalModalTable">
                             <thead class="text-dark fs-4">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>For</th>
                                     <th>Subject</th>
                                     <th>Date</th>
@@ -217,16 +245,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($spots as $spot)
+                                @php
+                                    $sortedSpots = $spots->sortByDesc(function ($spot) {
+                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                    });
+                                @endphp
+
+                                @foreach ($sortedSpots as $spot)
                                     <tr>
-                                        <td>{{ $spot->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
                                         <td>{{ $spot->investigation->subject }}</td>
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
+                                            @if ($spot->final)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
                                             <a href="{{ route('investigation.final.create', ['spot' => $spot->id]) }}"
                                                 class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
                                                 Apply</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

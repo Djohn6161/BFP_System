@@ -6,6 +6,14 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Minimal Investigation Reports</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -37,7 +45,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                                <h6 class="fw-semibold mb-0">#</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -57,10 +65,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($investigations as $investigation)
+                                        @php
+                                        $sortedInvestigations = $investigations->sortByDesc(function($investigation) {
+                                            return \Carbon\Carbon::parse($investigation->investigation->date);
+                                        });
+                                    @endphp
+                            
+                                    @foreach ($sortedInvestigations as $investigation)
+                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->id }}
+                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}
                                                     </h6>
                                                 </td>
                                                 <td>
@@ -91,10 +106,12 @@
                                                     </p>
                                                 </td>
                                                 <td>
+                                                    {{-- {{dd($investigation)}} --}}
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewMinimalModal{{ $investigation->id }}"
                                                         class="btn btn-primary hide-menu w-100 mb-1"><i
                                                             class="ti ti-eye"></i> View</button>
+                                                            
                                                     <x-reports.Investigation.view-minimal
                                                         :investigation=$investigation :personnels=$personnels responses=$responses></x-reports.Investigation.view-minimal>
                                                     @if ($user->privilege == 'IC' || $user->privilege == 'All')
