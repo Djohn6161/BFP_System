@@ -57,11 +57,13 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            $sortedOperations = $operations->sortByDesc(function($operation) {
-                                                return \Carbon\Carbon::parse($operation->alarm_received);
+                                            $sortedOperations = $operations->sortByDesc(function (
+                                                $operation,
+                                            ) {
+                                                return \Carbon\Carbon::parse($operation->td_under_control);
                                             });
                                         @endphp
-                                
+
                                         @foreach ($sortedOperations as $operation)
                                             <tr>
                                                 <td>
@@ -88,20 +90,20 @@
 
                                                 <td>
                                                     @php
-                                                        if($operation->minimal){
-                                                            echo "Minimal";
+                                                        if ($operation->minimal) {
+                                                            echo 'Minimal';
                                                         }
-                                                        if($operation->spot){
-                                                            echo ",Spot";
+                                                        if ($operation->spot) {
+                                                            echo ',Spot';
                                                         }
-                                                        if($operation->spot->progress){
-                                                            echo ",Progress";
+                                                        if ($operation->spot->progress) {
+                                                            echo ',Progress';
                                                         }
-                                                        if($operation->spot->final){
-                                                            echo ",Final";
+                                                        if ($operation->spot->final) {
+                                                            echo ',Final';
                                                         }
                                                     @endphp
-                                                </td>                                                
+                                                </td>
                                                 <td>
                                                     <button type="button" data-bs-toggle="modal"
                                                         data-bs-target="#viewOperationModal{{ $operation->id }}"
@@ -110,7 +112,8 @@
                                                         class="btn btn-primary hide-menu w-100 mb-1">
                                                         <i class="ti ti-eye"></i> View
                                                     </button>
-                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses" :personnels="$personnels"></x-reports.operation.operation_view>
+                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses"
+                                                        :personnels="$personnels"></x-reports.operation.operation_view>
                                                     @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                                         <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                             class="btn btn-success w-100 mb-1">
@@ -122,14 +125,15 @@
                                                             class="btn btn-danger hide-menu w-100 mb-1">
                                                             <i class="ti ti-trash"></i> Delete
                                                         </button>
-                                                        <x-reports.operation.delete :operation="$operation"></x-reports.operation.delete>
+                                                        <x-reports.operation.delete
+                                                            :operation="$operation"></x-reports.operation.delete>
                                                     @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                
+
                             </div>
                         </div>
                     </div>
