@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SpotExport;
+use App\Exports\FinalExport;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
 use App\Exports\MinimalExport;
+use App\Exports\ProgressExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class exportController extends Controller
@@ -59,9 +61,37 @@ class exportController extends Controller
         }
         if ($validated['Type'] == "Progress" || $validated['Type'] == "All") {
             $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+            $exportFileName = 'Progress Investigation.xlsx';
+            try {
+                return Excel::download(new ProgressExport($investigations), $exportFileName);
+            } catch (\Exception  $e) {
+                // $status = count($investigations);
+                $status = $status . "\nProgress: ";
+                // dd($status);
+                if (count($investigations) != 0) {
+                    $status = $status . $e . " \n ";
+                    # code...
+                } else {
+                    $status = $status . "O Data \n ";
+                }
+            }
         }
         if ($validated['Type'] == "Final" || $validated['Type'] == "All") {
             $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+            $exportFileName = 'Final Investigation.xlsx';
+            try {
+                return Excel::download(new FinalExport($investigations), $exportFileName);
+            } catch (\Exception  $e) {
+                // $status = count($investigations);
+                $status = $status . "\Final: ";
+                // dd($status);
+                if (count($investigations) != 0) {
+                    $status = $status . $e . " \n ";
+                    # code...
+                } else {
+                    $status = $status . "O Data \n ";
+                }
+            }
         }
 
         if ($status != "") {

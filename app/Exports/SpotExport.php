@@ -23,35 +23,34 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
     }
     public function collection()
     {
-        
+
         // dd($this->investigations);
         foreach ($this->investigations as $investigation) {
             if ($investigation->Spot != null) {
+                if ($investigation->landmark == null || $investigation->landmark == '') {
+                    $location = $investigation->address_occurence;
+                } else {
+                    $location = $investigation->landmark;
+                }
                 $data[] = [
                     $investigation->for,
                     $investigation->subject,
-                    $investigation->Minimal->dt_actual_occurence,
-                    $investigation->Minimal->dt_reported,
-                    $investigation->Minimal->incident_location,
-                    $investigation->Minimal->involved_property,
-                    $investigation->Minimal->property_data,
-                    $investigation->Minimal->receiverPersonnel->rank->slug . " " . $investigation->Minimal->receiverPersonnel->last_name . " " . $investigation->Minimal->receiverPersonnel->first_name,
-                    $investigation->Minimal->caller_name,
-                    $investigation->Minimal->caller_address,
-                    $investigation->Minimal->caller_number,
-                    $investigation->Minimal->notification_originator,
-                    $investigation->Minimal->respondingEngine->name,
-                    $investigation->Minimal->respondingLeader->rank->slug . ' ' . $investigation->Minimal->respondingLeader->last_name . ' ' . $investigation->Minimal->respondingLeader->first_name,
-                    $investigation->Minimal->time_arrival_on_scene,
-                    $investigation->Minimal->alarm->name,
-                    $investigation->Minimal->time_Fire_out,
-                    $investigation->Minimal->property_owner,
-                    $investigation->Minimal->property_occupant,
-                    $investigation->Minimal->details,
-                    $investigation->Minimal->findings,
-                    $investigation->Minimal->recommendation, 
+                    $investigation->date,
+                    $investigation->Spot->date_occurence . ', ' . $investigation->Spot->time_occurence . ', ' . $location,
+                    $investigation->Spot->involved,
+                    $investigation->Spot->name_of_establishment,
+                    $investigation->Spot->owner,
+                    $investigation->Spot->occupant,
+                    $investigation->Spot->fatality != 0 ? $investigation->Spot->fatality : 'Negative',
+                    $investigation->Spot->injured != 0 ? $investigation->Spot->injured : 'Negative',
+                    '₱ ' . number_format($investigation->Spot->injured, 0, '.', ','),
+                    $investigation->Spot->time_fire_start,
+                    $investigation->Spot->time_fire_out,
+                    $investigation->Spot->alarmed->name,
+                    $investigation->Spot->details,
+                    $investigation->Spot->disposition,
                 ];
-            } 
+            }
         }
         // $investigations = Investigation::whereBetween('date', [$this->dateFrom, $this->dateTo])->get();
 
@@ -128,26 +127,19 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'For',
             'Subject',
             'Date',
-            'Actual Occurence Date and Time',
-            'Date and Time Reported',
-            'Incident Location',
-            'Involved Property',
-            'Property Data',
-            'Call Receiver',
-            'Caller Name',
-            'Caller Address',
-            'Caller Number',
-            'Notification Originator',
-            'First Responding Engine',
-            'First Responding Leader',
-            'Time Arrival On Scene',
-            'Alarm Status Time',
-            'Time Fire Out',
-            'Property Owner',
-            'Property Occupant',
+            'Date and Time Place of Occurence',
+            'Involved',
+            'Name of Establishment',
+            'Owner',
+            'Occupant',
+            'Casualty',
+            'Injured',
+            'Estimated Damage',
+            'Time Fire Started',
+            'Time of Fire Out',
+            'Alarm',
             'Details',
-            'Findings',
-            'Recommendation',
+            'Final',
         ];
     }
 }
