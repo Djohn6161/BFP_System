@@ -23,7 +23,18 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        @foreach ($logs as $log)
+
+                                        @php
+                                        $sortedLogs = $logs->sortByDesc(function (
+                                            $log,
+                                        ) {
+                                            return \Carbon\Carbon::parse($log->updated_at);
+                                        });
+                                    @endphp
+
+                                    @foreach ($sortedLogs as $log)
+
+                                        {{-- @foreach ($logs as $log) --}}
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
