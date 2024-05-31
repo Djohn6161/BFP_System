@@ -66,7 +66,7 @@
                                         {{-- {{dd($operations)}} --}}
                                         @php
                                             $sortedOperations = $operations->sortByDesc(function($operation) {
-                                                return \Carbon\Carbon::parse($operation->created_at);
+                                                return \Carbon\Carbon::parse($operation->updated_at);
                                             });
                                         @endphp
                                 

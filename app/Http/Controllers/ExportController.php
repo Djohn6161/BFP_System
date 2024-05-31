@@ -36,6 +36,8 @@ class exportController extends Controller
         try {
             return Excel::download(new InvestigationExport($investigations), $exportFileName);
         } catch (\Throwable $th) {
+            $status = count($investigations);
+            dd($status);
            return redirect()->back()->with('status', 'There is no data available or an error occured');
         }
     }

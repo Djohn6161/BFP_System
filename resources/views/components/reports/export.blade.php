@@ -31,7 +31,7 @@
                         <div class="mx-1">to</div>
                         <div class="ms-2 w-100">
                             {{-- <label for="exportTo" class="form-label">To</label> --}}
-                            <input type="date" class="form-control" id="exportTo" name="dateTo"
+                            <input type="date" class="form-control" id="exportTo" name="dateTo" value="{{Illuminate\Support\Carbon::now()->format('Y-m-d') }}"
                                 aria-describedby="exportTo">
                         </div>
                     </div>
