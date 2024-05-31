@@ -6,10 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After Fire Operations Report</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        @page {
+            size: 8.5in 13in;
+            margin: 1in;
+            @top-center {
+                content: element(header);
+            }
+            @bottom-center {
+                content: element(footer);
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header, footer {
+            display: block;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 80px;
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        .header-text text {
+            font-size: 11px;
+        }
+
+        .header-text label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Add your existing CSS styles here */
+    </style>
 </head>
 
 <body style="margin: 0 auto; max-width: 1200px;">
-    <div class="container">
+    <div class="container" >
         <header>
             <div class="header-top">
                 <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Logo" class="logo">
@@ -44,7 +108,7 @@
             </div>
         </header>
         <section class="report-details">
-       
+
             <br>
             <label for="1">Explicity stipulated are the details of the fire incident that transpired on or
                 about;</label>
@@ -75,7 +139,8 @@
                 <tr>
                     <td>
                         <label for="personnel">Personnel on duty who received the alarm:</label>
-                        <text id="personnel">{{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}</text>
+                        <text
+                            id="personnel">{{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}</text>
                     </td>
                 </tr>
             </table>
@@ -88,7 +153,8 @@
                     <th>TIME DISPATCHED</th>
                     <th>TIME ARRIVED AT FIRE SCENE</th>
                     <th style="font-weight: normal white-space: nowrap; margin: 0;">RESPONSE TIME
-                        <h6 style="font-weight: normal; margin: 0;">(TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in minutes</h6>
+                        <h6 style="font-weight: normal; margin: 0;">(TIME RECEIVED CALL - TIME ARRIVED AT FIRE SCENE) in
+                            minutes</h6>
                     </th>
                     <th>TIME RETURNED TO BASE</th>
                     <th>WATER TANK REFILLED (GAL)</th>
@@ -134,7 +200,8 @@
                     <br>
                     <div>
                         <label for="occupancy">Type of Occupancy/</label>
-                        <label for=""><text  style="font-weight: normal" id="occupancy">(Please specify)</text></label>
+                        <label for=""><text style="font-weight: normal" id="occupancy">(Please
+                                specify)</text></label>
                         <table style="border: none;">
                             <tr>
                                 <td style="width: 10%; font-weight: normal; text-align: left; border: none;"></td>
@@ -151,12 +218,76 @@
                     <div>
                         <label for="distance">Approximate Distance of Fire Incident From Fire Station (Km):</label>
                         <br>
-                        
-                        <label id="distance" style="text-decoration: underline; display: block; text-align: center; font-weight: normal;">__________{{ $operation->getOccupancy->distance }}__________</label>
+
+                        <label id="distance"
+                            style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->getOccupancy->distance }}</label>
+                        <div
+                            style="display: block; text-align: center; margin: 0; border-top: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div>
+                        <label for="distance">General Structure of the structure/s Involved:</label>
+                        <br>
+
+                        <label id="distance"
+                            style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->getOccupancy->type }}</label>
+                        <div
+                            style="display: block; text-align: center; margin: 0; border-top: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Total Number of Casualty Reported:</label>
+                        <table>
+                            <tr>
+                                <td style="text-align: center;"></td>
+                                <td style="text-align: center;"> Injured</td>
+                                <td style="text-align: center;"> Death</td>
+
+                            </tr>
+                            @foreach ($operation->casualties as $casualty)
+                                @if ($casualty->type == 'civilian')
+                                    <tr>
+                                        <td>Civilian</td>
+                                        <td style="text-align: center;">{{ $casualty->injured }}</td>
+                                        <td style="text-align: center;">{{ $casualty->death }}</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td>FireFighter</td>
+                                        <td style="text-align: center;">{{ $casualty->injured }}</td>
+                                        <td style="text-align: center;">{{ $casualty->death }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div>
+
+                        <section class="equipment-used">
+                            <label>Breathing Apparatus Used</label>
+                            <table>
+                                <tr>
+                                    <th style="text-align: center;">Nr.</th>
+                                    <th style="text-align: center;">Type/Kind</th>
+                                </tr>
+                                @foreach ($operation->getBreathingApparatus as $equipment)
+                                    <tr>
+                                        <td style="text-align: center;">{{ $equipment->quantity }}</td>
+                                        <td style="text-align: center;">{{ $equipment->type }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </section>
                     </div>
                 </div>
             </section>
-            <section class="time-declared" style="width: 50%; float: right; margin-left:15%">
+            <section class="time-declared" style="width: 55%; float: right; margin-left:10%">
                 <label>TIME ALARM STATUS DECLARED</label>
                 <table>
                     <tr>
@@ -184,110 +315,34 @@
                         </tr>
                     @endforeach
                 </table>
+                <label>Extinguising Agent Used:</label>
+                <table>
+                    <tr>
+                        <th style="text-align: center;">Qty</th>
+                        <th style="text-align: center;">Type/Kind</th>
+                    </tr>
+                    @foreach ($operation->getExtinguishingAgent as $equipment)
+                        <tr>
+                            <td style="text-align: center;">{{ $equipment->quantity }}</td>
+                            <td style="text-align: center;">{{ $equipment->type }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+                <label>Rope and Ladder Used</label>
+                <table>
+                    <tr>
+                        <th style="text-align: center;">Type</th>
+                        <th style="text-align: center;">Length</th>
+                    </tr>
+                    @foreach ($operation->getExtinguishingAgent as $equipment)
+                        <tr>
+                            <td style="text-align: center;">{{ $equipment->type }}</td>
+                            <td style="text-align: center;">{{ $equipment->length }}</td>
+                        </tr>
+                    @endforeach
+                </table>
             </section>
         </div>
-
-        <section class="additional-info"></section>
-
-        <section class="casualty-report">
-            <label>Total Number of Casualty Reported:</label>
-            <div class="row">
-                <div class="column">
-                    <label for="civilian-injured">Civilian Injured:</label>
-                    <span id="civilian-injured">0</span>
-                </div>
-                <div class="column">
-                    <label for="civilian-death">Civilian Death:</label>
-                    <span id="civilian-death">0</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <label for="firefighter-injured">Firefighter Injured:</label>
-                    <span id="firefighter-injured">0</span>
-                </div>
-                <div class="column">
-                    <label for="firefighter-death">Firefighter Death:</label>
-                    <span id="firefighter-death">0</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="equipment-used">
-            <label>Breathing Apparatus Used</label>
-            <table>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Type/Kind</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-            </table>
-
-            <label>Rope and Ladder Used</label>
-            <table>
-                <tr>
-                    <th>Type</th>
-                    <th>Unit</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-            </table>
-
-            <label>Forcible Entry Tools Used</label>
-            <table>
-                <tr>
-                    <th>Type</th>
-                    <th>Unit</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="damage-estimation">
-            <label>Estimation/Considerations of Damage</label>
-            <label for="damage-structure">Damage to Structure:</label>
-            <span id="damage-structure">{{ $operation->damage_structure }}</span><br>
-            <label for="damage-contents">Damage to Contents:</label>
-            <span id="damage-contents">{{ $operation->damage_contents }}</span>
-        </section>
-
-        <section class="responders">
-            <label>Responders</label>
-            <table>
-                <tr>
-                    <th>Engine</th>
-                    <th>Officer-In-Charge</th>
-                    <th>Others</th>
-                </tr>
-                @foreach ($operation->responses as $response)
-                    <tr>
-                        <td>{{ $response->truck->name }}</td>
-                        <td>
-                            @if ($response->oic)
-                                {{ $response->oic->rank->slug }} {{ $response->oic->first_name }} {{ $response->oic->last_name }}
-                            @else
-                                N/A
-                            @endif
-                        </td>
-                        <td>
-                            @if ($response->others)
-                                {{ $response->others->pluck('rank.slug')->join(', ') }} {{ $response->others->pluck('first_name')->join(', ') }} {{ $response->others->pluck('last_name')->join(', ') }}
-                            @else
-                                N/A
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        </section>
     </div>
 </body>
 
@@ -330,21 +385,24 @@
         margin: 5px 0;
     }
 
-    th, td {
+    th,
+    td {
         border: 1px solid #000;
         padding: 8px;
         text-align: left;
-        font-size: 11px; /* Set default font size to 11px for all table text */
+        font-size: 11px;
+        /* Set default font size to 11px for all table text */
     }
 
     th {
         background-color: #f2f2f2;
-        font-size: 11px; /* Set font size to 13px for headers */
+        font-size: 11px;
+        /* Set font size to 13px for headers */
     }
 
     label {
         font-weight: bold;
-        font-size: 11px; 
+        font-size: 11px;
     }
 
     .row {
@@ -373,7 +431,11 @@
         margin: 10px 0;
     }
 
-    .additional-info, .casualty-report, .equipment-used, .damage-estimation, .responders {
+    .additional-info,
+    .casualty-report,
+    .equipment-used,
+    .damage-estimation,
+    .responders {
         margin: 20px 0;
     }
 </style>
