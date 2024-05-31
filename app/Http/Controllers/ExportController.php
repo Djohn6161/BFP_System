@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Investigation;
 use App\Exports\MinimalExport;
 use App\Exports\ProgressExport;
+use App\Exports\operationExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class exportController extends Controller
@@ -109,30 +110,28 @@ class exportController extends Controller
 
     public function exportOperation(Request $request)
     {
-        dd($request);
         $validated = $request->validate([
 
-            'dateFrom' => 'required|date_format:Y-m-d',
-            'dateTo' => 'required|date_format:Y-m-d|after_or_equal:dateFrom',
+            'exportFrom' => 'required|date_format:Y-m-d',
+            'exportTo' => 'required|date_format:Y-m-d|after_or_equal:dateFrom',
         ]);
-
+        // dd($request->all());
         // dd($validated['dateFrom']);
-        if ($validated['Type'] == "Minimal") {
-            $investigations = Investigation::has('Minimal')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Spot") {
-            $investigations = Investigation::has('Spot')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Progress") {
-            $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Final") {
-            $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else {
-            $investigations = Investigation::whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        }
-        $operations = Afor::whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        $exportFileName = $validated['Type'] . ' Investigation.xlsx';
-        // dd($investigations);
+        // if ($validated['Type'] == "Minimal") {
+        //     $investigations = Investigation::has('Minimal')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+        // } else if ($validated['Type'] == "Spot") {
+        //     $investigations = Investigation::has('Spot')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+        // } else if ($validated['Type'] == "Progress") {
+        //     $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+        // } else if ($validated['Type'] == "Final") {
+        //     $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+        // } else {
+        //     $investigations = Investigation::whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
+        // }
+        $operations = Afor::whereBetween('created_at', [$validated['exportFrom'], $validated['exportTo']])->get();
+        $exportFileName = 'Operation.xlsx';
         try {
-            return Excel::download(new InvestigationExport($investigations), $exportFileName);
+            return Excel::download(new operationExport($operations), $exportFileName);
         } catch (\Throwable $th) {
            return redirect()->back()->with('status', 'There is no data available or an error occured');
         }

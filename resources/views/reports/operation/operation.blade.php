@@ -17,11 +17,11 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold">Operation Reports</h5>
                                 @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                     <div class="d-flex column-gap-2">
-                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                        {{-- <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#exportOperation">
                                             <i class="ti ti-file-export"></i>
                                             Export
-                                        </button>
+                                        </button> --}}
                                         <x-reports.export></x-reports.export>
                                         <a class="btn btn-light" href="{{ route('operation.create.form') }}">
                                             <i class="ti ti-plus"></i>
