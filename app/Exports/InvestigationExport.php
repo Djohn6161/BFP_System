@@ -4,13 +4,12 @@ namespace App\Exports;
 
 use App\Models\Investigation;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 
-class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithColumnWidths
+class InvestigationExport implements FromCollection, WithStyles, WithColumnWidths
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -28,6 +27,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
         foreach ($this->investigations as $investigation) {
             if ($investigation->Minimal != null) {
                 $data[] = [
+                    $investigation->id,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->Minimal->dt_actual_occurence,
@@ -51,7 +51,32 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
                     $investigation->Minimal->findings,
                     $investigation->Minimal->recommendation, 
                 ];
-            } 
+            } else if ($investigation->Spot != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                    // $investigation->Spot->
+                ];
+            } else if ($investigation->progress != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                ];
+            } else if ($investigation->final != null) {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                ];
+            } else {
+                $data[] = [
+                    $investigation->id,
+                    $investigation->for,
+                    $investigation->subject,
+                ];
+            }
         }
         // $investigations = Investigation::whereBetween('date', [$this->dateFrom, $this->dateTo])->get();
 
@@ -61,7 +86,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
     {
         return [
             // Style the first row as bold text.
-            1 => ['font' => ['bold' => true], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER]],
+            // 1 => ['font' => ['bold' => true], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER]],
 
             'A' => ['alignment' => ['wrapText' => true]],
             'B' => ['alignment' => ['wrapText' => true]],
@@ -120,34 +145,6 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'X' => 100,
             'Y' => 100,
             'Z' => 100,
-        ];
-    }
-    public function headings(): array
-    {
-        return [
-            'For',
-            'Subject',
-            'Date',
-            'Actual Occurence Date and Time',
-            'Date and Time Reported',
-            'Incident Location',
-            'Involved Property',
-            'Property Data',
-            'Call Receiver',
-            'Caller Name',
-            'Caller Address',
-            'Caller Number',
-            'Notification Originator',
-            'First Responding Engine',
-            'First Responding Leader',
-            'Time Arrival On Scene',
-            'Alarm Status Time',
-            'Time Fire Out',
-            'Property Owner',
-            'Property Occupant',
-            'Details',
-            'Findings',
-            'Recommendation',
         ];
     }
 }

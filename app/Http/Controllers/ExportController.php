@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Investigation;
-use App\Exports\InvestigationExport;
+use App\Exports\MinimalExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class exportController extends Controller
@@ -20,25 +20,37 @@ class exportController extends Controller
         ]);
 
         // dd($validated['dateFrom']);
-        if ($validated['Type'] == "Minimal") {
+        $status = "AN ERRORED OCCURED \n";
+        if ($validated['Type'] == "Minimal" || $validated['Type'] == "All") {
             $investigations = Investigation::has('Minimal')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Spot") {
+            $exportFileName = 'Minimal Investigation.xlsx';
+            try {
+                return Excel::download(new MinimalExport($investigations), $exportFileName);
+            } catch (\Exception  $e) {
+                // $status = count($investigations);
+                $status = $status . "Minimal: ";
+                // dd($status);
+                if (count($investigations) != 0) {
+                    $status = $status . $e . " \n ";
+                    # code...
+                } else {
+                    $status = $status . "O Data \n ";
+                }
+            }
+        }
+
+        if ($validated['Type'] == "Spot" || $validated['Type'] == "All") {
             $investigations = Investigation::has('Spot')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Progress") {
+        }
+        if ($validated['Type'] == "Progress" || $validated['Type'] == "All") {
             $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else if ($validated['Type'] == "Final") {
+        }
+        if ($validated['Type'] == "Final" || $validated['Type'] == "All") {
             $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } else {
-            $investigations = Investigation::whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
         }
-        $exportFileName = $validated['Type'] . ' Investigation.xlsx';
+
+        return redirect()->back()->with("success", 'Successfully Exported');
         // dd($investigations);
-        try {
-            return Excel::download(new InvestigationExport($investigations), $exportFileName);
-        } catch (\Throwable $th) {
-            $status = count($investigations);
-            dd($status);
-           return redirect()->back()->with('status', 'There is no data available or an error occured');
-        }
+
     }
 }
