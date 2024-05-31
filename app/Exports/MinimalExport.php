@@ -86,6 +86,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'T' => ['alignment' => ['wrapText' => true]],
             'U' => ['alignment' => ['wrapText' => true]],
             'V' => ['alignment' => ['wrapText' => true]],
+            'W' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -102,7 +103,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'I' => 20,
             'J' => 20,
             'K' => 20,
-            'L' => 20,
+            'L' => 20, 
             'M' => 25,
             'N' => 30,
             'O' => 25,
@@ -110,9 +111,10 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'Q' => 25,
             'R' => 25,
             'S' => 25,
-            'T' => 100,
+            'T' => 25,
             'U' => 100,
             'V' => 100,
+            'W' => 100,
         ];
     }
     public function headings(): array
