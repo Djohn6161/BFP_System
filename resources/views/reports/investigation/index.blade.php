@@ -1,11 +1,14 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">All Investigation Reports</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -38,7 +41,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                                <h6 class="fw-semibold mb-0">#</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -74,7 +77,7 @@
                                         @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->id }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
@@ -90,7 +93,6 @@
                                                 @if ($investigation->minimal != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            {{-- {{dd($investigation->Minimal->afor)}} --}}
                                                             @if ($investigation->Minimal->afor)
                                                                 Operation <br>
                                                             @endif
@@ -164,7 +166,7 @@
                                                             <x-reports.Investigation.view-minimal
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-minimal>
-                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>
@@ -191,7 +193,7 @@
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-spot>
 
-                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.spot.edit', ['spot' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>
@@ -216,7 +218,7 @@
                                                                 :investigation=$investigationDetail :responses=$responses
                                                                 :personnels=$personnels></x-reports.Investigation.view-progress>
 
-                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigation->id]) }}"
+                                                            <a href="{{ route('investigation.progress.edit', ['progress' => $investigationDetail->id]) }}"
                                                                 class="btn btn-success w-100 mb-1"><i
                                                                     class="ti ti-pencil"></i>
                                                                 Update</a>

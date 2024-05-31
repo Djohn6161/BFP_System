@@ -885,7 +885,7 @@ class InvestigationController extends Controller
         if($request->input('barangay')){
             $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
-        $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
+        $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date_alarm') != null ? date('Y-m-d', strtotime($request->input('date_alarm'))) : '');
         $updateInve = [
             'for' => $validatedData['for'] ?? '',
             'subject' => $validatedData['subject'] ?? '',

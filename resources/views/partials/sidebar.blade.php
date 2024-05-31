@@ -40,8 +40,7 @@
                 <hr class="my-2">
                 <p class="">REPORTS</p>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('operation.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'operation' ? 'active' : '' }}">
+                    <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}" href="{{ route('operation.index') }}">
                         <span>
                             <i class="ti ti-report"></i>
                         </span>
@@ -49,8 +48,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush" href="{{ route('investigation.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'investigation' ? 'active' : '' }}">
+                    <div class="accordion accordion-flush {{ $active == 'investigation' ? 'active' : '' }}" href="{{ route('investigation.index') }}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button
@@ -114,8 +112,7 @@
                     <p class="">CONFIGURATIONS</p>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}">
                             <span>
                                 <i class="ti ti-building-community"></i>
                             </span>
@@ -123,8 +120,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.barangay.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.barangay.index') }}">
                             <span>
                                 <i class="ti ti-map-pin"></i>
                             </span>
@@ -132,8 +128,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.alarms.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.alarms.index') }}">
                             <span>
                                 <i class="ti ti-bell-school"></i>
                             </span>
@@ -141,8 +136,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.trucks.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.trucks.index') }}">
                             <span>
                                 <i class="ti ti-truck"></i>
                             </span>
@@ -150,8 +144,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.rank.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
                             <span>
                                 <i class="ti ti-badge"></i>
                             </span>
@@ -159,8 +152,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.designation.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route('admin.designation.index') }}">
                             <span>
                                 <i class="ti ti-address-book"></i>
                             </span>
@@ -168,8 +160,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}"
-                            {{-- class="sidebar-link accordion-body ms-2 reports-collapse > --}}
+                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}">
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel</span>
                         </a>
@@ -178,8 +169,7 @@
                     <p class="">ACTIVITIES</p>
 
                     <li class="sidebar-item">
-                        <div class="accordion accordion-flush"
-                            class="sidebar-link accordion-body ms-2 reports-collapse" id="logsAccordion">
+                        <div class="accordion accordion-flush" id="logsAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button sidebar-link {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'configurationLog') ? '' : 'collapsed' }}" type="button"
@@ -189,7 +179,7 @@
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapsed' }}"
+                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapse' }}"
                                     data-bs-parent="#logsAccordion">
 
                                     <a href="{{ route('admin.logs.operation.viewLogs') }}"
@@ -213,8 +203,7 @@
                         </div>
                     </li>
                     <li class="sidebar-item">
-                        <div class="accordion accordion-flush"
-                            class="sidebar-link accordion-body ms-2 reports-collapse" id="trashAccordion">
+                        <div class="accordion accordion-flush" id="trashAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
                                     <button
@@ -249,8 +238,7 @@
                     <p class="">ACCOUNTS</p>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.admin') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.admin') }}">
                             <span>
                                 <i class="ti ti-user"></i>
                             </span>
@@ -258,8 +246,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.user') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <a class="sidebar-link" href="{{ route(auth()->user()->type . '.account.user') }}">
                             <span>
                                 <i class="ti ti-users"></i>
                             </span>

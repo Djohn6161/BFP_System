@@ -1,25 +1,7 @@
 @extends('layouts.user-template')
 @section('content')
 
-<style>
-.earth-spinning {
-    perspective: 1000px;
-}
 
-.spinning-logo {
-    animation: spin 10s linear infinite;
-    transform-origin: 50% 50%;
-}
-
-@keyframes spin {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(360deg);
-    }
-}
-</style>
     <div class="container-fluid position-relative py-0" style="top: 10vh">
         <!--  Row 1 -->
         <div class="d-flex justify-content-center">
@@ -37,11 +19,11 @@
                 <div class="row justify-content-center mt-3">
                     <div class="col-auto">
                         <a href="{{ route('operation.index') }}" type="button"
-                            class="btn btn-lg btn-secondary me-2 btn-width">Operation</a>
+                            class="btn btn-lg btn-primary me-2 btn-width">Operation</a>
                     </div>
                     <div class="col-auto">
                         <a href="{{ route('investigation.index') }}" type="button"
-                            class="btn btn-lg btn-outline-secondary btn-width">Investigation</a>
+                            class="btn btn-lg btn-outline-info btn-width">Investigation</a>
                     </div>
                 </div>
             </div>

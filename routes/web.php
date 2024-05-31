@@ -187,6 +187,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
                 Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
                 Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
+                Route::post('/export', [ExportController::class, 'exportOperation'])->name('export');
             });
         });
 

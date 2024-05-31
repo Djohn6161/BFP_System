@@ -1,27 +1,17 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-        <!--  Row 1 -->
-
-        <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 text-capitalize">
-                                Trash {{ $active != 'investigation' ? $active : 'All' }}</h5> --}}
+   
 
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Activities</a></li>
+                <li class="breadcrumb-item"><a href="">Trash</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Investigation Trash</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">

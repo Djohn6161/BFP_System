@@ -25,6 +25,12 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
                     <h1 class="modal-title fs-5" id="minimalTableModalLabel">Minimal - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -89,6 +95,12 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content p-3">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
                     <h1 class="modal-title fs-5" id="spotTableModalLabel">Spot - Operation Reports</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -149,15 +161,21 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
+                    <h3 class="mb-2">Spot Reports - Progress</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body m-3 text-center">
-                    <h3 class="mb-2">Spot Reports - Progress</h3>
+                <div class="modal-body mx-3 mb-3 text-center">
                     <div class="shadow rounded p-4">
                         <table class="table w-100 " id="progressModalTable">
                             <thead class="text-dark fs-4">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>For</th>
                                     <th>Subject</th>
                                     <th>Date</th>
@@ -173,13 +191,22 @@
 
                                 @foreach ($sortedSpots as $spot)
                                     <tr>
-                                        <td>{{ $spot->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
                                         <td>{{ $spot->investigation->subject }}</td>
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
-                                            <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
-                                                class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i> Apply</a>
+                                            @if ($spot->progress)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
+                                                <a href="{{ route('investigation.progress.create', ['spot' => $spot->id]) }}"
+                                                    class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
+                                                    Apply</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -190,20 +217,27 @@
             </div>
         </div>
     </div>
+
     <!-- Second Modal (Spot table for final) -->
     <div class="modal fade" id="spotTableFinal" tabindex="-1" aria-labelledby="yesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#chooseInvestigation">
+                        <span>
+                            <i class="ti ti-arrow-back"></i>
+                        </span>
+                        <span>Go Back</span>
+                    </button>
+                    <h3 class="mb-2">Spot Reports - Final</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m-3 text-center">
-                    <h3 class="mb-2">Spot Reports - Final</h3>
                     <div class="shadow rounded p-4">
                         <table class="table w-100 " id="finalModalTable">
                             <thead class="text-dark fs-4">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>For</th>
                                     <th>Subject</th>
                                     <th>Date</th>
@@ -219,14 +253,22 @@
 
                                 @foreach ($sortedSpots as $spot)
                                     <tr>
-                                        <td>{{ $spot->id }}</td>
+                                        <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $spot->investigation->for }}</td>
                                         <td>{{ $spot->investigation->subject }}</td>
                                         <td>{{ $spot->investigation->date }}</td>
                                         <td>
+                                            @if ($spot->final)
+                                                <button disabled type="button"
+                                                    class="disabled btn btn-primary hide-menu w-100 mb-1">
+                                                    <i class="ti ti-x"></i>
+                                                    Applied Already
+                                                </button>
+                                            @else
                                             <a href="{{ route('investigation.final.create', ['spot' => $spot->id]) }}"
                                                 class="btn btn-primary w-100 mb-1"><i class="ti ti-check"></i>
                                                 Apply</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

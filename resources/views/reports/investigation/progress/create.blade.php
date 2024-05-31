@@ -1,32 +1,4 @@
-<style>
-    .btn-reports {
-        width 200px
-    }
 
-    .second-div {
-        border: 1px solid #e5e5e5;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-between {
-        justify-content: space-between;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    /* .preview-image {
-        max-width: 200px;
-        height: auto;
-        margin: 10px;
-    } */
-</style>
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">

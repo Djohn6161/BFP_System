@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
 
 class AforSeeder extends Seeder
 {
@@ -33,18 +34,18 @@ class AforSeeder extends Seeder
                 'location' => 'Mayon',
                 'full_location' => $full_location,
                 'received_by' => $faker->numberBetween(1, 16),
-                'td_under_control' => $stringDate,
-                'td_declared_fireout' => $td_declared_fireout,
-                'distance_to_fire_incident' => '7 kilometers',
-                'structure_description' => '',
+                'td_under_control' => null,
+                'td_declared_fireout' => null,
                 'sketch_of_fire_operation' => 'sample - Copy.jpg,sample.jpg',
                 'details' => $faker->paragraph(),
                 'problem_encounter' => $faker->paragraph(),
                 'observation_recommendation' => $faker->paragraph(),
                 'alarm_status_arrival' => '1st Alarm',
                 'first_responder' => 'First',
-                'prepared_by' => 'FO2 Joenel C. Cerias',
-                'noted_by' => 'SF03 Marvin P. De Jesus',
+                'prepared_by' => '',
+                'noted_by' => '',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
 
             $reportID = DB::table('afors')->insertGetId($attributes);
@@ -57,6 +58,8 @@ class AforSeeder extends Seeder
                 'specify' => 'park',
                 'distance' => '1km',
                 'description' => 'description',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
 
             DB::table('occupancies')->insert($attributes);
@@ -67,6 +70,8 @@ class AforSeeder extends Seeder
                 'type' => 1,
                 'injured' => 1,
                 'death' => 1,
+                'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
             ];
 
             DB::table('afor_casualties')->insert($attributes);
@@ -76,6 +81,8 @@ class AforSeeder extends Seeder
                 'type' => 2,
                 'injured' => 1,
                 'death' => 1,
+                'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
             ];
 
             DB::table('afor_casualties')->insert($attributes);
@@ -105,11 +112,12 @@ class AforSeeder extends Seeder
                     'response_duration' => $response_duration,
                     'time_return_to_base' => $return_date_string,
                     'water_tank_refilled' => '1000',
-                    'gas_consumed' => '50L'
+                    'gas_consumed' => '50L',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('responses')->insert($attributes);
-
             }
 
             // Declared Alarms
@@ -119,6 +127,8 @@ class AforSeeder extends Seeder
                     'alarm_name' => $faker->randomElement(['1st Alarm', '2nd Alarm', '3rd Alarm', '4th Alarm', '5th Alarm']),
                     'time' => '2400H',
                     'ground_commander' => $faker->numberBetween(1, 16),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('declared_alarms')->insert($attributes);
@@ -131,6 +141,8 @@ class AforSeeder extends Seeder
                     'quantity' => 1,
                     'category' => 'breathing apparatus',
                     'type' => $faker->word(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('used_equipments')->insert($attributes);
@@ -143,6 +155,8 @@ class AforSeeder extends Seeder
                     'quantity' => 1,
                     'category' => 'extinguishing agent',
                     'type' => $faker->word(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('used_equipments')->insert($attributes);
@@ -154,7 +168,9 @@ class AforSeeder extends Seeder
                     'afor_id' => $reportID,
                     'category' => 'rope and ladder',
                     'type' => $faker->word(),
-                    'length' => '1ft'
+                    'length' => '1ft',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('used_equipments')->insert($attributes);
@@ -167,7 +183,9 @@ class AforSeeder extends Seeder
                     'category' => 'hose line',
                     'quantity' => 1,
                     'type' => $faker->word(),
-                    'length' => '1ft'
+                    'length' => '1ft',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('used_equipments')->insert($attributes);
@@ -178,13 +196,13 @@ class AforSeeder extends Seeder
                 $attributes = [
                     'afor_id' => $reportID,
                     'personnels_id' => $faker->numberBetween(1, 16),
-                    'remarks' => 'remarks'
+                    'remarks' => 'remarks',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
 
                 DB::table('afor_duty_personnels')->insert($attributes);
             }
-
-
         }
     }
 }

@@ -1,11 +1,13 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Operation Reports</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -15,11 +17,11 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold">Operation Reports</h5>
                                 @if ($user->privilege == 'OC' || $user->privilege == 'All')
                                     <div class="d-flex column-gap-2">
-                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                        {{-- <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#exportOperation">
                                             <i class="ti ti-file-export"></i>
                                             Export
-                                        </button>
+                                        </button> --}}
                                         <x-reports.export></x-reports.export>
                                         <a class="btn btn-light" href="{{ route('operation.create.form') }}">
                                             <i class="ti ti-plus"></i>
@@ -32,6 +34,9 @@
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
+                                            <th>
+                                                <h6 class="fw-semibold mb-0">#</h6>
+                                            </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Alarm Received</h6>
                                             </th>
@@ -56,16 +61,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{-- {{dd($operations)}} --}}
                                         @php
-                                            $sortedOperations = $operations->sortByDesc(function (
-                                                $operation,
-                                            ) {
-                                                return \Carbon\Carbon::parse($operation->td_under_control);
+                                            $sortedOperations = $operations->sortByDesc(function($operation) {
+                                                return \Carbon\Carbon::parse($operation->updated_at);
                                             });
                                         @endphp
 
                                         @foreach ($sortedOperations as $operation)
                                             <tr>
+                                                <td>
+                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}</h6>
+                                                </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
                                                 </td>
@@ -95,12 +102,12 @@
                                                         }
                                                         if ($operation->spot) {
                                                             echo ',Spot';
-                                                        }
-                                                        if ($operation->spot->progress) {
-                                                            echo ',Progress';
-                                                        }
-                                                        if ($operation->spot->final) {
-                                                            echo ',Final';
+                                                            if ($operation->spot->progress) {
+                                                                echo ',Progress';
+                                                            }
+                                                            if ($operation->spot->final) {
+                                                                echo ',Final';
+                                                            }
                                                         }
                                                     @endphp
                                                 </td>

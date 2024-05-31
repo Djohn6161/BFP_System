@@ -1,11 +1,15 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.personnel.index') }}">Personnel</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Personnel Information</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <form action="{{ route('admin.personnel.update') }}" method="POST" enctype="multipart/form-data">
@@ -14,7 +18,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                             <div class="col-lg-4">
-                                <div class="col-lg-12 mb-3"> <!-- Photo column -->
+                                <div class="col-lg-12 mb-3"> 
                                     <img id="personnel-picture"
                                         src="/assets/images/personnel_images/{{ $personnel->picture }}"
                                         class="object-fit-cover img-fluid w-100" style="height: 340px;"
@@ -44,7 +48,7 @@
                                     </div>
                                     <div class="col-lg-4 mb-3">
                                         <label for="rank" class="form-label">Rank</label>
-                                        <select class="form-select" id="rank" name="rank">
+                                        <select class="form-select rankSelectEdit" id="rank" name="rank">
                                             <option selected>Select Rank</option>
                                             @foreach ($ranks as $rank)
                                                 @if ($rank->id == $personnel->ranks_id)
@@ -152,20 +156,17 @@
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0" id="editTertiaryCourseContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-
-                                        @foreach ($tertiaries as $tertiary)
-                                            <div class="input-group mb-1">
-                                                <input type="text" placeholder="Enter tertiary course/s"
-                                                    class="form-control" id="tertiaryCourses" name="tertiary[]"
-                                                    value="{{ $tertiary->name }}">
-                                                <button type="button"
-                                                    class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
-                                            </div>
-                                        @endforeach
-
-
+                                    @foreach ($tertiaries as $tertiary)
+                                    <div class="col-lg-12 px-0 mb-2">
+                                        <div class="input-group mb-1">
+                                            <input type="text" placeholder="Enter tertiary course/s"
+                                                class="form-control" id="tertiaryCourses" name="tertiary[]"
+                                                value="{{ $tertiary->name }}">
+                                            <button type="button"
+                                                class="btn btn-outline-danger removeTertiaryInputEdit">x</button>
+                                        </div>
                                     </div>
+                                    @endforeach
                                     <!-- Input fields will be appended here -->
                                 </div>
                             </div>
@@ -181,19 +182,17 @@
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0" id="editPostGraduateCoursesContainer">
-                                    <div class="col-lg-12 px-0 mb-3">
-
-                                        @foreach ($courses as $course)
-                                            <div class="input-group mb-1">
-                                                <input type="text" placeholder="Enter post graduate course/s"
-                                                    class="form-control" id="postGraduateCourses" name="courses[]"
-                                                    value="{{ $course->name }}">
-                                                <button type="button"
-                                                    class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
-                                            </div>
-                                        @endforeach
-
+                                    @foreach ($courses as $course)
+                                    <div class="col-lg-12 px-0 mb-2">
+                                        <div class="input-group mb-1">
+                                            <input type="text" placeholder="Enter post graduate course/s"
+                                                class="form-control" id="postGraduateCourses" name="courses[]"
+                                                value="{{ $course->name }}">
+                                            <button type="button"
+                                                class="btn btn-outline-danger removePostGraduateInputEdit">x</button>
+                                        </div>
                                     </div>
+                                    @endforeach
                                     <!-- Input fields will be appended here -->
                                 </div>
                             </div>
@@ -374,7 +373,7 @@
         $(document).ready(function() {
             $("#editTertiaryCourse").click(function() {
                 var inputField =
-                    '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses"> <button type="button" class="btn btn-outline-danger removeTertiaryInputEdit">x</button> </div> </div>';
+                    '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter tertiary course/s" class="form-control" id="tertiaryCourses" name="tertiary[]"> <button type="button" class="btn btn-outline-danger removeTertiaryInputEdit">x</button> </div> </div>';
                 $("#editTertiaryCourseContainer").append(inputField);
             });
 
@@ -385,7 +384,7 @@
 
             $("#editPostGraduateCourses").click(function() {
                 var inputField =
-                    '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses"> <button type="button" class="btn btn-outline-danger removePostGraduateInputEdit">x</button> </div> </div>';
+                    '<div class="col-lg-12 px-0 mb-3"> <div class="input-group"> <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" name="courses[]"> <button type="button" class="btn btn-outline-danger removePostGraduateInputEdit">x</button> </div> </div>';
                 $("#editPostGraduateCoursesContainer").append(inputField);
             });
 
@@ -432,51 +431,6 @@
         document.getElementById("saveChangesBtn").addEventListener("click", function() {
             saveDataAndRedirect();
         });
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const tinInput = document.getElementById('tin');
-        //     const pagibigInput = document.getElementById('pagibig');
-        //     const gsisInput = document.getElementById('gsis');
-        //     const philhealthInput = document.getElementById('philhealth');
-
-        //     const restrictToNumbers = function(inputElement) {
-        //         inputElement.addEventListener('input', function(event) {
-        //             const inputValue = event.target.value;
-        //             const cleanedValue = inputValue.replace(/[^0-9\-]/g,
-        //                 ''); // Remove any characters that are not numbers or hyphens
-        //             event.target.value = cleanedValue;
-        //         });
-        //     };
-
-        //     restrictToNumbers(tinInput);
-        //     restrictToNumbers(pagibigInput);
-        //     restrictToNumbers(gsisInput);
-        //     restrictToNumbers(philhealthInput);
-
-        //     const formatGovernmentID = function(inputElement, format) {
-        //         inputElement.addEventListener('input', function(event) {
-        //             const inputValue = event.target.value;
-        //             const cleanedValue = inputValue.replace(/[^0-9]/g,
-        //                 ''); // Remove any characters that are not numbers
-        //             let formattedValue = '';
-        //             if (format === 'TIN') {
-        //                 formattedValue = cleanedValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
-        //             } else if (format === 'PAGIBIG') {
-        //                 formattedValue = cleanedValue.replace(/(\d{4})(\d{4})(\d{4})/, '$1-$2-$3');
-        //             } else if (format === 'GSIS') {
-        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{7})/, '$1-$2-$3');
-        //             } else if (format === 'PHILHEALTH') {
-        //                 formattedValue = cleanedValue.replace(/(\d{2})(\d{9})(\d{1})/, '$1-$2-$3');
-        //             }
-        //             event.target.value = formattedValue;
-        //         });
-        //     };
-
-        //     formatGovernmentID(tinInput, 'TIN');
-        //     formatGovernmentID(pagibigInput, 'PAGIBIG');
-        //     formatGovernmentID(gsisInput, 'GSIS');
-        //     formatGovernmentID(philhealthInput, 'PHILHEALTH');
-        // });
 
         //personnel file upload
         $(document).ready(function() {

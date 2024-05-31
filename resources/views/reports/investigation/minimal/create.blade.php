@@ -1,32 +1,4 @@
-<style>
-    .btn-reports {
-        width 200px
-    }
 
-    .second-div {
-        border: 1px solid #e5e5e5;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-between {
-        justify-content: space-between;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    /* .preview-image {
-        max-width: 200px;
-        height: auto;
-        margin: 10px;
-    } */
-</style>
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -52,9 +24,7 @@
                         <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS</h3>
-                            {{-- <h5>Details</h5> --}}
                             <div class="col-lg-6 mb-3">
                                 <label for="dateTime" class="form-label">Date and Time of Actual Occurrence</label>
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="dt_actual_occurence"
@@ -88,7 +58,6 @@
                                             {{ old('barangay') ?? ($afor->barangay_name ?? ' ') == $barangay->name ? 'selected' : '' }}
                                             value="{{ $barangay->name }}">{{ $barangay->name }}</option>
                                     @endforeach
-                                    <!-- Add more barangay options as needed -->
                                 </select>
                                 @error('barangay')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>

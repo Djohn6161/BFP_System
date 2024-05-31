@@ -77,10 +77,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'occupancy' => $request->input('occupancy') ?? '',
-            'occupancy_specify' => $request->input('occupancy_specify') ?? '',
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
             'sketch_of_fire_operation' => $request->input('sketch_of_fire_operation') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
@@ -92,14 +88,7 @@ class OperationController extends Controller
         ]);
         $afor->save();
         $afor_id = $afor->id;
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $afor_id,
-            'user_id' => auth()->user()->id,
-            'details' => "Created an AFOR Report about the operation in " . $afor->location,
-            'action' => "Store",
-        ]);
-        $log->save();
+
         //Response
         $engine_dispatched = $request->input('engine_dispatched', []);
         $time_dispatched = $request->input('time_dispatched', []);
@@ -242,7 +231,7 @@ class OperationController extends Controller
 
         // Duty Personnel
         $duty_personnel_ids = $request->input('duty_personnel_id', []);
-        $duty_designations = $request->input('duty_designation', []);
+        $duty_designations = $request->input('duty_designations', []);
         $duty_remarks = $request->input('duty_remarks', []);
 
         if ($this->hasValues($duty_personnel_ids)) {
@@ -254,14 +243,6 @@ class OperationController extends Controller
                 $personnel->remarks = isset($duty_remarks[$key]) ? $duty_remarks[$key] : '';
                 $personnel->save();
 
-                // if (isset($duty_designations[$key])) {
-                //     foreach ($duty_designations[$key] as $designation) {
-                //         $designationModel = new Afor_designation();
-                //         $designationModel->afor_id = $afor_id;
-                //         $designationModel->name = $designation;
-                //         $designationModel->save();
-                //     }
-                // }
             }
         }
 
@@ -271,7 +252,7 @@ class OperationController extends Controller
         if ($request->hasFile('sketch_of_fire_operation')) {
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
-                $file->move(public_path('operation_image'), $fileName);
+                $file->move(public_path('/assets/images/operation_images'), $fileName);
                 $sketch_format[] = $fileName;
             }
             $sketch = implode(',', $sketch_format);
@@ -348,8 +329,6 @@ class OperationController extends Controller
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
-            'distance_to_fire_incident' => $request->input('distance_to_fire_incident') ?? '',
-            'structure_description' => $request->input('structure_description') ?? '',
             'details' => $request->input('details') ?? '',
             'problem_encounter' => $request->input('problem_encounter') ?? '',
             'observation_recommendation' => $request->input('observation_recommendation') ?? '',
@@ -1019,14 +998,25 @@ class OperationController extends Controller
 
         $log = new AforLog();
         $log->fill([
-            'afor_id' => $operation->id,
+            'afor_id' => $afor_id,
             'user_id' => auth()->user()->id,
-            'details' => $string,
-            'action' => "Update",
+            'details' => "Created an AFOR Report about the operation in " . $afor->location,
+            'action' => "Store",
         ]);
         $log->save();
+        
 
         if ($status) {
+
+            $log = new AforLog();
+            $log->fill([
+                'afor_id' => $operation->id,
+                'user_id' => auth()->user()->id,
+                'details' => $string,
+                'action' => "Update",
+            ]);
+            $log->save();
+
             return redirect('/reports/operation/index')->with('success', 'Operation updated successfully.');
         } else {
             return redirect('/reports/operation/index')->with('success', "Nothing's change.");

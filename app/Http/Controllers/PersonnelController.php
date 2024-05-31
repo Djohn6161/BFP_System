@@ -91,6 +91,7 @@ class PersonnelController extends Controller
         ]);
         $personnel->save();
         $personnel_id = $personnel->id;
+
         $log = new ConfigurationLog();
 
         $log->fill([
@@ -99,6 +100,7 @@ class PersonnelController extends Controller
             'type' => 'personnel',
             'action' => 'Store',
         ]);
+
         $log->save();
         //Response
         $tertiaries = $request->input('tertiary', []);
@@ -229,10 +231,6 @@ class PersonnelController extends Controller
                 $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $personnel[$index] . " -> " . $change . "</li>";
             }
         }
-        // dd($string);
-
-
-
 
         if ($personnelChange) {
             $status = true;
@@ -263,11 +261,13 @@ class PersonnelController extends Controller
         $publicPath = public_path() . '/assets/images/personnel_files/';
 
         foreach ($personnelFiles as $index => $file) {
-            if (!in_array($index, $requestIndexes)) {
-                File::delete($publicPath . $personnelFiles[$index]);
-                unset($personnelFiles[$index]);
-                $status = true;
-                $change = true;
+            if ($file != '') {
+                if (!in_array($index, $requestIndexes)) {
+                    File::delete($publicPath . $personnelFiles[$index]);
+                    unset($personnelFiles[$index]);
+                    $status = true;
+                    $change = true;
+                }
             }
         }
 
@@ -307,19 +307,9 @@ class PersonnelController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 // Delete the existing response
-                // dd($index, $requestIndexes, $designation);
                 $string = $string . "<li>" . "<b> Designation </b>" . ": " . $designation->name . " <i>  Removed </i> </li>";
                 $designation->delete();
                 $status = true;
-                // $designationChanges = $this->hasChangesMultip($designation, $changes);
-                // if ($designationChanges) {
-                //     dd($designationChanges);
-                // foreach ($designationChanges as $index => $change) {
-                //     $format = str_replace('_', ' ', $index);
-                //     $format = ucwords($format);
-
-                //     $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $new_designation[$index] . " -> " . $change . "</li>";
-                // }
             }
         }
 
@@ -342,28 +332,118 @@ class PersonnelController extends Controller
                     $string = $string . "<li>" . "<b>Designation</b>" . ": " . $personnelDesignation->name . " -> " . $changes['name'] . "</li>";
                     $personnelDesignation->update($changes);
                 }
-                // $format = str_replace('_', ' ', $index);
-                // $format = ucwords($format);
-                // dd($personnelDesignation->name);
             } else {
                 // No existing record for this index, create a new one
-                $newRopeLadder = new Personnel_designation();
-                $newRopeLadder->personnel_id = $personnel->id;
-                $newRopeLadder->name = $new_designation;
-                $newRopeLadder->save(); // Save the new record
-                $string = $string . "<li>" . "<b>Designation</b>" . ": " . $newRopeLadder->name . " <i> Added </i></li>";
+                $newDesignation = new Personnel_designation();
+                $newDesignation->personnel_id = $personnel->id;
+                $newDesignation->name = $new_designation;
+                $newDesignation->save(); // Save the new record
+                $string = $string . "<li>" . "<b>Designation</b>" . ": " . $newDesignation->name . " <i> Added </i></li>";
                 $status = true;
             }
         }
-        $log = new ConfigurationLog();
-        $log->fill([
-            'userID' => auth()->user()->id,
-            'Details' => $string,
-            'type' => 'personnel',
-            'action' => 'Update',
-        ]);
-        $log->save();
+
+        // Tertiaries
+        $tertiaries = $request->input('tertiary', []);
+
+        // Retrieve the existing data from the database
+        $existTertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
+        $requestIndexes = array_keys($tertiaries);
+
+        foreach ($existTertiaries as $index => $tertiary) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $string = $string . "<li>" . "<b> Tertiary </b>" . ": " . $tertiary->name . " <i>  Removed </i> </li>";
+                $tertiary->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($tertiaries as $index => $tertiary) {
+            // Check if there's an existing record at this index
+            $personnelTertiary = $existTertiaries->get($index);
+
+            $new_tertiary = $tertiaries[$index];
+
+            // Check if an existing record exists for this index
+            if ($personnelTertiary) {
+                // Check if any field has changed
+                $changes = [
+                    'name' => $new_tertiary,
+                ];
+                // dd($designation);
+                if ($this->hasChanges($personnelTertiary, $changes)) {
+                    $status = true;
+                    $string = $string . "<li>" . "<b>Tertiary</b>" . ": " . $personnelTertiary->name . " -> " . $changes['name'] . "</li>";
+                    $personnelTertiary->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newTertiary = new Tertiary();
+                $newTertiary->personnel_id = $personnel->id;
+                $newTertiary->name = $new_tertiary;
+                $newTertiary->save(); // Save the new record
+                $string = $string . "<li>" . "<b>Tertiary</b>" . ": " . $newTertiary->name . " <i> Added </i></li>";
+                $status = true;
+            }
+        }
+
+        // Courses
+        $courses = $request->input('courses', []);
+
+        // Retrieve the existing data from the database
+        $existCourses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
+        $requestIndexes = array_keys($courses);
+
+        foreach ($existCourses as $index => $course) {
+            // Check if the index of the existing response is not present in the request
+            if (!in_array($index, $requestIndexes)) {
+                // Delete the existing response
+                $string = $string . "<li>" . "<b> Course </b>" . ": " . $course->name . " <i>  Removed </i> </li>";
+                $course->delete();
+                $status = true;
+            }
+        }
+
+        foreach ($courses as $index => $course) {
+            // Check if there's an existing record at this index
+            $personnelCourse = $existCourses->get($index);
+
+            $new_course = $courses[$index];
+
+            // Check if an existing record exists for this index
+            if ($personnelCourse) {
+                // Check if any field has changed
+                $changes = [
+                    'name' => $new_course,
+                ];
+                // dd($designation);
+                if ($this->hasChanges($personnelCourse, $changes)) {
+                    $status = true;
+                    $string = $string . "<li>" . "<b>Course</b>" . ": " . $personnelCourse->name . " -> " . $changes['name'] . "</li>";
+                    $personnelCourse->update($changes);
+                }
+            } else {
+                // No existing record for this index, create a new one
+                $newCourse = new Post_graduate_course();
+                $newCourse->personnel_id = $personnel->id;
+                $newCourse->name = $new_course;
+                $newCourse->save(); // Save the new record
+                $string = $string . "<li>" . "<b>Course</b>" . ": " . $newCourse->name . " <i> Added </i></li>";
+                $status = true;
+            }
+        }
+
         if ($status) {
+            $log = new ConfigurationLog();
+            $log->fill([
+                'userID' => auth()->user()->id,
+                'Details' => $string,
+                'type' => 'personnel',
+                'action' => 'Update',
+            ]);
+            $log->save();
             return redirect()->back()->with('success', "Personnel Information Updated successfully.");
         } else {
             return redirect()->back()->with('status', "Nothing's change.");

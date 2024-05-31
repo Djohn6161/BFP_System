@@ -1,11 +1,13 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">

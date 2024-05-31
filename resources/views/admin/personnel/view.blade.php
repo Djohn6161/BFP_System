@@ -1,11 +1,15 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.personnel.index') }}">Personnel</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Personnel</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
@@ -143,7 +147,7 @@
                         <div class="col-lg-6 mb-3">
                             <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
                             @foreach ($personnel->tertiaries as $tertiary)
-                                <input type="text" placeholder="Enter tertiary course/s" class="form-control"
+                                <input type="text" placeholder="Enter tertiary course/s" class="form-control mb-2"
                                     id="tertiaryCourses" readonly value="{{ $tertiary->name }}">
                             @endforeach
 
@@ -151,7 +155,7 @@
                         <div class="col-lg-6 mb-3">
                             <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
                             @foreach ($personnel->courses as $course)
-                                <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" readonly value="{{$course->name}}">
+                                <input type="text" placeholder="Enter post graduate course/s" class="form-control mb-2" id="postGraduateCourses" readonly value="{{$course->name}}">
                             @endforeach
 
                         </div>
