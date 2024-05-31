@@ -1,11 +1,15 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.personnel.index') }}">Personnel</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Personnel Information</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <form action="{{ route('admin.personnel.update') }}" method="POST" enctype="multipart/form-data">
@@ -14,7 +18,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Personal Details</h3>
                             <div class="col-lg-4">
-                                <div class="col-lg-12 mb-3"> <!-- Photo column -->
+                                <div class="col-lg-12 mb-3"> 
                                     <img id="personnel-picture"
                                         src="/assets/images/personnel_images/{{ $personnel->picture }}"
                                         class="object-fit-cover img-fluid w-100" style="height: 340px;"

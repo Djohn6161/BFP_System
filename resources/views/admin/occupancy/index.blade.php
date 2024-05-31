@@ -1,11 +1,14 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Occupancies</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -42,10 +45,9 @@
                                             <x-occupancy.edit :occupancyName=$occupancyName></x-occupancy.edit>
                                             <x-occupancy.delete :occupancyName=$occupancyName></x-occupancy.delete>
 
-                                            {{-- <x-reports.view-modal :report=$investigation></x-reports.view-modal> --}}
-                                            {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
+                                           
                                             <tr>
-                                                {{-- {{dd($occupancies)}} --}}
+                                           
                                                 <td>
                                                     {{ $occupancyName->id}}
                                                 </td>

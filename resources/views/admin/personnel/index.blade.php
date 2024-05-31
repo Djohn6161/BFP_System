@@ -3,6 +3,13 @@
 @section('content')
 
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Personnel</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -48,7 +55,6 @@
                                                             style="width: calc(25% - 1rem); p-1;">
                                                             <a href="{{ route('admin.personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
-                                                                    <!-- Display Personnel Details -->
                                                                     <img src="{{ asset('assets/images/personnel_images/'.$personnel->picture) }}"
                                                                         class="card-img-top object-fit-cover rounded"
                                                                         height="300" alt="personnel picture">

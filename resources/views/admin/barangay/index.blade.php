@@ -1,28 +1,14 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
-    {{-- <div class="container-fluid">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col d-flex justify-content-end mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addBarangayModal">
-                        <i class="ti ti-plus"></i>
-                        
-                        Create
-                    </button>
-                    <x-barangay.create :category="$active"></x-barangay.create>
-                </div>
-                <div class="col-lg-12 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <h5 class="card-title fw-semibold mb-4 p-3 rounded bg-gradient-blue text-light">Barangay</h5> --}}
-
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Configurations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Barangay</li>
+            </ol>
+        </nav>
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 d-flex align-items-stretch">
