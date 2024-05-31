@@ -147,7 +147,7 @@
                         <div class="col-lg-6 mb-3">
                             <label for="tertiaryCourses" class="form-label">Tertiary Course/s</label>
                             @foreach ($personnel->tertiaries as $tertiary)
-                                <input type="text" placeholder="Enter tertiary course/s" class="form-control"
+                                <input type="text" placeholder="Enter tertiary course/s" class="form-control mb-2"
                                     id="tertiaryCourses" readonly value="{{ $tertiary->name }}">
                             @endforeach
 
@@ -155,7 +155,7 @@
                         <div class="col-lg-6 mb-3">
                             <label for="postGraduateCourses" class="form-label">Post Graduate Course/s</label>
                             @foreach ($personnel->courses as $course)
-                                <input type="text" placeholder="Enter post graduate course/s" class="form-control" id="postGraduateCourses" readonly value="{{$course->name}}">
+                                <input type="text" placeholder="Enter post graduate course/s" class="form-control mb-2" id="postGraduateCourses" readonly value="{{$course->name}}">
                             @endforeach
 
                         </div>
