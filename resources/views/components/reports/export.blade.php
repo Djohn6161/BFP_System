@@ -14,7 +14,7 @@
                         <label for="selectInvestigation" class="form-label">Type:</label>
                         <select class="form-select" name="Type" id="selectInvestigation">
                             <option selected>Choose investigation type</option>
-                            <option value="All">All</option>
+                            {{-- <option value="All">All</option> --}}
                             <option value="Minimal">Minimal</option>
                             <option value="Spot">Spot</option>
                             <option value="Progress">Progress</option>

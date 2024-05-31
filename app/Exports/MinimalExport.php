@@ -30,6 +30,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
                 $data[] = [
                     $investigation->for,
                     $investigation->subject,
+                    $investigation->date,
                     $investigation->Minimal->dt_actual_occurence,
                     $investigation->Minimal->dt_reported,
                     $investigation->Minimal->incident_location,
