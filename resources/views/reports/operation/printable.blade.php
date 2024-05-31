@@ -6,74 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After Fire Operations Report</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        @page {
-            size: 8.5in 13in;
-            margin: 1in;
-            @top-center {
-                content: element(header);
-            }
-            @bottom-center {
-                content: element(footer);
-            }
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header, footer {
-            display: block;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            height: 80px;
-        }
-
-        .header-text {
-            text-align: center;
-        }
-
-        .header-text text {
-            font-size: 11px;
-        }
-
-        .header-text label {
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .container {
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Add your existing CSS styles here */
-    </style>
 </head>
 
 <body style="margin: 0 auto; max-width: 1200px;">
-    <div class="container" >
+    <div class="container">
         <header>
             <div class="header-top">
                 <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Logo" class="logo">
@@ -388,7 +324,7 @@
     th,
     td {
         border: 1px solid #000;
-        padding: 8px;
+        
         text-align: left;
         font-size: 11px;
         /* Set default font size to 11px for all table text */
