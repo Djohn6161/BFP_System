@@ -33,24 +33,24 @@ class exportController extends Controller
                 if (count($investigations) != 0) {
                     $status = $status . $e . " \n ";
                     # code...
-                }else{
+                } else {
                     $status = $status . "O Data \n ";
                 }
-    
             }
-        } 
+        }
+
         if ($validated['Type'] == "Spot" || $validated['Type'] == "All") {
             $investigations = Investigation::has('Spot')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } 
+        }
         if ($validated['Type'] == "Progress" || $validated['Type'] == "All") {
             $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } 
+        }
         if ($validated['Type'] == "Final" || $validated['Type'] == "All") {
             $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        } 
-        
-        
+        }
+
+        return redirect()->back()->with("success", 'Successfully Exported');
         // dd($investigations);
-       
+
     }
 }
