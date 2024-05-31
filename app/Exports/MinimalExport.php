@@ -103,7 +103,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'I' => 20,
             'J' => 20,
             'K' => 20,
-            'L' => 20,
+            'L' => 20, 
             'M' => 25,
             'N' => 30,
             'O' => 25,
