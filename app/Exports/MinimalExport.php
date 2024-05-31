@@ -94,7 +94,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
     public function columnWidths(): array
     {
         return [
-            'A' => 100,
+            'A' => 50,
             'B' => 100,
             'C' => 100,
             'D' => 100,
