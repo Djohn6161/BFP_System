@@ -98,6 +98,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
                 Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
                 Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+                Route::get('personnel/search/index', [PersonnelController::class, 'personnelSearchIndex'])->name('personnel.search.index');
             });
             Route::middleware(['role:admin'])->group(function () {
                 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');

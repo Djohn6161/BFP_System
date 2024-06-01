@@ -35,7 +35,6 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $ranks = Rank::all();
-
         $personnel = Personnel::findOrFail($id);
         $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
         $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
@@ -484,6 +483,18 @@ class PersonnelController extends Controller
         } else {
             return redirect()->back()->with('status', 'Admin password is not correct.');
         }
+    }
+
+    public function personnelSearchIndex(){
+        $user = Auth::user();
+        $active = 'personnel';
+        $personnels = Personnel::all();
+        $ranks = Rank::orderBy('slug')->get();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $personnelCount = count($personnels);
+        $designations = Designation::all();
+        return view('admin.personnel.search_index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
     }
 
     private function hasValues($array)
