@@ -73,11 +73,14 @@
             .content {
                 margin-top: 1.5in;
 
-                margin-bottom: 1.5in;
+                margin-bottom: .5in;
 
 
                 .photo-container {
                     margin-top: 1.5in;
+                }
+                .last {
+                    margin-top: 2in;
                 }
             }
 
@@ -125,7 +128,7 @@
         td {
             border: 1px solid #000;
             text-align: left;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         th {
@@ -134,7 +137,7 @@
 
         label {
             font-weight: bold;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .row {
@@ -444,7 +447,7 @@
                             </tr>
                             @foreach ($operation->getHoseLine as $equipment)
                                 <tr>
-                                    <td style="text-align: center;">{{ $equipment->nr }}</td>
+                                    <td style="text-align: center;">{{ $equipment->no }}</td>
                                     <td style="text-align: center;">{{ $equipment->type }}</td>
                                     <td style="text-align: center;">{{ $equipment->length }}</td>
                                 </tr>
@@ -505,23 +508,36 @@
                     </div>
 
                 </section>
-
-
-
                 <section class="Details/Narrative">
                     <label>DETAILS/ NARRATIVE </label>
                     <label id="distance"
-                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->details }}</label>
+                    style="display: block;font-weight: normal; margin: 0;">{{ $operation->details }}</label>
                 </section>
+                <br>
                  <section class="PEDO">
                     <label>Problem/s Encountered During Operation </label>
                     <label id="distance"
-                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->problem_encounter }}</label>
+                    style="display: block; font-weight: normal; margin: 0;">{{ $operation->problem_encounter }}</label>
                 </section>
+                <br>
                 <section class="OR">
                     <label>OBSERVATION/RECCOMENDATION</label>
                     <label id="distance"
-                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->observation_recommendation }}</label>
+                    style="display: block; font-weight: normal; margin: 0;">{{ $operation->observation_recommendation }}</label>
+                </section>
+                <br>
+                <div class="page-break"></div>
+                <section class="last">
+                    <label>Prepared by:</label>
+                    <label id="distance"
+                    style="display: block; font-weight: normal; margin: 0;">{{ $operation->prepared_by }}</label>
+              <br>
+              <br>
+
+              
+                    <label>Noted by:</label>
+                    <label id="distance"
+                    style="display: block; font-weight: normal; margin: 0;">{{ $operation->noted_by }}</label>
                 </section>
             </div>
         </body>
