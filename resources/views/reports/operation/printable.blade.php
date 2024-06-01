@@ -5,158 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Continuous Header and Footer</title>
-    {{-- <style>
-        @page {
-            size: 8.5in 13in;
-            margin: .5in;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            box-sizing: border-box;
-        }
-
-        .header,
-        .footer {
-            position: fixed;
-            left: 0;
-            width: 100%;
-            background: white;
-        }
-
-        .header {
-            top: 0;
-            padding-bottom: 10px;
-            /* Add space below header content */
-        }
-
-        .footer {
-            bottom: 0;
-            border-top: 1px solid #ccc;
-        }
-
-        .header-content,
-        .footer-content {
-            margin: 0 1in;
-            text-align: center;
-        }
-
-        .content {
-            margin: 2in 1in 1.5in 1in;
-            /* Adjust margin to account for header and footer */
-        }
-
-        @media print {
-            body {
-                margin: 0.5in;
-            }
-
-            .header,
-            .footer {
-                position: fixed;
-                width: 100%;
-            }
-
-            .header {
-                top: 0;
-            }
-
-            .footer {
-                bottom: 0;
-            }
-
-            .content {
-                margin: 1.5in 0in 1.5in 0in;
-                /* Adjust margin to account for header and footer */
-            }
-            
-        }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            height: 80px;
-        }
-
-        .header-text {
-            text-align: center;
-        }
-
-        .header-text text {
-            font-size: 11px;
-        }
-
-        .header-text label {
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 5px 0;
-        }
-
-        th,
-        td {
-            border: 1px solid #000;
-            text-align: left;
-            font-size: 11px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        label {
-            font-weight: bold;
-            font-size: 11px;
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .column {
-            flex: 1;
-            margin: 0 10px;
-        }
-
-        .container {
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .photo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            /* Adjust margin as needed */
-        }
-
-        .photo-container img {
-            height: 350px;
-            object-fit: cover;
-            border: 1px solid black;
-            margin: 10px;
-            page-break-inside: avoid;
-        }
-        
-    </style> --}}
 
     <style>
         @page {
@@ -224,10 +72,16 @@
 
             .content {
                 margin-top: 1.5in;
-                /* Adjust margin to account for header */
+
                 margin-bottom: 1.5in;
-                /* Adjust margin to account for footer */
+
+
+                .photo-container {
+                    margin-top: 1.5in;
+                }
             }
+
+
 
             .page-break {
                 page-break-before: always;
@@ -310,7 +164,6 @@
         .photo-container img {
             height: 350px;
             object-fit: cover;
-            border: 1px solid black;
             margin: 10px;
             page-break-inside: avoid;
         }
@@ -355,7 +208,7 @@
 
     <div class="footer">
         <div class="footer-content">
-            Your Footer Content - Page <span class="page-number"></span>
+            BFP-QSF -FSOD-006 Rev.00 (06.26.18)-<span class="page-number"></span>
         </div>
     </div>
 
@@ -628,43 +481,68 @@
                 <br>
                 <section class="instruction-sketch">
                     <label>Instruction/Sketch of the Fire Operation (Should be Attached): </label>
-                    <h6 style="font-weight: normal; margin: 0;"><i>(Indicate the data frame, legend, location, north arrow scale)</i></h6>
+                    <h6 style="font-weight: normal; margin: 0;"><i>(Indicate the data frame, legend, location, north
+                            arrow scale)</i></h6>
                     <div class="page-break"></div>
                     <div class="container">
-                       <div class="photo-container">
-                        @if ($operation->sketch_of_fire_operation == null)
-                            <div class="card-body p-1">
-                                <h3>No photos</h3>
-                            </div>
-                        @else
-                            @php
-                                if ($operation->sketch_of_fire_operation != '') {
-                                    $photos = explode(',', $operation->sketch_of_fire_operation);
-                                }
-                            @endphp
-                            @foreach ($photos as $photo)
-                                <img style="height: 350px; object-fit: cover; border: 1px solid black; margin: 10px;"
-                                    class="w-100" src="{{ asset('/assets/images/operation_images/' . $photo) }}">
-                            @endforeach
-                        @endif
-                    </div> 
+                        <div class="photo-container">
+                            @if ($operation->sketch_of_fire_operation == null)
+                                <div class="card-body p-1">
+                                    <h3>No photos</h3>
+                                </div>
+                            @else
+                                @php
+                                    if ($operation->sketch_of_fire_operation != '') {
+                                        $photos = explode(',', $operation->sketch_of_fire_operation);
+                                    }
+                                @endphp
+                                @foreach ($photos as $photo)
+                                    <img style="height: 350px; object-fit: cover; margin: 15px;" class="w-100"
+                                        src="{{ asset('/assets/images/operation_images/' . $photo) }}">
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
-                    
+
+                </section>
+
+
+
+                <section class="Details/Narrative">
+                    <label>DETAILS/ NARRATIVE </label>
+                    <label id="distance"
+                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->details }}</label>
+                </section>
+                 <section class="PEDO">
+                    <label>Problem/s Encountered During Operation </label>
+                    <label id="distance"
+                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->problem_encounter }}</label>
+                </section>
+                <section class="OR">
+                    <label>OBSERVATION/RECCOMENDATION</label>
+                    <label id="distance"
+                    style="display: block; text-align: center; font-weight: normal; margin: 0;">{{ $operation->observation_recommendation }}</label>
                 </section>
             </div>
         </body>
     </div>
 
     <script>
-        window.onload = function() {
+        function updatePageNumbers() {
             var totalPages = Math.ceil(document.body.scrollHeight / window.innerHeight);
             var pageNumbers = document.querySelectorAll('.page-number');
-
+    
             for (var i = 0; i < pageNumbers.length; i++) {
-                pageNumbers[i].textContent = (i + 1) + ' of ' + totalPages;
+                pageNumbers[i].textContent = 'Page ' + (i + 1) + ' of ' + totalPages;
             }
-        };
+        }
+    
+        window.onload = updatePageNumbers;
+        window.onresize = updatePageNumbers;
     </script>
+    
+    
+    
 </body>
 
 </html>
