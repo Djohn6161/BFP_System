@@ -18,8 +18,11 @@ use App\Models\Occupancy_name;
 use App\Models\Used_equipment;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
+use App\Models\Passcode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class OperationController extends Controller
@@ -312,6 +315,20 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
+        $passcodes = Passcode::where('type', "OC")->where('action', 'update')->get();
+        $passcodeStatus = false;
+        
+        foreach ($passcodes as $passcode) {
+            if (Hash::check($request->input('passcode'), $passcode->code)) {
+                $passcodeStatus = true;
+                break; // Stop checking once a match is found
+            }
+        }
+        
+        if(!$passcodeStatus){
+            return redirect('/reports/operation/index')->with('status', "Passcode doesn't match.");
+        }
+
         if ($request->has('barangay_name')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
         } else {
@@ -414,10 +431,9 @@ class OperationController extends Controller
                     foreach ($responseChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
                         $format = ucwords($format);
-                        $engineResponse = Truck::where('id', $change)->first();
 
                         if ($format == "Engine Dispatched") {
-                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->engine_dispatched . " -> " . $engineResponse->name . "</li>";
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->engine_dispatched . " -> " . $change . "</li>";
                         } else {
                             $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse[$index] . " -> " . $change . "</li>";
                         }
@@ -1017,6 +1033,20 @@ class OperationController extends Controller
 
     public function operationDelete($id, Request $request)
     {
+        $passcodes = Passcode::where('type', "OC")->where('action', 'delete')->get();
+        $passcodeStatus = false;
+        
+        foreach ($passcodes as $passcode) {
+            if (Hash::check($request->input('passcode'), $passcode->code)) {
+                $passcodeStatus = true;
+                break; // Stop checking once a match is found
+            }
+        }
+        
+        if(!$passcodeStatus){
+            return redirect('/reports/operation/index')->with('status', "Passcode doesn't match.");
+        }
+
         $operation = Afor::find($id);
         $currentDateTime = Carbon::now();
         $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');

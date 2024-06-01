@@ -53,8 +53,37 @@ class UserSeeder extends Seeder
 
         ];
 
+        $passcodes = [
+            
+            //Operation
+            [
+                'type' => 'OC',
+                'action' => 'update',
+                'code' => Hash::make('update1234')
+            ],
+            [
+                'type' => 'OC',
+                'action' => 'delete',
+                'code' => Hash::make('delete1234')
+            ],
+            // Investigation
+            [
+                'type' => 'IC',
+                'action' => 'update',
+                'code' => Hash::make('update1234')
+            ],
+            [
+                'type' => 'IC',
+                'action' => 'delete',
+                'code' => Hash::make('delete1234')
+            ],
+
+        ];
+
         // Insert data into the 'users' table
         DB::table('users')->insert($users);
+        DB::table('passcodes')->insert($passcodes);
+
 
         
 

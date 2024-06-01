@@ -170,6 +170,9 @@ Route::middleware(['PreventBack'])->group(function () {
                 // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
                 // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
 
+                // Passcode
+                Route::get('/passcode/index', [AdminController::class, 'passcodeIndex'])->name('passcode.index');
+
                 //Logs 
                 Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
                 Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');

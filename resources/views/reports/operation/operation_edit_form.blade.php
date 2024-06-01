@@ -38,7 +38,7 @@
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
+                                <label for="caller" class="form-label">Caller/Reported/Originator/Transmitted by:</label>
                                 <input type="text" placeholder="Eg. Juan Cruz" class="form-control" name="transmitted_by"
                                     value="{{ $operation->transmitted_by }}">
                             </div>
@@ -868,6 +868,15 @@
                                 </select>
                             </div>
                         </div>
+                        
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                            <div class="col-lg-12 mb-3">
+                                <label for="alarmReceived" class="form-label">Passcode:</label>
+                                <input type="password" placeholder="Enter Passcode" class="form-control" name="passcode">
+                            </div>
+
+                        </div>
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
                                 <button type="submit" class="btn btn-success">
@@ -878,6 +887,7 @@
                                 </button>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>

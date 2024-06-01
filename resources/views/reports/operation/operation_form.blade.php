@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
+                                <label for="caller" class="form-label">Caller/Reported/Originator/Transmitted by:</label>
                                 <input type="text" placeholder="Eg. Juan Cruz"
                                     class="form-control {{ $errors->has('transmitted_by') != '' ? 'is-invalid' : '' }}"
                                     name="transmitted_by" value="{{ old('transmitted_by') }}">
