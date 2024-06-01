@@ -52,7 +52,7 @@
                                                 @foreach ($personnels as $personnel)
                                                     @if ($personnel->ranks_id == $rank->id)
                                                         <div class="card justify-content-center m-2"
-                                                            style="width: calc(25% - 1rem); p-1;">
+                                                        style="width: calc(25% - 1rem); padding: 0.25rem;">
                                                             <a href="{{ route('admin.personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
                                                                     <img src="{{ asset('assets/images/personnel_images/'.$personnel->picture) }}"
