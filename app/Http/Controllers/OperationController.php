@@ -374,7 +374,7 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 $string = $string . "Response Info: <br>";
-                $string = $string . "<li>" . "<b> Engine Dispatched: </b>" . $existingResponse->truck->name . " -> Deleted</li>";
+                $string = $string . "<li>" . "<b> Engine Dispatched: </b>" . $existingResponse->engine_dispatched . " -> Deleted</li>";
 
                 $existingResponse->delete();
                 $status = true;
@@ -409,7 +409,7 @@ class OperationController extends Controller
 
                 if ($responseChange) {
                     $status = true;
-                    $string = $string . "Engine Dispatched:" . $existingResponse->truck->name . "<br> Update: <br>";
+                    $string = $string . "Engine Dispatched:" . $existingResponse->engine_dispatched . "<br> Update: <br>";
 
                     foreach ($responseChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
@@ -417,7 +417,7 @@ class OperationController extends Controller
                         $engineResponse = Truck::where('id', $change)->first();
 
                         if ($format == "Engine Dispatched") {
-                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->truck->name . " -> " . $engineResponse->name . "</li>";
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->engine_dispatched . " -> " . $engineResponse->name . "</li>";
                         } else {
                             $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse[$index] . " -> " . $change . "</li>";
                         }
@@ -995,16 +995,6 @@ class OperationController extends Controller
             $existOperation->sketch_of_fire_operation = $sketch;
             $existOperation->save();
         }
-
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $afor_id,
-            'user_id' => auth()->user()->id,
-            'details' => "Created an AFOR Report about the operation in " . $afor->location,
-            'action' => "Store",
-        ]);
-        $log->save();
-        
 
         if ($status) {
 

@@ -51,7 +51,7 @@
                         @foreach ($operation->responses as $response)
                             <tr>
                                 <td class="text-break">
-                                    {{ $response->truck->name }}
+                                    {{ $response->engine_dispatched }}
                                 </td>
                                 <td class="text-break">
                                     {{ $response->time_dispatched }}

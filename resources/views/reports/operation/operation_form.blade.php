@@ -113,7 +113,7 @@
                                             name="engine_dispatched[]">
                                             <option value="" selected>Select vehicle</option>
                                             @foreach ($trucks as $truck)
-                                                <option value="{{ $truck->id }}">
+                                                <option value="{{ $truck->name }}">
                                                     {{ $truck->name }}
                                                 </option>
                                             @endforeach
@@ -295,8 +295,6 @@
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
-                            </h3>
                             <div class="col-lg-6">
                                 <div class="row">
                                     <h5>Civilian</h5>

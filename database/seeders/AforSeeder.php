@@ -18,8 +18,6 @@ class AforSeeder extends Seeder
 
         foreach (range(1, 5) as $index) {
             $date = $faker->dateTime();
-            $stringDate = $date->format('Y-m-d H:i:s');
-            $td_declared_fireout = clone $date;
             $zone = 'Zone 1';
             $barangay = 'Amtic';
             $location = 'Mayon';
@@ -106,7 +104,7 @@ class AforSeeder extends Seeder
 
                 $attributes = [
                     'afor_id' => $reportID,
-                    'engine_dispatched' => $index,
+                    'engine_dispatched' => $faker->firstName,
                     'time_dispatched' => $formatted_date,
                     'time_arrived_at_scene' => $formatted_added_date_string,
                     'response_duration' => $response_duration,
