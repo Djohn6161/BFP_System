@@ -21,6 +21,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\ConfigurationLogController;
+use App\Http\Controllers\PasscodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,7 +172,10 @@ Route::middleware(['PreventBack'])->group(function () {
                 // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
 
                 // Passcode
-                Route::get('/passcode/index', [AdminController::class, 'passcodeIndex'])->name('passcode.index');
+                Route::get('/passcode/index', [PasscodeController::class, 'passcodeIndex'])->name('passcode.index');
+                Route::post('/passcode/store', [PasscodeController::class, 'storePasscode'])->name('passcode.store');
+                Route::put('/passcode/{id}/update', [PasscodeController::class, 'updatePasscode'])->name('passcode.update');
+                Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');
 
                 //Logs 
                 Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');

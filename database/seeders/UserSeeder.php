@@ -59,23 +59,23 @@ class UserSeeder extends Seeder
             [
                 'type' => 'OC',
                 'action' => 'update',
-                'code' => Hash::make('update1234')
+                'code' => 'update1234'
             ],
             [
                 'type' => 'OC',
                 'action' => 'delete',
-                'code' => Hash::make('delete1234')
+                'code' => 'delete1234'
             ],
             // Investigation
             [
                 'type' => 'IC',
                 'action' => 'update',
-                'code' => Hash::make('update1234')
+                'code' => 'update1234'
             ],
             [
                 'type' => 'IC',
                 'action' => 'delete',
-                'code' => Hash::make('delete1234')
+                'code' => 'delete1234'
             ],
 
         ];

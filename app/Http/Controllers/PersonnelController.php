@@ -460,7 +460,6 @@ class PersonnelController extends Controller
 
         $personnel = Personnel::findorFail($id);
         $user = Auth::user();
-        $user = Auth::user();
         $active = 'personnel';
         $personnels = Personnel::all();
         $ranks = Rank::all();
@@ -487,7 +486,7 @@ class PersonnelController extends Controller
 
     public function personnelSearchIndex(){
         $user = Auth::user();
-        $active = 'personnel';
+        $active = 'personnel_search';
         $personnels = Personnel::all();
         $ranks = Rank::orderBy('slug')->get();
         $maritals = ['single', 'married', 'divorced', 'widowed'];
