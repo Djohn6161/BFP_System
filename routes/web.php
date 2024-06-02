@@ -22,6 +22,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\ConfigurationLogController;
 use App\Http\Controllers\PasscodeController;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -196,6 +197,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
                 Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
                 Route::post('/export', [ExportController::class, 'exportOperation'])->name('export');
+                Route::post('/import', [ImportController::class, 'importOperation'])->name('import');
             });
         });
 

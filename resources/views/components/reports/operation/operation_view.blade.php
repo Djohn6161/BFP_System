@@ -103,18 +103,32 @@
 
                 <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->type . ' / ' . $operation->getOccupancy->specify }}
+                    @if (isset($operation->getOccupancy))
+                        {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->type . ' / ' . $operation->getOccupancy->specify }}
+                    @else
+                        N/A - /
+                    @endif
+
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->distance }}
+                    @if (isset($operation->getOccupancy))
+                        {{ $operation->getOccupancy->distance }}
+                    @else
+                        N/A
+                    @endif
+
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">General Description of the structure/s involved:</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->description }}
+                    @if (isset($operation->getOccupancy))
+                        {{ $operation->getOccupancy->description }}
+                    @else
+                        N/A
+                    @endif
                 </div>
                 <hr>
                 <br>
