@@ -6,11 +6,10 @@ use App\Models\Afor;
 use App\Models\Occupancy;
 use App\Models\Occupancy_name;
 use App\Models\User;
-use Database\Seeders\occupancyNameSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -197,12 +196,5 @@ class AdminController extends Controller
         return false;
 
     }
-    // public function viewOccupancy(){
-    //     $user = Auth::user();
-    //     return view('admin.occupancy.index', [
-    //         'active' => 'index',
-    //         'user' => $user,
-    //     ]);
-    // }
 
 }

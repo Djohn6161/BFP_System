@@ -22,7 +22,7 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $personnels = Personnel::all();
-        $ranks = Rank::all();
+        $ranks = Rank::orderBy('slug')->get();
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
         $personnelCount = count($personnels);
@@ -35,7 +35,6 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $ranks = Rank::all();
-
         $personnel = Personnel::findOrFail($id);
         $tertiaries = Tertiary::where('personnel_id', $personnel->id)->get();
         $courses = Post_graduate_course::where('personnel_id', $personnel->id)->get();
@@ -68,6 +67,7 @@ class PersonnelController extends Controller
             'last_name' => $request->input('last_name') ?? '',
             'extension' => $request->input('extension') ?? '',
             'contact_number' => $request->input('contact_number') ?? null,
+            'emergency_contact_number' => $request->input('emergency_contact_number') ?? null,
             'date_of_birth' => $request->input('date_of_birth') ?? null,
             'maritam_status' => $request->input('maritam_status') ?? '',
             'gender' => $request->input('gender') ?? '',
@@ -196,6 +196,7 @@ class PersonnelController extends Controller
             'last_name' => $request->input('last_name') ?? '',
             'extension' => $request->input('extension') ?? '',
             'contact_number' => $request->input('contact_number') ?? null,
+            'emergency_contact_number' => $request->input('emergency_contact_number') ?? null,
             'date_of_birth' => $request->input('date_of_birth') ?? null,
             'maritam_status' => $request->input('maritam_status') ?? '',
             'gender' => $request->input('gender') ?? '',
@@ -459,7 +460,6 @@ class PersonnelController extends Controller
 
         $personnel = Personnel::findorFail($id);
         $user = Auth::user();
-        $user = Auth::user();
         $active = 'personnel';
         $personnels = Personnel::all();
         $ranks = Rank::all();
@@ -482,6 +482,18 @@ class PersonnelController extends Controller
         } else {
             return redirect()->back()->with('status', 'Admin password is not correct.');
         }
+    }
+
+    public function personnelSearchIndex(){
+        $user = Auth::user();
+        $active = 'personnel_search';
+        $personnels = Personnel::all();
+        $ranks = Rank::orderBy('slug')->get();
+        $maritals = ['single', 'married', 'divorced', 'widowed'];
+        $genders = ['male', 'female'];
+        $personnelCount = count($personnels);
+        $designations = Designation::all();
+        return view('admin.personnel.search_index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
     }
 
     private function hasValues($array)

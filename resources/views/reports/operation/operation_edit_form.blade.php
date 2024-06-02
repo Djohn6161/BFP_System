@@ -38,7 +38,7 @@
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
+                                <label for="caller" class="form-label">Caller/Reported/Originator/Transmitted by:</label>
                                 <input type="text" placeholder="Eg. Juan Cruz" class="form-control" name="transmitted_by"
                                     value="{{ $operation->transmitted_by }}">
                             </div>
@@ -116,12 +116,12 @@
                                                     name="engine_dispatched[]">
                                                     <option value="">Select vehicle</option>
                                                     @foreach ($trucks as $truck)
-                                                        @if ($truck->id == $response->engine_dispatched)
-                                                            <option selected value="{{ $truck->id }}">
+                                                        @if ($truck->name == $response->engine_dispatched)
+                                                            <option selected value="{{ $truck->name }}">
                                                                 {{ $truck->name }}
                                                             </option>
                                                         @else
-                                                            <option value="{{ $truck->id }}">
+                                                            <option value="{{ $truck->name }}">
                                                                 {{ $truck->name }}
                                                             </option>
                                                         @endif
@@ -343,8 +343,6 @@
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
-                            </h3> --}}
 
                             @foreach ($casualties as $casualty)
                                 @if ($casualty->type == 'civilian')
@@ -870,6 +868,15 @@
                                 </select>
                             </div>
                         </div>
+                        
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                            <div class="col-lg-12 mb-3">
+                                <label for="alarmReceived" class="form-label">Passcode:</label>
+                                <input type="password" placeholder="Enter Passcode" class="form-control" name="passcode">
+                            </div>
+
+                        </div>
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
                                 <button type="submit" class="btn btn-success">
@@ -880,6 +887,7 @@
                                 </button>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -945,16 +953,7 @@
                 mnewDiv.find('.rankName').select2();
                 mnewDiv.find('.designationSelectEdit').select2();
             });
-            // $(document).on('click', '.addDesignation', function() {
-            //     // console.log("hello");
-            //     var inputField =
-            //         '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
-            //     // $(".designationContainer").append(inputField);
-            //     $(this).closest('.designationContainer').append(inputField);
 
-            //     // inputField.find('.designation').select2();
-            //     $(".designation").select2();
-            // });
             $(document).on('click', '.remove-designation', function() {
                 $(this).closest('.col-lg-6').remove();
             });
@@ -1103,6 +1102,28 @@
                 // Re-initialize Select2 on the cloned select element
                 // mnewDiv.find('.rankName').select2();
             });
+        });
+
+        const quillFirst = new Quill('#first', {
+            modules: {
+                toolbar: '#toolbar1',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
+        });
+        const quillSecond = new Quill('#second', {
+            modules: {
+                toolbar: '#toolbar2',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
+        });
+        const quillThird = new Quill('#third', {
+            modules: {
+                toolbar: '#toolbar3',
+            },
+            theme: 'snow',
+            placeholder: 'Compose an epic...',
         });
     </script>
 @endsection

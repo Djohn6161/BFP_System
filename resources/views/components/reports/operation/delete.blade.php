@@ -34,6 +34,14 @@
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
                     <h5 class="modal-title" id="deleteModalLabel">Delete this operation transmitted by <strong>{{$operation->transmitted_by}}</strong> from <strong>{{$operation->caller_address}}</strong>  at <strong>{{$operation->zone}}, {{$operation->barangay_name}} {{$operation->location}}</strong>  </h5>
+                    <div class="row">
+                        {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                        <div class="col-lg-12 mb-3">
+                            <label for="alarmReceived" class="form-label">Passcode:</label>
+                            <input type="password" placeholder="Enter Passcode" class="form-control" name="passcode">
+                        </div>
+
+                    </div>
                    
                 </div>
                 <div class="modal-footer justify-content-center">

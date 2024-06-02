@@ -21,6 +21,8 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\ConfigurationLogController;
+use App\Http\Controllers\PasscodeController;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +100,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::post('personnel/create/submit', [PersonnelController::class, 'personnelStore'])->name('personnel.store');
                 Route::post('personnel/update/submit', [PersonnelController::class, 'personnelUpdate'])->name('personnel.update');
                 Route::delete('personnel/delete/{id}', [PersonnelController::class, 'personnelDelete'])->name('personnel.delete');
+                Route::get('personnel/search/index', [PersonnelController::class, 'personnelSearchIndex'])->name('personnel.search.index');
             });
             Route::middleware(['role:admin'])->group(function () {
                 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -169,6 +172,12 @@ Route::middleware(['PreventBack'])->group(function () {
                 // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
                 // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
 
+                // Passcode
+                Route::get('/passcode/index', [PasscodeController::class, 'passcodeIndex'])->name('passcode.index');
+                Route::post('/passcode/store', [PasscodeController::class, 'storePasscode'])->name('passcode.store');
+                Route::put('/passcode/{id}/update', [PasscodeController::class, 'updatePasscode'])->name('passcode.update');
+                Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');
+
                 //Logs 
                 Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
                 Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
@@ -188,6 +197,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
                 Route::put('/delete/{id}', [OperationController::class, 'operationDelete'])->name('delete');
                 Route::post('/export', [ExportController::class, 'exportOperation'])->name('export');
+                Route::post('/import', [ImportController::class, 'importOperation'])->name('import');
             });
         });
 
