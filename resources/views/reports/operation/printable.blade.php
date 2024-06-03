@@ -253,7 +253,7 @@
             <!-- Row 2 -->
             @foreach ($operation->responses as $response)
                 <tr>
-                    <td style="font-size: 13px;">{{ $response->truck->name }}</td>
+                    <td style="font-size: 13px;">{{ $response->engine_dispatched }}</td>
                     <td style="font-size: 13px;">{{ $response->time_dispatched }}</td>
                     <td style="font-size: 13px;">{{ $response->time_arrived_at_scene }}</td>
                     <td style="font-size: 13px;">{{ $response->response_duration }}</td>
