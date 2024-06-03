@@ -1,13 +1,13 @@
 <!-- Export Investigation Modal -->
-<div class="modal fade" id="exportInvestigation" tabindex="-1" aria-labelledby="exportInvestigationModalLabel"
+<div class="modal fade" id="importInvestigation" tabindex="-1" aria-labelledby="exportInvestigationModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exportInvestigationModalLabel">Export Investigation</h1>
+                <h1 class="modal-title fs-5" id="exportInvestigationModalLabel">Import Investigation</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('investigation.export') }}" method="post">
+            <form action="{{ route('investigation.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -21,18 +21,11 @@
                             <option value="Final">Final</option>
                         </select>
                     </div>
-                    <label for="export" class="form-label">Date:</label>
+                    <label for="export" class="form-label">Import Excel:</label>
                     <div class="d-flex align-items-center">
                         <div class="me-2 w-100">
                             {{-- <label for="exportFrom" class="form-label">From</label> --}}
-                            <input type="date" class="form-control" id="exportFrom" name="dateFrom"
-                                aria-describedby="exportFrom">
-                        </div>
-                        <div class="mx-1">to</div>
-                        <div class="ms-2 w-100">
-                            {{-- <label for="exportTo" class="form-label">To</label> --}}
-                            <input type="date" class="form-control" id="exportTo" name="dateTo" value="{{Illuminate\Support\Carbon::now()->format('Y-m-d') }}"
-                                aria-describedby="exportTo">
+                            <input type="file" class="form-control" name="file" accept=".csv, .xlsx">
                         </div>
                     </div>
                 </div>

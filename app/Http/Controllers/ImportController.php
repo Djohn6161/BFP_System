@@ -22,4 +22,12 @@ class ImportController extends Controller
 
         return redirect()->back()->with('success', 'File successfully imported.');
     }
+    public function importInvestigation(Request $request){
+        dd($request->all());
+        $validatedData = $request->validate([
+            'file' => ['required', 'file'],
+            'type' => 'required'
+        ]);
+        // Excel::import(new )
+    }
 }

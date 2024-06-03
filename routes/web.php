@@ -216,6 +216,7 @@ Route::middleware(['PreventBack'])->group(function () {
             Route::middleware(['checkPrivilege:IC'])->group(function () {
 
                 Route::post('/export', [ExportController::class, 'exportInvestigation'])->name('export');
+                Route::post('/import', [ImportController::class, 'importInvestigation'])->name('import');
 
                 Route::get('/minimal/create/{afor}', [InvestigationController::class, 'createMinimal'])->name('minimal.create');
                 Route::post('/minimal/store', [InvestigationController::class, 'storeMinimal'])->name('minimal.store');

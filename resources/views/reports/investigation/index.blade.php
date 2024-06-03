@@ -21,11 +21,17 @@
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                     <div class="d-flex column-gap-2">
                                         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#importInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Import
+                                        </button>
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#exportInvestigation">
                                             <i class="ti ti-file-export"></i>
                                             Export
                                         </button>
                                         <x-reports.export></x-reports.export>
+                                        <x-reports.import></x-reports.import>
                                         <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                             data-bs-target="#chooseInvestigation">
                                             <i class="ti ti-plus"></i>
@@ -90,7 +96,7 @@
                                                         {{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
-                                                @if ($investigation->minimal != null)
+                                                @if ($investigation->Minimal != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
                                                             @if ($investigation->Minimal->afor)
@@ -101,7 +107,7 @@
                                                     <td>
                                                         <p class="mb-0 fw-normal">Minimal</p>
                                                     </td>
-                                                @elseif($investigation->spot != null)
+                                                @elseif($investigation->Spot != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
                                                             @if ($investigation->Spot->afor)
