@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -45,7 +44,8 @@
                                 <select class="form-select" id="barangay-select" name="barangay" required>
                                     <option value="">-- Select a Barangay --</option>
                                     @foreach ($barangay as $barangay)
-                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }} value="{{ $barangay->name }}">
+                                        <option {{ old('barangay') == $barangay->name ? 'selected' : '' }}
+                                            value="{{ $barangay->name }}">
                                             {{ $barangay->name }} </option>
                                     @endforeach
 
@@ -229,8 +229,8 @@
                                         {!! old('origin_of_fire') !!}
                                     </div>
 
+                                    <input type="hidden" id="origin_of_fire" name="origin_of_fire">
                                 </div>
-                                <input type="hidden" id="origin_of_fire" name="origin_of_fire">
                             </div>
                         </div>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">

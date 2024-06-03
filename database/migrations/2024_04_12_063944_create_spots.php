@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('occupant');
             $table->integer('fatality')->default(0);
             $table->integer('injured')->default(0);
-            $table->float('estimate_damage');
+            $table->decimal('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
             $table->foreignId('alarm')->constrained('alarm_names')->onUpdate('cascade');;

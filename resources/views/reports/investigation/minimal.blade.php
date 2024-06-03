@@ -41,7 +41,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">#</h6>
+                                                <h6 class="fw-semibold mb-0">Case Number</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -75,8 +75,7 @@
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}
-                                                    </h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->case_number }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}

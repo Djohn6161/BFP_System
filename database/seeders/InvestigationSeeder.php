@@ -23,10 +23,11 @@ class InvestigationSeeder extends Seeder
         $o = 0;
 
         foreach (range(1, 20) as $index) {
-
+            // $year = now()->year;
             if ($index <= 5) {
                 # code...
                 $attributes = [
+                    'case_number' => "INV" . now()->year . "_" . $index,
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -MINIMAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
@@ -70,6 +71,7 @@ class InvestigationSeeder extends Seeder
                 DB::table('minimals')->insertGetId($minimals);
             } else if ($index <= 10) {
                 $attributes = [
+                    'case_number' => "INV" . now()->year . "_" . $index,
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -SPOT DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
@@ -104,6 +106,7 @@ class InvestigationSeeder extends Seeder
                 $spotid = DB::table('spots')->insertGetId($spot);
             } else if ($index <= 15) {
                 $attributes = [
+                    'case_number' => "INV" . now()->year . "_" . $index,
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -PROGRESS DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
@@ -126,6 +129,7 @@ class InvestigationSeeder extends Seeder
                 $o++;
             } else if ($index <= 20) {
                 $attributes = [
+                    'case_number' => "INV" . now()->year . "_" . $index,
                     'for' => 'SINSP ' . $faker->firstName . ' ' . $faker->lastName . ' BFP Acting City Fire Marshal',
                     'subject' => 'FIRE INCIDENT REPORTS -FINAL DAMAGE FIRE INCIDENT (FIR-MDFI)',
                     'date' => $faker->dateTimeBetween('2024-01-01', '2024-12-31'),
