@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['admin','user']);
-            $table->enum('privilege', ['All', 'IC', 'OC']);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('privilege', ['All', 'IC', 'OC', 'AC']);
+            $table->string('username')->unique();
             $table->string('password');
+            $table->string('picture');
             $table->rememberToken();
             $table->timestamps();
         });

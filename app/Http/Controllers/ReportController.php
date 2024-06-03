@@ -149,4 +149,7 @@ class ReportController extends Controller
         }
         return redirect('reports/' . $category . '/index')->with('message', 'Report Created Successfully');
     }
+    public function updateReport(Request $request, Report $id, $category){
+        dd($request, $id, $category);
+    }   
 }

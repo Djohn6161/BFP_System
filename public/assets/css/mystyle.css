@@ -1,6 +1,10 @@
 .btn-width {
     width: 200px;
 }
+
+.btn-reports {
+    width: 200px;
+}
 .image-container {
     position: relative;
     overflow: hidden;
@@ -26,3 +30,158 @@
     opacity: 1;
 }
 
+.flast-pos {
+    width: 50%;
+    top: 60px;
+    right: 30%;
+    z-index: 10;
+}
+.danger-flash {
+    width: 40%;
+    top: 60px;
+    right: 30%;
+    z-index: 10;
+    background-size: cover;
+}
+
+/* .select2-container--default {
+    width: 100% !important;
+} */
+
+.custom-icon {
+    font-size: 2rem;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    /* border: 4px solid #1d1818; */
+    /* background: #fefefe; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.loader.fade-out {
+    opacity: 0;
+    /* visibility: hidden; */
+    pointer-events: none;
+}
+
+@keyframes tiltBounce {
+    0% {
+        transform: rotateY(0deg);
+    }
+    25% {
+        transform: rotateY(30deg);
+    }
+    50% {
+        transform: rotateY(0deg);
+    }
+    75% {
+        transform: rotateY(-30deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+.loader img {
+    animation: tiltBounce 2s infinite ease-in-out;
+    /* height: 12%; */
+    max-width: 8%;
+}
+.earth-spinning {
+    perspective: 1000px;
+}
+
+.spinning-logo {
+    animation: spin 10s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+.second-div {
+    border: 1px solid #e5e5e5;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+h3.a {
+    text-align: center;
+}
+
+.hidden-label {
+    color: transparent;
+    /* Make label content transparent */
+}
+
+/* login styles */
+.animated-card {
+    background-color: black;
+    border: 1px solid transparent;
+    animation: glowBorder 3s infinite alternate;
+}
+
+@keyframes glowBorder {
+    0% {
+        border-color: grey;
+        box-shadow: 0 0 5px 0px rgba(255, 165, 0, 0.7);
+    }
+
+    100% {
+        border-color: rgba(255, 165, 0, 0.7);
+        box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.7);
+    }
+}
+
+.white-text {
+    color: white;
+}
+
+@keyframes shiningEffect {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.shining-text {
+    background: linear-gradient(-45deg, #ff6a00, #e0e0e0);
+    /* Diagonal gradient from orange to gold */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: shiningEffect 3s linear infinite;
+}

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Designation;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BarangaySeeder;
 use Database\Seeders\PersonnelSeeder;
@@ -21,11 +22,16 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DepartmentSeeder::class,
             TruckSeeder::class,
+            AlarmNamesSeeder::class,
+            occupancyNameSeeder::class,
             RankSeeder::class,
+            DesignationSeeder::class,
             PersonnelSeeder::class,
             BarangaySeeder::class,
             AforSeeder::class,
             StationSeeder::class,
+            InvestigationSeeder::class,
+            ConfigurationLogSeeder::class,
         ]);
     }
 }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,13 +12,13 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
-            $table->foreignid('engine_dispatched')->constrained('trucks')->onUpdate('cascade');
+            $table->foreignId('afor_id')->constrained('afors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignid('engine_dispatched')->constrained('trucks')->onDelete('cascade')->onUpdate('cascade');
             $table->string('time_dispatched');
             $table->string('time_arrived_at_scene');
             $table->string('response_duration');
             $table->string('time_return_to_base');
-            $table->float('water_tank_refilled');
+            $table->string('water_tank_refilled');
             $table->string('gas_consumed');
             $table->timestamps();
         });

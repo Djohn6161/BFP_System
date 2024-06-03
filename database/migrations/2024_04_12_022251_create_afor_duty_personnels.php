@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('afor_duty_personnels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('afor_id')->constrained('afor')->onUpdate('cascade');
-            $table->foreignId('personnels_id')->constrained('personnels')->onUpdate('cascade');
-            $table->string('designation');
-            $table->string('remarks');
+            $table->foreignId('afor_id')->nullable()->constrained('afors')->onupdate('cascade')->onDelete('cascade');
+            $table->foreignId('personnels_id')->nullable()->constrained('personnels')->onUpdate('cascade')->onDelete('set null');
+            $table->string('designation')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

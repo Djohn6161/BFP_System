@@ -13,16 +13,24 @@ return new class extends Migration
     {
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('investigation_id');
-            $table->string('time');
-            $table->string('address');
+            $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignid('afor_id')->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
+            $table->date('date_occurence');
+            $table->string('time_occurence');
+            $table->string('barangay')->nullable();
+            $table->string('street')->nullable();
+            $table->string('landmark')->nullable();
+            $table->string('address_occurence')->nullable();
             $table->string('involved');
             $table->string('name_of_establishment');
             $table->string('owner');
             $table->string('occupant');
+            $table->integer('fatality')->default(0);
+            $table->integer('injured')->default(0);
             $table->float('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
+            $table->foreignId('alarm')->constrained('alarm_names')->onUpdate('cascade');;
             $table->longText('details');
             $table->longText('disposition');
             $table->timestamps();

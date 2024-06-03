@@ -4,9 +4,19 @@ $(document).ready(function () {
     $(".team-leader").select2();
     $(".crew-name").select2();
     $(".barangay").select2();
-
-    
     $(".caller").select2({tags: true});
+    //operation designation
+    $(".designationSelect").select2();
+    $(".designationSelectEdit").select2();
+
+    // personnel select2
+    $(".designation_select_edit").select2();
+    $(".designation-select").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelect").select2({dropdownParent: $("#addPersonnelModal")});
+    $(".rankSelectEdit").select2();
+    $(".edit-designation-select").select2({
+        tags: true,
+    });
     $(".officeAddressCaller").select2();
     $(".personnelReceive").select2();
     $(".barangayApor").select2();
@@ -15,29 +25,10 @@ $(document).ready(function () {
     $(".alarmStatus").select2();
     $(".alarmApor").select2();
     $(".fundCommander").select2();
-    $(".typeOccupancy").select2();
+    $(".typeOccupancy").select2({tags: true});
     $(".specify").select2();
     $(".rankName").select2();
-
-
-
-    
-
-    // FOR REMOVING THE IMAGE
-    // $(".remove-button").on("click", function () {
-    //     $(this).closest(".col-md-4").remove();
-    // });
-
-    
-    // Function to handle input event on the time input field
-    $('#alarmReceivedInput').on('input', function() {
-        // Get the current value of the input field
-        var inputValue = $(this).val();
-        
-        // Remove any colons (":") from the input value
-        var cleanedValue = inputValue.replace(':', '');
-
-        // Update the input field value with the cleaned value
-        $(this).val(cleanedValue);
-    });
+    $(".designation").select2({tags: true});
+    $("#barangay-select").select2();
+    new DataTable('#barangayTable');
 });

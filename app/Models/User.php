@@ -42,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function logs(){
+        return $this->hasMany(AforLog::class, 'user_id');
+    }
+    public function investigationLogs(){
+        return $this->hasMany(InvestigationLog::class, 'user_id');
+    }
 }

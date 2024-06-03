@@ -1,66 +1,46 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('operation.index') }}">Operation Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update Operation Reports</li>
+                {{-- <li class="breadcrumb-item active" aria-current="page">Operation Reports</li> --}}
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
-                    <form method="POST" action="{{ route('operation.create.submit') }}">
-                        @csrf
+                    <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
+                        @csrf 
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Oops!</strong> There were some errors with your submission:
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="row mb-3">
+                            <div class="col d-flex justify-content-start px-0">
+                                <a href="{{ route('operation.index') }}" class="btn btn-primary">
+                                    <span>
+                                        <i class="ti ti-arrow-back"></i>
+                                    </span>
+                                    <span>Go Back</span>
+                                </a>
                             </div>
-                        @endif
-
-                        @if (session('status'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-
+                        </div>
+                        
                         <!-- Intro -->
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3>
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Operation Information</h3>
                             <div class="col-lg-6 mb-3">
                                 <label for="alarmReceived" class="form-label">Alarm Received
                                     (Time)</label>
+                                <input type="hidden" name="operation_id" value="{{ $operation->id }}">
                                 <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
-                                <input type="hidden" name="operation_id" value="{{ $operation->id }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
-                                <select class="form-select caller" aria-label="" name="transmitted_by">
-                                    <option value="" selected>Select caller</option>
-                                    @foreach ($personnels as $personnel)
-                                        @if ($operation->transmitted_by != $personnel->id)
-                                            <option value="{{ $personnel->id }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                {{ $personnel->last_name }}</option>
-                                        @else
-                                            <option selected value="{{ $personnel->id }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                {{ $personnel->last_name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                <input type="text" placeholder="Eg. Juan Cruz" class="form-control" name="transmitted_by"
+                                    value="{{ $operation->transmitted_by }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Office / Address of the Caller</label>
@@ -74,12 +54,12 @@
                                 <select class="form-select personnelReceive" aria-label="" name="received_by">
                                     <option value="" selected>Select personnel</option>
                                     @foreach ($personnels as $personnel)
-                                        @if ($operation->received_by != $personnel->id)
-                                            <option value="{{ $personnel->id }}">
+                                        @if ($personnel->id == $operation->received_by)
+                                            <option selected value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
                                                 {{ $personnel->last_name }}</option>
                                         @else
-                                            <option selected value="{{ $personnel->id }}">
+                                            <option value="{{ $personnel->id }}">
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
                                                 {{ $personnel->last_name }}</option>
                                         @endif
@@ -89,15 +69,15 @@
                             <hr>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Barangay</label>
-                                <select class="form-select barangayApor" aria-label="" name="barangay">
-                                    <option value="">Select barangay</option>
+                                <select class="form-select barangayApor" aria-label="" name="barangay_name">
+                                    <option value="" selected>Select barangay</option>
                                     @foreach ($barangays as $barangay)
-                                        @if ($operation->barangay_id != $barangay->id)
-                                            <option value="{{ $barangay->id }}">
+                                        @if ($barangay->name == $operation->barangay_name)
+                                            <option selected value="{{ $barangay->name }}">
                                                 {{ $barangay->name }} - {{ $barangay->unit }}
                                             </option>
                                         @else
-                                            <option selected value="{{ $barangay->id }}">
+                                            <option value="{{ $barangay->name }}">
                                                 {{ $barangay->name }} - {{ $barangay->unit }}
                                             </option>
                                         @endif
@@ -117,61 +97,90 @@
                             </div>
                         </div>
 
-                        <!-- Response -->
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4">
-                            <div class="row m-0 p-0 second-div border-0">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">2
-                                </h3>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="vehicle" class="form-label">Engine
-                                        Dispatched</label>
-                                    <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]">
-                                        <option value="" selected>Select vehicle</option>
-                                        @foreach ($trucks as $truck)
-                                            <option value="{{ $truck->id }}">
-                                                {{ $truck->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="timeDispatched" class="form-label">Time Dispatched</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        name="time_dispatched[]">
-                                </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="timeArrivedFireScene" class="form-label">Time
-                                        Arrived at Fire Scene</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        name="time_arrived_at_scene[]">
-                                </div>
-                                <div class="col-lg-3 mb-3">
-                                    <label for="responseTime" class="form-label">Response Time</label>
-                                    <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="responseTimeInput"
-                                        name="response_duration[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="timeReturned" class="form-label">Time Returned
-                                        to Base</label>
-                                    <input type="text" placeholder="Eg. 1900h - 2300h"
-                                        class="form-control text-uppercase" id="timeReturnedInput"
-                                        name="time_return_to_base[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="waterTank" class="form-label">Water Tank
-                                        Refilled (GAL)</label>
-                                    <input type="text" placeholder="Eg. 1000GAL" class="form-control text-uppercase"
-                                        id="waterTankInput" name="water_tank_refilled[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="gasConsumed" class="form-label">Gas Consumed
-                                        (L)</label>
-                                    <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase"
-                                        id="gasConsumedInput" name="gas_consumed[]">
+                        {{-- Response --}}
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            <div class="row m-0 p-0" id="divApor">
+                                <div class="row m-0 p-0 border-0" id="addApor">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Engine Dispatched
+                                    </h3>
+                                    @foreach ($responses as $response)
+                                        <div class="row remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-3 mb-3">
+                                                <label for="vehicle" class="form-label">Engine
+                                                    Dispatched</label>
+                                                <select class="form-select engineDispatched" aria-label=""
+                                                    name="engine_dispatched[]">
+                                                    <option value="">Select vehicle</option>
+                                                    @foreach ($trucks as $truck)
+                                                        @if ($truck->id == $response->engine_dispatched)
+                                                            <option selected value="{{ $truck->id }}">
+                                                                {{ $truck->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $truck->id }}">
+                                                                {{ $truck->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 mb-3">
+                                                <label for="timeDispatched" class="form-label">Time
+                                                    Dispatched</label>
+                                                <input type="text" placeholder="Eg. 2300h"
+                                                    class="form-control text-uppercase" id="timeDispatchedInput"
+                                                    name="time_dispatched[]" value="{{ $response->time_dispatched }}">
+                                            </div>
+                                            <div class="col-lg-3 mb-3">
+                                                <label for="timeArrivedFireScene" class="form-label">Time
+                                                    Arrived at Fire Scene</label>
+                                                <input type="text" placeholder="Eg. 2300h"
+                                                    class="form-control text-uppercase" id="timeArrivedFireSceneInput"
+                                                    name="time_arrived_at_scene[]"
+                                                    value="{{ $response->time_arrived_at_scene }}">
+                                            </div>
+                                            <div class="col-lg-3 mb-3">
+                                                <label for="responseTime" class="form-label">Response
+                                                    Time</label>
+                                                <input type="text" placeholder="Eg. 1900h - 2300h"
+                                                    class="form-control text-uppercase" id="responseTimeInput"
+                                                    name="response_duration[]"
+                                                    value="{{ $response->response_duration }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="timeReturned" class="form-label">Time Returned
+                                                    to Base</label>
+                                                <input type="text" placeholder="Eg. 1900h - 2300h"
+                                                    class="form-control text-uppercase" id="timeReturnedInput"
+                                                    name="time_return_to_base[]"
+                                                    value="{{ $response->time_return_to_base }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="waterTank" class="form-label">Water Tank
+                                                    Refilled (GAL)</label>
+                                                <input type="text" placeholder="Eg. 100 GAL"
+                                                    class="form-control text-uppercase" id="waterTankInput"
+                                                    name="water_tank_refilled[]"
+                                                    value="{{ $response->water_tank_refilled }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="gasConsumed" class="form-label">Gas Consumed
+                                                    (L)
+                                                </label>
+                                                <input type="text" placeholder="Eg. 24l"
+                                                    class="form-control text-uppercase" id="gasConsumedInput"
+                                                    name="gas_consumed[]" value="{{ $response->gas_consumed }}">
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    @endforeach
+
                                 </div>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewDivApor" class="btn btn-primary">+ Add New Fire Engine
                                     Response Details</button>
@@ -179,116 +188,101 @@
                         </div>
 
                         <!-- Alarm -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">3 and
-                                9</h3>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Alarm Declared</h3>
                             <div class="col-lg-6">
                                 <label for="alarmStatus" class="form-label">Alarm
                                     Status</label>
                                 <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
-                                    <option value="" {{ $operation->alarm_status_arrival == '' ? 'selected' : '' }}>
-                                        Select alarm status</option>
-                                    <option value="1st Alarm"
-                                        {{ $operation->alarm_status_arrival == '1st Alarm' ? 'selected' : '' }}>1st Alarm
-                                    </option>
-                                    <option value="2nd Alarm"
-                                        {{ $operation->alarm_status_arrival == '2nd Alarm' ? 'selected' : '' }}>2nd Alarm
-                                    </option>
-                                    <option value="3rd Alarm"
-                                        {{ $operation->alarm_status_arrival == '3rd Alarm' ? 'selected' : '' }}>3rd Alarm
-                                    </option>
-                                    <option value="4th Alarm"
-                                        {{ $operation->alarm_status_arrival == '4th Alarm' ? 'selected' : '' }}>4th Alarm
-                                    </option>
-                                    <option value="5th Alarm"
-                                        {{ $operation->alarm_status_arrival == '5th Alarm' ? 'selected' : '' }}>5th Alarm
-                                    </option>
-                                    <option value="Task Force Alpha"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Alpha' ? 'selected' : '' }}>Task
-                                        Force Alpha</option>
-                                    <option value="Task Force Bravo"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Bravo' ? 'selected' : '' }}>Task
-                                        Force Bravo</option>
-                                    <option value="Task Force Charlie"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Charlie' ? 'selected' : '' }}>
-                                        Task Force Charlie</option>
-                                    <option value="Task Force Delta"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Delta' ? 'selected' : '' }}>Task
-                                        Force Delta</option>
-                                    <option value="Task Force Echo"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Echo' ? 'selected' : '' }}>Task
-                                        Force Echo</option>
-                                    <option value="Task Force Hotel"
-                                        {{ $operation->alarm_status_arrival == 'Task Force Hotel' ? 'selected' : '' }}>Task
-                                        Force Hotel</option>
-                                    <option value="Task Force India"
-                                        {{ $operation->alarm_status_arrival == 'Task Force India' ? 'selected' : '' }}>Task
-                                        Force India</option>
-                                    <option value="General Alarm"
-                                        {{ $operation->alarm_status_arrival == 'General Alarm' ? 'selected' : '' }}>General
-                                        Alarm</option>
+                                    <option value="" selected>Select alarm status</option>
+                                    @foreach ($alarm_list as $list)
+                                        @if ($list->name == $operation->alarm_status_arrival)
+                                            <option selected value="{{ $list->name }}" selected>{{ $list->name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $list->name }}">{{ $list->name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="firstResponder" class="form-label">First
                                     Responder</label>
                                 <input type="text" placeholder="Enter responder" class="form-control"
-                                    id="firstResponderInput" name="first_responder" value="first_responder">
+                                    id="firstResponderInput" name="first_responder"
+                                    value="{{ $operation->first_responder }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
-                                <input type="datetime-local" placeholder="" class="form-control"
+                                <input type="datetime-local" class="form-control"
                                     id="firstResponderInput" name="td_under_control"
-                                    value="{{ \Carbon\Carbon::parse($operation->td_under_control)->format('Y-m-d\TH:i') }}">
+                                    value="{{ $operation->td_under_control }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
-                                <input type="datetime-local" placeholder="" class="form-control"
-                                    id="firstResponderInput"
-                                    name="td_declared_fireout"value="{{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('Y-m-d\TH:i') }}">
+                                <input type="datetime-local" class="form-control"
+                                    id="firstResponderInput" name="td_declared_fireout"
+                                    value="{{ $operation->td_under_control }}">
                             </div>
                             <hr>
-                            <div class="row time-alarm-status-declared-div m-0 p-0">
-                                <h5>Time Alarm Status Declared</h5>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                    <select class="form-select alarmApor" aria-label="" name="alarm_status[]">
-                                        <option value="" selected>Select alarm status</option>
-                                        <option value="1">1st Alarm</option>
-                                        <option value="2">2nd Alarm</option>
-                                        <option value="3">3rd Alarm</option>
-                                        <option value="4">4th Alarm</option>
-                                        <option value="5">5th Alarm</option>
-                                        <option value="6">Task Force Alpha</option>
-                                        <option value="6">Task Force Bravo</option>
-                                        <option value="6">Task Force Charlie</option>
-                                        <option value="6">Task Force Delta</option>
-                                        <option value="6">Task Force Echo</option>
-                                        <option value="6">Task Force Hotel</option>
-                                        <option value="6">Task Force India</option>
-                                        <option value="8">General Alarm</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
-                                    <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase"
-                                        id="timeAlarmStatusDeclaredTime" name="timeAlarmStatusDeclaredTime[]">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="fundCommander" class="form-label">Fund Commander</label>
-                                    <select class="form-select fundCommander" aria-label="" name="fund_command[]">
-                                        <option value="" selected>Select Fund Commanders</option>
-                                        @foreach ($personnels as $personnel)
-                                            <option value="{{ $personnel->id }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                {{ $personnel->last_name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="row m-0 p-0" id="secondDivApor">
+                                <div class="row m-0 p-0" id="secondAddApor">
+                                    <h5>Time Alarm Status Declared</h5>
+                                    @foreach ($declared_alarms as $declared)
+                                        <div class="row second-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="timeAlarmStatusDeclared" class="form-label">Alarm
+                                                    Status</label>
+                                                <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
+                                                    <option value="" selected>Select alarm status</option>
+                                                    @foreach ($alarm_list as $list)
+                                                        @if ($list->name == $declared->alarm_name)
+                                                            <option selected value="{{ $list->name }}" selected>
+                                                                {{ $list->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $list->name }}">{{ $list->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
+                                                <input type="text" placeholder="Eg. 2300h"
+                                                    class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime"
+                                                    name="alarm_time[]" value="{{ $declared->time }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="fundCommander" class="form-label">Fund
+                                                    Commander</label>
+                                                <select class="form-select fundCommander" aria-label=""
+                                                    name="fund_commander[]">
+                                                    <option value="" selected>Select Fund Commanders</option>
+                                                    @foreach ($personnels as $personnel)
+                                                        @if ($personnel->id == $declared->ground_commander)
+                                                            <option selected value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @else
+                                                            <option value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addTimeAlarmStatusDeclared"
                                     class="btn btn-primary add-time-alarm-status-button">+ Add
@@ -297,174 +291,250 @@
                         </div>
 
                         <!-- Occupancy -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">4-6
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Occupancies
                             </h3>
-                            <div class="col-lg-6 mb-3">
-                                <label for="typeOfOccupancy" class="form-label">Type of
-                                    Occupancy</label>
-                                <select class="form-select typeOccupancy" aria-label="" name="occupancy">
-                                    <option value="" selected>Select type of occupancy</option>
-                                    <option value="Places of Assembly">Places of Assembly</option>
-                                    <option value="Educational Occupancy">Educational Occupancy</option>
-                                    <option value="Day Care Occupancy">Day Care Occupancy</option>
-                                    <option value="Health Care Occupancy">Health Care Occupancy</option>
-                                    <option value="Residential Board and Care">Residential Board and Care</option>
-                                    <option value="Detention and Correctional Occupancy">Detention and Correctional
-                                        Occupancy</option>
-                                    <option value="Residential Occupancy">Residential Occupancy</option>
-                                    <option value="Mercantile Occupancy">Mercantile Occupancy</option>
-                                    <option value="Business Occupancy">Business Occupancy</option>
-                                    <option value="Industrial Occupancy">Industrial Occupancy</option>
-                                    <option value="Storage Occupancy">Storage Occupancy</option>
-                                    <option value="Special Structures">Special Structures</option>
+                            <div class="col-lg-6 mb-2">
+                                <label for="typeOfOccupancy" class="form-label">Occupancy name</label>
+                                <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
+                                    <option value="">Select occupancy name</option>
+                                    @foreach ($occupancy_names as $names)
+                                        @if ($names->name == $occupancy->occupancy_name)
+                                            <option selected value="{{ $names->name }}">{{ $names->name }}</option>
+                                        @else
+                                            <option value="{{ $names->name }}">{{ $names->name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-6 mb-3">
+                           
+                            <div class="col-lg-6 mb-2">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
-                                    name="occupancy_specify">
+                                    name="occupancy_specify" value="{{ $occupancy->specify }}">
                             </div>
+
+                            <div class="col-lg-12 mb-3">
+                                <label class="form-label">Type of Occupancy</label>
+                                <div class="d-flex">
+                                    @foreach ($occupancy_types as $type)
+                                        <div class="col-lg-4 mb-3 form-check me-5">
+                                            <input class="form-check-input" type="radio" name="occupancy_type" id="occupancy{{ $type }}" value="{{ $type }}" {{ $type == $occupancy->type ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="occupancy{{ $type }}">{{ $type }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            
                             <hr>
                             <div class="col-lg-6 mb-3">
                                 <label for="approxDistanceFireIncident" class="form-label">Approximate Distance of Fire
                                     Incident from Fire Station (Km)</label>
                                 <input type="text" placeholder="eg. 1.5Km" class="form-control"
-                                    name="distance_to_fire_incident">
+                                    name="distance_to_fire_incident" value="{{ $occupancy->distance }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="deneralDescriptionStructureInvolved" class="form-label">General Description of
                                     the structure/s involved</label>
-                                <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description"></textarea>
+                                <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description">{{ $occupancy->description }}</textarea>
                             </div>
                         </div>
 
-                        <!-- Victim -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
-                            </h3>
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <h5>Civilian</h5>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="civilianInjured" class="form-label">Injured</label>
-                                        <input type="number" placeholder="No. of injured" class="form-control"
-                                            id="firstResponderInput">
+                        <!-- Casualties -->
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
+                            </h3> --}}
+
+                            @foreach ($casualties as $casualty)
+                                @if ($casualty->type == 'civilian')
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <h5>Civilian</h5>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="civilianInjured" class="form-label">Injured</label>
+                                                <input type="number" placeholder="No. of injured" class="form-control"
+                                                    name="civilian_injured" value="{{ $casualty->injured }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="civilianDeath" class="form-label">Death</label>
+                                                <input type="number" placeholder="No. of deaths" class="form-control"
+                                                    name="civilian_deaths" value="{{ $casualty->death }}">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="civilianDeath" class="form-label">Death</label>
-                                        <input type="number" placeholder="No. of deaths" class="form-control"
-                                            id="firstResponderInput">
+                                @else
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <h5>Firefighter</h5>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterInjured" class="form-label">Injured</label>
+                                                <input type="number" placeholder="No. of injured" class="form-control"
+                                                    name="firefighter_injured" value="{{ $casualty->injured }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Death</label>
+                                                <input type="number" placeholder="No. of deaths" class="form-control"
+                                                    name="firefighter_deaths" value="{{ $casualty->death }}">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <h5>Firefighter</h5>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterInjured" class="form-label">Injured</label>
-                                        <input type="number" placeholder="No. of injured" class="form-control"
-                                            id="firstResponderInput">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Death</label>
-                                        <input type="number" placeholder="No. of deaths" class="form-control"
-                                            id="firstResponderInput">
-                                    </div>
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
+
                         </div>
 
                         <!-- Material Used -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                            <div class="row m-0 p-0 breathing-apparatus">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used</h3>
-
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">No.</label>
-                                    <input type="number" placeholder="No." class="form-control"
-                                        id="firstResponderInput" name="no_breathing[]">
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Type /
-                                        Kind</label>
-                                    <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput" name="breathing[]">
+                            <div class="row m-0 p-0" id="divBreathingApparatus">
+                                <div class="row m-0 p-0 border-0" id="addBreathingApparatus">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing
+                                        Apparatus Used
+                                    </h3>
+                                    @foreach ($used_equipments as $equipment)
+                                        @if ($equipment->category == 'breathing apparatus')
+                                            <div class="row breathing-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">No.</label> <input type="number"
+                                                        placeholder="No." class="form-control" id="firstResponderInput"
+                                                        name="no_breathing[]" value="{{ $equipment->quantity }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">Type
+                                                        / Kind</label> <input type="text" placeholder="Enter type"
+                                                        class="form-control" id="firstResponderInput" name="breathing[]"
+                                                        value="{{ $equipment->type }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewBreathingApparatus" class="btn btn-primary">+ Add
                                     another breathing apparatus used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                            <div class="row m-0 p-0 extinguishing-agent">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent Used</h3>
-
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Quantity</label>
-                                    <input type="number" placeholder="Enter quantity" class="form-control"
-                                        id="firstResponderInput" name="quantity_extinguishing[]">
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Type /
-                                        Kind</label>
-                                    <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput" name="extinguishing[]">
+                            <div class="row m-0 p-0" id="divExtinguishing">
+                                <div class="row m-0 p-0" id="addExtinguishing">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent
+                                        Used
+                                    </h3>
+                                    @foreach ($used_equipments as $equipment)
+                                        @if ($equipment->category == 'extinguishing agent')
+                                            <div class="row extinguishing-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Quantity</label>
+                                                    <input type="number" placeholder="Enter quantity"
+                                                        class="form-control" id="firstResponderInput"
+                                                        name="quantity_extinguishing[]"
+                                                        value="{{ $equipment->quantity }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type /
+                                                        Kind</label>
+                                                    <input type="text" placeholder="Enter type" class="form-control"
+                                                        id="firstResponderInput" name="extinguishing[]"
+                                                        value="{{ $equipment->type }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
-                            <hr>
+
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewExtinguishingAgent" class="btn btn-primary">+ Add
                                     another extinguishing agent</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                            <div class="row m-0 p-0 rope-ladder">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
+                            <div class="row m-0 p-0" id="divRopeLadder">
+                                <div class="row m-0 p-0" id="addRopeLadder">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
+                                    @foreach ($used_equipments as $equipment)
+                                        @if ($equipment->category == 'rope and ladder')
+                                            <div class="row rope-ladder-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type</label>
+                                                    <input type="text" placeholder="Enter type" class="form-control"
+                                                        id="firstResponderInput" name="rope_ladder[]"
+                                                        value="{{ $equipment->type }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Length</label>
+                                                    <input type="text" placeholder="Enter length" class="form-control"
+                                                        id="firstResponderInput" name="rope_ladder_length[]"
+                                                        value="{{ $equipment->length }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        @endif
+                                    @endforeach
 
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Type</label>
-                                    <input type="text" placeholder="Enter type" class="form-control"
-                                        id="firstResponderInput" name="rope_ladder[]">
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Length</label>
-                                    <input type="number" placeholder="Enter length" class="form-control"
-                                        id="firstResponderInput" name="rope_ladder_length[]">
                                 </div>
                             </div>
-                            <hr>
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewRopeAndLadder" class="btn btn-primary">+ Add another
                                     rope and ladder used</button>
                             </div>
                         </div>
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                            <div class="row m-0 p-0 hose-line">
-                                <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="firefighterDeath" class="form-label">No.</label>
-                                    <input type="number" placeholder="No." class="form-control"
-                                        id="firstResponderInput" name="no_hose">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Type /
-                                        Kind</label>
-                                    <input type="text" placeholder="Type / kind" class="form-control"
-                                        id="firstResponderInput" name="type_hose">
-                                </div>
-                                <div class="col-lg-4 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Total
-                                        ft.</label>
-                                    <input type="number" placeholder="Enter total feet" class="form-control"
-                                        id="firstResponderInput" name="hose_feet">
+
+                            <div class="row m-0 p-0" id="divHoseLine">
+                                <div class="row m-0 p-0" id="addHoseLine">
+                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
+                                    @foreach ($used_equipments as $equipment)
+                                        @if ($equipment->category == 'hose line')
+                                            <div class="row hose-line-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">No.</label>
+                                                    <input type="number" placeholder="No." class="form-control"
+                                                        id="firstResponderInput" name="no_hose[]"
+                                                        value="{{ $equipment->quantity }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type /
+                                                        Kind</label>
+                                                    <input type="text" placeholder="Type / kind" class="form-control"
+                                                        id="firstResponderInput" name="type_hose[]"
+                                                        value="{{ $equipment->type }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Total
+                                                        ft.</label>
+                                                    <input type="text" placeholder="Enter total feet"
+                                                        class="form-control" id="firstResponderInput" name="hose_feet[]"
+                                                        value="{{ $equipment->length }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -474,36 +544,60 @@
                         </div>
 
                         <!-- Duty Personnel -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
-                            </h3>
-                            <div class="row m-0 p-0 duty-personnel-at-fire-scene">
-                                <h3></h3>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="fundCommander" class="form-label">Rank /
-                                        Name</label>
-                                    <select class="form-select rankName" aria-label="" name="duty_personnel[]">
-                                        <option selected>Select duty personnel</option>
-                                        @foreach ($personnels as $personnel)
-                                            <option value="{{ $personnel->id }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                {{ $personnel->last_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Designation</label>
-                                    <input type="text" placeholder="Designation" class="form-control"
-                                        id="firstResponderInput" name="designation[]">
-                                </div>
-                                <div class="col-lg-12 mb-3">
-                                    <label for="firefighterDeath" class="form-label">Remarks</label>
-                                    <textarea type="text" placeholder="Remarks" class="form-control" id="firstResponderInput" name="remarks_duty[]"></textarea>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
+                            <div class="row m-0 p-0" id="thirdDivApor">
+                                <div class="row m-0 p-0" id="thirdAddApor">
+                                    @foreach ($operation->dutyPersonnels as $dutyPersonnel)
+                                        <div class="row third-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                    class="form-label">Rank /
+                                                    Name</label> <select class="form-select rankName" aria-label=""
+                                                    name="duty_personnel_id[]">
+                                                    <option value="" selected>Select Fund Commander</option>
+
+                                                    @foreach ($personnels as $personnel)
+                                                        @if ($dutyPersonnel->personnels_id == $personnel->id)
+                                                            <option selected value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @else
+                                                            <option value="{{ $personnel->id }}">
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                                {{ $personnel->last_name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                    class="form-label">Designation</label> <select class="form-select designationSelectEdit"
+                                                    aria-label="" name="duty_designation[]">
+                                                    <option value="" selected>Select designation</option>
+                                                    @foreach ($designations as $designation)
+                                                        @if ($dutyPersonnel->designation == $designation->name)
+                                                            <option selected value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @else
+                                                            <option value="{{ $designation->name }}">
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select> </div>
+                                            <div class="col-lg-12 mb-3"> <label for="firefighterDeath"
+                                                    class="form-label">Remarks</label>
+                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $dutyPersonnel->remarks }}</textarea>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <hr>
                                 </div>
                             </div>
-                            <hr>
-
                             <div class="row m-0 p-0">
                                 <button type="button" id="addNewDutyPersonnelAtFireScene" class="btn btn-primary">+ Add
                                     another duty
@@ -512,396 +606,502 @@
                         </div>
 
                         <!-- Photos -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Instruction/Sketch of the Fire Operation</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">14
-                            </h3>
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Sketch of Fire Operation</h3>
                             <label class="form-label" for="exampleCheck1">Photos</label>
-                            <input type="file" class="form-control uncheable" value="" id="photos"
-                                name="sketch_of_fire_operation">
-
-                            <div id="preview-container"></div>
+                            <input type="file" class="form-control uncheable" id="photos"
+                                name="sketch_of_fire_operation[]" multiple>
+                            <div id="image-preview-container" class="mt-3"></div>
+                            @foreach ($photos as $photo)
+                                @if ($photo != '')
+                                    <div class="mt-3">
+                                        <div class="image-preview mb-1">
+                                            <input type="hidden" name="default_photos[]" value="{{ $photo }}">
+                                            <img class="img-thumbnail w-100"
+                                                src="/assets/images/operation_images/{{ $photo }}">
+                                        </div>
+                                        <div
+                                            class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                                            <div class="file-info flex-grow-1 me-2 text-break">{{ $photo }}</div>
+                                            <button type="button" class="btn btn-sm btn-danger remove-photo"
+                                                id="remove-photo">Remove</button>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
 
                         <!-- Details narrative -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15
-                            </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Details
-                                    (Narrative)</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="details"></textarea>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
+                            <label for="firefighterDeath" class="form-label">Details (Narrative)</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div style="height: 150px;">
+                                    <div id="toolbar1">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="first">
+                                        {{ $operation->details }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Problem encounterd -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
                             </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Problems /
-                                    Encountered during operation:</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput" name="problem_encounter"></textarea>
+                            <label for="firefighterDeath" class="form-label">Problems / Encountered during
+                                operation:</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
+                                <label for="dateTime" class="form-label"></label>
+                                <div style="height: 150px;">
+                                    <div id="toolbar2">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="second">
+                                        {{ $operation->problem_encounter }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Observation Recommendation -->
-                        <div class="row border border-light-subtle shadow rounded my-3 p-4">
+                        <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
                             </h3>
-                            <div class="col-lg-12 mb-3">
-                                <label for="firefighterDeath" class="form-label">Observation /
-                                    Recommendation</label>
-                                <textarea type="text" placeholder="" class="form-control" id="firstResponderInput"
-                                    name="observation_recommendation"></textarea>
+                            <label for="firefighterDeath" class="form-label">Observation / Recommendation</label>
+                            <div class="col-lg-12 mb-6 pb-5 mb-3">
+                                <div style="height: 150px;">
+                                    <div id="toolbar3">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-size"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color"></select>
+                                            <select class="ql-background"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub"></button>
+                                            <button class="ql-script" value="super"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1"></button>
+                                            <button class="ql-header" value="2"></button>
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl"></button>
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                            <button class="ql-video"></button>
+                                            <button class="ql-formula"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="third">
+                                        {{ $operation->observation_recommendation }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
+                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                            <div class="col-lg-6 mb-3">
+                                <label for="alarmReceived" class="form-label">Prepared By:</label>
+                                <select class="form-select rankName" aria-label="" name="prepared_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="caller" class="form-label">Noted By:</label>
+                                <select class="form-select rankName" aria-label="" name="noted_by">
+                                    <option value="" selected>Select personnel</option>
+                                    @foreach ($personnels as $personnel)
+                                        @if (
+                                            $operation->prepared_by ==
+                                                $personnel->rank->slug .
+                                                    ' ' .
+                                                    $personnel->first_name .
+                                                    ' ' .
+                                                    ucfirst(substr($personnel->middle_name, 0, 1)) .
+                                                    ' ' .
+                                                    $personnel->last_name)
+                                            <option selected
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @else
+                                            <option
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end px-0">
+                                <button type="submit" class="btn btn-success">
+                                    <span>
+                                        <i class="ti ti-send"></i>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-
-    {{-- <x-reports.chooseReport :reports=$investigation :category="'Investigation'"> </x-reports.chooseReport> --}}
-    <x-reports.chosen :category=$active> </x-reports.chosen>
-
-    <script>
-        // Wait for the document to load
-        document.addEventListener("DOMContentLoaded", function() {
-            // Get the Yes and No buttons
-            var yesBtn = document.getElementById('yesBtn');
-            var noBtn = document.getElementById('noBtn');
-
-            // Attach click event listeners to the buttons
-            yesBtn.addEventListener('click', function() {
-                // Show the Yes modal
-                $('#yesModal').modal('show');
-                // Hide the current modal
-                $('#addResponseModal').modal('hide');
-            });
-
-            noBtn.addEventListener('click', function() {
-                // Show the No modal
-                $('#noModal').modal('show');
-                // Hide the current modal
-                $('#addResponseModal').modal('hide');
-            });
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
+            $('#divApor').on('click', '.remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.remove-button-container').remove();
+            });
+
             $('#addNewDivApor').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.second-div:first').clone();
+                var newDiv = $('#addApor').clone();
+                var mnewDiv = $(
+                    '<div class="row remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button> </div> <div class="col-lg-3 mb-3"> <label for="vehicle" class="form-label">Engine Dispatched</label> <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]"> <option selected>Select vehicle</option> @foreach ($trucks as $truck) <option value="{{ $truck->id }}"> {{ $truck->name }} </option> @endforeach </select> </div> <div class="col-lg-3 mb-3"> <label for="timeDispatched" class="form-label">Time Dispatched</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeDispatchedInput" name="time_dispatched[]"> </div> <div class="col-lg-3 mb-3"> <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeArrivedFireSceneInput" name="time_arrived_at_scene[]"> </div> <div class="col-lg-3 mb-3"> <label for="responseTime" class="form-label">Response Time</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="responseTimeInput" name="response_duration[]"> </div> <div class="col-lg-4 mb-3"> <label for="timeReturned" class="form-label">Time Returned to Base</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="timeReturnedInput" name="time_return_to_base[]"> </div> <div class="col-lg-4 mb-3"> <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label> <input type="text" placeholder="Eg. 1000 GAL" class="form-control text-uppercase" id="waterTankInput" name="water_tank_refilled[]"> </div> <div class="col-lg-4 mb-3"> <label for="gasConsumed" class="form-label">Gas Consumed (L)</label> <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase" id="gasConsumedInput" name="gas_consumed[]"> </div> <hr> </div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#divApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.engineDispatched').select2();
+            });
 
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.second-div');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            $('#secondDivApor').on('click', '.second-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.second-remove-button-container').remove();
             });
 
             $('#addTimeAlarmStatusDeclared').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.time-alarm-status-declared-div:first').clone();
+                var newDiv = $('#secondAddApor').clone();
+                var mnewDiv = $(
+                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#secondDivApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect ""
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.time-alarm-status-declared-div');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h5').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.alarmApor').select2();
             });
+
+            $('#thirdDivApor').on('click', '.third-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.third-remove-button-container').remove();
+            });
+
             $('#addNewDutyPersonnelAtFireScene').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.duty-personnel-at-fire-scene:first').clone();
+                var newDiv = $('#thirdAddApor').clone();
+                var mnewDiv = $(
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select designationSelectEdit" aria-label="" name="duty_designation[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#thirdDivApor').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">x</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.duty-personnel-at-fire-scene');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                // Re-initialize Select2 on the cloned select element
+                mnewDiv.find('.rankName').select2();
+                mnewDiv.find('.designationSelectEdit').select2();
             });
-            // Target the file input
+            // $(document).on('click', '.addDesignation', function() {
+            //     // console.log("hello");
+            //     var inputField =
+            //         '<div class="col-lg-6 mb-3"> <div class="d-flex align-items-center"><select class="form-select designation" aria-label="" name="duty_designation[]"> <option value="" selected>Select Designation</option> <option value="1">Joshua</option> </select> <button type="button" class=" ms-1 btn btn-outline-danger remove-designation">x</button> </div> </div>';
+            //     // $(".designationContainer").append(inputField);
+            //     $(this).closest('.designationContainer').append(inputField);
+
+            //     // inputField.find('.designation').select2();
+            //     $(".designation").select2();
+            // });
+            $(document).on('click', '.remove-designation', function() {
+                $(this).closest('.col-lg-6').remove();
+            });
+
+            $('#divBreathingApparatus').on('click', '.breathing-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.breathing-remove-button-container').remove();
+            });
+
+            $('#addNewBreathingApparatus').click(function() {
+                var newDiv = $('#addBreathingApparatus').clone();
+                var mnewDiv = $(
+                    '<div class="row breathing-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">No.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_breathing[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="breathing[]"> </div> <hr> </div>'
+                );
+
+                console.log(mnewDiv);
+                $('#divBreathingApparatus').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
+
+                // Re-initialize Select2 on the cloned select element
+                // mnewDiv.find('.rankName').select2();
+            });
+
+            $('.remove-photo').on('click', function() {
+                // Find the parent div with class "mt-3" and remove it
+                $(this).closest('.mt-3').remove();
+            });
+
             $('#photos').on('change', function() {
-                // Get the selected files
-                var files = $(this)[0].files;
+                var files = $(this)[0].files; // Get the files selected
+                var container = $('#image-preview-container'); // Get the preview container
 
-                // Clear any existing previews
-                $('#preview-container').empty();
+                // Clear previous previews
+                container.empty();
 
-                // Loop through each selected file
+                // Loop through each file
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     var reader = new FileReader();
 
-                    // Closure to capture the file information
+                    // Closure to capture the file information.
                     reader.onload = (function(file) {
                         return function(e) {
-                            // Create a new image element
-                            var imgElement = $(
-                                '<img class="img-fluid m-2 object-fit-cover rounded shadow">'
-                            ).addClass('preview-image').attr('src', e.target.result);
+                            // Create image preview
+                            var imgPreview = $(
+                                '<div class="image-preview mb-1">' +
+                                '<img class="img-thumbnail w-100" src="' + e.target.result +
+                                '" alt="' + file.name + '">' +
+                                '</div>'
+                            );
 
-                            // Append the image to the preview container
-                            $('#preview-container').append(imgElement);
+                            // Append image preview to the container
+                            container.append(imgPreview);
+
+                            // Create filename container with flex layout
+                            var fileInfoContainer = $(
+                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                            );
+
+                            // Filename element
+                            var fileInfo = $(
+                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                                .name + '</div>');
+
+                            // Remove button
+                            var removeBtn = $(
+                                '<button type="button" class="btn btn-sm btn-danger remove-photo">Remove</button>'
+                            );
+
+                            // Append filename and remove button to container
+                            fileInfoContainer.append(fileInfo);
+                            fileInfoContainer.append(removeBtn);
+
+                            // Append the filename container to the preview container
+                            container.append(fileInfoContainer);
+
+                            // Remove button click event
+                            removeBtn.click(function() {
+                                imgPreview.remove(); // Remove the image preview
+                                $(this).closest('.d-flex')
+                                    .remove(); // Remove the flex container
+                                $('#photos').val(
+                                    ''); // Clear the file input (if needed)
+                            });
                         };
                     })(file);
 
-                    // Read the file as a data URL
+                    // Read in the image file as a data URL
                     reader.readAsDataURL(file);
                 }
             });
 
-            $('#addNewBreathingApparatus').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.breathing-apparatus:first').clone();
-
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
-
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.breathing-apparatus');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            $('#divExtinguishing').on('click', '.extinguishing-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.extinguishing-remove-button-container').remove();
             });
 
             $('#addNewExtinguishingAgent').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.extinguishing-agent:first').clone();
+                var newDiv = $('#addExtinguishing').clone();
+                var mnewDiv = $(
+                    '<div class="row extinguishing-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Quantity</label> <input type="number" placeholder="Enter quantity" class="form-control" id="firstResponderInput" name="quantity_extinguishing[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="extinguishing[]"> </div> </div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#divExtinguishing').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Re-initialize Select2 on the cloned select element
+                // mnewDiv.find('.rankName').select2();
+            });
 
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.extinguishing-agent');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            $('#divRopeLadder').on('click', '.rope-ladder-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.rope-ladder-remove-button-container').remove();
             });
 
             $('#addNewRopeAndLadder').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.rope-ladder:first').clone();
+                var newDiv = $('#addRopeLadder').clone();
+                var mnewDiv = $(
+                    '<div class="row rope-ladder-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="rope_ladder[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Length</label> <input type="text" placeholder="Enter length" class="form-control" id="firstResponderInput" name="rope_ladder_length[]"> </div> <hr> </div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#divRopeLadder').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
+                // Re-initialize Select2 on the cloned select element
+                // mnewDiv.find('.rankName').select2();
+            });
 
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.rope-ladder');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+            $('#divHoseLine').on('click', '.hose-line-remove-section-btn', function() {
+                // Find the parent div of the clicked remove button and remove it
+                $(this).closest('.hose-line-remove-button-container').remove();
             });
 
             $('#addNewHoseLine').click(function() {
-                // Clone the first row (assuming it's the row you want to duplicate)
-                var newRow = $('.hose-line:first').clone();
+                var newDiv = $('#addHoseLine').clone();
+                var mnewDiv = $(
+                    '<div class="row hose-line-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">No.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Type / kind" class="form-control" id="firstResponderInput" name="type_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Total ft.</label> <input type="text" placeholder="Enter total feet" class="form-control" id="firstResponderInput" name="hose_feet[]"> </div> <hr> </div>'
+                );
 
-                // Reset input values in the cloned row (if needed)
-                newRow.find('input').val('');
+                console.log(mnewDiv);
+                $('#divHoseLine').append(mnewDiv);
+                // mnewDiv.find('#closeCrew').prop('disabled', false);
 
-                // Update the header text to reflect "New Fire Engine Response Details"
-                var newHeaderText = "";
-                var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                // Create a flex container for the header and button
-                var flexContainer = $(
-                    '<div class="d-flex justify-content-between align-items-center"></div>');
-                flexContainer.append(newHeader); // Append the new header to the flex container
-
-                // Create and append the removal ('X') button
-                var removeButton = $(
-                    '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                removeButton.click(function() {
-                    var rowToRemove = $(this).closest('.hose-line');
-                    var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                    // Remove both the row and the preceding <hr> element
-                    rowToRemove.remove();
-                    hrToRemove.remove();
-                });
-                flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                // Replace the existing header with the flex container
-                newRow.find('h3').replaceWith(flexContainer);
-
-                // Insert the cloned row before the button
-                $(this).parent().before(newRow);
-
-                // Add <hr> tag after each cloned row for visual separation
-                $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
-            });
-
-            $(".caller").select2({
-                tags: true
+                // Re-initialize Select2 on the cloned select element
+                // mnewDiv.find('.rankName').select2();
             });
         });
     </script>

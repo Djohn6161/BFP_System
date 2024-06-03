@@ -1,16 +1,9 @@
-<style>
-    .btn-reports {
-        width: 200px
-    }
-</style>
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
-        <!--  Row 1 -->
-
         <div class="col-lg-12">
-            <!-- Monthly Earnings -->
-
+           
             <div class="modal fade" data-bs-backdrop="static" id="addModal" tabindex="-1"
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -19,7 +12,6 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <!-- Monthly Earnings -->
                                 <form method="POST" action="{{ route('admin.account.create') }}">
                                     @csrf
                                     <div class="mb-3">
@@ -196,16 +188,16 @@
                                 <table class="table text-nowrap mb-0 align-middle">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Type</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Privillege</h6>
                                             </th>
-                                            <th class="border-bottom-0">
+                                            <th>
                                                 <h6 class="fw-semibold mb-0">Action</h6>
                                             </th>
                                         </tr>
@@ -213,13 +205,13 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $user->name }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <h6 class="fw-semibold mb-0">{{ $user->type }}</h6>
                                                 </td>
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     @if ($user->privilege == '0C')
                                                         <h6 class="fw-semibold mb-0">Operation</h6>
                                                     @else
@@ -228,7 +220,7 @@
 
                                                 </td>
 
-                                                <td class="border-bottom-0">
+                                                <td>
                                                     <a class="btn btn-success w-100 mb-1" data-bs-toggle="modal"
                                                         data-bs-target="#editModal"
                                                         data-user-id="{{ json_encode($user->id) }}"
