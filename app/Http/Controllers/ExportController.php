@@ -104,9 +104,6 @@ class exportController extends Controller
             return redirect()->back()->with("success", 'Successfully Exported');
         }
 
-
-        // dd($investigations);
-
     }
 
     public function exportOperation(Request $request)
@@ -118,8 +115,9 @@ class exportController extends Controller
         ]);
         $operations = Afor::whereBetween('created_at', [$validated['exportFrom'], $validated['exportTo']])->get();
         $exportFileName = 'Operation.xlsx';
+
         try {
-            return Excel::download(new operationExport($operations), $exportFileName);
+            return Excel::download(new OperationExport($operations), $exportFileName);
         } catch (\Throwable $th) {
            return redirect()->back()->with('status', 'There is no data available or an error occured');
         }

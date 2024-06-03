@@ -319,7 +319,7 @@ class OperationController extends Controller
         $passcodeStatus = false;
         
         foreach ($passcodes as $passcode) {
-            if (Hash::check($request->input('passcode'), $passcode->code)) {
+            if ($request->input('passcode') == $passcode->code) {
                 $passcodeStatus = true;
                 break; // Stop checking once a match is found
             }
@@ -1037,10 +1037,10 @@ class OperationController extends Controller
         $passcodeStatus = false;
         
         foreach ($passcodes as $passcode) {
-            if (Hash::check($request->input('passcode'), $passcode->code)) {
+            if ($request->input('passcode') == $passcode->code) {
                 $passcodeStatus = true;
                 break; // Stop checking once a match is found
-            }
+            }   
         }
         
         if(!$passcodeStatus){
