@@ -210,7 +210,7 @@
     </div>
 
     <div class="footer">
-        <div class="footer-content">
+        <div class="footer-content" style="text-align: center;">
             BFP-QSF -FSOD-006 Rev.00 (06.26.18)-<span class="page-number"></span>
         </div>
     </div>
@@ -259,26 +259,26 @@
                 <section class="response-details">
                     <table>
                         <tr>
-                            <th>ENGINE DISPATCHED</th>
-                            <th>TIME DISPATCHED</th>
-                            <th>TIME ARRIVED AT FIRE SCENE</th>
-                            <th style="font-weight: normal white-space: nowrap; margin: 0;">RESPONSE TIME
+                            <th style="text-align: center;">ENGINE DISPATCHED</th>
+                            <th style="text-align: center;">TIME DISPATCHED</th>
+                            <th style="text-align: center;">TIME ARRIVED AT FIRE SCENE</th>
+                            <th style="font-weight: normal white-space: nowrap; margin: 0; text-align: center;">RESPONSE TIME
                                 <h6 style="font-weight: normal; margin: 0;">(TIME RECEIVED CALL - TIME ARRIVED AT FIRE
                                     SCENE) in minutes</h6>
                             </th>
-                            <th>TIME RETURNED TO BASE</th>
-                            <th>WATER TANK REFILLED (GAL)</th>
-                            <th>GAS CONSUMED (L)</th>
+                            <th style="text-align: center;">TIME RETURNED TO BASE</th>
+                            <th style="text-align: center;">WATER TANK REFILLED (GAL)</th>
+                            <th style="text-align: center;">GAS CONSUMED (L)</th>
                         </tr>
                         @foreach ($operation->responses as $response)
                             <tr>
-                                <td>{{ $response->truck->name }}</td>
-                                <td>{{ $response->time_dispatched }}</td>
-                                <td>{{ $response->time_arrived_at_scene }}</td>
-                                <td>{{ $response->response_duration }}</td>
-                                <td>{{ $response->time_return_to_base }}</td>
-                                <td>{{ $response->water_tank_refilled }}</td>
-                                <td>{{ $response->gas_consumed }}</td>
+                                <td style="text-align: center;">{{ $response->truck->name }}</td>
+                                <td style="text-align: center;">{{ $response->time_dispatched }}</td>
+                                <td style="text-align: center;">{{ $response->time_arrived_at_scene }}</td>
+                                <td style="text-align: center;">{{ $response->response_duration }}</td>
+                                <td style="text-align: center;">{{ $response->time_return_to_base }}</td>
+                                <td style="text-align: center;">{{ $response->water_tank_refilled }}</td>
+                                <td style="text-align: center;">{{ $response->gas_consumed }}</td>
                             </tr>
                         @endforeach
                     </table>
@@ -289,18 +289,14 @@
                         <label>Alarm Status Upon Arrival</label>
                         <table>
                             <tr>
-                                <td style="width: 20%; font-weight: normal; text-align: left;"></td>
+                                <td style="width: 20%; font-weight: normal; text-align: left;">{{ $operation->alarm_status_arrival }}</td>
                                 <td style="width: 80%; font-weight: normal; text-align: left;">First Responder</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Augmenting Team</td>
                             </tr>
                         </table>
                         <div>
                             <br>
                             <label style="font-weight: bold" for="fire-control">Time/Date Under Control:
-                                <text style="font-weight: normal;">{{ $operation->td_under_control }}</text>
+                                <label style="font-weight: normal;">{{ $operation->td_under_control }}</label>
                             </label>
                             <br>
                             <label style="font-weight: bold" for="fire-out">Time/Date Declared Fire Out:
@@ -526,7 +522,7 @@
                     style="display: block; font-weight: normal; margin: 0;">{{ $operation->observation_recommendation }}</label>
                 </section>
                 <br>
-                <div class="page-break"></div>
+                {{-- <div class="page-break"></div> --}}
                 <section class="last">
                     <label>Prepared by:</label>
                     <label id="distance"
