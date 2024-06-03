@@ -29,7 +29,7 @@
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form action="{{ route('admin.personnel.delete', $personnel) }}" method="POST">
+            <form action="{{ route('admin.personnel.delete', $personnel->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center p-1">
@@ -37,7 +37,7 @@
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
                   
-                        <h4 class="modal-title" id="deleteModalLabel">Delete <strong>"{{ $personnel }}"</strong> information?</h4>
+                        <h4 class="modal-title" id="deleteModalLabel">Delete <strong>"{{ $personnel->rank->slug . " " . $personnel->first_name . " " . $personnel->last_name }}"</strong> information?</h4>
                   
 
                     <p>The data associated with this personnel will be lost.</p>

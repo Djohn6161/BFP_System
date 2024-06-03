@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('configuration_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId("userID")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
-            // $table->string('configName');
             $table->longText('Details');
-            $table->enum("type", ['occupancy','barangay','alarm', 'truck', 'rank', 'designation', 'personnel', ]);
+            $table->enum("type", ['occupancy','barangay','alarm', 'truck', 'rank', 'designation', 'personnel', 'passcode']);
             $table->string("action");
             $table->timestamps();
         });

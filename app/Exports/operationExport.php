@@ -8,7 +8,6 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
 class operationExport implements FromCollection, WithStyles, WithColumnWidths
 {
     /**
@@ -22,31 +21,31 @@ class operationExport implements FromCollection, WithStyles, WithColumnWidths
     }
     public function collection()
     {
-        $engine_dispatched = [];
-        $time_dispatched = [];
-        $td_arrived_At_fire_scene = [];
-        $time_response = [];
-        $time_returned = [];
-        $water_tank_refilled = [];
-        $gas_consumed = [];
+        // $engine_dispatched = [];
+        // $time_dispatched = [];
+        // $td_arrived_At_fire_scene = [];
+        // $time_response = [];
+        // $time_returned = [];
+        // $water_tank_refilled = [];
+        // $gas_consumed = [];
 
-        foreach($this->operations->responses as $response){
-            $engine_dispatched[] = $response->truck->name;
-            $time_dispatched[] = $response->time_dispatched;
-            $td_arrived_At_fire_scene[] = $response->time_arrived_at_scene;
-            $time_response[] = $response->response_duration;
-            $time_returned[] = $response->time_return_to_base;
-            $water_tank_refilled[] = $response->water_tank_refilled;
-            $gas_consumed[] = $response->gas_consumed;
-        }
+        // foreach($this->operations->responses as $response){
+        //     $engine_dispatched[] = $response->truck->name;
+        //     $time_dispatched[] = $response->time_dispatched;
+        //     $td_arrived_At_fire_scene[] = $response->time_arrived_at_scene;
+        //     $time_response[] = $response->response_duration;
+        //     $time_returned[] = $response->time_return_to_base;
+        //     $water_tank_refilled[] = $response->water_tank_refilled;
+        //     $gas_consumed[] = $response->gas_consumed;
+        // }
 
-        $engine_dispatched = implode(',', $engine_dispatched);
-        $time_dispatched = implode(',', $time_dispatched);
-        $td_arrived_At_fire_scene = implode(',', $td_arrived_At_fire_scene);;
-        $time_response = implode(',', $time_response);;
-        $time_returned = implode(',', $time_returned);;
-        $water_tank_refilled = implode(',', $water_tank_refilled);
-        $gas_consumed = implode(',', $gas_consumed);
+        // $engine_dispatched = implode(',', $engine_dispatched);
+        // $time_dispatched = implode(',', $time_dispatched);
+        // $td_arrived_At_fire_scene = implode(',', $td_arrived_At_fire_scene);;
+        // $time_response = implode(',', $time_response);;
+        // $time_returned = implode(',', $time_returned);;
+        // $water_tank_refilled = implode(',', $water_tank_refilled);
+        // $gas_consumed = implode(',', $gas_consumed);
 
         // dd($engine_dispatched);
 
@@ -58,7 +57,16 @@ class operationExport implements FromCollection, WithStyles, WithColumnWidths
                 $operation->caller_address,
                 $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name,
                 $operation->full_location,
-
+                $operation->alarm_status_arrival,
+                $operation->first_responder,
+                $operation->td_under_control,
+                $operation->td_declared_fireout,
+                $operation->sketch_of_fire_operation,
+                $operation->details,
+                $operation->problem_encounter,
+                $operation->observation_recommendation,
+                $operation->prepared_by,
+                $operation->noted_by,
        
             ];
         }

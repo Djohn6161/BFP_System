@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Truck;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -18,8 +19,6 @@ class AforSeeder extends Seeder
 
         foreach (range(1, 5) as $index) {
             $date = $faker->dateTime();
-            $stringDate = $date->format('Y-m-d H:i:s');
-            $td_declared_fireout = clone $date;
             $zone = 'Zone 1';
             $barangay = 'Amtic';
             $location = 'Mayon';
@@ -90,6 +89,7 @@ class AforSeeder extends Seeder
             // Responses
             $date = $faker->dateTime();
             $formatted_date = $date->format('H:i') . 'H';
+            $truckNames = Truck::pluck('name')->toArray();
 
             foreach (range(1, 2) as $index) {
 
@@ -106,7 +106,7 @@ class AforSeeder extends Seeder
 
                 $attributes = [
                     'afor_id' => $reportID,
-                    'engine_dispatched' => $index,
+                    'engine_dispatched' => $truckNames[$index],
                     'time_dispatched' => $formatted_date,
                     'time_arrived_at_scene' => $formatted_added_date_string,
                     'response_duration' => $response_duration,
