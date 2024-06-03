@@ -61,9 +61,11 @@
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Action</h6>
-                                            </th>
+                                            @if ($user->privilege == 'OC' || $user->privilege == 'All' || $user->privilege == 'IC')
+                                                <th>
+                                                    <h6 class="fw-semibold mb-0">Action</h6>
+                                                </th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -117,31 +119,34 @@
                                                         }
                                                     @endphp
                                                 </td>
-                                                <td>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#viewOperationModal{{ $operation->id }}"
-                                                        data-operation="{{ json_encode($operation) }}"
-                                                        data-responses="{{ json_encode($operation->responses) }}"
-                                                        class="btn btn-primary hide-menu w-100 mb-1">
-                                                        <i class="ti ti-eye"></i> View
-                                                    </button>
-                                                    <x-reports.operation.operation_view :operation="$operation" :responses="$responses"
-                                                        :personnels="$personnels"></x-reports.operation.operation_view>
-                                                    @if ($user->privilege == 'OC' || $user->privilege == 'All')
-                                                        <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
-                                                            class="btn btn-success w-100 mb-1">
-                                                            <i class="ti ti-pencil"></i> Update
-                                                        </a>
-                                                        <br>
+                                                @if ($user->privilege == 'OC' || $user->privilege == 'All' || $user->privilege == 'IC')
+                                                    <td>
                                                         <button type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $operation->id }}"
-                                                            class="btn btn-danger hide-menu w-100 mb-1">
-                                                            <i class="ti ti-trash"></i> Delete
+                                                            data-bs-target="#viewOperationModal{{ $operation->id }}"
+                                                            data-operation="{{ json_encode($operation) }}"
+                                                            data-responses="{{ json_encode($operation->responses) }}"
+                                                            class="btn btn-primary hide-menu w-100 mb-1">
+                                                            <i class="ti ti-eye"></i> View
                                                         </button>
-                                                        <x-reports.operation.delete
-                                                            :operation="$operation"></x-reports.operation.delete>
-                                                    @endif
-                                                </td>
+                                                        <x-reports.operation.operation_view :operation="$operation"
+                                                            :responses="$responses"
+                                                            :personnels="$personnels"></x-reports.operation.operation_view>
+                                                        @if ($user->privilege == 'OC' || $user->privilege == 'All')
+                                                            <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
+                                                                class="btn btn-success w-100 mb-1">
+                                                                <i class="ti ti-pencil"></i> Update
+                                                            </a>
+                                                            <br>
+                                                            <button type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModal{{ $operation->id }}"
+                                                                class="btn btn-danger hide-menu w-100 mb-1">
+                                                                <i class="ti ti-trash"></i> Delete
+                                                            </button>
+                                                            <x-reports.operation.delete
+                                                                :operation="$operation"></x-reports.operation.delete>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

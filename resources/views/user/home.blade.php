@@ -58,7 +58,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-8">
                                             <h5 class="mb-0 fw-semibold">
-                                                {{ count($afor->where('occupancy_specify', $occupancy->name) ?? []) }}</h5>
+                                                {{ count($occup->where('occupancy_name', $occupancy->name) ?? []) }}</h5></h5>
                                         </div>
                                     </div>
                                 </div>

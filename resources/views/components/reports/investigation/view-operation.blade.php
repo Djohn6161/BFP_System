@@ -50,6 +50,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @unless (count($operation->responses) !=0)
+                            
                         @foreach ($operation->responses as $response)
                             <tr>
                                 <td class="text-break">
@@ -75,6 +77,14 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="7">
+                                <div class="alert alert-secondary">
+                                    No Responses
+                                </div>
+                            </td>
+                        </tr>
+                        @endunless
                     </tbody>
                 </table>
                 <br>

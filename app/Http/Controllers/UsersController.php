@@ -26,6 +26,7 @@ class UsersController extends Controller
             'occupancies' => Occupancy_name::all(),
             'afor' => Afor::all(),
             'occup' => Occupancy::all(),
+            
         ]);
     }
 
