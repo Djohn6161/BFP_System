@@ -107,8 +107,8 @@ class OperationImport implements ToCollection
                     ]);
                 }
 
-                $quantity = explode(',',$row[36]);
-                $categories = explode(',',$row[37]);
+                $categories = explode(',',$row[36]);
+                $quantity = explode(',',$row[37]);
                 $type = explode(',',$row[38]);
                 $nr = explode(',',$row[39]);
                 $length = explode(',',$row[40]);
@@ -116,8 +116,8 @@ class OperationImport implements ToCollection
                 foreach ($categories as $key => $category) {
                     Used_equipment::create([
                         'afor_id' => $afor->id,
-                        'quantity' => $quantity[$key] ?? '',
                         'category' => $category,
+                        'quantity' => $quantity[$key] ?? '',
                         'type' => $type[$key] ?? '',
                         'nr' => $nr[$key] ?? '',    
                         'length' => $length[$key] ?? '',
