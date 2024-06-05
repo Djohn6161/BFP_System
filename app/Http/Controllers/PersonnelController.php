@@ -22,7 +22,7 @@ class PersonnelController extends Controller
         $user = Auth::user();
         $active = 'personnel';
         $personnels = Personnel::all();
-        $ranks = Rank::orderBy('slug')->get();
+        $ranks = Rank::get();
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
         $personnelCount = count($personnels);

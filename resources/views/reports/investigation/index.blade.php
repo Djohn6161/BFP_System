@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -127,14 +126,14 @@
                                                 @elseif($investigation->progress != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            @if ($investigation->progress->Spot->afor)
-                                                                Operation <br>
-                                                            @endif
                                                             @if ($investigation->progress->Spot)
+                                                                @if ($investigation->progress->Spot->afor)
+                                                                    Operation <br>
+                                                                @endif
                                                                 Spot <br>
-                                                            @endif
-                                                            @if ($investigation->progress->Spot->final)
-                                                                Final <br>
+                                                                @if ($investigation->progress->Spot->final)
+                                                                    Final <br>
+                                                                @endif
                                                             @endif
                                                         </p>
                                                     </td>
@@ -144,14 +143,14 @@
                                                 @elseif($investigation->final != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            @if ($investigation->final->Spot->afor)
-                                                                Operation <br>
-                                                            @endif
                                                             @if ($investigation->final->Spot)
+                                                                @if ($investigation->final->Spot->afor)
+                                                                    Operation <br>
+                                                                @endif
                                                                 Spot <br>
-                                                            @endif
-                                                            @if ($investigation->final->Spot->Progress)
-                                                                Progress <br>
+                                                                @if ($investigation->final->Spot->Progress)
+                                                                    Progress <br>
+                                                                @endif
                                                             @endif
                                                         </p>
                                                     </td>

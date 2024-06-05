@@ -76,7 +76,8 @@
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->case_number }}</h6>
+                                                    <h6 class="fw-semibold mb-0">
+                                                        {{ $investigation->investigation->case_number }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
@@ -96,9 +97,9 @@
                                                         @endif
                                                         @if ($investigation->spot)
                                                             Spot <br>
-                                                        @endif
-                                                        @if ($investigation->spot->progress)
-                                                            Progress <br>
+                                                            @if ($investigation->spot->progress)
+                                                                Progress <br>
+                                                            @endif
                                                         @endif
                                                     </p>
                                                 </td>
