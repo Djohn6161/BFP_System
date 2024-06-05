@@ -3,7 +3,12 @@
 namespace App\Imports;
 
 use App\Models\Afor;
+use App\Models\Afor_casualties;
+use App\Models\Afor_duty_personnel;
+use App\Models\Declared_alarm;
+use App\Models\Occupancy;
 use App\Models\Response;
+use App\Models\Used_equipment;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
@@ -55,20 +60,82 @@ class OperationImport implements ToCollection
                         Response::create([
                             'afor_id' => $afor->id,
                             'engine_dispatched' => $engine,
-                            'time_dispatched' => $time_dispatched[$key],
-                            'time_arrived_at_scene' => $time_arrived_at_scene[$key],
-                            'response_duration' => $response_duration[$key],
-                            'time_return_to_base' => $time_return_to_base[$key],
-                            'water_tank_refilled' => $water_tank_refilled[$key],
-                            'gas_consumed' => $gas_consumed[$key],
+                            'time_dispatched' => $time_dispatched[$key] ?? '',
+                            'time_arrived_at_scene' => $time_arrived_at_scene[$key] ?? '',
+                            'response_duration' => $response_duration[$key] ?? '',
+                            'time_return_to_base' => $time_return_to_base[$key] ?? '',
+                            'water_tank_refilled' => $water_tank_refilled[$key] ?? '',
+                            'gas_consumed' => $gas_consumed[$key] ?? '',
                         ]);
                     }
                 }
+
+                $alarm_names = explode(',',$row[25]);
+                $alarm_time = explode(',',$row[26]);
+                $fund_commander = explode(',',$row[27]);
     
-                // Response::create([
-                    
-                // ])
-  
+                if($alarm_names){
+                    foreach ($alarm_names as $key => $name) {
+                        Declared_alarm::create([
+                            'afor_id' => $afor->id,
+                            'alarm_name' => $name,
+                            'time' => $alarm_time[$key] ?? '',
+                            'ground_commander' => $fund_commander[$key] ?? '',
+                        ]);
+                    }
+                }
+
+                Occupancy::create([
+                    'afor_id' => $afor->id,
+                    'occupancy_name' => $row[28] ?? '',
+                    'type' => $row[29] ?? '',
+                    'specify' => $row[30] ?? '',
+                    'distance' => $row[31] ?? '',
+                    'description' => $row[32] ?? '',
+                ]);
+
+                $types = explode(',',$row[33]);
+                $injured = explode(',',$row[34]);
+                $death = explode(',',$row[35]);
+
+                foreach ($types as $key => $type) {
+                    Afor_casualties::create([
+                        'afor_id' => $afor->id,
+                        'type' => $type,
+                        'injured' => $injured[$key] ?? '',
+                        'death' => $death[$key] ?? '',
+                    ]);
+                }
+
+                $quantity = explode(',',$row[36]);
+                $categories = explode(',',$row[37]);
+                $type = explode(',',$row[38]);
+                $nr = explode(',',$row[39]);
+                $length = explode(',',$row[40]);
+
+                foreach ($categories as $key => $category) {
+                    Used_equipment::create([
+                        'afor_id' => $afor->id,
+                        'quantity' => $quantity[$key] ?? '',
+                        'category' => $category,
+                        'type' => $type[$key] ?? '',
+                        'nr' => $nr[$key] ?? '',    
+                        'length' => $length[$key] ?? '',
+                    ]);
+                }
+
+                $personnels_id = explode(',',$row[41]);
+                $designation = explode(',',$row[42]);
+                $remarks = explode(',',$row[43]);
+
+                foreach ($personnels_id as $key => $personnel) {
+                    Afor_duty_personnel::create([
+                        'afor_id' => $afor->id,
+                        'personnels_id' => $personnel,
+                        'designation' => $designation[$key] ?? '',
+                        'remarks' => $remarks[$key] ?? '',
+                    ]);
+                }
             }
         }
     }

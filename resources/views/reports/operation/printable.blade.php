@@ -8,7 +8,144 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body style="margin: 0 auto; max-width: 1200px;">
+<body>
+    <div style="margin: 30px 30px 30px 30px; text-align:end" id="download-btn">
+        <button class="btn btn-primary" style="padding: 10px 30px 10px 30px; border-radius: 30px"
+            onclick="download(this)">PRINT</button>
+    </div>
+    <header>
+        <div>
+            <img src="{{ asset('assets/images/logos/DILG-Logo.png') }}" alt="Left Logo">
+        </div>
+
+        <div>
+            <p><small>Republic of the Philippines</p></small>
+            <p><small><b>Department of the Interior and Local Government</p></b></small>
+            <p><b><small>Bureau of Fire Protection</b></p></small>
+            <p>REGION V</p>
+            <p> <small>2nd Flr. ANST Bldg., Capt. F. Aquende Drive</small></p>
+            <p><small>Albay District, Legazpi City</small></p>
+            <p><small>CP No. 09365474962</small></p>
+            <p><b><small>AFTER FIRE OPERATIONS REPORT</b></p></small>
+        </div>
+
+        <div>
+
+            <img src="{{ asset('assets/images/logos/EDITED FINAL.png') }}" alt="Right Logo">
+
+
+        </div>
+
+
+    </header>
+
+
+    <h5 style="font-size: 12px;">
+        <b>Explicity stipulated are the details of the fire incident that transpired on or about;</b>
+
+    </h5>
+
+    <style>
+        /* CSS for table1 styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .underline-input {
+            border: none;
+            border-bottom: 1px solid black;
+            /* You can adjust the color and thickness as needed */
+            outline: none;
+            /* Remove default focus outline */
+            width: 400px;
+            /* Adjust the width as needed */
+            text-align: right;
+            /* Align the text to the right */
+
+        }
+    </style>
+
+    <!-- TABLE 1 -->
+    <table border="1";>
+
+        <!-- Row 1- Table 1-->
+        <!-- Row 1 -->
+        <tr>
+            <td style="font-size: 12px;">Alarm received (Time): {{ $operation->alarm_received }}</td>
+            <td style="font-size: 12px;">Location:{{ $operation->full_location }}</td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+            <td style="font-size: 12px;"> Caller/Reported/Transmitted by: {{ $operation->transmitted_by }}</td>
+
+        </tr>
+        <!-- Row 3 -->
+        <tr>
+            <td style="font-size: 12px;">Office/Address of the Caller: {{ $operation->caller_address }}</td>
+
+        </tr>
+        <!-- Row 4 -->
+        <tr>
+            <td style="font-size: 12px;">Personnel on duty who received the alarm:
+                {{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}
+            </td>
+
+        </tr>
+    </table>
+
+
+
+
+
+
+
+    <!-- TABLE 2 -->
+    <p style="font-size: 12px;"> 2</p>
+
+    <div>
+        <table style="font-size: 6px;">
+
+            <tr>
+                <td style="text-align: center;"><b>ENGINE <br> DISPATCHED</b></td>
+                <td style="text-align: center;"> <b>TIME <br> DISPATCHED </b></td>
+                <td style="text-align: center;"><b>TIME ARRIVED AT <br> FIRE SCENE</b></td>
+                <td style="text-align: center;"><b>RESPONSE TIME <br> (TIME RECEIVED CALL- TIME ARRIVED AT FIRE
+                        SCENE) in minutes</b></td>
+                <td style="text-align: center;"><b>TIME RETURNED TO THE BASE</b></td>
+                <td style="text-align: center;"><b>WATER TANK REFILLED <br> (GAL)</b></td>
+                <td style="text-align: center;"><b>GAS CONSUMED<br> (L)</b></td>
+            </tr>
+
+            <!-- Row 2 -->
+            @foreach ($operation->responses as $response)
+                <tr>
+                    <td style="font-size: 13px;">{{ $response->engine_dispatched }}</td>
+                    <td style="font-size: 13px;">{{ $response->time_dispatched }}</td>
+                    <td style="font-size: 13px;">{{ $response->time_arrived_at_scene }}</td>
+                    <td style="font-size: 13px;">{{ $response->response_duration }}</td>
+                    <td style="font-size: 13px;">{{ $response->time_return_to_base }}</td>
+                    <td style="font-size: 13px;">{{ $response->water_tank_refilled }}</td>
+                    <td style="font-size: 13px;">{{ $response->gas_consumed }}</td>
+                </tr>
+            @endforeach
+
+            <!-- Row 3 -->
+        </table>
+    </div>
+
     <div class="container">
         <header>
             <div class="header-top">
