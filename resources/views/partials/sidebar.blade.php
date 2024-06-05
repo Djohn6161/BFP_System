@@ -167,7 +167,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
                             <span>
-                                <i class="ti ti-address-book"></i>
+                                <i class="ti ti-key"></i>
                             </span>
                             <span class="hide-menu">Passcodes</span>
                         </a>
