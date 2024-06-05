@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Passcode extends Model
 {
     use HasFactory;
+
+    public function creator(){
+        return $this->belongsTo(User::class, "creators_id");
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id');
+    }
 }

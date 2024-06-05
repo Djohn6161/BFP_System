@@ -28,11 +28,11 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Type</h6>
+                                                <h6 class="fw-semibold mb-0">Given For</h6>
                                             </th>
-                                            <th class="fw-semibold mb-0">Passcode Action
+                                            <th class="fw-semibold mb-0">CODE
                                             </th>
-                                            <th class="fw-semibold mb-0">Passcode
+                                            <th class="fw-semibold mb-0">STATUS
                                             </th>
                                             <th class="fw-semibold mb-0 text-center">Action
                                             </th>
@@ -43,10 +43,10 @@
                                             <x-passcode.edit :passcode="$passcode"> </x-passcode.edit>
                                             <x-passcode.delete :passcode="$passcode"> </x-passcode.delete>
                                             <tr>
-                                                <td>{{ $passcode->type }}</td>
-                                                <td>{{ $passcode->action }}</td>
+                                                <td>{{ $passcode->user->username }}</td>
                                                 <td>{{ $passcode->code }}</td>
-                                                <td class="w-25 py-2">
+                                                <td>{{ $passcode->status == true ? "Active" : "Used" }}</td>
+                                                <td class="w-25 py-2"> 
                                                     <div class="d-flex flex-row">
                                                         <div class="me-1">
                                                             <button class="btn btn-success w-100" data-bs-toggle="modal"

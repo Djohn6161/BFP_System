@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('passcodes', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['IC','OC']);
-            $table->enum('action',['update','delete']);
-            $table->string('code');
+            $table->foreignId("creators_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
+            $table->string("code");
+            $table->boolean("status");
+            $table->foreignId("users_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
             $table->timestamps();
         });
     }
