@@ -115,7 +115,7 @@ class exportController extends Controller
         ]);
         $operations = Afor::whereBetween('created_at', [$validated['exportFrom'], $validated['exportTo']])->get();
         $exportFileName = 'Operation.xlsx';
-
+        
         try {
             return Excel::download(new OperationExport($operations), $exportFileName);
         } catch (\Throwable $th) {

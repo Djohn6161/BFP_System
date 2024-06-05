@@ -27,7 +27,7 @@ class LogsController extends Controller
         return view('admin.logs.operation.viewLogs', [
             'active' => 'viewOperationLogs',
             'user' => $user,
-            'logs' => AforLog::all(),
+            'logs' => AforLog::orderBy('created_at', 'desc')->get(),
             
         ]);
     }

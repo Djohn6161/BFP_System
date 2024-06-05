@@ -30,6 +30,10 @@
                         <th>Location:</th>
                         <td class="text-break">{{ $operation->full_location }}</td>
                     </tr>
+                    <tr>
+                        <th>Blotter Number:</th>
+                        <td class="text-break">{{ $operation->blotter_number }}</td>
+                    </tr>
                 </table>
                 <br>
                 <hr>
