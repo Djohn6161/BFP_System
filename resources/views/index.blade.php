@@ -1,3 +1,5 @@
+{{-- FOR PC COMPATIBILITY: COMMENT OUT THE 'ANIMATED LOGIN PAGE' DIV AND UNCOMMENT THE 'BACKUP LOGIN PAGE' DIV --}}
+
 <!doctype html>
 <html lang="en">
 
@@ -21,6 +23,8 @@
             <div class="d-flex align-items-center justify-content-center w-100">
 
                 <div class="col-md-8 col-lg-6 col-xxl-3">
+
+                    {{-- ANIMATED LOGIN PAGE --}}
                     <div class="card animated-card mb-0">
                         <div class="card-body">
                             <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
@@ -52,9 +56,9 @@
                             </form>
                         </div>
                     </div>
+                    {{-- END OF ANIMATED LOGIN PAGE --}}
 
-                    {{-- BACK UP LOGIN PAGE FOR COMPATIBILITY --}}
-                    {{-- UNCOMMENT IF NECESSARY --}}
+                    {{-- BACK UP LOGIN PAGE --}}
                         {{-- <div class="card mb-0">
                             <div class="card-body">
                                 <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
