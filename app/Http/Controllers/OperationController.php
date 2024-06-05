@@ -263,6 +263,16 @@ class OperationController extends Controller
             $afor->save();
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an Operation Report with an alarm received by " . $afor->received_by,
+            'action' => "Store",
+        ]);
+
+        $log->save();
+
         return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 

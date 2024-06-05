@@ -117,10 +117,11 @@ class OperationImport implements ToCollection
                     Used_equipment::create([
                         'afor_id' => $afor->id,
                         'category' => $category,
-                        'quantity' => $quantity[$key] ?? '',
+                        // 'quantity' => $quantity[$key] ?? null,
+                        'quantity' => is_numeric($quantity[$key]) ? $quantity[$key] : null,
                         'type' => $type[$key] ?? '',
-                        'nr' => $nr[$key] ?? '',    
-                        'length' => $length[$key] ?? '',
+                        'nr' => $nr[$key] ?? null,    
+                        'length' => $length[$key] ?? null,  
                     ]);
                 }
 
