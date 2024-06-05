@@ -46,7 +46,7 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td>{{ $log->updated_at }}</td>
+                                                <td class="text-center">{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td>{{$log->investigation->id}} - @if ($log->investigation->spot)
                                                     Spot

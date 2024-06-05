@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['admin','user']);
-            $table->enum('privilege', ['All', 'IC', 'OC', 'AC']);
+            $table->enum('privilege', ['configuration_cheif', 'investigation_clerk', 'operation_clerk', 'admin_clerk', 'operation_admin_chief', 'investigation_admin_chief','admin_cheif','chief']);
             $table->string('username')->unique();
             $table->string('password');
             $table->string('picture');

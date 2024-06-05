@@ -17,38 +17,74 @@ class UserSeeder extends Seeder
         $users = [
 
             // Admin
+
             [
-                'name' => 'admin',
+                'name' => 'Chief',
+                'username' => 'chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'chief',
+                'picture' => 'default.png',
+            ],   
+            [
+                'name' => 'Configuration Cheif',
+                'username' => 'configuration_cheif',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'configuration_cheif',
+                'picture' => 'default.png',
+            ],     
+            
+            [
+                'name' => 'Operation Admin Chief',
+                'username' => 'operation_admin_chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'operation_admin_chief',
+                'picture' => 'default.png',
+            ],   
+
+            [
+                'name' => 'Investigation Admin Chief',
                 'username' => 'admin',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'All',
+                'privilege' => 'investigation_admin_chief',
                 'picture' => 'default.png',
-            ],      
+            ],   
+
+            [
+                'name' => 'Admin Cheif',
+                'username' => 'admin_cheif',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'admin_cheif',
+                'picture' => 'default.png',
+            ], 
 
             // User
             [
-                'name' => 'user AC',
-                'username' => 'user1',
+                'name' => 'Investigation Clerk',
+                'username' => 'investigation_clerk',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'AC',
+                'privilege' => 'investigation_clerk',
                 'picture' => 'default.png',
             ],
             [
-                'name' => 'user IC',
-                'username' => 'user2',
+                'name' => 'Operation Clerk',
+                'username' => 'operation_clerk',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'IC',
+                'privilege' => 'operation_clerk',
                 'picture' => 'default.png',
             ],
             [
-                'name' => 'user OC',
-                'username' => 'user3',
+                'name' => 'Admin Clerk',
+                'username' => 'admin_clerk',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'OC',
+                'privilege' => 'admin_clerk',
                 'picture' => 'default.png',
             ],
 
