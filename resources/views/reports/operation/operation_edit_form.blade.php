@@ -89,16 +89,11 @@
                                 <input type="text" placeholder="Enter the zone/street" class="form-control"
                                     id="zone" name="zone" value="{{ $operation->zone }}">
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-lg-12 mb-3">
                                 <label for="otherLocation" class="form-label">Other
                                     Location / Landmark</label>
                                 <input type="text" placeholder="Enter other location" class="form-control"
                                     id="otherLocation" name="location" value="{{ $operation->location }}">
-                            </div>
-                            <div class="col-lg-6 mb-3">
-                                <label for="otherLocation" class="form-label">Blotter Number</label>
-                                <input type="text" placeholder="Enter Blotter Number" class="form-control"
-                                    id="otherLocation" name="blotter_number" value="{{ $operation->blotter_number }}">
                             </div>
                         </div>
 

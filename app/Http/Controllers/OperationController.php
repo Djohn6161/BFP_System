@@ -77,7 +77,6 @@ class OperationController extends Controller
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
-            'blotter_number' => $request->input('blotter_number') ?? '',
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
@@ -264,16 +263,6 @@ class OperationController extends Controller
             $afor->save();
         }
 
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $afor_id,
-            'user_id' => auth()->user()->id,
-            'details' => "Created an Operation Report with an alarm received by " . $afor->received_by,
-            'action' => "Store",
-        ]);
-
-        $log->save();
-
         return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
@@ -355,7 +344,6 @@ class OperationController extends Controller
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
             'full_location' => $location,
-            'blotter_number' => $request->input('blotter_number'),
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'details' => $request->input('details') ?? '',
