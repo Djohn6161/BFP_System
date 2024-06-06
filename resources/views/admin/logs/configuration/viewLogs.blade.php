@@ -46,7 +46,7 @@
                                             {{-- {{dd($log->user)}} --}}
 
                                             <tr class="text-dark">
-                                                <td class="text-center">{{ $log->updated_at }}</td>
+                                                <td>{{ $log->updated_at }}</td>
                                                 <td>{{ $log->user->id . " - " . $log->user->name }}</td>
                                                 <td class="text-capitalize fw-bolder">{{ $log->type }}</td>
                                                 <td>
@@ -67,7 +67,7 @@
                                                         class="ti ti-eye"></i> View Details</button>
                                                         <x-logs.view-configuration :log="$log"></x-logs.view-configuration>
                                                 </td>
-                                            </tr>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

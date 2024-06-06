@@ -179,6 +179,7 @@ h3.a {
 
 .shining-text {
     background: linear-gradient(-45deg, #ff6a00, #e0e0e0);
+    /* Diagonal gradient from orange to gold */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% 200%;
