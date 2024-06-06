@@ -160,10 +160,9 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link"> 
-                            {{-- href="{{ route('admin.trucks.index') }} --}}
+                        <a class="sidebar-link" href="{{ route('admin.stations.index') }}">
                             <span>
-                                <i class="ti ti-truck"></i>
+                                <i class="ti ti-home"></i>
                             </span>
                             <span class="hide-menu">Stations</span>
                         </a>

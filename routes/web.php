@@ -12,17 +12,18 @@ use App\Http\Controllers\TrashController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\BarangayController;
+use App\Http\Controllers\PasscodeController;
 use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\ConfigurationLogController;
-use App\Http\Controllers\PasscodeController;
-use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,6 +157,12 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::put('/trucks/edit/{id}', [TruckController::class, 'updateTruck'])->name('trucks.edit');
                 Route::delete('/trucks/delete/{id}', [TruckController::class, 'deleteTruck'])->name('trucks.delete');
 
+                //Stations
+                Route::get('/stations/index', [StationController::class, 'viewStations'])->name('stations.index');
+                Route::put('/stations/update/{id}', [StationController::class, 'updateStations'])->name('stations.update');
+              
+                
+
                 //Occupancy
                 Route::get('/occupancy/index', [OccupancyController::class, 'viewOccupancyNames'])->name('occupancy.index');
                 Route::post('/occupancy/create', [OccupancyController::class, 'createOccupancyName'])->name('occupancy_name.create');
@@ -247,6 +254,7 @@ Route::middleware(['PreventBack'])->group(function () {
 
         //Profile 
         Route::get('/profile/myProfile', [ProfileController::class, 'myProfile'])->name('profile.myProfile');
+        
 
         // User Account
         Route::post('/account/edit', [UsersController::class, 'updateProfile'])->name('profile.update');
