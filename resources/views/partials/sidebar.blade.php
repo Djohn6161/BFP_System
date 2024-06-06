@@ -6,7 +6,7 @@
             <a href="{{ route('admin.dashboard') }}" class="text-nowrap logo-img">
                 <h2
                     style="background-image: linear-gradient(to right, #0b063f, #0f5fd6); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                    <b>BFP-Ligao City</b>
+                    <b>BFP-FIRMS</b>
                 </h2>
 
             </a>
