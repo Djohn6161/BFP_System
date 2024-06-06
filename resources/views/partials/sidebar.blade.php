@@ -182,7 +182,7 @@
                             <span class="hide-menu">Passcodes</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}"
                             href="{{ route('admin.personnel.index') }}">
                             <span> <i class="ti ti-users"></i></span>
@@ -195,7 +195,7 @@
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel Search</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
                 <hr class="my-2">
 

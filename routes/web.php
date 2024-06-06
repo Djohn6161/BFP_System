@@ -190,7 +190,7 @@ Route::middleware(['PreventBack'])->group(function () {
         Route::prefix('reports/operation')->name('operation.')->group(function () {
             Route::get('/index', [OperationController::class, 'operationIndex'])->name('index');
             Route::get('/print/{id}', [OperationController::class, 'printOperation'])->name('print');
-            Route::middleware(['checkPrivilege:OC'])->group(function () {
+            Route::middleware(['checkPrivilege:operation_clerk'])->group(function () {
                 Route::get('/create/form', [OperationController::class, 'operationCreateForm'])->name('create.form');
                 Route::post('/create/submit', [OperationController::class, 'operationStore'])->name('create');
                 Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
@@ -213,7 +213,7 @@ Route::middleware(['PreventBack'])->group(function () {
             Route::get('/spot/print/{spot}', [InvestigationController::class, 'printSpot'])->name('spot.print');
             Route::get('/progress/print/{progress}', [InvestigationController::class, 'printProgress'])->name('progress.print');
             Route::get('/final/print/{final}', [InvestigationController::class, 'printFinal'])->name('final.print');
-            Route::middleware(['checkPrivilege:IC'])->group(function () {
+            Route::middleware(['checkPrivilege:investigation_clerk'])->group(function () {
 
                 Route::post('/export', [ExportController::class, 'exportInvestigation'])->name('export');
                 Route::post('/import', [ImportController::class, 'importInvestigation'])->name('import');
