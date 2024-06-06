@@ -46,7 +46,8 @@
                 @if (auth()->user()->privilege === 'operation_clerk' ||
                         auth()->user()->privilege === 'investigation_clerk' ||
                         auth()->user()->privilege === 'operation_admin_chief' ||
-                        auth()->user()->privilege === 'investigation_admin_chief')
+                        auth()->user()->privilege === 'investigation_admin_chief' ||
+                        auth()->user()->privilege === 'configuration_chief')
                     <p class="">REPORTS</p>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}"
@@ -57,7 +58,7 @@
                             <span class="hide-menu">Operations</span>
                         </a>
                     </li>
-                    @if (auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'investigation_admin_chief')
+                    @if (auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'investigation_admin_chief' || auth()->user()->privilege === 'configuration_chief')
                         <li class="sidebar-item">
                             <div class="accordion accordion-flush {{ $active == 'investigation' ? 'active' : '' }}"
                                 href="{{ route('investigation.index') }}">
@@ -123,7 +124,7 @@
 
 
                 <hr class="my-2">
-                @if (auth()->user()->privilege === 'configuration_cheif')
+                @if (auth()->user()->privilege === 'configuration_chief' || auth()->user()->privilege === 'chief')
                     <p class="">CONFIGURATIONS</p>
 
                     <li class="sidebar-item">
@@ -261,7 +262,7 @@
                                         aria-expanded="true" aria-controls="collapseOne">
                                         <span> <i class="ti ti-trash"></i></span>
                                         <span class="hide-menu">Trash</span>
-                                    </button>   
+                                    </button>
                                 </h2>
                                 <div id="collapseTrash"
                                     class="accordion-collapse {{ $active == 'Investigation' || $active == 'Operation' ? '' : 'collapse' }}"
