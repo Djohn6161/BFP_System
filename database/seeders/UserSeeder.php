@@ -97,70 +97,60 @@ class UserSeeder extends Seeder
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
             [
 
                 'creators_id' => 1,
                 'code' => Str::upper(Str::random(20)),
-                'status' => true,
                 'users_id' => 2,
             ],
 
