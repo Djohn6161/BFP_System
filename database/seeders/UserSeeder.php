@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
         $users = [
 
             // Admin
-
             [
                 'name' => 'Chief',
                 'username' => 'chief',
@@ -49,7 +48,7 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'investigation_admin_chief',
+                'privilege' => 'All',
                 'picture' => 'default.png',
             ],   
 
@@ -64,27 +63,27 @@ class UserSeeder extends Seeder
 
             // User
             [
-                'name' => 'Investigation Clerk',
-                'username' => 'investigation_clerk',
+                'name' => 'user AC',
+                'username' => 'user1',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'investigation_clerk',
+                'privilege' => 'AC',
                 'picture' => 'default.png',
             ],
             [
-                'name' => 'Operation Clerk',
-                'username' => 'operation_clerk',
+                'name' => 'user IC',
+                'username' => 'user2',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'operation_clerk',
+                'privilege' => 'IC',
                 'picture' => 'default.png',
             ],
             [
-                'name' => 'Admin Clerk',
-                'username' => 'admin_clerk',
+                'name' => 'user OC',
+                'username' => 'user3',
                 'password' => Hash::make('12341234'),
                 'type' => 'user',
-                'privilege' => 'admin_clerk',
+                'privilege' => 'OC',
                 'picture' => 'default.png',
             ],
 
