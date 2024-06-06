@@ -27,11 +27,11 @@ class UserSeeder extends Seeder
                 'picture' => 'default.png',
             ],   
             [
-                'name' => 'Configuration Cheif',
-                'username' => 'configuration_cheif',
+                'name' => 'Configuration Chief',
+                'username' => 'configuration_chief',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'configuration_cheif',
+                'privilege' => 'configuration_chief',
                 'picture' => 'default.png',
             ],     
             
@@ -54,11 +54,11 @@ class UserSeeder extends Seeder
             ],   
 
             [
-                'name' => 'Admin Cheif',
-                'username' => 'admin_cheif',
+                'name' => 'Admin Chief',
+                'username' => 'admin_chief',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'admin_cheif',
+                'privilege' => 'admin_chief',
                 'picture' => 'default.png',
             ], 
 
