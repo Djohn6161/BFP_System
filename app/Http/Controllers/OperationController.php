@@ -60,6 +60,7 @@ class OperationController extends Controller
             'transmitted_by' => 'required|string|max:255',
             'caller_address' => 'required|string|max:255',
             'received_by' => 'required',
+            'blotter_number' => 'required|unique:Afor',
         ]);
 
         $afor = new Afor();
