@@ -522,7 +522,7 @@
                     style="display: block; font-weight: normal; margin: 0;">{{ $operation->observation_recommendation }}</label>
                 </section>
                 <br>
-                {{-- <div class="page-break"></div> --}}
+                <div class="page-break"></div>
                 <section class="last">
                     <label>Prepared by:</label>
                     <label id="distance"
