@@ -49,4 +49,10 @@ class User extends Authenticatable
     public function investigationLogs(){
         return $this->hasMany(InvestigationLog::class, 'user_id');
     }
+    public function passcodeCreate(){
+        return $this->hasMany(Passcode::class, 'creators_id');
+    }
+    public function passcode(){
+        return $this->hasMany(Passcode::class, 'users_id');
+    }
 }

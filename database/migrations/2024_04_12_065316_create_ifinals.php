@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('place_of_fire')->nullable();
             $table->string('td_alarm');
             $table->string('establishment_burned');
-            $table->float('damage_to_property');
+            $table->decimal('damage_to_property');
             $table->longText('origin_of_fire');
             $table->longText('cause_of_fire');
             $table->longText('substantiating_documents');

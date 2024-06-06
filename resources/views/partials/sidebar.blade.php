@@ -34,9 +34,14 @@
                             <span class="hide-menu">Personnel</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.personnel.search.index') }}"
+                            class="sidebar-link accordion-body ms-2 reports-collapse">
+                            <span> <i class="ti ti-users"></i></span>
+                            <span class="hide-menu">Personnel Search</span>
+                        </a>
+                    </li>
                 @endif
-
-
                 <hr class="my-2">
                 <p class="">REPORTS</p>
                 <li class="sidebar-item">
@@ -160,9 +165,23 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
+                            <span>
+                                <i class="ti ti-address-book"></i>
+                            </span>
+                            <span class="hide-menu">Passcodes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}">
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $active == 'personnel_search' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.search.index') }}">
+                            <span> <i class="ti ti-users"></i></span>
+                            <span class="hide-menu">Personnel Search</span>
                         </a>
                     </li>
                     <hr class="my-2">

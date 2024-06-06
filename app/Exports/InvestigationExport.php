@@ -22,7 +22,6 @@ class InvestigationExport implements FromCollection, WithStyles, WithColumnWidth
     }
     public function collection()
     {
-        
         // dd($this->investigations);
         foreach ($this->investigations as $investigation) {
             if ($investigation->Minimal != null) {

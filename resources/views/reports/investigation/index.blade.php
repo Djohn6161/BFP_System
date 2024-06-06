@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -21,11 +20,17 @@
                                 @if ($user->privilege == 'IC' || $user->privilege == 'All')
                                     <div class="d-flex column-gap-2">
                                         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                                            data-bs-target="#importInvestigation">
+                                            <i class="ti ti-file-export"></i>
+                                            Import
+                                        </button>
+                                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#exportInvestigation">
                                             <i class="ti ti-file-export"></i>
                                             Export
                                         </button>
                                         <x-reports.export></x-reports.export>
+                                        <x-reports.import></x-reports.import>
                                         <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                             data-bs-target="#chooseInvestigation">
                                             <i class="ti ti-plus"></i>
@@ -41,7 +46,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">#</h6>
+                                                <h6 class="fw-semibold mb-0">Case Number</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -77,7 +82,7 @@
                                         @foreach ($sortedInvestigations as $investigation)
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->case_number }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->for }}</h6>
@@ -90,7 +95,7 @@
                                                         {{ \Carbon\Carbon::parse($investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
-                                                @if ($investigation->minimal != null)
+                                                @if ($investigation->Minimal != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
                                                             @if ($investigation->Minimal->afor)
@@ -101,7 +106,7 @@
                                                     <td>
                                                         <p class="mb-0 fw-normal">Minimal</p>
                                                     </td>
-                                                @elseif($investigation->spot != null)
+                                                @elseif($investigation->Spot != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
                                                             @if ($investigation->Spot->afor)
@@ -121,14 +126,14 @@
                                                 @elseif($investigation->progress != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            @if ($investigation->progress->Spot->afor)
-                                                                Operation <br>
-                                                            @endif
                                                             @if ($investigation->progress->Spot)
+                                                                @if ($investigation->progress->Spot->afor)
+                                                                    Operation <br>
+                                                                @endif
                                                                 Spot <br>
-                                                            @endif
-                                                            @if ($investigation->progress->Spot->final)
-                                                                Final <br>
+                                                                @if ($investigation->progress->Spot->final)
+                                                                    Final <br>
+                                                                @endif
                                                             @endif
                                                         </p>
                                                     </td>
@@ -138,14 +143,14 @@
                                                 @elseif($investigation->final != null)
                                                     <td>
                                                         <p class="mb-0 fw-normal">
-                                                            @if ($investigation->final->Spot->afor)
-                                                                Operation <br>
-                                                            @endif
                                                             @if ($investigation->final->Spot)
+                                                                @if ($investigation->final->Spot->afor)
+                                                                    Operation <br>
+                                                                @endif
                                                                 Spot <br>
-                                                            @endif
-                                                            @if ($investigation->final->Spot->Progress)
-                                                                Progress <br>
+                                                                @if ($investigation->final->Spot->Progress)
+                                                                    Progress <br>
+                                                                @endif
                                                             @endif
                                                         </p>
                                                     </td>

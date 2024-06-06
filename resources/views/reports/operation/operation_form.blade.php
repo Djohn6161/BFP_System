@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="caller" class="form-label">Caller/Reported/Transmitted by:</label>
+                                <label for="caller" class="form-label">Caller/Reported/Originator/Transmitted by:</label>
                                 <input type="text" placeholder="Eg. Juan Cruz"
                                     class="form-control {{ $errors->has('transmitted_by') != '' ? 'is-invalid' : '' }}"
                                     name="transmitted_by" value="{{ old('transmitted_by') }}">
@@ -94,11 +94,16 @@
                                 <input type="text" placeholder="Enter the zone/street" class="form-control"
                                     id="zone" name="zone">
                             </div>
-                            <div class="col-lg-12 mb-3">
+                            <div class="col-lg-6 mb-3">
                                 <label for="otherLocation" class="form-label">Other
                                     Location / Landmark</label>
                                 <input type="text" placeholder="Enter other location" class="form-control"
                                     id="otherLocation" name="location">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="otherLocation" class="form-label">Blotter Number</label>
+                                <input type="text" placeholder="Enter Blotter Number" class="form-control"
+                                    id="otherLocation" name="blotter_number">
                             </div>
                         </div>
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
@@ -113,7 +118,7 @@
                                             name="engine_dispatched[]">
                                             <option value="" selected>Select vehicle</option>
                                             @foreach ($trucks as $truck)
-                                                <option value="{{ $truck->id }}">
+                                                <option value="{{ $truck->name }}">
                                                     {{ $truck->name }}
                                                 </option>
                                             @endforeach
@@ -295,8 +300,6 @@
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">7
-                            </h3>
                             <div class="col-lg-6">
                                 <div class="row">
                                     <h5>Civilian</h5>

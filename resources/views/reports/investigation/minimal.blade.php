@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -32,7 +31,8 @@
                                             <i class="ti ti-plus"></i>
                                             Create
                                         </button>
-                                        <x-reports.create-investigation :spots=$spots :afors=$afors></x-reports.create-investigation>
+                                        <x-reports.create-investigation :spots=$spots
+                                            :afors=$afors></x-reports.create-investigation>
                                     </div>
                                 @endif
                             </div>
@@ -41,7 +41,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">#</h6>
+                                                <h6 class="fw-semibold mb-0">Case Number</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
@@ -55,24 +55,27 @@
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Action</h6>
-                                            </th>
+                                            @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                <th>
+                                                    <h6 class="fw-semibold mb-0">Action</h6>
+                                                </th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                        $sortedInvestigations = $investigations->sortByDesc(function($investigation) {
-                                            return \Carbon\Carbon::parse($investigation->investigation->date);
-                                        });
-                                    @endphp
-                            
-                                    @foreach ($sortedInvestigations as $investigation)
+                                            $sortedInvestigations = $investigations->sortByDesc(function (
+                                                $investigation,
+                                            ) {
+                                                return \Carbon\Carbon::parse($investigation->investigation->date);
+                                            });
+                                        @endphp
+
+                                        @foreach ($sortedInvestigations as $investigation)
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}
-                                                    </h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->case_number }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
@@ -95,22 +98,23 @@
                                                         @endif
                                                     </p>
                                                 </td>
-                                                
+
                                                 <td>
                                                     <p class="mb-0 fw-normal">
                                                         {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
-                                                <td>
-                                                    {{-- {{dd($investigation)}} --}}
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#viewMinimalModal{{ $investigation->id }}"
-                                                        class="btn btn-primary hide-menu w-100 mb-1"><i
-                                                            class="ti ti-eye"></i> View</button>
-                                                            
-                                                    <x-reports.Investigation.view-minimal
-                                                        :investigation=$investigation :personnels=$personnels responses=$responses></x-reports.Investigation.view-minimal>
-                                                    @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                {{-- {{dd($investigation)}} --}}
+                                                @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                    <td>
+                                                        <button type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#viewMinimalModal{{ $investigation->id }}"
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                class="ti ti-eye"></i> View</button>
+
+                                                        <x-reports.Investigation.view-minimal :investigation=$investigation
+                                                            :personnels=$personnels
+                                                            responses=$responses></x-reports.Investigation.view-minimal>
                                                         <a href="{{ route('investigation.minimal.edit', ['minimal' => $investigation->id]) }}"
                                                             class="btn btn-success w-100 mb-1"><i class="ti ti-pencil"></i>
                                                             Update</a>
@@ -122,8 +126,8 @@
                                                                 class="ti ti-trash"></i> Delete</button>
                                                         <x-reports.investigation.investigation-delete :type="'minimal'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
-                                                    @endif
-                                                </td>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignid('afor_id')->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignid('afor_id')->nullable()->constrained('afors')->onUpdate('cascade')->onDelete('set null');
             $table->date('date_occurence');
             $table->string('time_occurence');
             $table->string('barangay')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('occupant');
             $table->integer('fatality')->default(0);
             $table->integer('injured')->default(0);
-            $table->float('estimate_damage');
+            $table->decimal('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
             $table->foreignId('alarm')->constrained('alarm_names')->onUpdate('cascade');;

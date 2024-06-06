@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('investigations', function (Blueprint $table) {
             $table->id();
+            $table->string('case_number');
             $table->string('for');
             $table->string('subject');
             $table->date('date');

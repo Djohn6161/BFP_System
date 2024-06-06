@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('extension')->nullable();
             $table->string('contact_number')->nullable(); 
+            $table->string('emergency_contact_number')->nullable(); 
             $table->date('date_of_birth')->nullable();
             $table->string('maritam_status')->nullable();
             $table->string('gender');

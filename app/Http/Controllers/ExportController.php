@@ -11,6 +11,7 @@ use App\Exports\MinimalExport;
 use App\Exports\ProgressExport;
 use App\Exports\operationExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class exportController extends Controller
 {
@@ -103,9 +104,6 @@ class exportController extends Controller
             return redirect()->back()->with("success", 'Successfully Exported');
         }
 
-
-        // dd($investigations);
-
     }
 
     public function exportOperation(Request $request)
@@ -115,25 +113,14 @@ class exportController extends Controller
             'exportFrom' => 'required|date_format:Y-m-d',
             'exportTo' => 'required|date_format:Y-m-d|after_or_equal:dateFrom',
         ]);
-        // dd($request->all());
-        // dd($validated['dateFrom']);
-        // if ($validated['Type'] == "Minimal") {
-        //     $investigations = Investigation::has('Minimal')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        // } else if ($validated['Type'] == "Spot") {
-        //     $investigations = Investigation::has('Spot')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        // } else if ($validated['Type'] == "Progress") {
-        //     $investigations = Investigation::has('progress')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        // } else if ($validated['Type'] == "Final") {
-        //     $investigations = Investigation::has('final')->whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        // } else {
-        //     $investigations = Investigation::whereBetween('date', [$validated['dateFrom'], $validated['dateTo']])->get();
-        // }
         $operations = Afor::whereBetween('created_at', [$validated['exportFrom'], $validated['exportTo']])->get();
         $exportFileName = 'Operation.xlsx';
+        
         try {
-            return Excel::download(new operationExport($operations), $exportFileName);
+            return Excel::download(new OperationExport($operations), $exportFileName);
         } catch (\Throwable $th) {
            return redirect()->back()->with('status', 'There is no data available or an error occured');
         }
     }
+
 }

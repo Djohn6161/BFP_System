@@ -18,8 +18,11 @@ use App\Models\Occupancy_name;
 use App\Models\Used_equipment;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
+use App\Models\Passcode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class OperationController extends Controller
@@ -74,6 +77,7 @@ class OperationController extends Controller
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
+            'blotter_number' => $request->input('blotter_number') ?? '',
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
@@ -260,6 +264,16 @@ class OperationController extends Controller
             $afor->save();
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an Operation Report with an alarm received by " . $afor->received_by,
+            'action' => "Store",
+        ]);
+
+        $log->save();
+
         return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
@@ -312,6 +326,20 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
+        $passcodes = Passcode::where('type', "OC")->where('action', 'update')->get();
+        $passcodeStatus = false;
+        
+        foreach ($passcodes as $passcode) {
+            if ($request->input('passcode') == $passcode->code) {
+                $passcodeStatus = true;
+                break; // Stop checking once a match is found
+            }
+        }
+        
+        if(!$passcodeStatus){
+            return redirect('/reports/operation/index')->with('status', "Passcode doesn't match.");
+        }
+
         if ($request->has('barangay_name')) {
             $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
         } else {
@@ -327,6 +355,7 @@ class OperationController extends Controller
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
             'full_location' => $location,
+            'blotter_number' => $request->input('blotter_number'),
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'details' => $request->input('details') ?? '',
@@ -374,7 +403,7 @@ class OperationController extends Controller
             // Check if the index of the existing response is not present in the request
             if (!in_array($index, $requestIndexes)) {
                 $string = $string . "Response Info: <br>";
-                $string = $string . "<li>" . "<b> Engine Dispatched: </b>" . $existingResponse->truck->name . " -> Deleted</li>";
+                $string = $string . "<li>" . "<b> Engine Dispatched: </b>" . $existingResponse->engine_dispatched . " -> Deleted</li>";
 
                 $existingResponse->delete();
                 $status = true;
@@ -409,15 +438,14 @@ class OperationController extends Controller
 
                 if ($responseChange) {
                     $status = true;
-                    $string = $string . "Engine Dispatched:" . $existingResponse->truck->name . "<br> Update: <br>";
+                    $string = $string . "Engine Dispatched:" . $existingResponse->engine_dispatched . "<br> Update: <br>";
 
                     foreach ($responseChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
                         $format = ucwords($format);
-                        $engineResponse = Truck::where('id', $change)->first();
 
                         if ($format == "Engine Dispatched") {
-                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->truck->name . " -> " . $engineResponse->name . "</li>";
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse->engine_dispatched . " -> " . $change . "</li>";
                         } else {
                             $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingResponse[$index] . " -> " . $change . "</li>";
                         }
@@ -996,16 +1024,6 @@ class OperationController extends Controller
             $existOperation->save();
         }
 
-        $log = new AforLog();
-        $log->fill([
-            'afor_id' => $afor_id,
-            'user_id' => auth()->user()->id,
-            'details' => "Created an AFOR Report about the operation in " . $afor->location,
-            'action' => "Store",
-        ]);
-        $log->save();
-        
-
         if ($status) {
 
             $log = new AforLog();
@@ -1027,6 +1045,20 @@ class OperationController extends Controller
 
     public function operationDelete($id, Request $request)
     {
+        $passcodes = Passcode::where('type', "OC")->where('action', 'delete')->get();
+        $passcodeStatus = false;
+        
+        foreach ($passcodes as $passcode) {
+            if ($request->input('passcode') == $passcode->code) {
+                $passcodeStatus = true;
+                break; // Stop checking once a match is found
+            }   
+        }
+        
+        if(!$passcodeStatus){
+            return redirect('/reports/operation/index')->with('status', "Passcode doesn't match.");
+        }
+
         $operation = Afor::find($id);
         $currentDateTime = Carbon::now();
         $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');

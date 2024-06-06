@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -42,9 +41,9 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">#</h6>
+                                                <h6 class="fw-semibold mb-0">Case Number</h6>
                                             </th>
-                                            
+
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">For</h6>
                                             </th>
@@ -57,14 +56,18 @@
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Action</h6>
-                                            </th>
+                                            @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                <th>
+                                                    <h6 class="fw-semibold mb-0">Action</h6>
+                                                </th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                            $sortedInvestigations = $investigations->sortByDesc(function ($investigation) {
+                                            $sortedInvestigations = $investigations->sortByDesc(function (
+                                                $investigation,
+                                            ) {
                                                 return \Carbon\Carbon::parse($investigation->investigation->date);
                                             });
                                         @endphp
@@ -73,10 +76,12 @@
                                             <tr>
                                                 {{-- {{dd($investigation)}} --}}
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}</h6>
+                                                    <h6 class="fw-semibold mb-0">
+                                                        {{ $investigation->investigation->case_number }}</h6>
                                                 </td>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $investigation->investigation->for }}
+                                                    </h6>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 fw-normal">{{ $investigation->investigation->subject }}
@@ -92,9 +97,9 @@
                                                         @endif
                                                         @if ($investigation->spot)
                                                             Spot <br>
-                                                        @endif
-                                                        @if ($investigation->spot->progress)
-                                                            Progress <br>
+                                                            @if ($investigation->spot->progress)
+                                                                Progress <br>
+                                                            @endif
                                                         @endif
                                                     </p>
                                                 </td>
@@ -103,14 +108,15 @@
                                                         {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
-                                                <td>
-                                                    <button type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#viewFinalModal{{ $investigation->id }}"
-                                                        class="btn btn-primary hide-menu w-100 mb-1"><i
-                                                            class="ti ti-eye"></i> View</button>
-                                                    <x-reports.Investigation.view-final :responses=$responses :personnels=$personnels
-                                                        :investigation=$investigation></x-reports.Investigation.view-final>
-                                                    @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                    <td>
+                                                        <button type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#viewFinalModal{{ $investigation->id }}"
+                                                            class="btn btn-primary hide-menu w-100 mb-1"><i
+                                                                class="ti ti-eye"></i> View</button>
+                                                        <x-reports.Investigation.view-final :responses=$responses
+                                                            :personnels=$personnels
+                                                            :investigation=$investigation></x-reports.Investigation.view-final>
                                                         <x-reports.investigation.investigation-delete :type="'final'"
                                                             :investigation=$investigation></x-reports.investigation.investigation-delete>
                                                         <a href="{{ route('investigation.final.edit', ['final' => $investigation->id]) }}"
@@ -121,8 +127,8 @@
                                                             data-bs-target="#deleteModal{{ $investigation->id }}"
                                                             class="btn btn-danger hide-menu w-100 mb-1"><i
                                                                 class="ti ti-trash"></i> Delete</button>
-                                                    @endif
-                                                </td>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

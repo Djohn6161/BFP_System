@@ -21,7 +21,9 @@ $(document).ready(function () {
     $(".personnelReceive").select2();
     $(".barangayApor").select2();
     $(".zoneApor").select2();
-    $(".engineDispatched").select2();
+    $(".engineDispatched").select2({
+        tags: true,
+    });
     $(".alarmStatus").select2();
     $(".alarmApor").select2();
     $(".fundCommander").select2();

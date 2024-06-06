@@ -16,7 +16,7 @@
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
-                                <h5 class="mb-0 text-light card-title fw-semibold">Personnels</h5>
+                                <h5 class="mb-0 text-light card-title fw-semibold">Personnel</h5>
                                 <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                     data-bs-target="#addPersonnelModal">
                                     <i class="ti ti-plus"></i>
@@ -43,7 +43,7 @@
                                                     @endif
                                                 @endforeach
                                                 <span
-                                                    class="ms-3 badge rounded-pill bg-secondary">{{ $count }}</span>
+                                                    class="ms-3 badge rounded-pill bg-secondary text-dark">{{ $count }}</span>
                                             </button>
                                         </h2>
                                         <div id="flush-collapse{{ $loop->index + 1 }}" class="accordion-collapse collapse"
@@ -52,7 +52,7 @@
                                                 @foreach ($personnels as $personnel)
                                                     @if ($personnel->ranks_id == $rank->id)
                                                         <div class="card justify-content-center m-2"
-                                                            style="width: calc(25% - 1rem); p-1;">
+                                                        style="width: calc(25% - 1rem); padding: 0.25rem;">
                                                             <a href="{{ route('admin.personnel.view', $personnel->id) }}">
                                                                 <div class="col py-2">
                                                                     <img src="{{ asset('assets/images/personnel_images/'.$personnel->picture) }}"

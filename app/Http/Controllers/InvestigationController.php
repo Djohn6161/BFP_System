@@ -138,6 +138,7 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
+            'case_number' => 'required',
         ]);
         // dd($validatedData);
         $investigation = new Investigation();
@@ -154,6 +155,7 @@ class InvestigationController extends Controller
         }
 
         $investigation->fill([
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
@@ -234,10 +236,12 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
+            'case_number' => 'required',
         ]);
         $investigation = new Investigation();
         $progress = new Progress();
         $investigation->fill([
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
@@ -316,6 +320,7 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
+            'case_number' => 'required',
         ]);
         // dd($validatedData);
         $investigation = new Investigation();
@@ -333,6 +338,7 @@ class InvestigationController extends Controller
 
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
         $investigation->fill([
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
@@ -437,6 +443,7 @@ class InvestigationController extends Controller
             'findings' => 'nullable',
             'recommendation' => 'nullable',
             'photos' => 'nullable',
+            'case_number' => 'required'
         ]);
         $investigation = new Investigation();
         $minimal = new Minimal();
@@ -451,6 +458,7 @@ class InvestigationController extends Controller
             $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $investigation->fill([
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
             'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
@@ -537,12 +545,14 @@ class InvestigationController extends Controller
             'recommendation' => 'nullable',
             'curPhoto' => 'nullable',
             'photos' => 'nullable',
+            'case_number' => 'required',
         ]);
         // dd($validatedData, $request->all());
 
         $inves = Investigation::findOrFail($minimal->investigation_id);
         $originalInvestigationData = $inves->getOriginal();
         $updateInve = [
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
             'date' => $validatedData['date'],
@@ -688,11 +698,13 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
+            'case_number' => 'required',
         ]);
 
         $investigation = Investigation::findOrFail($spot->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $updateInve = [
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
             'date' => $validatedData['date'],
@@ -700,13 +712,13 @@ class InvestigationController extends Controller
         $investigation->touch();
         $investigation->update($updateInve);
         $location = "";
-        if($request->input('landmark')){
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
-        if($request->input('zone_street')){
+        if ($request->input('zone_street')) {
             $location = $location . ', ' .  $request->input('zone_street');
         }
-        if($request->input('barangay')){
+        if ($request->input('barangay')) {
             $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $updatedSpot = [
@@ -780,9 +792,11 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
+            'case_number' => 'required',
         ]);
         $investigation = Investigation::findOrFail($progress->investigation_id);
         $updateInve = [
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'],
             'subject' => $validatedData['subject'],
             'date' => $validatedData['date'],
@@ -870,23 +884,25 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
+            'case_number' => 'required'
         ]);
         // dd($validatedData);
 
         $investigation = Investigation::find($final->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $location = "";
-        if($request->input('landmark')){
+        if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
-        if($request->input('zone_street')){
+        if ($request->input('zone_street')) {
             $location = $location . ', ' .  $request->input('zone_street');
         }
-        if($request->input('barangay')){
+        if ($request->input('barangay')) {
             $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
         }
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date_alarm') != null ? date('Y-m-d', strtotime($request->input('date_alarm'))) : '');
         $updateInve = [
+            'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'] ?? '',
             'subject' => $validatedData['subject'] ?? '',
             'date' =>  $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',

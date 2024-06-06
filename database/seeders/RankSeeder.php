@@ -15,59 +15,59 @@ class RankSeeder extends Seeder
     {
         $ranks = [
             [
-                'slug' => 'FO1',
-                'name' => 'Fire Officer 1',
-            ],      
-            [
-                'slug' => 'FO2',
-                'name' => 'Fire Officer 2',
-            ],
-            [
-                'slug' => 'FO3',
-                'name' => 'Fire Officer 3',
-            ],
-            [
-                'slug' => 'SO1',
-                'name' => 'Senior Officer 1',
-            ],
-            [
-                'slug' => 'SO2',
-                'name' => 'Senior Officer 2',
-            ],
-            [
-                'slug' => 'SO3',
-                'name' => 'Senior Officer 3',
-            ],
-            [
-                'slug' => 'SO4',
-                'name' => 'Senior Officer 4',
-            ],
-            [
-                'slug' => 'I',
-                'name' => 'Inspector',
-            ],
-            [
-                'slug' => 'SI',
-                'name' => 'Senior Inspector',
-            ],
-            [
-                'slug' => 'CI',
-                'name' => 'Chief Inspector',
-            ],
-            [
-                'slug' => 'S',
-                'name' => 'Superintendent',
+                'slug' => 'D',
+                'name' => 'Director',
             ],
             [
                 'slug' => 'SS',
                 'name' => 'Senior Superintendent',
             ],
             [
-                'slug' => 'D',
-                'name' => 'Director',
+                'slug' => 'S',
+                'name' => 'Superintendent',
             ],
+            [
+                'slug' => 'CI',
+                'name' => 'Chief Inspector',
+            ],
+            [
+                'slug' => 'SI',
+                'name' => 'Senior Inspector',
+            ],
+            [
+                'slug' => 'I',
+                'name' => 'Inspector',
+            ],
+            [
+                'slug' => 'SO4',
+                'name' => 'Senior Officer 4',
+            ],
+            [
+                'slug' => 'SO3',
+                'name' => 'Senior Officer 3',
+            ],
+            [
+                'slug' => 'SO2',
+                'name' => 'Senior Officer 2',
+            ],
+            [
+                'slug' => 'SO1',
+                'name' => 'Senior Officer 1',
+            ],
+            [
+                'slug' => 'FO3',
+                'name' => 'Fire Officer 3',
+            ],
+            [
+                'slug' => 'FO2',
+                'name' => 'Fire Officer 2',
+            ],
+            [
+                'slug' => 'FO1',
+                'name' => 'Fire Officer 1',
+            ],      
         ];
-
+        
         DB::table('ranks')->insert($ranks);
     }
 }

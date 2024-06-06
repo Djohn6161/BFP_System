@@ -58,3 +58,7 @@ $("#trucksTable").DataTable({
   "ordering": false,
 });
 $("#invesLog").DataTable();
+$("#personnelTable").DataTable({
+  "ordering": false,
+});
+
