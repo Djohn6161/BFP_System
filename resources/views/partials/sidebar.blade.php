@@ -149,6 +149,15 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link"> 
+                            {{-- href="{{ route('admin.trucks.index') }} --}}
+                            <span>
+                                <i class="ti ti-truck"></i>
+                            </span>
+                            <span class="hide-menu">Stations</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
                             <span>
                                 <i class="ti ti-badge"></i>
