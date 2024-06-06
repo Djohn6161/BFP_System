@@ -46,8 +46,7 @@
                 @if (auth()->user()->privilege === 'operation_clerk' ||
                         auth()->user()->privilege === 'investigation_clerk' ||
                         auth()->user()->privilege === 'operation_admin_chief' ||
-                        auth()->user()->privilege === 'investigation_admin_chief' ||
-                        auth()->user()->privilege === 'configuration_chief')
+                        auth()->user()->privilege === 'investigation_admin_chief')
                     <p class="">REPORTS</p>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}"
