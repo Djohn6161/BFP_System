@@ -88,7 +88,7 @@ Route::middleware(['PreventBack'])->group(function () {
             Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
         });
         Route::prefix('admin')->name('admin.')->group(function () {
-            Route::middleware(['checkPrivilege:AC'])->group(function () {
+            Route::middleware(['checkPrivilege:admin_clerk'])->group(function () {
                 // Route::get('/personnel/index', [AdminController::class, 'viewPersonnel'])->name('personnel.index');
                 // Route::get('/personnel/create', [AdminController::class, 'createPersonnel'])->name('personnel.create');
                 // Route::get('/personnel/view', [AdminController::class, 'reviewPersonnel'])->name('personnel.view');
