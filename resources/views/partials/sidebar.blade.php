@@ -45,6 +45,7 @@
                 <hr class="my-2">
                 <p class="">REPORTS</p>
                 <li class="sidebar-item">
+                    
                     <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}"
                         href="{{ route('operation.index') }}">
                         <span>
