@@ -32,6 +32,7 @@ class AforSeeder extends Seeder
                 'zone' => 'Zone 1',
                 'location' => 'Mayon',
                 'full_location' => $full_location,
+                'blotter_number' => 'OPT2024_' . $index,
                 'received_by' => $faker->numberBetween(1, 16),
                 'td_under_control' => null,
                 'td_declared_fireout' => null,

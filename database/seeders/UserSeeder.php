@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,13 +18,48 @@ class UserSeeder extends Seeder
 
             // Admin
             [
-                'name' => 'admin',
+                'name' => 'Chief',
+                'username' => 'chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'chief',
+                'picture' => 'default.png',
+            ],   
+            [
+                'name' => 'Configuration Chief',
+                'username' => 'configuration_chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'configuration_chief',
+                'picture' => 'default.png',
+            ],     
+            
+            [
+                'name' => 'Operation Admin Chief',
+                'username' => 'operation_admin_chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'operation_admin_chief',
+                'picture' => 'default.png',
+            ],   
+
+            [
+                'name' => 'Investigation Admin Chief',
                 'username' => 'admin',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
                 'privilege' => 'All',
                 'picture' => 'default.png',
-            ],      
+            ],   
+
+            [
+                'name' => 'Admin Chief',
+                'username' => 'admin_chief',
+                'password' => Hash::make('12341234'),
+                'type' => 'admin',
+                'privilege' => 'admin_chief',
+                'picture' => 'default.png',
+            ], 
 
             // User
             [
@@ -57,25 +93,74 @@ class UserSeeder extends Seeder
             
             //Operation
             [
-                'type' => 'OC',
-                'action' => 'update',
-                'code' => 'update1234'
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
             ],
             [
-                'type' => 'OC',
-                'action' => 'delete',
-                'code' => 'delete1234'
-            ],
-            // Investigation
-            [
-                'type' => 'IC',
-                'action' => 'update',
-                'code' => 'update1234'
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
             ],
             [
-                'type' => 'IC',
-                'action' => 'delete',
-                'code' => 'delete1234'
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
+            ],
+            [
+
+                'creators_id' => 1,
+                'code' => Str::upper(Str::random(20)),
+                'status' => true,
+                'users_id' => 2,
             ],
 
         ];

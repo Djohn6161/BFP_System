@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('minimals', function (Blueprint $table) {
             $table->id();
             $table->foreignid('investigation_id')->constrained('investigations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignid('afor_id')->constrained('afors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignid('afor_id')->nullable()->constrained('afors')->onUpdate('cascade')->onDelete('set null');
             $table->string('dt_actual_occurence');
             $table->string('dt_reported');
             $table->string('barangay')->nullable();

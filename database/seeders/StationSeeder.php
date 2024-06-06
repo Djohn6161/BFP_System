@@ -13,7 +13,10 @@ class StationSeeder extends Seeder
     public function run(): void
     {
         $attributes = [
-            'name' => 'Bureau of Fire Protection Ligao City'
+            'name' => 'Fire Incidents Reports Management System',
+            'caseNumberTemp' => "INV2024_",
+            'blotterNumberTemp' => "OPT2024_",
+            'acronym' => "FIRMS",
         ];
 
         DB::table('stations')->insert($attributes);

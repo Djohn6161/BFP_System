@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->id();
-            $table->string("Name");
+            $table->string("name");
+            $table->string("caseNumberTemp");
+            $table->string("blotterNumberTemp");
+            $table->string("acronym");
             $table->timestamps();
         });
     }

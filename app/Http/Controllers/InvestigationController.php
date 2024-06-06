@@ -138,7 +138,7 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
         // dd($validatedData);
         $investigation = new Investigation();
@@ -236,7 +236,7 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
         $investigation = new Investigation();
         $progress = new Progress();
@@ -320,7 +320,7 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
         // dd($validatedData);
         $investigation = new Investigation();
@@ -443,7 +443,7 @@ class InvestigationController extends Controller
             'findings' => 'nullable',
             'recommendation' => 'nullable',
             'photos' => 'nullable',
-            'case_number' => 'required'
+            'case_number' => 'required|unique:investigations,case_number'
         ]);
         $investigation = new Investigation();
         $minimal = new Minimal();
@@ -545,7 +545,7 @@ class InvestigationController extends Controller
             'recommendation' => 'nullable',
             'curPhoto' => 'nullable',
             'photos' => 'nullable',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
         // dd($validatedData, $request->all());
 
@@ -698,7 +698,7 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
 
         $investigation = Investigation::findOrFail($spot->investigation_id);
@@ -792,7 +792,7 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required',
+            'case_number' => 'required|unique:investigations,case_number',
         ]);
         $investigation = Investigation::findOrFail($progress->investigation_id);
         $updateInve = [
@@ -884,8 +884,8 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
-            'case_number' => 'required'
-        ]);
+            'case_number' => 'required|unique:investigations,case_number'
+    ]);
         // dd($validatedData);
 
         $investigation = Investigation::find($final->investigation_id);
