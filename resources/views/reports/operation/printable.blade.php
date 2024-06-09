@@ -174,14 +174,6 @@
 </head>
 
 <body>
-    <div style="margin: 30px;">
-        <div style="display: flex; justify-content: space-between;">
-            <a id="back-btn" style="padding: 10px 30px; border-radius: 30px;"
-             href="{{ route('investigation.spot.index') }}" class="btn btn-primary">Back</a>
-            <button id="download-btn" class="btn btn-primary" style="padding: 10px 30px; border-radius: 30px;"
-                    onclick="download(this)">PRINT</button>
-        </div>
-    </div>
     <div class="header">
         <div class="header-content">
             <div class="header-top">
@@ -280,7 +272,7 @@
                         </tr>
                         @foreach ($operation->responses as $response)
                             <tr>
-                                <td>{{ $response->engine_dispatched }}</td>
+                                <td>{{ $response->truck->name }}</td>
                                 <td>{{ $response->time_dispatched }}</td>
                                 <td>{{ $response->time_arrived_at_scene }}</td>
                                 <td>{{ $response->response_duration }}</td>
