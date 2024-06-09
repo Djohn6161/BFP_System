@@ -32,5 +32,7 @@ $(document).ready(function () {
     $(".rankName").select2();
     $(".designation").select2({tags: true});
     $("#barangay-select").select2();
+    $("#userschoice").select2({dropdownParent: $("#generatePasscodeModal")});
+    
     new DataTable('#barangayTable');
 });

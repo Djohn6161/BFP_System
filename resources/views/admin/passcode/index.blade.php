@@ -15,55 +15,41 @@
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
-                                <h5 class="mb-0 text-light card-title fw-semibold">Passcodes</h5>
+                                <h5 class="mb-0 text-light card-title fw-semibold">Available Passcodes</h5>
                                 <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#addPasscodeModal">
+                                    data-bs-target="#generatePasscodeModal">
                                     <i class="ti ti-plus"></i>
-                                    Create
+                                    Generate
                                 </button>
-                                <x-passcode.create :category="$active"></x-passcode.create>
+                                {{-- {{dd($users)}} --}}
+                                <x-passcode.generate :category="$active" :users=$users></x-passcode.generate>
                             </div>
                             <div class="accordion accordion-flush table-responsive" id="accordionRankPersonnel">
                                 <table class="table mb-0 align-middle w-100" id="operationTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th style="max-width:10%">
-                                                <h6 class="fw-semibold mb-0">Given For</h6>
+                                                <h6 class="fw-semibold mb-0">Created For</h6>
                                             </th>
                                             <th class="fw-semibold mb-0">CODE
                                             </th>
-                                            <th class="fw-semibold mb-0">STATUS
-                                            </th>
-                                            <th class="fw-semibold mb-0 text-center">Action
+                                            <th class="fw-semibold mb-0">Date Created
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        @foreach ($passcodes as $passcode)
-                                            <x-passcode.edit :passcode="$passcode"> </x-passcode.edit>
-                                            <x-passcode.delete :passcode="$passcode"> </x-passcode.delete>
+                                        @php
+                                            $sortedpasscodes = $passcodes->sortByDesc(function (
+                                                $passcodes,
+                                            ) {
+                                                return \Carbon\Carbon::parse($passcodes->created_at);
+                                            });
+                                        @endphp
+                                        @foreach ($sortedpasscodes as $passcode)
                                             <tr>
                                                 <td>{{ $passcode->user->username }}</td>
                                                 <td>{{ $passcode->code }}</td>
-                                                <td>{{ $passcode->status == true ? "Active" : "Used" }}</td>
-                                                <td class="w-25 py-2"> 
-                                                    <div class="d-flex flex-row">
-                                                        <div class="me-1">
-                                                            <button class="btn btn-success w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#ediPasscodeModal{{ $passcode->id }}">
-                                                                <i class="ti ti-pencil"></i>
-                                                                Update
-                                                            </button>
-                                                        </div>
-                                                        <div class="me-1">
-                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#deletePasscodeModal{{ $passcode->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <td>{{ $passcode->created_at }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

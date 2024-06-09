@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -94,63 +95,93 @@ class UserSeeder extends Seeder
             //Operation
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
 
         ];

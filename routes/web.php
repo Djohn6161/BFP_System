@@ -143,9 +143,10 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::middleware(['checkPrivilege:investigation_admin_chief,operation_admin_chief,configuration_chief'])->group(function () {
                     // Passcode
                     Route::get('/passcode/index', [PasscodeController::class, 'passcodeIndex'])->name('passcode.index');
-                    Route::post('/passcode/store', [PasscodeController::class, 'storePasscode'])->name('passcode.store');
-                    Route::put('/passcode/{id}/update', [PasscodeController::class, 'updatePasscode'])->name('passcode.update');
-                    Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');
+                    Route::post('/passcode/generate', [PasscodeController::class, 'passcodeGenerate'])->name('passcode.generate');
+                    // Route::post('/passcode/store', [PasscodeController::class, 'storePasscode'])->name('passcode.store');
+                    // Route::put('/passcode/{id}/update', [PasscodeController::class, 'updatePasscode'])->name('passcode.update');
+                    // Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');
 
                     //Logs 
                     Route::middleware(['checkPrivilege:investigation_admin_chief'])->group(function () {
