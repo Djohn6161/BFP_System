@@ -1,5 +1,6 @@
 @extends('layouts.user-template')
 @section('content')
+
                             
     <div class="container-fluid">
         <nav aria-label="breadcrumb" class="p-2 fw-bolder">
@@ -24,19 +25,29 @@
                                 <table class="table table-hover table-striped" id="myTable">
                                     <thead class="text-dark">
                                         <tr>
-                                            <th class="text-center">Date and Time</th>
-                                            <th class="text-center">ID - User</th>
-                                            <th class="text-center">Alarm Received</th>
+                                            <th>Date and Time</th>
+                                            <th>ID - User</th>
+                                            <th>Alarm Received</th>
                                             <th class="text-center">Changes Made</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        @foreach ($logs as $log)
+                                        @php
+                                        $sortedLogs = $logs->sortByDesc(function (
+                                            $log,
+                                        ) {
+                                            return \Carbon\Carbon::parse($log->updated_at);
+                                        });
+                                    @endphp
+
+                                    @foreach ($sortedLogs as $log)
+                                            {{-- {{dd($log->user)}} --}}
+
                                             <tr class="text-dark">
-                                                <td class="text-center">{{ $log->updated_at }}</td>
-                                                <td class="text-center">{{ $log->user->id . " - " . $log->user->name }}</td>
-                                                <td class="text-center">{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
+                                                <td>{{ $log->updated_at }}</td>
+                                                <td>{{ $log->user->id . " - " . $log->user->name }}</td>
+                                                <td>{{ $log->afor != null ?     $log->afor->alarm_received : 'Unavailable' }}
                                                 </td>
                                                 <td>
                                                 @if ($log->action == 'Delete')
@@ -56,9 +67,10 @@
                                                         class="ti ti-eye"></i> View Details</button>
                                                         <x-logs.view-operation :log="$log"></x-logs.view-operation>
                                                 </td>
-                                            </tr>
+                                        </tr>
                                         @endforeach
-                                        <!-- Add more rows as needed -->
+
+
                                     </tbody>
                                 </table>
                             </div>
