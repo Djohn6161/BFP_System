@@ -110,42 +110,6 @@
 
 
 
-
-
-    <!-- TABLE 2 -->
-    <p style="font-size: 12px;"> 2</p>
-
-    <div>
-        <table style="font-size: 6px;">
-
-            <tr>
-                <td style="text-align: center;"><b>ENGINE <br> DISPATCHED</b></td>
-                <td style="text-align: center;"> <b>TIME <br> DISPATCHED </b></td>
-                <td style="text-align: center;"><b>TIME ARRIVED AT <br> FIRE SCENE</b></td>
-                <td style="text-align: center;"><b>RESPONSE TIME <br> (TIME RECEIVED CALL- TIME ARRIVED AT FIRE
-                        SCENE) in minutes</b></td>
-                <td style="text-align: center;"><b>TIME RETURNED TO THE BASE</b></td>
-                <td style="text-align: center;"><b>WATER TANK REFILLED <br> (GAL)</b></td>
-                <td style="text-align: center;"><b>GAS CONSUMED<br> (L)</b></td>
-            </tr>
-
-            <!-- Row 2 -->
-            @foreach ($operation->responses as $response)
-                <tr>
-                    <td style="font-size: 13px;">{{ $response->engine_dispatched }}</td>
-                    <td style="font-size: 13px;">{{ $response->time_dispatched }}</td>
-                    <td style="font-size: 13px;">{{ $response->time_arrived_at_scene }}</td>
-                    <td style="font-size: 13px;">{{ $response->response_duration }}</td>
-                    <td style="font-size: 13px;">{{ $response->time_return_to_base }}</td>
-                    <td style="font-size: 13px;">{{ $response->water_tank_refilled }}</td>
-                    <td style="font-size: 13px;">{{ $response->gas_consumed }}</td>
-                </tr>
-            @endforeach
-
-            <!-- Row 3 -->
-        </table>
-    </div>
-
     <div class="container">
         <header>
             <div class="header-top">
@@ -235,7 +199,7 @@
                 </tr>
                 @foreach ($operation->responses as $response)
                     <tr>
-                        <td>{{ $response->truck->name }}</td>
+                        <td>{{ $response->engine_dispatched }}</td>
                         <td>{{ $response->time_dispatched }}</td>
                         <td>{{ $response->time_arrived_at_scene }}</td>
                         <td>{{ $response->response_duration }}</td>
@@ -313,7 +277,7 @@
                         </tr>
                         @foreach ($operation->responses as $response)
                             <tr>
-                                <td style="text-align: center;">{{ $response->truck->name }}</td>
+                                <td style="text-align: center;">{{ $response->engine_dispatched }}</td>
                                 <td style="text-align: center;">{{ $response->time_dispatched }}</td>
                                 <td style="text-align: center;">{{ $response->time_arrived_at_scene }}</td>
                                 <td style="text-align: center;">{{ $response->response_duration }}</td>

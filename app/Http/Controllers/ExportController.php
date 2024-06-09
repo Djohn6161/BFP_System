@@ -10,6 +10,7 @@ use App\Models\Investigation;
 use App\Exports\MinimalExport;
 use App\Exports\ProgressExport;
 use App\Exports\operationExport;
+use DateTime;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -114,7 +115,8 @@ class exportController extends Controller
             'exportTo' => 'required|date_format:Y-m-d|after_or_equal:dateFrom',
         ]);
         $operations = Afor::whereBetween('created_at', [$validated['exportFrom'], $validated['exportTo']])->get();
-        $exportFileName = 'Operation.xlsx';
+        $currentDateAndTime = (new DateTime())->format('Y-m-d_h:i:sa');
+        $exportFileName = 'Operation_'. $currentDateAndTime . '.xlsx';
 
         try {
             return Excel::download(new OperationExport($operations), $exportFileName);
