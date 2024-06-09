@@ -14,16 +14,15 @@ class checkPrivilege
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$operation): Response
+    public function handle(Request $request, Closure $next, $operation): Response
     {
         $user = Auth::user();
         // $userPrivilege = $user->privilege;
         // dd($user->privilege, $operation);
-        foreach ($operation as $opt) {
-            if ($user->privilege == $opt) {
-                return $next($request);
-            }
+        if ($user->privilege == $operation || $user->privilege == 'All') {
+            return $next($request);
+        }else{
+            return redirect()->route($user->type . '.dashboard')->with('status', 'Access denied. You are not authorized to perform this action.');
         }
-        return redirect()->route($user->type . '.dashboard')->with('status', 'Access denied. You are not authorized to perform this action.');
     }
 }

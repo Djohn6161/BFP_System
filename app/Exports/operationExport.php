@@ -3,8 +3,6 @@
 namespace App\Exports;
 
 use App\Models\Afor;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
 use App\Models\Casualty;
@@ -12,6 +10,8 @@ use App\Models\Declared_alarm;
 use App\Models\Occupancy;
 use App\Models\Response;
 use App\Models\Used_equipment;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
 
 class OperationExport implements FromCollection, WithHeadings
