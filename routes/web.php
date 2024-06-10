@@ -177,7 +177,7 @@ Route::middleware(['PreventBack'])->group(function () {
                     Route::post('/passcode/generate', [PasscodeController::class, 'passcodeGenerate'])->name('passcode.generate');
                     // Route::post('/passcode/store', [PasscodeController::class, 'storePasscode'])->name('passcode.store');
                     // Route::put('/passcode/{id}/update', [PasscodeController::class, 'updatePasscode'])->name('passcode.update');
-                    // Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');
+                    // Route::delete('/passcode/{id}', [PasscodeController::class, 'deletePasscode'])->name('passcode.delete');F
 
                 // Passcode
                 // Route::get('/passcode/index', [PasscodeController::class, 'passcodeIndex'])->name('passcode.index');
@@ -189,6 +189,7 @@ Route::middleware(['PreventBack'])->group(function () {
                 Route::get('/logs/investigation/viewLogs', [LogsController::class, 'logsInvestigationIndex'])->name('logs.investigation.viewLogs');
                 Route::get('/logs/operation/viewLogs', [LogsController::class, 'logsOperationIndex'])->name('logs.operation.viewLogs');
                 Route::get('/logs/configuration/viewLogs', [ConfigurationLogController::class, 'index'])->name('logs.configuration.viewLogs');
+                });
             });
             // Dashboard
         });
