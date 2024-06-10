@@ -41,6 +41,14 @@
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
+                    @if (auth()->user()->privilege == 'investigation_clerk')
+                    <div class="mb-3">
+                        {{-- <label for="passcode" class="form-label">Passcode:</label> --}}
+                        <input type="hidden" name="passcode_id" id="passcode_id">
+                        <input type="passcode" class="form-control" name="passcode"
+                            placeholder="Enter your Passcode">
+                    </div>
+                    @endif
                     <h5 class="modal-title" id="deleteModalLabel">Delete this investigation <strong>{{ $investigation->investigation->subject }} </strong></h5>
                     
                 </div>

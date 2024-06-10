@@ -10,13 +10,14 @@ use App\Models\Ifinal;
 use App\Models\Victim;
 use App\Models\Minimal;
 use App\Models\Barangay;
+use App\Models\Passcode;
 use App\Models\Progress;
 use App\Models\Response;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
 use Illuminate\Http\Request;
-use App\Models\Investigation;
 
+use App\Models\Investigation;
 use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
 use Illuminate\Support\Facades\Auth;
@@ -973,6 +974,24 @@ class InvestigationController extends Controller
     public function destroyMinimal(Request $request)
     {
         // dd($request->all());
+        $extension = ".";
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if(!$passcodeStatus){
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
         $minimal = Minimal::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($minimal->investigation_id);
         // if ($minimal->photos !== null) {
@@ -997,7 +1016,7 @@ class InvestigationController extends Controller
         $log->fill([
             'investigation_id' => $minimal->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Deleted a Minimal Investigation with a subject of " . $minimal->investigation->subject . ", Created on " . $minimal->investigation->date,
+            'details' => "Deleted a Minimal Investigation with a subject of " . $minimal->investigation->subject . ", Created on " . $minimal->investigation->date . $extension,
             'action' => "Delete",
         ]);
         $log->save();
@@ -1006,6 +1025,24 @@ class InvestigationController extends Controller
     }
     public function destroySpot(Request $request)
     {
+        $extension = ".";
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if(!$passcodeStatus){
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
         $spot = Spot::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($spot->investigation_id);
         // $spot->delete();
@@ -1014,7 +1051,7 @@ class InvestigationController extends Controller
         $log->fill([
             'investigation_id' => $spot->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Deleted a Spot Investigation with a subject of " . $spot->investigation->subject . ", Created on " . $spot->investigation->date,
+            'details' => "Deleted a Spot Investigation with a subject of " . $spot->investigation->subject . ", Created on " . $spot->investigation->date . $extension,
             'action' => "Delete",
         ]);
         $log->save();
@@ -1025,6 +1062,24 @@ class InvestigationController extends Controller
     }
     public function destroyProgress(Request $request)
     {
+        $extension = ".";
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if(!$passcodeStatus){
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
         $progress = Progress::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($progress->investigation_id);
         // $progress->delete();
@@ -1033,7 +1088,7 @@ class InvestigationController extends Controller
         $log->fill([
             'investigation_id' => $progress->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Deleted a Progress Investigation with a subject of " . $progress->investigation->subject . ", Created on " . $progress->investigation->date,
+            'details' => "Deleted a Progress Investigation with a subject of " . $progress->investigation->subject . ", Created on " . $progress->investigation->date . "$extension",
             'action' => "Delete",
         ]);
         $log->save();
@@ -1044,6 +1099,24 @@ class InvestigationController extends Controller
     }
     public function destroyFinal(Request $request)
     {
+        $extension = ".";
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if(!$passcodeStatus){
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
         $final = Ifinal::findOrFail($request->input('id'));
         $investigation = Investigation::findOrFail($final->investigation_id);
         // $final->delete();
@@ -1052,7 +1125,7 @@ class InvestigationController extends Controller
         $log->fill([
             'investigation_id' => $final->investigation->id,
             'user_id' => auth()->user()->id,
-            'details' => "Deleted a Final Investigation with a subject of " . $final->investigation->subject . ", Created on " . $final->investigation->date,
+            'details' => "Deleted a Final Investigation with a subject of " . $final->investigation->subject . ", Created on " . $final->investigation->date . $extension,
             'action' => "Delete",
         ]);
         $log->save();

@@ -26,7 +26,14 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                @if ($user->privilege == 'admin_clerk')
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('admin.personnel.search.index') }}"
+                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span> <i class="ti ti-users"></i></span>
+                        <span class="hide-menu">Personnel Search</span>
+                    </a>
+                </li>
+                @if ($user->privilege == 'admin_clerk' || $user->privilege == 'admin_chief')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
@@ -35,17 +42,10 @@
                         </a>
                     </li>
                 @endif
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.personnel.search.index') }}"
-                        class="sidebar-link accordion-body ms-2 reports-collapse">
-                        <span> <i class="ti ti-users"></i></span>
-                        <span class="hide-menu">Personnel Search</span>
-                    </a>
-                </li>
                 <hr class="my-2">
-                {{-- @if (auth()->user()->privilege === 'operation_clerk' || auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'operation_admin_chief' || auth()->user()->privilege === 'investigation_admin_chief') --}}
                 <p class="">REPORTS</p>
                 <li class="sidebar-item">
+
                     <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}"
                         href="{{ route('operation.index') }}">
                         <span>
@@ -54,7 +54,6 @@
                         <span class="hide-menu">Operations</span>
                     </a>
                 </li>
-                {{-- @if (auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'investigation_admin_chief' || auth()->user()->privilege === 'configuration_chief') --}}
                 <li class="sidebar-item">
                     <div class="accordion accordion-flush {{ $active == 'investigation' ? 'active' : '' }}"
                         href="{{ route('investigation.index') }}">
@@ -115,70 +114,86 @@
                         </div>
                     </div>
                 </li>
-                {{-- @endif
-                @endif --}}
 
 
-                @if (auth()->user()->privilege === 'configuration_chief' || auth()->user()->privilege === 'chief')
+                @if (
+                    $user->privilege == 'configuration_chief' ||
+                        $user->privilege == 'chief' ||
+                        $user->privilege == 'investigation_admin_chief' ||
+                        $user->privilege == 'operation_admin_chief')
                     <hr class="my-2">
                     <p class="">CONFIGURATIONS</p>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}">
-                            <span>
-                                <i class="ti ti-building-community"></i>
-                            </span>
-                            <span class="hide-menu">Occupancies</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.barangay.index') }}">
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                            </span>
-                            <span class="hide-menu">Barangay</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.alarms.index') }}">
-                            <span>
-                                <i class="ti ti-bell-school"></i>
-                            </span>
-                            <span class="hide-menu">Alarms</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.trucks.index') }}">
-                            <span>
-                                <i class="ti ti-truck"></i>
-                            </span>
-                            <span class="hide-menu">Trucks</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
-                            <span>
-                                <i class="ti ti-badge"></i>
-                            </span>
-                            <span class="hide-menu">Ranks</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.designation.index') }}">
-                            <span>
-                                <i class="ti ti-address-book"></i>
-                            </span>
-                            <span class="hide-menu">Designations</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
-                            <span>
-                                <i class="ti ti-address-book"></i>
-                            </span>
-                            <span class="hide-menu">Passcodes</span>
-                        </a>
-                    </li>
+                    @if ($user->privilege == 'configuration_chief' || $user->privilege == 'chief')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}">
+                                <span>
+                                    <i class="ti ti-building-community"></i>
+                                </span>
+                                <span class="hide-menu">Occupancies</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.barangay.index') }}">
+                                <span>
+                                    <i class="ti ti-map-pin"></i>
+                                </span>
+                                <span class="hide-menu">Barangay</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.alarms.index') }}">
+                                <span>
+                                    <i class="ti ti-bell-school"></i>
+                                </span>
+                                <span class="hide-menu">Alarms</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.trucks.index') }}">
+                                <span>
+                                    <i class="ti ti-truck"></i>
+                                </span>
+                                <span class="hide-menu">Trucks</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
+                                <span>
+                                    <i class="ti ti-badge"></i>
+                                </span>
+                                <span class="hide-menu">Ranks</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.designation.index') }}">
+                                <span>
+                                    <i class="ti ti-address-book"></i>
+                                </span>
+                                <span class="hide-menu">Designations</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.stations.index') }}">
+                                <span>
+                                    <i class="ti ti-home"></i>
+                                </span>
+                                <span class="hide-menu">Stations</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (
+                        $user->privilege == 'configuration_chief' ||
+                            $user->privilege == 'investigation_admin_chief' ||
+                            $user->privilege == 'operation_admin_chief')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
+                                <span>
+                                    <i class="ti ti-address-book"></i>
+                                </span>
+                                <span class="hide-menu">Passcodes</span>
+                            </a>
+                        </li>
+                    @endif
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}"
                             href="{{ route('admin.personnel.index') }}">
