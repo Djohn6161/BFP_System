@@ -41,7 +41,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">#</h6>
+                                                <h6 class="fw-semibold mb-0">Blotter Number</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Alarm Received</h6>
@@ -57,9 +57,6 @@
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Time/Date Declared Fireout</h6>
-                                            </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Blotter Number</h6>
                                             </th>
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Status</h6>
@@ -82,7 +79,7 @@
                                         @foreach ($sortedOperations as $operation)
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{ $loop->index + 1 }}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{$operation->blotter_number}}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
@@ -104,11 +101,6 @@
                                                     <p class="mb-0 fw-normal">
                                                         {{ \Carbon\Carbon::parse($operation->td_declared_fireout)->format('F j, Y | g:i:s A') }}
                                                     </p>
-                                                </td>
-                                                <td>
-                                                    <h6 class="fw-semibold mb-0 text-capitalize">
-                                                        {{ $operation->blotter_number }}
-                                                    </h6>
                                                 </td>
 
                                                 <td>

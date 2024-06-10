@@ -1,3 +1,4 @@
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -17,14 +18,12 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold">
                                     Barangay
                                 </h5>
-                                @if ($user->privilege == 'configuration_chief')
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#addBarangayModal">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                    <x-barangay.create :category="$active"></x-barangay.create>
-                                @endif
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#addBarangayModal">
+                                    <i class="ti ti-plus"></i>
+                                    Create
+                                </button>
+                                <x-barangay.create :category="$active"></x-barangay.create>
                             </div>
 
                             <div class="table-responsive">
@@ -34,13 +33,14 @@
                                             <th class="border-bottom-0">ID</th>
                                             <th class="border-bottom-0">Name</th>
                                             <th class="border-bottom-0">Unit</th>
-                                            @if ($user->privilege == 'configuration_chief')
-                                                <th class="border-bottom-0 text-center">Action</th>
-                                            @endif
+                                            <th class="border-bottom-0 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
                                         @foreach ($barangays as $barangay)
+                                            <x-barangay.edit :barangay=$barangay></x-barangay.edit>
+                                            <x-barangay.delete :barangay=$barangay></x-barangay.delete>
+
                                             {{-- <x-reports.view-modal :report=$investigation></x-reports.view-modal> --}}
                                             {{-- <x-reports.update :report=$investigation></x-reports.update> --}}
                                             <tr>
@@ -54,30 +54,28 @@
                                                 <td>
                                                     {{ $barangay->unit }}
                                                 </td>
-                                                @if ($user->privilege == 'configuration_chief')
-                                                    <td class="w-25 py-2">
-                                                        <x-barangay.edit :barangay=$barangay></x-barangay.edit>
-                                                        <x-barangay.delete :barangay=$barangay></x-barangay.delete>
-                                                        <div class="d-flex flex-row">
-                                                            <div class="me-1">
-                                                                <button class="btn btn-success w-100" data-bs-toggle="modal"
-                                                                    data-bs-target="#editBarangayModal{{ $barangay->id }}">
-                                                                    <i class="ti ti-pencil"></i>
-                                                                    Update
 
-                                                                </button>
-                                                            </div>
-                                                            <div class="me-1">
-                                                                <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                    data-bs-target="#deleteBarangayModal{{ $barangay->id }}">
-                                                                    <i class="ti ti-trash"></i>
-                                                                    Delete
-
-                                                                </button>
-                                                            </div>
+                                                <td class="w-25 py-2">
+                                                    <div class="d-flex flex-row">
+                                                        <div class="me-1">
+                                                            <button class="btn btn-success w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editBarangayModal{{ $barangay->id }}">
+                                                                <i class="ti ti-pencil"></i>
+                                                                Update
+                                                         
+                                                            </button>
                                                         </div>
-                                                    </td>
-                                                @endif
+                                                        <div class="me-1">
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteBarangayModal{{ $barangay->id }}">
+                                                                <i class="ti ti-trash"></i>
+                                                                Delete
+                                                               
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

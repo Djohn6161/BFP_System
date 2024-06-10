@@ -1,3 +1,4 @@
+
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -16,14 +17,12 @@
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
                                 <h5 class="mb-0 text-light card-title fw-semibold">Occupancy
                                     Names</h5>
-                                @if ($user->privilege == 'configuration_chief')
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#addOccupancyModal">
-                                        <i class="ti ti-plus"></i>
-                                        Create
-                                    </button>
-                                    <x-occupancy.create :category="$active"></x-occupancy.create>
-                                @endif
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#addOccupancyModal">
+                                    <i class="ti ti-plus"></i>
+                                    Create
+                                </button>
+                                <x-occupancy.create :category="$active"></x-occupancy.create>
                             </div>
 
                             <div class="table-responsive">
@@ -36,48 +35,47 @@
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 Occupancy Name
                                             </th>
-                                            @if ($user->privilege == 'configuration_chief')
-                                                <th class="border-bottom-0 text-center" style="max-width:10%">
-                                                    Action
-                                                </th>
-                                            @endif
+                                            <th class="border-bottom-0 text-center" style="max-width:10%">
+                                                Action
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
                                         @foreach ($occupancy_names as $occupancyName)
+                                            <x-occupancy.edit :occupancyName=$occupancyName></x-occupancy.edit>
+                                            <x-occupancy.delete :occupancyName=$occupancyName></x-occupancy.delete>
+
+                                           
                                             <tr>
-
+                                           
                                                 <td>
-                                                    {{ $occupancyName->id }}
+                                                    {{ $occupancyName->id}}
                                                 </td>
                                                 <td>
-                                                    {{ $occupancyName->name }}
+                                                    {{ $occupancyName->name}}
                                                 </td>
-                                                @if ($user->privilege == 'configuration_chief')
-                                                    <td class="w-25 py-2">
-                                                        <x-occupancy.edit :occupancyName=$occupancyName></x-occupancy.edit>
-                                                        <x-occupancy.delete
-                                                            :occupancyName=$occupancyName></x-occupancy.delete>
-                                                        <div class="d-flex flex-row">
-                                                            <div class="me-1">
-                                                                <button class="btn btn-success w-100" data-bs-toggle="modal"
-                                                                    data-bs-target="#updateOccupancyModal{{ $occupancyName->id }}">
-                                                                    <i class="ti ti-pencil"></i>
-                                                                    Update
 
-                                                                </button>
-                                                            </div>
-                                                            <div class="me-1">
-                                                                <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                    data-bs-target="#deleteOccupancyModal{{ $occupancyName->id }}">
-                                                                    <i class="ti ti-trash"></i>
-                                                                    Delete
-
-                                                                </button>
-                                                            </div>
+                                                <td class="w-25 py-2">
+                                                    <div class="d-flex flex-row">
+                                                        <div class="me-1">
+                                                            <button class="btn btn-success w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#updateOccupancyModal{{ $occupancyName->id }}">
+                                                                <i class="ti ti-pencil"></i>
+                                                                Update
+                                                               
+                                                            </button>
                                                         </div>
-                                                    </td>
-                                                @endif
+                                                        <div class="me-1">
+                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteOccupancyModal{{ $occupancyName->id }}">
+                                                                <i class="ti ti-trash"></i>
+                                                                Delete
+                                                               
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

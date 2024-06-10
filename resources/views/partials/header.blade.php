@@ -32,7 +32,7 @@
                             @elseif($user->privilege == "admin_clerk")
                                 Admin {{$user->name}}
                         @endif  --}}
-                        {{ ucwords(str_replace('_', ' ', $user->privilege)) }}
+                        {{ ucwords(str_replace('_', ' ', $user->privilege)) . ' - ' . $user->name }}
                     </a> 
                 </div>
                 <div class="nav-item dropdown">

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("creators_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
             $table->string("code");
-            // $table->boolean("status");
+            $table->boolean("status");
             $table->foreignId("users_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("set null");
             $table->timestamps();
         });

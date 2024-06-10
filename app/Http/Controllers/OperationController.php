@@ -60,12 +60,12 @@ class OperationController extends Controller
             'transmitted_by' => 'required|string|max:255',
             'caller_address' => 'required|string|max:255',
             'received_by' => 'required',
-            'blotter_number' => 'required|unique:Afor',
+            'blotter_number' => 'required|unique:Afors',
         ]);
-
+    
         $afor = new Afor();
-        if ($request->has('location')) {
-            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
+        if ($request->input('barangay_name') != '') {
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City' . ' Landmark: ' . $request->input('location');
         } else {
             $location = 'Location: ' . $request->input('location');
         }
@@ -73,11 +73,13 @@ class OperationController extends Controller
         $afor->fill([
             'alarm_received' => $request->input('alarm_received'),
             'transmitted_by' => $request->input('transmitted_by'),
+            'originator' => $request->input('originator'),
             'caller_address' => $request->input('caller_address'),
             'received_by' => $request->input('received_by'),
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
+            'blotter_number' => $request->input('blotter_number') ?? '',
             'full_location' => $location,
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
@@ -264,6 +266,16 @@ class OperationController extends Controller
             $afor->save();
         }
 
+        $log = new AforLog();
+        $log->fill([
+            'afor_id' => $afor_id,
+            'user_id' => auth()->user()->id,
+            'details' => "Created an Operation Report with the location of " . $afor->full_location,
+            'action' => "Store",
+        ]);
+
+        $log->save();
+
         return redirect('/reports/operation/index')->with('success', "Operation report added successfully.");
     }
 
@@ -316,7 +328,7 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
-        $passcodes = Passcode::where('type', "OC")->where('action', 'update')->get();
+        $passcodes = Passcode::all();
         $passcodeStatus = false;
         
         foreach ($passcodes as $passcode) {
@@ -331,7 +343,7 @@ class OperationController extends Controller
         }
 
         if ($request->has('barangay_name')) {
-            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark: ' . $request->input('location');
         } else {
             $location = $request->input('location');
         }
@@ -339,12 +351,14 @@ class OperationController extends Controller
         $InfoUpdatedData = [
             'alarm_received' => $request->input('alarm_received') ?? '',
             'transmitted_by' => $request->input('transmitted_by') ?? '',
+            'originator' => $request->input('originator') ?? '',
             'caller_address' => $request->input('caller_address') ?? '',
             'received_by' => $request->input('received_by') ?? '',
             'barangay_name' => $request->input('barangay_name') ?? '',
             'zone' => $request->input('zone') ?? '',
             'location' => $request->input('location') ?? '',
             'full_location' => $location,
+            'blotter_number' => $request->input('blotter_number'),
             'td_under_control' => $request->input('td_under_control') ?? null,
             'td_declared_fireout' => $request->input('td_declared_fireout') ?? null,
             'details' => $request->input('details') ?? '',

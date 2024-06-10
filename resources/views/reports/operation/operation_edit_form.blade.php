@@ -38,7 +38,12 @@
                                     name="alarm_received" value="{{ $operation->alarm_received }}">
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="caller" class="form-label">Caller/Reported/Originator/Transmitted by:</label>
+                                <label for="caller" class="form-label">Originator</label>
+                                <input type="text" placeholder="Eg. Juan Cruz" class="form-control" name="originator"
+                                    value="{{ $operation->originator }}">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="caller" class="form-label">Caller/Reported/Transmitted by</label>
                                 <input type="text" placeholder="Eg. Juan Cruz" class="form-control" name="transmitted_by"
                                     value="{{ $operation->transmitted_by }}">
                             </div>
@@ -65,6 +70,11 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="otherLocation" class="form-label">Blotter Number</label>
+                                <input type="text" placeholder="Enter Blotter Number" class="form-control"
+                                    name="blotter_number" value="{{ $operation->blotter_number }}">
                             </div>
                             <hr>
                             <div class="col-lg-6 mb-3">
