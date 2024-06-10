@@ -37,6 +37,7 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
                 }
                 $td = explode(' ', $investigation->final->td_alarm);
                 $data[] = [
+                    $investigation->case_number,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
@@ -88,27 +89,29 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
     public function columnWidths(): array
     {
         return [
-            'A' => 45,
-            'B' => 60,
-            'C' => 15,
-            'D' => 40,
-            'E' => 30,
+            'A' => 15,
+            'B' => 45,
+            'C' => 60,
+            'D' => 15,
+            'E' => 40,
             'F' => 30,
             'G' => 30,
             'H' => 30,
-            'I' => 20,
-            'J' => 60,
-            'K' => 40,
-            'L' => 100,
+            'I' => 30,
+            'J' => 20,
+            'K' => 60,
+            'L' => 40,
             'M' => 100,
             'N' => 100,
             'O' => 100,
             'P' => 100,
+            'Q' => 100,
         ];
     }
     public function headings(): array
     {
         return [
+            'Case Number',
             'For',
             'Subject',
             'Date',

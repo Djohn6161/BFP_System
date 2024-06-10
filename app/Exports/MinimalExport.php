@@ -28,6 +28,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
         foreach ($this->investigations as $investigation) {
             if ($investigation->Minimal != null) {
                 $data[] = [
+                    $investigation->case_number,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
@@ -92,34 +93,36 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
     public function columnWidths(): array
     {
         return [
-            'A' => 45,
-            'B' => 60,
-            'C' => 15,
-            'D' => 30,
+            'A' => 15,
+            'B' => 45,
+            'C' => 60,
+            'D' => 15,
             'E' => 30,
-            'F' => 25,
-            'G' => 20,
+            'F' => 30,
+            'G' => 25,
             'H' => 20,
             'I' => 20,
             'J' => 20,
             'K' => 20,
-            'L' => 20, 
-            'M' => 25,
-            'N' => 30,
-            'O' => 25,
-            'P' => 30,
-            'Q' => 25,
+            'L' => 20,
+            'M' => 20, 
+            'N' => 25,
+            'O' => 30,
+            'P' => 25,
+            'Q' => 30,
             'R' => 25,
             'S' => 25,
             'T' => 25,
-            'U' => 100,
+            'U' => 25,
             'V' => 100,
             'W' => 100,
+            'X' => 100,
         ];
     }
     public function headings(): array
     {
         return [
+            'case_number',
             'For',
             'Subject',
             'Date',

@@ -33,6 +33,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
                     $location = $investigation->landmark;
                 }
                 $data[] = [
+                    $investigation->case_number,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
@@ -83,27 +84,29 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
     public function columnWidths(): array
     {
         return [
-            'A' => 45,
-            'B' => 60,
-            'C' => 15,
-            'D' => 30,
-            'E' => 20,
-            'F' => 30,
-            'G' => 20,
+            'A' => 15,
+            'B' => 45,
+            'C' => 60,
+            'D' => 15,
+            'E' => 30,
+            'F' => 20,
+            'G' => 30,
             'H' => 20,
-            'I' => 15,
+            'I' => 20,
             'J' => 15,
-            'K' => 20,
+            'K' => 15,
             'L' => 20,
-            'M' => 15,
+            'M' => 20,
             'N' => 15,
-            'O' => 100,
-            'P' => 60,
+            'O' => 15,
+            'P' => 100,
+            'Q' => 60,
         ];
     }
     public function headings(): array
     {
         return [
+            'Case Number',
             'For',
             'Subject',
             'Date',

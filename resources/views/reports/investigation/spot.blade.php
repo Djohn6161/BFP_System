@@ -18,7 +18,7 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold text-capitalize">
                                     {{ $active != 'investigation' ? $active : 'All' }} Investigation Reports
                                 </h5>
-                                @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                @if ($user->privilege == 'investigation_admin_chief' || $user->privilege == 'investigation_clerk')
                                     <div class="d-flex column-gap-2">
                                         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#exportInvestigation">
@@ -55,7 +55,7 @@
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Date</h6>
                                             </th>
-                                            @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                            @if ($user->privilege == 'investigation_admin_chief' || $user->privilege == 'investigation_clerk')
                                                 <th>
                                                     <h6 class="fw-semibold mb-0">Action</h6>
                                                 </th>
@@ -104,7 +104,7 @@
                                                         {{ \Carbon\Carbon::parse($investigation->investigation->date)->format('F j, Y') }}
                                                     </p>
                                                 </td>
-                                                @if ($user->privilege == 'IC' || $user->privilege == 'All')
+                                                @if ($user->privilege == 'investigation_admin_chief' || $user->privilege == 'investigation_clerk')
                                                     <td>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewSpotModal{{ $investigation->id }}"

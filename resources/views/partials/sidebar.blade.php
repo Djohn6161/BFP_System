@@ -119,8 +119,8 @@
                 @endif --}}
 
 
-                <hr class="my-2">
                 @if (auth()->user()->privilege === 'configuration_chief' || auth()->user()->privilege === 'chief')
+                    <hr class="my-2">
                     <p class="">CONFIGURATIONS</p>
 
                     <li class="sidebar-item">
@@ -194,11 +194,11 @@
                         </a>
                     </li> --}}
                 @endif
-                <hr class="my-2">
 
                 @if (auth()->user()->privilege === 'operation_admin_chief' ||
                         auth()->user()->privilege === 'investigation_admin_chief' ||
                         auth()->user()->privilege === 'configuration_chief')
+                    <hr class="my-2">
                     <p class="">ACTIVITIES</p>
 
                     <li class="sidebar-item">
@@ -283,8 +283,8 @@
                     </li>
                 @endif
 
-                <hr class="my-2">
                 @if (auth()->user()->privilege === 'configuration_chief')
+                    <hr class="my-2">
                     <p class="">ACCOUNTS</p>
 
                     <li class="sidebar-item">
