@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -7,7 +6,8 @@
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="">Reports</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('investigation.minimal.index') }}">Minimal Investigation Reports</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('investigation.minimal.index') }}">Minimal Investigation
+                        Reports</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Minimal Investigation Reports</li>
             </ol>
         </nav>
@@ -30,7 +30,8 @@
                             </div>
                         </div>
 
-                        <x-reports.investigation.memo-investigate :spot=$minimal :station=$station></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$minimal
+                            :station=$station></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
@@ -232,8 +233,8 @@
                                         <option value="">Select alarm status</option>
                                         @foreach ($alarm as $item)
                                             <option
-                                                {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') ==  $item->id? 'selected' : '' }}
-                                                value="{{$item->id}}">{{$item->name}}</option>
+                                                {{ old('alarm_status_time') ?? ($minimal->alarm_status_time ?? '') == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
 
                                     </select>
@@ -336,7 +337,7 @@
                                     </div>
                                     <div id="first">
                                         {{-- {{dd($minimal)}} --}}
-                                        {!!  old('details') ?? $minimal->details !!}
+                                        {!! old('details') ?? $minimal->details !!}
                                     </div>
 
                                 </div>
@@ -512,12 +513,23 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-end px-0">
-                        <button type="submit" id="submit" class="btn btn-success">
-                            <span>
-                                <i class="ti ti-send"></i>
-                            </span>
-                            <span>Submit</span>
-                        </button>
+                        @if ($user->privilege == 'investigation_admin_chief')
+                            <button type="submit" id="submit" class="btn btn-success">
+                                <span>
+                                    <i class="ti ti-send"></i>
+                                </span>
+                                <span>Submit</span>
+                            </button>
+                        @else
+                            <button data-bs-toggle="modal" data-bs-target="#passUpdateModal" type="button" id="submit" class="btn btn-success">
+                                <span>
+                                    <i class="ti ti-send"></i>
+                                </span>
+                                <span>Submit</span>
+                            </button>
+                            <x-reports.investigation.passcode></x-reports.investigation.passcode>
+                        @endif
+
                     </div>
                 </div>
 

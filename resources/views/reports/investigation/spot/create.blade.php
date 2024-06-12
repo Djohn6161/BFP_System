@@ -216,7 +216,7 @@
 
                             <!-- Corrected "Time Fire Out" -->
                             <div class="col-lg-3 mb-4">
-                                <label for="time-fire-out" class="form-label">Time of Fire Out</label>
+                                <label for="time-fire-out" class="form-label">Time Fire Out</label>
                                 <input type="text" placeholder="Eg. 2300H" class="form-control" id="time-fire-out"
                                     name="time_fire_out"
                                     class="form-control {{ $errors->has('time_fire_out') != '' ? 'is-invalid' : '' }}"
@@ -228,7 +228,7 @@
 
                             <!-- Corrected "Alarm" -->
                             <div class="col-lg-3 mb-4">
-                                <label for="alarm" class="form-label">Alarm</label>
+                                <label for="alarm" class="form-label">First Alarm Status</label>
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
                                     @foreach ($alarms as $item)
@@ -298,16 +298,6 @@
                                     </div>
                                     <div id="detailsOfInvestigation">
                                         {!! old('details') !!}
-                        <div class="row">
-                            <div class="col d-flex justify-content-end px-0">
-                                <button type="submit" id="submit" class="btn btn-success">
-                                    <span>
-                                        <i class="ti ti-send"></i>
-                                    </span>
-                                    <span>Submit</span>
-                                </button>
-                            </div>
-                        </div>
 
                                     </div>
 
