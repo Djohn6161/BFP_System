@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Station;
 use App\Models\Barangay;
 use Illuminate\Http\Request;
 use App\Models\ConfigurationLog;
@@ -14,7 +15,8 @@ class BarangayController extends Controller
         $user = Auth::user();
         $barangays = Barangay::all();
         $active = 'barangay';
-        return view('admin.barangay.index', compact('user','active', 'barangays'));
+        $station = Station::first();
+        return view('admin.barangay.index', compact('user','active', 'barangays', 'station'));
     }
 
     public function createBarangay(Request $request)

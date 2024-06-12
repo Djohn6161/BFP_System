@@ -27,7 +27,7 @@
                                 <img src="../assets/images/logos/login.gif" width="150" height="auto"
                                     alt="">
                             </a>
-                            <h4 class="text-center shining-text"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+                            <h4 class="text-center shining-text"><b>{{$station->name}}<br> {{$station->acronym}}<b></h4>
 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf

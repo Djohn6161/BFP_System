@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Occupancy;
+use App\Models\Station;
 
+use App\Models\Occupancy;
 use Illuminate\Http\Request;
 use App\Models\Occupancy_name;
 use App\Models\ConfigurationLog;
@@ -17,7 +18,8 @@ class OccupancyController extends Controller
         $user = Auth::user();
         $occupancy_names = Occupancy_name::all();
         $active = 'occupancy';
-        return view('admin.occupancy.index', compact('user', 'active', 'occupancy_names'));
+        $station = Station::first();
+        return view('admin.occupancy.index', compact('user', 'active', 'occupancy_names', 'station'));
 
     }
 

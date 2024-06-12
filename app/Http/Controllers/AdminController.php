@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Afor;
-use App\Models\Occupancy;
-use App\Models\Occupancy_name;
 use App\Models\User;
+use App\Models\Station;
+use App\Models\Occupancy;
 use Illuminate\Http\Request;
+use App\Models\Occupancy_name;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
@@ -18,6 +19,7 @@ class AdminController extends Controller
         $user = Auth::user();
 
         return view('admin.home', [
+            'station' => Station::first(),
             'active' => 'home',
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
@@ -32,7 +34,8 @@ class AdminController extends Controller
         $accounts = User::where('type', 'admin')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'admin';
-        return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
+        $station = Station::first();
+        return view('admin.account.index', compact('accounts', 'active', 'user', 'type', 'station'));
     }
 
     public function userAccountIndex()
@@ -41,7 +44,8 @@ class AdminController extends Controller
         $accounts = User::where('type', 'user')->where('id', '!=', $user->id)->get();
         $active = 'account';
         $type = 'user';
-        return view('admin.account.index', compact('accounts', 'active', 'user', 'type'));
+        $station = Station::first();
+        return view('admin.account.index', compact('accounts', 'active', 'user', 'type', 'station'));
 
     }
 
@@ -81,7 +85,7 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|max:255',
+            'username' => "required|max:255|unique:users,username,{$user->id}",
             'admin_confirm_password' => 'required|min:8',
         ]);
 

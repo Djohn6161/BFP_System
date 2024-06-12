@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Station;
 use App\Models\Alarm_name;
 use Illuminate\Http\Request;
 use App\Models\ConfigurationLog;
@@ -16,8 +17,9 @@ class AlarmController extends Controller
         $user = Auth::user();
         $active = 'alarm';
         $alarm_list = Alarm_name::all();
+        $station = Station::first();
  
-        return view('admin.alarms.index', compact('active', 'alarm_list', 'user'));
+        return view('admin.alarms.index', compact('active', 'alarm_list', 'user', 'station'));
     }
 
     public function alarmCreate(Request $request)

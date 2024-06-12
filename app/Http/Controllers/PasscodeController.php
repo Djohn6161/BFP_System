@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Station;
 use App\Models\Passcode;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,12 +16,13 @@ class PasscodeController extends Controller
 {
     public function passcodeIndex()
     {
+        $station = Station::first();
         $user = Auth::user();
         $passcodes = Passcode::where("creators_id", auth()->user()->id)->get();
         $active = 'passcode';
         $users = User::where('type', 'user')->get();
         // dd($users);
-        return view('admin.passcode.index', compact('user', 'passcodes', 'active', 'users'));
+        return view('admin.passcode.index', compact('user', 'passcodes', 'active', 'users','station'));
     }
     public function passcodeGenerate(Request $request){
         $validatedData = $request->validate([

@@ -12,7 +12,7 @@
                         <div class="earth-spinning">
                             <img src="../assets/images/logos/BFP_Ligao_logo.png" width="170" alt="" class="spinning-logo">
                         </div>
-                        <h1>BFP Ligao City</h1>
+                        <h1>{{$station->acronym . " - " . $station->name}}</h1>
                     </div>
 
                 </div>

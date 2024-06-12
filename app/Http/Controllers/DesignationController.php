@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConfigurationLog;
+use App\Models\Station;
 use App\Models\Designation;
 use Illuminate\Http\Request;
+use App\Models\ConfigurationLog;
 use Illuminate\Support\Facades\Auth;
 
 class DesignationController extends Controller
@@ -16,7 +17,8 @@ class DesignationController extends Controller
         $sections = Designation::where('class', "B")->get();
         $designations = Designation::where('class', "C")->get();
         $otherDes = Designation::where('class', "A")->get();
-        return view('admin.designation.index', compact('user', 'designations', 'sections', 'otherDes', 'active'));
+        $station = Station::first();
+        return view('admin.designation.index', compact('user', 'designations', 'sections', 'otherDes', 'active', 'station'));
     }
     public function store(Request $request){
         // dd($request->all());

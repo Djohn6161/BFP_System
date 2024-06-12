@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\AforLog;
+use App\Models\Station;
 use App\Models\Barangay;
+use App\Models\Passcode;
 use App\Models\Response;
 use App\Models\Occupancy;
 use App\Models\Personnel;
@@ -18,7 +20,6 @@ use App\Models\Occupancy_name;
 use App\Models\Used_equipment;
 use App\Models\Afor_casualties;
 use App\Models\Afor_duty_personnel;
-use App\Models\Passcode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -34,8 +35,8 @@ class OperationController extends Controller
         $operations = Afor::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
         $responses = Response::all();
         $personnels = Personnel::all();
-
-        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels', 'responses'));
+        $station = Station::first();
+        return view('reports.operation.operation', compact('active', 'operations', 'user', 'personnels', 'responses', 'station'));
     }
 
     public function operationCreateForm()
@@ -48,8 +49,8 @@ class OperationController extends Controller
         $alarm_list = Alarm_name::all();
         $occupancy_names = Occupancy_name::all();
         $designations = Designation::all();
-
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations'));
+        $station = Station::first();
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations', 'station'));
     }
 
     public function operationStore(Request $request)
@@ -300,7 +301,7 @@ class OperationController extends Controller
         $designations = Designation::where('section', 4)->get();
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
         $occupancy_types = ['Structural', 'Non-Structural', 'Vehicular'];
-
+        $station = Station::first();
         return view(
             'reports.operation.operation_edit_form',
             compact(
@@ -321,7 +322,8 @@ class OperationController extends Controller
                 'photos',
                 'designations',
                 'duty_personnels',
-                'occupancy_types'
+                'occupancy_types',
+                'station',
             )
         );
     }
@@ -1081,13 +1083,14 @@ class OperationController extends Controller
 
     public function printOperation(Afor $id)
     {
-
+        $station = Station::first();
         return view('reports.operation.printable', [
             'active' => 'operation',
             'user' => Auth::user(),
             'operation' => $id,
             'alarm_names' => Alarm_name::all(),
             'personnels' => Personnel::all(),
+            'station' => $station
         ]);
     }
 

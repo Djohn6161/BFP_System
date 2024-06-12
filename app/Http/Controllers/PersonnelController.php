@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Rank;
+use App\Models\Station;
 use App\Models\Tertiary;
 use App\Models\Personnel;
 use App\Models\Designation;
@@ -27,7 +28,8 @@ class PersonnelController extends Controller
         $genders = ['male', 'female'];
         $personnelCount = count($personnels);
         $designations = Designation::all();
-        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
+        $station = Station::first();
+        return view('admin.personnel.index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations', 'station'));
     }
 
     public function personnelView($id)
@@ -42,7 +44,8 @@ class PersonnelController extends Controller
         $maritals = ['single', 'married', 'divorced', 'widowed'];
         $genders = ['male', 'female'];
         $files = explode(',', $personnel->files);
-        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals'));
+        $station = Station::first();
+        return view('admin.personnel.view', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'station'));
     }
 
     public function personnelStore(Request $request)
@@ -182,7 +185,8 @@ class PersonnelController extends Controller
         $files = explode(',', $personnel->files);
         $designations = Designation::all();
         $old_designations = Personnel_designation::where('personnel_id', $personnel->id)->get();
-        return view('admin.personnel.edit', compact('active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'designations', 'old_designations'));
+        $station = Station::first();
+        return view('admin.personnel.edit', compact('station','active', 'active', 'user', 'personnel', 'ranks', 'maritals', 'tertiaries', 'courses', 'files', 'genders', 'maritals', 'designations', 'old_designations'));
     }
 
     public function personnelUpdate(Request $request)
@@ -493,7 +497,8 @@ class PersonnelController extends Controller
         $genders = ['male', 'female'];
         $personnelCount = count($personnels);
         $designations = Designation::all();
-        return view('admin.personnel.search_index', compact('active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
+        $station = Station::first();
+        return view('admin.personnel.search_index', compact('station','active', 'personnels', 'user', 'personnelCount', 'ranks', 'maritals', 'genders', 'designations'));
     }
 
     private function hasValues($array)
