@@ -310,51 +310,50 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        // First Quill editor initialization
-        const quill1 = new Quill('#authority', {
-            modules: {
-                toolbar: '#toolbar1',
-            },
-            theme: 'snow',
-            placeholder: 'a. Section 50, RULE VII, Implementing Rules...',
-        });
-    </script>
-    <script>
-        // Second Quill editor initialization
-        const quill2 = new Quill('#matters-investigated', {
-            modules: {
-                toolbar: '#toolbar2',
-            },
-            theme: 'snow',
-            placeholder: 'a. The origin and cause...',
-        });
-    </script>
-    <script>
-        // Third Quill editor initialization
-        const quill3 = new Quill('#facts-of-the-case', {
-            modules: {
-                toolbar: '#toolbar3',
-            },
-            theme: 'snow',
-            placeholder: 'This pertains is on-going...',
-        });
-    </script>
-    <script>
-        // Forth Quill editor initialization
-        const quill4 = new Quill('#disposition', {
-            modules: {
-                toolbar: '#toolbar4',
-            },
-            theme: 'snow',
-            placeholder: 'The Final Investigation is...',
-        });
-        $("#submit").click(function() {
-            $("#autho").val(quill1.root.innerHTML);
-            $("#matters").val(quill2.root.innerHTML);
-            $("#facts").val(quill3.root.innerHTML);
-            $("#dispo").val(quill4.root.innerHTML);
-        });
-    </script>
-@endsection
+        <script>
+            // First Quill editor initialization
+            const quill1 = new Quill('#authority', {
+                modules: {
+                    toolbar: '#toolbar1',
+                },
+                theme: 'snow',
+                placeholder: 'a. Section 50, RULE VII, Implementing Rules...',
+            });
+        </script>
+        <script>
+            // Second Quill editor initialization
+            const quill2 = new Quill('#matters-investigated', {
+                modules: {
+                    toolbar: '#toolbar2',
+                },
+                theme: 'snow',
+                placeholder: 'a. The origin and cause...',
+            });
+        </script>
+        <script>
+            // Third Quill editor initialization
+            const quill3 = new Quill('#facts-of-the-case', {
+                modules: {
+                    toolbar: '#toolbar3',
+                },
+                theme: 'snow',
+                placeholder: 'This pertains is on-going...',
+            });
+        </script>
+        <script>
+            // Forth Quill editor initialization
+            const quill4 = new Quill('#disposition', {
+                modules: {
+                    toolbar: '#toolbar4',
+                },
+                theme: 'snow',
+                placeholder: 'The Final Investigation is...',
+            });
+            $("#submit").click(function() {
+                $("#autho").val(quill1.root.innerHTML);
+                $("#matters").val(quill2.root.innerHTML);
+                $("#facts").val(quill3.root.innerHTML);
+                $("#dispo").val(quill4.root.innerHTML);
+            });
+        </script>
+    @endsection

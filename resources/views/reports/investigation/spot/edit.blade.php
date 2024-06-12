@@ -441,37 +441,34 @@
 
             </form>
         </div>
-    </div>
-    </div>
-    </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.spotAlarmSelect').select2();
-        });
-    </script>
-    <script>
-        const quillThird = new Quill('#detailsOfInvestigation', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar1',
-            },
+        <script>
+            $(document).ready(function() {
+                $('.spotAlarmSelect').select2();
+            });
+        </script>
+        <script>
+            const quillThird = new Quill('#detailsOfInvestigation', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar1',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quillFourth = new Quill('#disposition', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar2',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quillFourth = new Quill('#disposition', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar2',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-        $("#submit").click(function() {
-            $("#detail").val(quillThird.root.innerHTML);
-            $("#dispo").val(quillFourth.root.innerHTML);
-        });
-    </script>
-@endsection
+                placeholder: 'Compose an epic...',
+            });
+            $("#submit").click(function() {
+                $("#detail").val(quillThird.root.innerHTML);
+                $("#dispo").val(quillFourth.root.innerHTML);
+            });
+        </script>
+    @endsection

@@ -287,7 +287,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS OF INVESTIGATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
@@ -335,7 +335,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="first">
+                                    <div id="first" style="border: 1px solid lightgray; height: 200px;">
                                         {{-- {{dd($minimal)}} --}}
                                         {!! old('details') ?? $minimal->details !!}
                                     </div>
@@ -353,7 +353,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="date" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
@@ -401,7 +401,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="second">
+                                    <div id="second" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('findings') ?? $minimal->findings !!}
                                     </div>
                                 </div>
@@ -415,7 +415,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="date" class="form-label"></label>
                                 <div>
                                     <div id="toolbar3">
@@ -463,7 +463,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="third">
+                                    <div id="third" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('recommendation') ?? $minimal->recommendation !!}
                                     </div>
                                 </div>
@@ -521,7 +521,8 @@
                                 <span>Submit</span>
                             </button>
                         @else
-                            <button data-bs-toggle="modal" data-bs-target="#passUpdateModal" type="button" id="submit" class="btn btn-success">
+                            <button data-bs-toggle="modal" data-bs-target="#passUpdateModal" type="button"
+                                id="submit" class="btn btn-success">
                                 <span>
                                     <i class="ti ti-send"></i>
                                 </span>
@@ -536,122 +537,120 @@
                 </form>
             </div>
         </div>
-    </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            var input = document.getElementById('telephone');
+        <script>
+            $(document).ready(function() {
+                var input = document.getElementById('telephone');
 
-            // Listen for input events
-            input.addEventListener('input', function() {
-                // Remove any non-numeric characters
-                this.value = this.value.replace(/\D/g, '');
+                // Listen for input events
+                input.addEventListener('input', function() {
+                    // Remove any non-numeric characters
+                    this.value = this.value.replace(/\D/g, '');
 
-                // Limit the input to exactly 11 digits
-                if (this.value.length > 11) {
-                    this.value = this.value.slice(0, 11);
-                }
+                    // Limit the input to exactly 11 digits
+                    if (this.value.length > 11) {
+                        this.value = this.value.slice(0, 11);
+                    }
+                });
+                var hiddenInput = document.getElementById('editorContent');
+
+                $("#submit").click(function() {
+                    $("#details").val($("#first").text());
+                    $("#findings").val($("#second").html());
+                    $("#recommendation").val($("#third").html());
+                });
+                const quillFirst = new Quill('#first', {
+                    modules: {
+                        toolbar: '#toolbar1',
+                    },
+                    theme: 'snow',
+                    placeholder: 'Compose an epic...',
+                });
+                const quillSecond = new Quill('#second', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: '#toolbar2',
+                    },
+
+                    placeholder: 'Compose an epic...',
+                });
+                const quillThird = new Quill('#third', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: '#toolbar3',
+                    },
+
+                    placeholder: 'Compose an epic...',
+                });
+                // console.log($("#details").val());
+                $("#submit").click(function() {
+                    $("#details").val(quillFirst.root.innerHTML);
+                    $("#findings").val(quillSecond.root.innerHTML);
+                    $("#recommendation").val(quillThird.root.innerHTML);
+                });
+
+                $('#photos').on('change', function() {
+                    var files = $(this)[0].files; // Get the files selected
+                    var container = $('#photo'); // Get the preview container
+
+                    // Clear previous previews
+                    container.empty();
+
+                    // Loop through each file
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var reader = new FileReader();
+
+                        // Closure to capture the file information.
+                        reader.onload = (function(file) {
+                            return function(e) {
+                                // Create image preview
+                                var mainContainer = $(
+                                    '<div class="image-preview mb-1  col-sm-4"></div>')
+                                var imgPreview = $(
+                                    '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
+                                    e.target
+                                    .result +
+                                    '" alt="' + file.name + '">'
+                                );
+                                mainContainer.append(imgPreview);
+
+                                // Append image preview to the container
+                                // container.append(imgPreview);
+
+                                // Create filename container with flex layout
+                                var fileInfoContainer = $(
+                                    '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                                );
+
+                                // Filename element
+                                var fileInfo = $(
+                                    '<div class="file-info flex-grow-1 me-2 text-break">' + file
+                                    .name + '</div>');
+
+                                // Remove button
+                                // var removeBtn = $(
+                                //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                                // );
+
+                                // Append filename and remove button to container
+                                fileInfoContainer.append(fileInfo);
+                                // fileInfoContainer.append(removeBtn);
+                                mainContainer.append(fileInfoContainer);
+                                // Append the filename container to the preview container
+                                container.append(mainContainer);
+                            };
+                        })(file);
+
+                        // Read in the image file as a data URL
+                        reader.readAsDataURL(file);
+                    }
+                });
             });
-            var hiddenInput = document.getElementById('editorContent');
 
-            $("#submit").click(function() {
-                $("#details").val($("#first").text());
-                $("#findings").val($("#second").html());
-                $("#recommendation").val($("#third").html());
-            });
-            const quillFirst = new Quill('#first', {
-                modules: {
-                    toolbar: '#toolbar1',
-                },
-                theme: 'snow',
-                placeholder: 'Compose an epic...',
-            });
-            const quillSecond = new Quill('#second', {
-                theme: 'snow',
-                modules: {
-                    toolbar: '#toolbar2',
-                },
-
-                placeholder: 'Compose an epic...',
-            });
-            const quillThird = new Quill('#third', {
-                theme: 'snow',
-                modules: {
-                    toolbar: '#toolbar3',
-                },
-
-                placeholder: 'Compose an epic...',
-            });
-            // console.log($("#details").val());
-            $("#submit").click(function() {
-                $("#details").val(quillFirst.root.innerHTML);
-                $("#findings").val(quillSecond.root.innerHTML);
-                $("#recommendation").val(quillThird.root.innerHTML);
-            });
-
-            $('#photos').on('change', function() {
-                var files = $(this)[0].files; // Get the files selected
-                var container = $('#photo'); // Get the preview container
-
-                // Clear previous previews
-                container.empty();
-
-                // Loop through each file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
-
-                    // Closure to capture the file information.
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create image preview
-                            var mainContainer = $(
-                                '<div class="image-preview mb-1  col-sm-4"></div>')
-                            var imgPreview = $(
-                                '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
-                                e.target
-                                .result +
-                                '" alt="' + file.name + '">'
-                            );
-                            mainContainer.append(imgPreview);
-
-                            // Append image preview to the container
-                            // container.append(imgPreview);
-
-                            // Create filename container with flex layout
-                            var fileInfoContainer = $(
-                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                            );
-
-                            // Filename element
-                            var fileInfo = $(
-                                '<div class="file-info flex-grow-1 me-2 text-break">' + file
-                                .name + '</div>');
-
-                            // Remove button
-                            // var removeBtn = $(
-                            //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                            // );
-
-                            // Append filename and remove button to container
-                            fileInfoContainer.append(fileInfo);
-                            // fileInfoContainer.append(removeBtn);
-                            mainContainer.append(fileInfoContainer);
-                            // Append the filename container to the preview container
-                            container.append(mainContainer);
-                        };
-                    })(file);
-
-                    // Read in the image file as a data URL
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-
-        function removePic(btn) {
-            const photo = $("#" + $(btn).data('id'));
-            photo.remove();
-            console.log(photo);
-        }
-    </script>
-@endsection
+            function removePic(btn) {
+                const photo = $("#" + $(btn).data('id'));
+                photo.remove();
+                console.log(photo);
+            }
+        </script>
+    @endsection

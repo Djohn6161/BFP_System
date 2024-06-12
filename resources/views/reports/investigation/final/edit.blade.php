@@ -217,7 +217,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">ORIGIN OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar6">
@@ -265,7 +265,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="orig">
+                                    <div id="orig" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('origin_of_fire') ?? $final->origin_of_fire !!}
                                     </div>
 
@@ -276,7 +276,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">CAUSE OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar7">
@@ -324,7 +324,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="cause">
+                                    <div id="cause" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('cause_of_fire') ?? $final->cause_of_fire !!}
                                     </div>
 
@@ -335,7 +335,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">SUBSTANTIATING DOCUMENTS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
@@ -383,7 +383,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="subsDoc">
+                                    <div id="subsDoc" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('substantiating_documents') ?? $final->substantiating_documents !!}
                                     </div>
 
@@ -394,7 +394,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FACTS OF THE CASE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-3">
+                            <div class="col-lg-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
@@ -442,7 +442,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="facts">
+                                    <div id="facts" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('facts_of_the_case') ?? $final->facts_of_the_case !!}
                                     </div>
 
@@ -454,7 +454,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DISCUSSION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar3">
@@ -502,7 +502,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="discus">
+                                    <div id="discus" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('discussion') ?? $final->discussion !!}
                                     </div>
 
@@ -513,7 +513,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar4">
@@ -561,7 +561,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="find">
+                                    <div id="find" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('findings') ?? $final->findings !!}
                                     </div>
 
@@ -572,7 +572,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-3">
+                            <div class="col-lg-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar5">
@@ -620,7 +620,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="recom">
+                                    <div id="recom" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('recommendation') ?? $final->recommendation !!}
                                     </div>
 
@@ -656,7 +656,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <script>
         $(document).ready(function() {
             $("#addFireVictims").click(function() {
