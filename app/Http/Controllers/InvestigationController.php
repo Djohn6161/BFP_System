@@ -179,17 +179,17 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $investigation->fill([
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -258,7 +258,7 @@ class InvestigationController extends Controller
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -347,10 +347,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
@@ -358,7 +358,7 @@ class InvestigationController extends Controller
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         if ($request->input('victim')) {
@@ -470,16 +470,16 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone')) {
-            $location = $location . ', ' .  $request->input('zone');
+            $location = $location . ', ' . $request->input('zone');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $investigation->fill([
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -534,7 +534,7 @@ class InvestigationController extends Controller
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-
+        $inves = Investigation::findOrFail($minimal->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -563,11 +563,11 @@ class InvestigationController extends Controller
             'recommendation' => 'nullable',
             'curPhoto' => 'nullable',
             'photos' => 'nullable',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$inves->id}",
         ]);
         // dd($validatedData, $request->all());
 
-        $inves = Investigation::findOrFail($minimal->investigation_id);
+        // $inves = Investigation::findOrFail($minimal->investigation_id);
         $originalInvestigationData = $inves->getOriginal();
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
@@ -584,10 +584,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone')) {
-            $location = $location . ', ' .  $request->input('zone');
+            $location = $location . ', ' . $request->input('zone');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $remainingPhotos = array();
@@ -697,6 +697,7 @@ class InvestigationController extends Controller
     public function updateSpot(Request $request, Spot $spot)
     {
         // dd($request, $spot);
+        $investigation = Investigation::findOrFail($spot->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -718,10 +719,9 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}",
         ]);
 
-        $investigation = Investigation::findOrFail($spot->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
@@ -736,10 +736,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $updatedSpot = [
             'date_occurence' => $validatedData['date_occurence'] ?? '',
@@ -806,6 +806,7 @@ class InvestigationController extends Controller
     public function updateProgress(Request $request, Progress $progress)
     {
         // dd($request);
+        $investigation = Investigation::findOrFail($progress->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -814,9 +815,8 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}",
         ]);
-        $investigation = Investigation::findOrFail($progress->investigation_id);
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'],
@@ -861,7 +861,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject .  " Updated Successfully!");
+        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject . " Updated Successfully!");
     }
     public function editFinal(Ifinal $final)
     {
@@ -888,6 +888,7 @@ class InvestigationController extends Controller
     public function updateFinal(Request $request, Ifinal $final)
     {
         // dd($request);
+        $investigation = Investigation::find($final->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -908,28 +909,27 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
-            'case_number' => 'required|unique:investigations,case_number'
-    ]);
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}"
+        ]);
         // dd($validatedData);
 
-        $investigation = Investigation::find($final->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date_alarm') != null ? date('Y-m-d', strtotime($request->input('date_alarm'))) : '');
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'] ?? '',
             'subject' => $validatedData['subject'] ?? '',
-            'date' =>  $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',
+            'date' => $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',
         ];
         $investigation->touch();
         $investigation->update($updateInve);
@@ -1010,7 +1010,7 @@ class InvestigationController extends Controller
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1056,12 +1056,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                     $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1093,12 +1093,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                     $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1130,12 +1130,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                     $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
