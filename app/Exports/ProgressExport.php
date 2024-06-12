@@ -28,6 +28,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
         foreach ($this->investigations as $investigation) {
             if ($investigation->progress != null) {
                 $data[] = [
+                    $investigation->case_number,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
@@ -60,18 +61,20 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
     public function columnWidths(): array
     {
         return [
-            'A' => 45,
-            'B' => 60,
-            'C' => 15,
-            'D' => 100,
-            'E' => 100,
+            'A' => 15,
+            'B' => 45,
+            'C' => 60,
+            'D' => 15,
+            'R' => 100,
             'F' => 100,
             'G' => 100,
+            'H' => 100,
         ];
     }
     public function headings(): array
     {
         return [
+            'case_number',
             'For',
             'Subject',
             'Date',

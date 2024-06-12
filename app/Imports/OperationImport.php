@@ -22,129 +22,119 @@ class OperationImport implements ToCollection
     {
 
         foreach ($collection as $key => $row) {
-
             if ($key > 0) {
-
                 $afor = Afor::create([
                     'alarm_received' => $row[0] ?? '',
                     'transmitted_by' => $row[1] ?? '',
-                    'caller_address' => $row[2] ?? '',
-                    'barangay_name' => $row[3] ?? '',
-                    'zone' => $row[4] ?? '',
-                    'location' => $row[5] ?? '',
-                    'full_location' => $row[6] ?? '',
-                    'blotter_number' => $row[7] ?? '',
-                    'received_by' => $row[8] ?? null,
-                    'td_under_control' => $row[9] ?? null,
-                    'td_declared_fireout' => $row[10] ?? null,
-                    'sketch_of_fire_operation' => $row[11] ?? '',
-                    'details' => $row[12] ?? '',
-                    'problem_encounter' => $row[13] ?? '',
-                    'observation_recommendation' => $row[14] ?? '',
-                    'alarm_status_arrival' => $row[15] ?? '',
-                    'first_responder' => $row[16] ?? '',
-                    'prepared_by' => $row[17] ?? '',
-                    'noted_by' => $row[18] ?? '',
+                    'originator' => $row[2] ?? '', 
+                    'caller_address' => $row[3] ?? '',
+                    'barangay_name' => $row[4] ?? '',
+                    'zone' => $row[5] ?? '',
+                    'location' => $row[6] ?? '',
+                    'full_location' => $row[7] ?? '',
+                    'blotter_number' => $row[8] ?? '',
+                    'received_by' => $row[9] ?? null,
+                    'td_under_control' => $row[10] ?? null,
+                    'td_declared_fireout' => $row[11] ?? null,
+                    'sketch_of_fire_operation' => $row[12] ?? '',
+                    'details' => $row[13] ?? '',
+                    'problem_encounter' => $row[14] ?? '',
+                    'observation_recommendation' => $row[15] ?? '',
+                    'alarm_status_arrival' => $row[16] ?? '',
+                    'first_responder' => $row[17] ?? '',
+                    'prepared_by' => $row[18] ?? '',
+                    'noted_by' => $row[19] ?? '',
                 ]);
 
-                $engine_dispatched = explode(',', $row[19]);
-                $time_dispatched = explode(',', $row[20]);
-                $time_arrived_at_scene = explode(',', $row[21]);
-                $response_duration = explode(',', $row[22]);
-                $time_return_to_base = explode(',', $row[23]);
-                $water_tank_refilled = explode(',', $row[24]);
-                $gas_consumed = explode(',', $row[25]);
+                $engine_dispatched = explode(',', $row[20]);
+                $time_dispatched = explode(',', $row[21]);
+                $time_arrived_at_scene = explode(',', $row[22]);
+                $response_duration = explode(',', $row[23]);
+                $time_return_to_base = explode(',', $row[24]);
+                $water_tank_refilled = explode(',', $row[25]);
+                $gas_consumed = explode(',', $row[26]);
 
                 if ($engine_dispatched) {
-                    foreach ($engine_dispatched as $key => $engine) {
+                    foreach ($engine_dispatched as $index => $engine) {
                         Response::create([
                             'afor_id' => $afor->id,
                             'engine_dispatched' => $engine,
-                            'time_dispatched' => $time_dispatched[$key] ?? '',
-                            'time_arrived_at_scene' => $time_arrived_at_scene[$key] ?? '',
-                            'response_duration' => $response_duration[$key] ?? '',
-                            'time_return_to_base' => $time_return_to_base[$key] ?? '',
-                            'water_tank_refilled' => $water_tank_refilled[$key] ?? '',
-                            'gas_consumed' => $gas_consumed[$key] ?? '',
+                            'time_dispatched' => $time_dispatched[$index] ?? '',
+                            'time_arrived_at_scene' => $time_arrived_at_scene[$index] ?? '',
+                            'response_duration' => $response_duration[$index] ?? '',
+                            'time_return_to_base' => $time_return_to_base[$index] ?? '',
+                            'water_tank_refilled' => $water_tank_refilled[$index] ?? '',
+                            'gas_consumed' => $gas_consumed[$index] ?? '',
                         ]);
                     }
                 }
 
-                $alarm_names = explode(',', $row[26]);
-                $alarm_time = explode(',', $row[27]);
-                $fund_commander = explode(',', $row[28]);
+                $alarm_names = explode(',', $row[27]);
+                $alarm_time = explode(',', $row[28]);
+                $ground_commander = explode(',', $row[29]);
 
                 if ($alarm_names) {
-                    foreach ($alarm_names as $key => $name) {
-                        // Ensure alarm_time and fund_commander are properly set or null
-                        $time = isset($alarm_time[$key]) ? $alarm_time[$key] : null;
-                        $commander = isset($fund_commander[$key]) && is_numeric($fund_commander[$key]) ? (int)$fund_commander[$key] : null;
-
+                    foreach ($alarm_names as $index => $name) {
                         Declared_alarm::create([
                             'afor_id' => $afor->id,
                             'alarm_name' => $name,
-                            'time' => $time,
-                            'ground_commander' => $commander,
+                            'time' => $alarm_time[$index] ?? '',
+                            'ground_commander' => $ground_commander[$index] ?? '',
                         ]);
                     }
                 }
 
                 Occupancy::create([
                     'afor_id' => $afor->id,
-                    'occupancy_name' => $row[29] ?? '',
-                    'type' => $row[30] ?? '',
-                    'specify' => $row[31] ?? '',
-                    'distance' => $row[32] ?? '',
-                    'description' => $row[33] ?? '',
+                    'occupancy_name' => $row[30] ?? '',
+                    'type' => $row[31] ?? '',
+                    'specify' => $row[32] ?? '',
+                    'distance' => $row[33] ?? '',
+                    'description' => $row[34] ?? '',
                 ]);
 
-                $types = explode(',', $row[34]);
-                $injured = explode(',', $row[35]);
-                $death = explode(',', $row[36]);
+                $types = explode(',', $row[35]);
+                $injured = explode(',', $row[36]);
+                $death = explode(',', $row[37]);
 
-                foreach ($types as $key => $type) {
+                foreach ($types as $index => $type) {
                     Afor_casualties::create([
                         'afor_id' => $afor->id,
                         'type' => $type,
-                        'injured' => $injured[$key] ?? '',
-                        'death' => $death[$key] ?? '',
+                        'injured' => $injured[$index] ?? '',
+                        'death' => $death[$index] ?? '',
                     ]);
                 }
 
-                $categories = explode(',', $row[37]);
                 $quantity = explode(',', $row[38]);
-                $type = explode(',', $row[39]);
-                $nr = explode(',', $row[40]);
-                $length = explode(',', $row[41]);
+                $categories = explode(',', $row[39]);
+                $equipment_type = explode(',', $row[40]);
+                $nr = explode(',', $row[41]);
+                $length = explode(',', $row[42]);
 
-                foreach ($categories as $key => $category) {
-                    $trimmedCategory = trim($category);
-
-                    // Skip if category is empty
-                    if (empty($trimmedCategory)) {
-                        continue;
-                    }
+                foreach ($categories as $index => $category) {
+                    $quantity_value = isset($quantity[$index]) && is_numeric($quantity[$index]) ? (int)$quantity[$index] : 0;
 
                     Used_equipment::create([
                         'afor_id' => $afor->id,
-                        'category' => $trimmedCategory,
-                        'quantity' => is_numeric($quantity[$key]) ? $quantity[$key] : null,
-                        'type' => $type[$key] ?? '',
-                        'nr' => $nr[$key] ?? null,
-                        'length' => $length[$key] ?? null,
+                        'quantity' => $quantity_value,
+                        'category' => $category,
+                        'type' => $equipment_type[$index] ?? '',
+                        'nr' => $nr[$index] ?? '',
+                        'length' => $length[$index] ?? '',
                     ]);
                 }
 
-                $personnels_id = explode(',', $row[42]);
-                $designation = explode(',', $row[43]);
-                $remarks = explode(',', $row[44]);
+                $personnels_id = explode(',', $row[43]);
+                $designation = explode(',', $row[44]);
+                $remarks = explode(',', $row[45]);
 
-                foreach ($personnels_id as $key => $personnel) {
+                foreach ($personnels_id as $index => $personnel) {
                     Afor_duty_personnel::create([
                         'afor_id' => $afor->id,
                         'personnels_id' => $personnel,
-                        'designation' => $designation[$key] ?? '',
-                        'remarks' => $remarks[$key] ?? '',
+                        'designation' => $designation[$index] ?? '',
+                        'remarks' => $remarks[$index] ?? '',
                     ]);
                 }
             }

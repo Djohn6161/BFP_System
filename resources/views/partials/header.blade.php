@@ -23,15 +23,16 @@
                 </div>
                 <div class="nav-item">
                     <a id="" class="fw-bold fs-4 px-3 text-capitalize">Welcome, 
-                        @if ($user->privilege == "All")
+                        {{-- @if ($user->privilege == "All")
                             Super {{$user->name}}
-                            @elseif($user->privilege == "OC")
+                            @elseif($user->privilege == "operation_clerk")
                                 Operator {{$user->name}}
-                            @elseif($user->privilege == "IC")
+                            @elseif($user->privilege == "investigation_clerk")
                                 Investigator {{$user->name}}
-                            @elseif($user->privilege == "AC")
+                            @elseif($user->privilege == "admin_clerk")
                                 Admin {{$user->name}}
-                        @endif    
+                        @endif  --}}
+                        {{ ucwords(str_replace('_', ' ', $user->privilege)) . ' - ' . $user->name }}
                     </a> 
                 </div>
                 <div class="nav-item dropdown">

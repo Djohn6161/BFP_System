@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('alarm_received');
             $table->string('transmitted_by');
+            $table->string('originator');
             $table->string('caller_address');
             $table->string('barangay_name');
             $table->string('zone');

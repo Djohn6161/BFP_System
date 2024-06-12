@@ -75,6 +75,7 @@ class OperationExport implements FromCollection, WithHeadings
             $data[] = [
                 $operation->alarm_received,
                 $operation->transmitted_by,
+                $operation->originator,
                 $operation->caller_address,
                 $operation->barangay_name,
                 $operation->zone,
@@ -82,7 +83,9 @@ class OperationExport implements FromCollection, WithHeadings
                 $operation->full_location,
                 $operation->blotter_number,
                 $operation->received_by,
-                $operation->td_under_control, $operation->td_declared_fireout ,$operation->sketch_of_fire_operation,
+                $operation->td_under_control, 
+                $operation->td_declared_fireout, 
+                $operation->sketch_of_fire_operation,
                 $operation->details,
                 $operation->problem_encounter,
                 $operation->observation_recommendation,
@@ -108,8 +111,8 @@ class OperationExport implements FromCollection, WithHeadings
                 $casualties_data['type'],
                 $casualties_data['injured'],
                 $casualties_data['death'],
-                $equipment_data['category'],
                 $equipment_data['quantity'],
+                $equipment_data['category'],
                 $equipment_data['type'],
                 $equipment_data['nr'],
                 $equipment_data['length'],
@@ -117,7 +120,6 @@ class OperationExport implements FromCollection, WithHeadings
                 $personnel_data['designation'],
                 $personnel_data['remarks'],
             ];
-
         }
 
         // dd($data);  
@@ -129,6 +131,7 @@ class OperationExport implements FromCollection, WithHeadings
         return [
             'alarm_received',
             'transmitted_by',
+            'originator',
             'caller_address',
             'barangay_name',
             'zone',
@@ -164,8 +167,8 @@ class OperationExport implements FromCollection, WithHeadings
             'type',
             'injured',
             'death',
-            'category',
             'quantity',
+            'category',
             'type',
             'nr',
             'length',
@@ -174,6 +177,4 @@ class OperationExport implements FromCollection, WithHeadings
             'remarks',
         ];
     }
-
-
 }

@@ -272,7 +272,7 @@
                         </tr>
                         @foreach ($operation->responses as $response)
                             <tr>
-                                <td>{{ $response->truck->name }}</td>
+                                <td>{{ $response->engine_dispatched }}</td>
                                 <td>{{ $response->time_dispatched }}</td>
                                 <td>{{ $response->time_arrived_at_scene }}</td>
                                 <td>{{ $response->response_duration }}</td>
@@ -556,8 +556,7 @@
         window.onload = updatePageNumbers;
         window.onresize = updatePageNumbers;
     </script>
-    
-    
+
     
 </body>
 

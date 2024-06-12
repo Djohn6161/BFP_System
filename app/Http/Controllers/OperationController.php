@@ -60,11 +60,12 @@ class OperationController extends Controller
             'transmitted_by' => 'required|string|max:255',
             'caller_address' => 'required|string|max:255',
             'received_by' => 'required',
+            'blotter_number' => 'required|unique:Afors',
         ]);
-
+    
         $afor = new Afor();
-        if ($request->has('location')) {
-            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . 'Ligao City' . 'Landmark / Other location: ' . $request->input('location');
+        if ($request->input('barangay_name') != '') {
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City' . ' Landmark: ' . $request->input('location');
         } else {
             $location = 'Location: ' . $request->input('location');
         }
@@ -72,6 +73,7 @@ class OperationController extends Controller
         $afor->fill([
             'alarm_received' => $request->input('alarm_received'),
             'transmitted_by' => $request->input('transmitted_by'),
+            'originator' => $request->input('originator'),
             'caller_address' => $request->input('caller_address'),
             'received_by' => $request->input('received_by'),
             'barangay_name' => $request->input('barangay_name') ?? '',
@@ -268,7 +270,7 @@ class OperationController extends Controller
         $log->fill([
             'afor_id' => $afor_id,
             'user_id' => auth()->user()->id,
-            'details' => "Created an Operation Report with an alarm received by " . $afor->received_by,
+            'details' => "Created an Operation Report with the location of " . $afor->full_location,
             'action' => "Store",
         ]);
 
@@ -326,7 +328,7 @@ class OperationController extends Controller
 
     public function operationUpdate(Request $request)
     {
-        $passcodes = Passcode::where('type', "OC")->where('action', 'update')->get();
+        $passcodes = Passcode::all();
         $passcodeStatus = false;
         
         foreach ($passcodes as $passcode) {
@@ -341,7 +343,7 @@ class OperationController extends Controller
         }
 
         if ($request->has('barangay_name')) {
-            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark / Other location: ' . $request->input('location');
+            $location = 'Location: ' . $request->input('zone') . ' ' . 'Brgy: ' . $request->input('barangay_name') . ' Ligao City ' . 'Landmark: ' . $request->input('location');
         } else {
             $location = $request->input('location');
         }
@@ -349,6 +351,7 @@ class OperationController extends Controller
         $InfoUpdatedData = [
             'alarm_received' => $request->input('alarm_received') ?? '',
             'transmitted_by' => $request->input('transmitted_by') ?? '',
+            'originator' => $request->input('originator') ?? '',
             'caller_address' => $request->input('caller_address') ?? '',
             'received_by' => $request->input('received_by') ?? '',
             'barangay_name' => $request->input('barangay_name') ?? '',

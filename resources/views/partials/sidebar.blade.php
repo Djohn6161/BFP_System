@@ -26,7 +26,14 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                @if ($user->privilege == 'AC')
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('admin.personnel.search.index') }}"
+                        class="sidebar-link accordion-body ms-2 reports-collapse">
+                        <span> <i class="ti ti-users"></i></span>
+                        <span class="hide-menu">Personnel Search</span>
+                    </a>
+                </li>
+                @if ($user->privilege == 'admin_clerk' || $user->privilege == 'admin_chief')
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.personnel.index') }}"
                             class="sidebar-link accordion-body ms-2 reports-collapse">
@@ -34,18 +41,13 @@
                             <span class="hide-menu">Personnel</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.personnel.search.index') }}"
-                            class="sidebar-link accordion-body ms-2 reports-collapse">
-                            <span> <i class="ti ti-users"></i></span>
-                            <span class="hide-menu">Personnel Search</span>
-                        </a>
-                    </li>
                 @endif
                 <hr class="my-2">
                 <p class="">REPORTS</p>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}" href="{{ route('operation.index') }}">
+
+                    <a class="sidebar-link {{ $active == 'operation' ? 'active' : '' }}"
+                        href="{{ route('operation.index') }}">
                         <span>
                             <i class="ti ti-report"></i>
                         </span>
@@ -53,7 +55,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <div class="accordion accordion-flush {{ $active == 'investigation' ? 'active' : '' }}" href="{{ route('investigation.index') }}">
+                    <div class="accordion accordion-flush {{ $active == 'investigation' ? 'active' : '' }}"
+                        href="{{ route('investigation.index') }}">
                         <div class="accordion-item p-0">
                             <h2 class="accordion-header">
                                 <button
@@ -112,78 +115,104 @@
                     </div>
                 </li>
 
-                <hr class="my-2">
-                @if (auth()->user()->type === 'admin')
-                    <p class="">CONFIGURATIONS</p>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}">
-                            <span>
-                                <i class="ti ti-building-community"></i>
-                            </span>
-                            <span class="hide-menu">Occupancies</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.barangay.index') }}">
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                            </span>
-                            <span class="hide-menu">Barangay</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.alarms.index') }}">
-                            <span>
-                                <i class="ti ti-bell-school"></i>
-                            </span>
-                            <span class="hide-menu">Alarms</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.trucks.index') }}">
-                            <span>
-                                <i class="ti ti-truck"></i>
-                            </span>
-                            <span class="hide-menu">Trucks</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
-                            <span>
-                                <i class="ti ti-badge"></i>
-                            </span>
-                            <span class="hide-menu">Ranks</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.designation.index') }}">
-                            <span>
-                                <i class="ti ti-address-book"></i>
-                            </span>
-                            <span class="hide-menu">Designations</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
-                            <span>
-                                <i class="ti ti-key"></i>
-                            </span>
-                            <span class="hide-menu">Passcodes</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.index') }}">
+                @if (
+                    $user->privilege == 'configuration_chief' ||
+                        $user->privilege == 'chief' ||
+                        $user->privilege == 'investigation_admin_chief' ||
+                        $user->privilege == 'operation_admin_chief')
+                    <hr class="my-2">
+                    <p class="">CONFIGURATIONS</p>
+                    @if ($user->privilege == 'configuration_chief' || $user->privilege == 'chief')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.occupancy.index') }}">
+                                <span>
+                                    <i class="ti ti-building-community"></i>
+                                </span>
+                                <span class="hide-menu">Occupancies</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.barangay.index') }}">
+                                <span>
+                                    <i class="ti ti-map-pin"></i>
+                                </span>
+                                <span class="hide-menu">Barangay</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.alarms.index') }}">
+                                <span>
+                                    <i class="ti ti-bell-school"></i>
+                                </span>
+                                <span class="hide-menu">Alarms</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.trucks.index') }}">
+                                <span>
+                                    <i class="ti ti-truck"></i>
+                                </span>
+                                <span class="hide-menu">Trucks</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.rank.index') }}">
+                                <span>
+                                    <i class="ti ti-badge"></i>
+                                </span>
+                                <span class="hide-menu">Ranks</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.designation.index') }}">
+                                <span>
+                                    <i class="ti ti-address-book"></i>
+                                </span>
+                                <span class="hide-menu">Designations</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.stations.index') }}">
+                                <span>
+                                    <i class="ti ti-home"></i>
+                                </span>
+                                <span class="hide-menu">Stations</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (
+                        $user->privilege == 'configuration_chief' ||
+                            $user->privilege == 'investigation_admin_chief' ||
+                            $user->privilege == 'operation_admin_chief')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.passcode.index') }}">
+                                <span>
+                                    <i class="ti ti-address-book"></i>
+                                </span>
+                                <span class="hide-menu">Passcodes</span>
+                            </a>
+                        </li>
+                    @endif
+                    {{-- <li class="sidebar-item">
+                        <a class="sidebar-link {{ $active == 'personnel' ? 'bg-primary text-light' : '' }}"
+                            href="{{ route('admin.personnel.index') }}">
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ $active == 'personnel_search' ? 'bg-primary text-light' : '' }}" href="{{ route('admin.personnel.search.index') }}">
+                        <a class="sidebar-link {{ $active == 'personnel_search' ? 'bg-primary text-light' : '' }}"
+                            href="{{ route('admin.personnel.search.index') }}">
                             <span> <i class="ti ti-users"></i></span>
                             <span class="hide-menu">Personnel Search</span>
                         </a>
-                    </li>
+                    </li> --}}
+                @endif
+
+                @if (auth()->user()->privilege === 'operation_admin_chief' ||
+                        auth()->user()->privilege === 'investigation_admin_chief' ||
+                        auth()->user()->privilege === 'configuration_chief')
                     <hr class="my-2">
                     <p class="">ACTIVITIES</p>
 
@@ -191,36 +220,49 @@
                         <div class="accordion accordion-flush" id="logsAccordion">
                             <div class="accordion-item p-0">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button sidebar-link {{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'configurationLog') ? '' : 'collapsed' }}" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseLogs" aria-expanded="{{ ($active == 'viewOperationLogs' || $active == 'viewInvestigationLogs') || ($active == 'configurationLog') ? 'true' : 'false' }}"
+                                    <button
+                                        class="accordion-button sidebar-link {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapsed' }}"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseLogs"
+                                        aria-expanded="{{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? 'true' : 'false' }}"
                                         aria-controls="collapseOne">
                                         <span> <i class="ti ti-file-description"></i></span>
                                         <span class="hide-menu">Logs</span>
                                     </button>
                                 </h2>
-                                <div id="collapseLogs" class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapse' }}"
+                                <div id="collapseLogs"
+                                    class="accordion-collapse {{ $active == 'viewOperationLogs' || $active == 'viewInvestigationLogs' || $active == 'configurationLog' ? '' : 'collapse' }}"
                                     data-bs-parent="#logsAccordion">
 
-                                    <a href="{{ route('admin.logs.operation.viewLogs') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewOperationLogs' ? 'bg-primary text-light' : '' }}">
-                                        <span> <i class="ti ti-caret-right"></i></span>
-                                        Operation
-                                    </a>
-                                    <a href="{{ route('admin.logs.investigation.viewLogs') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewInvestigationLogs' ? 'bg-primary text-light' : '' }}">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Investigation
-                                    </a>
-                                    {{-- <a href="#" --}}
-                                    <a href="{{ route('admin.logs.configuration.viewLogs') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'configurationLog' ? 'bg-primary text-light' : '' }}">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Configurations
-                                    </a>
+                                    @if (auth()->user()->privilege === 'operation_admin_chief')
+                                        <a href="{{ route('admin.logs.operation.viewLogs') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewOperationLogs' ? 'bg-primary text-light' : '' }}">
+                                            <span> <i class="ti ti-caret-right"></i></span>
+                                            Operation
+                                        </a>
+                                    @endif
+
+                                    @if (auth()->user()->privilege === 'investigation_admin_chief')
+                                        <a href="{{ route('admin.logs.investigation.viewLogs') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewInvestigationLogs' ? 'bg-primary text-light' : '' }}">
+                                            <span><i class="ti ti-caret-right"></i></span>
+                                            Investigation
+                                        </a>
+                                    @endif
+
+                                    @if (auth()->user()->privilege === 'configuration_chief')
+                                        <a href="{{ route('admin.logs.configuration.viewLogs') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'configurationLog' ? 'bg-primary text-light' : '' }}">
+                                            <span><i class="ti ti-caret-right"></i></span>
+                                            Configurations
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </li>
+                @endif
+
+                @if (auth()->user()->privilege === 'operation_admin_chief' || auth()->user()->privilege === 'investigation_admin_chief')
                     <li class="sidebar-item">
                         <div class="accordion accordion-flush" id="trashAccordion">
                             <div class="accordion-item p-0">
@@ -236,23 +278,27 @@
                                 <div id="collapseTrash"
                                     class="accordion-collapse {{ $active == 'Investigation' || $active == 'Operation' ? '' : 'collapse' }}"
                                     data-bs-parent="#trashAccordion">
-                                    <a href="{{ route('admin.trash.operation.index') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Operation' ? 'bg-primary text-light' : '' }}">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Operation
-                                    </a>
-                                    <a href="{{ route('admin.trash.investigation.index') }}"
-                                        class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Investigation' ? 'bg-primary text-light' : '' }}">
-                                        <span><i class="ti ti-caret-right"></i></span>
-                                        Investigation
-                                    </a>
+                                    @if (auth()->user()->privilege === 'operation_admin_chief')
+                                        <a href="{{ route('admin.trash.operation.index') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Operation' ? 'bg-primary text-light' : '' }}">
+                                            <span><i class="ti ti-caret-right"></i></span>
+                                            Operation
+                                        </a>
+                                    @endif
+                                    @if (auth()->user()->privilege === 'investigation_admin_chief')
+                                        <a href="{{ route('admin.trash.investigation.index') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'Investigation' ? 'bg-primary text-light' : '' }}">
+                                            <span><i class="ti ti-caret-right"></i></span>
+                                            Investigation
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </li>
+                @endif
 
-                    {{-- Bottom --}}
-
+                @if (auth()->user()->privilege === 'configuration_chief')
                     <hr class="my-2">
                     <p class="">ACCOUNTS</p>
 

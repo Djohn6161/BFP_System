@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -27,11 +28,11 @@ class UserSeeder extends Seeder
                 'picture' => 'default.png',
             ],   
             [
-                'name' => 'Configuration Cheif',
-                'username' => 'configuration_cheif',
+                'name' => 'Configuration Chief',
+                'username' => 'configuration_chief',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'configuration_cheif',
+                'privilege' => 'configuration_chief',
                 'picture' => 'default.png',
             ],     
             
@@ -46,7 +47,7 @@ class UserSeeder extends Seeder
 
             [
                 'name' => 'Investigation Admin Chief',
-                'username' => 'admin',
+                'username' => 'investigation_admin_chief',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
                 'privilege' => 'investigation_admin_chief',
@@ -54,11 +55,11 @@ class UserSeeder extends Seeder
             ],   
 
             [
-                'name' => 'Admin Cheif',
-                'username' => 'admin_cheif',
+                'name' => 'Admin Chief',
+                'username' => 'admin_chief',
                 'password' => Hash::make('12341234'),
                 'type' => 'admin',
-                'privilege' => 'admin_cheif',
+                'privilege' => 'admin_chief',
                 'picture' => 'default.png',
             ], 
 
@@ -95,73 +96,93 @@ class UserSeeder extends Seeder
             //Operation
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
             [
 
-                'creators_id' => 1,
-                'code' => Str::upper(Str::random(20)),
-                'status' => true,
+                'creators_id' => 3,
+                'code' => Str::upper(Str::random(10)),
                 'users_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                
             ],
 
         ];
