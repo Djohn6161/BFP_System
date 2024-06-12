@@ -31,7 +31,7 @@
                         novalidate method="POST" id="finalCreate">
                         @csrf
                         @method('PUT')
-                        <x-reports.investigation.memo-investigate :spot=$final></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$final :station=$station></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">

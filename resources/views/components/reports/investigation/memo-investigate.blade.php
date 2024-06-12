@@ -4,7 +4,7 @@
             <label for="case_number" class="form-label">Case Number:</label>
             <input type="text" placeholder="Eg. pedro villa" id="case_number" name="case_number"
                 class="form-control {{ $errors->has('case_number') != '' ? 'is-invalid' : '' }}"
-                value="{{ old('case_number') ?? ($spot->investigation->case_number ?? "INV" . now()->year . "_") }}" required>
+                value="{{ old('case_number') ?? ($spot->investigation->case_number ?? $station->caseNumberTemp) }}" required>
             @error('case_number')
                 <span class="text-danger alert" role="alert">{{ $message }}</span>
             @enderror

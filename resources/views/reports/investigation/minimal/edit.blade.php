@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <x-reports.investigation.memo-investigate :spot=$minimal></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$minimal :station=$station></x-reports.investigation.memo-investigate>
 
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">

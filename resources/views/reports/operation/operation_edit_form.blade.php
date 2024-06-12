@@ -14,7 +14,7 @@
             <div class="col-lg-11 p-4">
                 <div class="row">
                     <form method="POST" action="{{ route('operation.update') }}" enctype="multipart/form-data">
-                        @csrf 
+                        @csrf
 
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
@@ -26,7 +26,7 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <!-- Intro -->
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Operation Information</h3>
@@ -225,16 +225,14 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
-                                <input type="datetime-local" class="form-control"
-                                    id="firstResponderInput" name="td_under_control"
-                                    value="{{ $operation->td_under_control }}">
+                                <input type="datetime-local" class="form-control" id="firstResponderInput"
+                                    name="td_under_control" value="{{ $operation->td_under_control }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
-                                <input type="datetime-local" class="form-control"
-                                    id="firstResponderInput" name="td_declared_fireout"
-                                    value="{{ $operation->td_under_control }}">
+                                <input type="datetime-local" class="form-control" id="firstResponderInput"
+                                    name="td_declared_fireout" value="{{ $operation->td_under_control }}">
                             </div>
                             <hr>
                             <div class="row m-0 p-0" id="secondDivApor">
@@ -317,7 +315,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                           
+
                             <div class="col-lg-6 mb-2">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
@@ -329,13 +327,16 @@
                                 <div class="d-flex">
                                     @foreach ($occupancy_types as $type)
                                         <div class="col-lg-4 mb-3 form-check me-5">
-                                            <input class="form-check-input" type="radio" name="occupancy_type" id="occupancy{{ $type }}" value="{{ $type }}" {{ $type == $occupancy->type ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="occupancy{{ $type }}">{{ $type }}</label>
+                                            <input class="form-check-input" type="radio" name="occupancy_type"
+                                                id="occupancy{{ $type }}" value="{{ $type }}"
+                                                {{ $type == $occupancy->type ? 'checked' : '' }}>
+                                            <label class="form-check-label"
+                                                for="occupancy{{ $type }}">{{ $type }}</label>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
-                            
+
                             <hr>
                             <div class="col-lg-6 mb-3">
                                 <label for="approxDistanceFireIncident" class="form-label">Approximate Distance of Fire
@@ -352,7 +353,8 @@
 
                         <!-- Casualties -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Total Number of Casualty Reported
+                            </h3>
 
                             @foreach ($casualties as $casualty)
                                 @if ($casualty->type == 'civilian')
@@ -553,7 +555,8 @@
 
                         <!-- Duty Personnel -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene</h3>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire Scene
+                            </h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row m-0 p-0" id="thirdAddApor">
                                     @foreach ($operation->dutyPersonnels as $dutyPersonnel)
@@ -582,8 +585,9 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 mb-3"> <label for="fundCommander"
-                                                    class="form-label">Designation</label> <select class="form-select designationSelectEdit"
-                                                    aria-label="" name="duty_designation[]">
+                                                    class="form-label">Designation</label> <select
+                                                    class="form-select designationSelectEdit" aria-label=""
+                                                    name="duty_designation[]">
                                                     <option value="" selected>Select designation</option>
                                                     @foreach ($designations as $designation)
                                                         @if ($dutyPersonnel->designation == $designation->name)
@@ -878,15 +882,17 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
-                            {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
-                            <div class="col-lg-12 mb-3">
-                                <label for="alarmReceived" class="form-label">Passcode:</label>
-                                <input type="password" placeholder="Enter Passcode" class="form-control" name="passcode">
-                            </div>
+                        @if ($user->privilege != 'operation_admin_chief')
+                            <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
+                                {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
+                                <div class="col-lg-12 mb-3">
+                                    <label for="alarmReceived" class="form-label">Passcode:</label>
+                                    <input type="password" placeholder="Enter Passcode" class="form-control"
+                                        name="passcode">
+                                </div>
 
-                        </div>
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
                                 <button type="submit" class="btn btn-success">
@@ -897,7 +903,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>

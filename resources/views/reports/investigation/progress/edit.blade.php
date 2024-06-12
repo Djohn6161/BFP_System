@@ -29,7 +29,7 @@
                     <form method="POST" action="{{ route('investigation.progress.update', ['progress' => $progress->id]) }}">
                         @csrf
                         @method('PUT')
-                        <x-reports.investigation.memo-investigate :spot=$progress></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$progress :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}

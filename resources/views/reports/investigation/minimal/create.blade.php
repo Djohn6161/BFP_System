@@ -21,7 +21,7 @@
                             </div>
                         </div>
 
-                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS</h3>
