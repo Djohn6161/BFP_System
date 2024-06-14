@@ -50,7 +50,8 @@ class OperationController extends Controller
         $occupancy_names = Occupancy_name::all();
         $designations = Designation::all();
         $station = Station::first();
-        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations', 'station'));
+        $occupancy_types = ['Structural', 'Non-Structural', 'Vehicular'];
+        return view('reports.operation.operation_form', compact('active', 'user', 'personnels', 'barangays', 'trucks', 'alarm_list', 'occupancy_names', 'designations', 'station','occupancy_types'));
     }
 
     public function operationStore(Request $request)

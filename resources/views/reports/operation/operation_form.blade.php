@@ -104,6 +104,12 @@
                                     <select class="form-select barangayApor" aria-label="" name="barangay_name">
                                         <option value="" selected>Select barangay</option>
                                         @foreach ($barangays as $barangay)
+                                            @if (old('barangay_name') == $barangay->name)
+                                                )
+                                                <option selected value="{{ $barangay->name }}">
+                                                    {{ $barangay->name }} - {{ $barangay->unit }}
+                                                </option>
+                                            @endif
                                             <option value="{{ $barangay->name }}">
                                                 {{ $barangay->name }} - {{ $barangay->unit }}
                                             </option>
@@ -113,13 +119,13 @@
                                 <div class="col-lg-6 mb-3">
                                     <label for="officeAddress" class="form-label">Zone/Street</label>
                                     <input type="text" placeholder="Enter the zone/street" class="form-control"
-                                        id="zone" name="zone">
+                                        id="zone" name="zone" value="{{ old('zone') }}">
                                 </div>
                                 <div class="col-lg-12 mb-3">
                                     <label for="otherLocation" class="form-label">Other
                                         Location / Landmark</label>
                                     <input type="text" placeholder="Enter other location" class="form-control"
-                                        id="otherLocation" name="location">
+                                        id="otherLocation" name="location" value="{{ old('location') }}">
                                 </div>
                             </div>
                             <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
@@ -127,61 +133,78 @@
                                     <div class="row m-0 p-0 border-0" id="addApor">
                                         <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Engine Dispatched
                                         </h3>
-                                        <div class="col-lg-3 mb-3">
-                                            <label for="vehicle" class="form-label">Engine
-                                                Dispatched</label>
-                                            <select class="form-select engineDispatched" aria-label=""
-                                                name="engine_dispatched[]">
-                                                <option value="" selected>Select vehicle</option>
-                                                @foreach ($trucks as $truck)
-                                                    <option value="{{ $truck->name }}">
-                                                        {{ $truck->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-3 mb-3">
-                                            <label for="timeDispatched" class="form-label">Time
-                                                Dispatched</label>
-                                            <input type="text" placeholder="Eg. 2300h"
-                                                class="form-control text-uppercase" id="timeDispatchedInput"
-                                                name="time_dispatched[]">
-                                        </div>
-                                        <div class="col-lg-3 mb-3">
-                                            <label for="timeArrivedFireScene" class="form-label">Time
-                                                Arrived at Fire Scene</label>
-                                            <input type="text" placeholder="Eg. 2300h"
-                                                class="form-control text-uppercase" id="timeArrivedFireSceneInput"
-                                                name="time_arrived_at_scene[]">
-                                        </div>
-                                        <div class="col-lg-3 mb-3">
-                                            <label for="responseTime" class="form-label">Response
-                                                Time</label>
-                                            <input type="text" placeholder="Eg. 1900h - 2300h"
-                                                class="form-control text-uppercase" id="responseTimeInput"
-                                                name="response_duration[]">
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="timeReturned" class="form-label">Time Returned
-                                                to Base</label>
-                                            <input type="text" placeholder="Eg. 1900h - 2300h"
-                                                class="form-control text-uppercase" id="timeReturnedInput"
-                                                name="time_return_to_base[]">
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="waterTank" class="form-label">Water Tank
-                                                Refilled (GAL)</label>
-                                            <input type="text" placeholder="Eg. 1000 GAL"
-                                                class="form-control text-uppercase" id="waterTankInput"
-                                                name="water_tank_refilled[]">
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="gasConsumed" class="form-label">Gas Consumed
-                                                (L)</label>
-                                            <input type="text" placeholder="Eg. 24l"
-                                                class="form-control text-uppercase" id="gasConsumedInput"
-                                                name="gas_consumed[]">
-                                        </div>
+                                        @foreach (old('engine_dispatched', ['']) as $index => $engine)
+                                            <div class="row remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-3 mb-3">
+                                                    <label for="vehicle" class="form-label">Engine
+                                                        Dispatched {{ $index }}</label>
+                                                    <select class="form-select engineDispatched" aria-label=""
+                                                        name="engine_dispatched[]">
+                                                        <option value="">Select vehicle</option>
+                                                        @foreach ($trucks as $truck)
+                                                            <option value="{{ $truck->name }}"
+                                                                {{ $truck->name == $engine ? 'selected' : '' }}>
+                                                                {{ $truck->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 mb-3">
+                                                    <label for="timeDispatched" class="form-label">Time
+                                                        Dispatched</label>
+                                                    <input type="text" placeholder="Eg. 2300h"
+                                                        class="form-control text-uppercase" id="timeDispatchedInput"
+                                                        name="time_dispatched[]"
+                                                        value="{{ old('time_dispatched.' . $index . '') }}">
+                                                </div>
+                                                <div class="col-lg-3 mb-3">
+                                                    <label for="timeArrivedFireScene" class="form-label">Time
+                                                        Arrived at Fire Scene</label>
+                                                    <input type="text" placeholder="Eg. 2300h"
+                                                        class="form-control text-uppercase" id="timeArrivedFireSceneInput"
+                                                        name="time_arrived_at_scene[]"
+                                                        value="{{ old('time_arrived_at_scene.' . $index . '') }}">
+                                                </div>
+                                                <div class="col-lg-3 mb-3">
+                                                    <label for="responseTime" class="form-label">Response
+                                                        Time</label>
+                                                    <input type="text" placeholder="Eg. 1900h - 2300h"
+                                                        class="form-control text-uppercase" id="responseTimeInput"
+                                                        name="response_duration[]"
+                                                        value="{{ old('response_duration.' . $index . '') }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="timeReturned" class="form-label">Time Returned
+                                                        to Base</label>
+                                                    <input type="text" placeholder="Eg. 1900h - 2300h"
+                                                        class="form-control text-uppercase" id="timeReturnedInput"
+                                                        name="time_return_to_base[]"
+                                                        value="{{ old('time_return_to_base.' . $index . '') }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="waterTank" class="form-label">Water Tank
+                                                        Refilled (GAL)</label>
+                                                    <input type="text" placeholder="Eg. 100 GAL"
+                                                        class="form-control text-uppercase" id="waterTankInput"
+                                                        name="water_tank_refilled[]"
+                                                        value="{{ old('water_tank_refilled.' . $index . '') }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="gasConsumed" class="form-label">Gas Consumed
+                                                        (L)
+                                                    </label>
+                                                    <input type="text" placeholder="Eg. 24l"
+                                                        class="form-control text-uppercase" id="gasConsumedInput"
+                                                        name="gas_consumed[]"
+                                                        value="{{ old('gas_consumed.' . $index . '') }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <hr>
                                 </div>
@@ -203,7 +226,9 @@
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
                                         <option value="" selected>Select alarm status</option>
                                         @foreach ($alarm_list as $list)
-                                            <option value="{{ $list->name }}">{{ $list->name }}</option>
+                                            <option value="{{ $list->name }}"
+                                                {{ $list->name == old('alarm_status_arrival') ? 'selected' : '' }}>
+                                                {{ $list->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -211,25 +236,28 @@
                                     <label for="firstResponder" class="form-label">First
                                         Responder</label>
                                     <input type="text" placeholder="Enter responder" class="form-control"
-                                        id="firstResponderInput" name="first_responder">
+                                        id="firstResponderInput" name="first_responder"
+                                        value="{{ old('first_responder') }}">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="underControl" class="form-label">Time / Date Under
                                         Control</label>
                                     <input type="datetime-local" placeholder="" class="form-control"
-                                        id="firstResponderInput" name="td_under_control">
+                                        id="firstResponderInput" name="td_under_control"
+                                        value="{{ old('td_under_control') }}">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="fireOut" class="form-label">Time / Date Declared
                                         Fire Out</label>
                                     <input type="datetime-local" placeholder="" class="form-control"
-                                        id="firstResponderInput" name="td_declared_fireout">
+                                        id="firstResponderInput" name="td_declared_fireout"
+                                        value="{{ old('td_declared_fireout') }}">
                                 </div>
                                 <hr>
                                 <div class="row m-0 p-0" id="secondDivApor">
                                     <div class="row m-0 p-0" id="secondAddApor">
                                         <h5>Time Alarm Status Declared</h5>
-                                        <div class="col-lg-4 mb-3">
+                                        {{-- <div class="col-lg-4 mb-3">
                                             <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
                                             <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
                                                 <option value="" selected>Select alarm status</option>
@@ -255,7 +283,52 @@
                                                         {{ $personnel->last_name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
+                                        @foreach (old('alarm_name', ['']) as $index => $alarm_name)
+                                            <div class="row second-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="timeAlarmStatusDeclared" class="form-label">Alarm
+                                                        Status</label>
+                                                    <select class="form-select alarmApor" aria-label=""
+                                                        name="alarm_name[]">
+                                                        <option value="" selected>Select alarm status</option>
+                                                        @foreach ($alarm_list as $list)
+                                                            <option value="{{ $list->name }}"
+                                                                {{ $list->name == old('alarm_name.' . $index) ? 'selected' : '' }}>
+                                                                {{ $list->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="timeAlarmStatusDeclaredTime"
+                                                        class="form-label">Time</label>
+                                                    <input type="text" placeholder="Eg. 2300h"
+                                                        class="form-control text-uppercase"
+                                                        id="timeAlarmStatusDeclaredTime" name="alarm_time[]"
+                                                        value="{{ old('alarm_time.' . $index, '') }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="fundCommander" class="form-label">Fund Commander</label>
+                                                    <select class="form-select fundCommander" aria-label=""
+                                                        name="fund_commander[]">
+                                                        <option value="" selected>Select Fund Commander</option>
+                                                        @foreach ($personnels as $personnel)
+                                                            <option value="{{ $personnel->id }}"
+                                                                {{ old('fund_commander.' . $index) == $personnel->id ? 'selected' : '' }}>
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
                                     </div>
                                     <hr>
                                 </div>
@@ -277,7 +350,9 @@
                                     <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                         <option value="" selected>Select occupancy name</option>
                                         @foreach ($occupancy_names as $names)
-                                            <option value="{{ $names->name }}">{{ $names->name }}</option>
+                                            <option value="{{ $names->name }}"
+                                                {{ $names->name == old('occupancy_name') ? 'selected' : '' }}>
+                                                {{ $names->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -285,27 +360,20 @@
                                 <div class="col-lg-6 mb-2">
                                     <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                     <input type="text" placeholder="Enter the office or address" class="form-control"
-                                        name="occupancy_specify">
+                                        name="occupancy_specify" value="{{ old('occupancy_specify') }}">
                                 </div>
                                 <div class="col-lg-12 mb-3">
                                     <label class="form-label"></label>
                                     <div class="d-flex">
-                                        <div class="col-lg-4 mb-3 form-check me-5">
-                                            <input class="form-check-input" type="radio" name="occupancy_type"
-                                                id="occupancyStructural" value="Structural">
-                                            <label class="form-check-label" for="occupancyStructural">Structural</label>
-                                        </div>
-                                        <div class="col-lg-4 mb-3 form-check me-5">
-                                            <input class="form-check-input" type="radio" name="occupancy_type"
-                                                id="occupancyNonStructural" value="Non-Structural">
-                                            <label class="form-check-label" for="occupancyNonStructural">
-                                                Non-Structural</label>
-                                        </div>
-                                        <div class="col-lg-4 mb-3 form-check me-5">
-                                            <input class="form-check-input" type="radio" name="occupancy_type"
-                                                id="occupancyVehicular" value="Vehicular">
-                                            <label class="form-check-label" for="occupancyVehicular">Vehicular</label>
-                                        </div>
+                                        @foreach ($occupancy_types as $type)
+                                            <div class="col-lg-4 mb-3 form-check me-5">
+                                                <input class="form-check-input" type="radio" name="occupancy_type"
+                                                    id="occupancy{{ $type }}" value="{{ $type }}"
+                                                    {{ $type == old('occupancy_type') ? 'checked' : '' }}>
+                                                <label class="form-check-label"
+                                                    for="occupancy{{ $type }}">{{ $type }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <hr>
@@ -314,13 +382,13 @@
                                         Fire
                                         Incident from Fire Station (Km)</label>
                                     <input type="text" placeholder="eg. 1.5Km" class="form-control"
-                                        name="distance_to_fire_incident">
+                                        name="distance_to_fire_incident" value="{{ old('distance_to_fire_incident') }}">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="deneralDescriptionStructureInvolved" class="form-label">General
                                         Description of
                                         the structure/s involved</label>
-                                    <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description"></textarea>
+                                    <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description">{{ old('structure_description') }}</textarea>
                                 </div>
                             </div>
 
@@ -334,12 +402,12 @@
                                         <div class="col-lg-6 mb-3">
                                             <label for="civilianInjured" class="form-label">Injured</label>
                                             <input type="number" placeholder="No. of injured" class="form-control"
-                                                name="civilian_injured">
+                                                name="civilian_injured" value="{{ old('civilian_injured') }}">
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <label for="civilianDeath" class="form-label">Death</label>
                                             <input type="number" placeholder="No. of deaths" class="form-control"
-                                                name="civillian_deaths">
+                                                name="civillian_deaths" value="{{ old('civillian_deaths') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -349,12 +417,12 @@
                                         <div class="col-lg-6 mb-3">
                                             <label for="firefighterInjured" class="form-label">Injured</label>
                                             <input type="number" placeholder="No. of injured" class="form-control"
-                                                name="firefighter_injured">
+                                                name="firefighter_injured" value="{{ old('firefighter_injured') }}">
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <label for="firefighterDeath" class="form-label">Death</label>
                                             <input type="number" placeholder="No. of deaths" class="form-control"
-                                                name="firefighter_deaths">
+                                                name="firefighter_deaths" value="{{ old('firefighter_deaths') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -366,18 +434,26 @@
                                 <div class="row m-0 p-0 breathing-apparatus">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used
                                     </h3>
-
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">No.</label>
-                                        <input type="number" placeholder="No." class="form-control"
-                                            id="firstResponderInput" name="no_breathing[]">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Type /
-                                            Kind</label>
-                                        <input type="text" placeholder="Enter type" class="form-control"
-                                            id="firstResponderInput" name="breathing[]">
-                                    </div>
+                                    @foreach (old('breathing', ['']) as $index => $breathing)
+                                            <div class="row breathing-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">No.</label> <input type="number"
+                                                        placeholder="No." class="form-control" id="firstResponderInput"
+                                                        name="no_breathing[]" value="{{ old('no_breathing.' . $index, '') }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">Type
+                                                        / Kind</label> <input type="text" placeholder="Enter type"
+                                                        class="form-control" id="firstResponderInput" name="breathing[]"
+                                                        value="{{ $breathing }}">
+                                                </div>
+                                                <hr>
+                                            </div>
+                                    @endforeach
                                 </div>
                                 <hr>
                                 <div class="row m-0 p-0">
@@ -758,7 +834,7 @@
                 $('#addNewDivApor').click(function() {
                     var newDiv = $('#addApor').clone();
                     var mnewDiv = $(
-                        '<div class="row remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button> </div> <div class="col-lg-3 mb-3"> <label for="vehicle" class="form-label">Engine Dispatched</label> <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]"> <option selected>Select vehicle</option> @foreach ($trucks as $truck) <option value="{{ $truck->id }}"> {{ $truck->name }} </option> @endforeach </select> </div> <div class="col-lg-3 mb-3"> <label for="timeDispatched" class="form-label">Time Dispatched</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeDispatchedInput" name="time_dispatched[]"> </div> <div class="col-lg-3 mb-3"> <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeArrivedFireSceneInput" name="time_arrived_at_scene[]"> </div> <div class="col-lg-3 mb-3"> <label for="responseTime" class="form-label">Response Time</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="responseTimeInput" name="response_duration[]"> </div> <div class="col-lg-4 mb-3"> <label for="timeReturned" class="form-label">Time Returned to Base</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="timeReturnedInput" name="time_return_to_base[]"> </div> <div class="col-lg-4 mb-3"> <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="waterTankInput" name="water_tank_refilled[]"> </div> <div class="col-lg-4 mb-3"> <label for="gasConsumed" class="form-label">Gas Consumed (L)</label> <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase" id="gasConsumedInput" name="gas_consumed[]"> </div> <hr> </div>'
+                        '<div class="row remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button> </div> <div class="col-lg-3 mb-3"> <label for="vehicle" class="form-label">Engine Dispatched</label> <select class="form-select engineDispatched" aria-label="" name="engine_dispatched[]"> <option selected>Select vehicle</option> @foreach ($trucks as $truck) <option value="{{ $truck->name }}"> {{ $truck->name }} </option> @endforeach </select> </div> <div class="col-lg-3 mb-3"> <label for="timeDispatched" class="form-label">Time Dispatched</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeDispatchedInput" name="time_dispatched[]"> </div> <div class="col-lg-3 mb-3"> <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire Scene</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeArrivedFireSceneInput" name="time_arrived_at_scene[]"> </div> <div class="col-lg-3 mb-3"> <label for="responseTime" class="form-label">Response Time</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="responseTimeInput" name="response_duration[]"> </div> <div class="col-lg-4 mb-3"> <label for="timeReturned" class="form-label">Time Returned to Base</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="timeReturnedInput" name="time_return_to_base[]"> </div> <div class="col-lg-4 mb-3"> <label for="waterTank" class="form-label">Water Tank Refilled (GAL)</label> <input type="text" placeholder="Eg. 1900h - 2300h" class="form-control text-uppercase" id="waterTankInput" name="water_tank_refilled[]"> </div> <div class="col-lg-4 mb-3"> <label for="gasConsumed" class="form-label">Gas Consumed (L)</label> <input type="text" placeholder="Eg. 24l" class="form-control text-uppercase" id="gasConsumedInput" name="gas_consumed[]"> </div> <hr> </div>'
                     );
 
                     console.log(mnewDiv);
