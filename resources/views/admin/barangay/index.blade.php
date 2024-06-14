@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -18,12 +17,14 @@
                                 <h5 class="mb-0 text-light card-title fw-semibold">
                                     Barangay
                                 </h5>
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#addBarangayModal">
-                                    <i class="ti ti-plus"></i>
-                                    Create
-                                </button>
-                                <x-barangay.create :category="$active"></x-barangay.create>
+                                @if ($user->privilege == 'configuration_chief')
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#addBarangayModal">
+                                        <i class="ti ti-plus"></i>
+                                        Create
+                                    </button>
+                                    <x-barangay.create :category="$active"></x-barangay.create>
+                                @endif
                             </div>
 
                             <div class="table-responsive">
@@ -33,7 +34,9 @@
                                             <th class="border-bottom-0">ID</th>
                                             <th class="border-bottom-0">Name</th>
                                             <th class="border-bottom-0">Unit</th>
-                                            <th class="border-bottom-0 text-center">Action</th>
+                                            @if ($user->privilege == 'configuration_chief')
+                                                <th class="border-bottom-0 text-center">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
@@ -54,28 +57,28 @@
                                                 <td>
                                                     {{ $barangay->unit }}
                                                 </td>
+                                                @if ($user->privilege == 'configuration_chief')
+                                                    <td class="w-25 py-2">
+                                                        <div class="d-flex flex-row">
+                                                            <div class="me-1">
+                                                                <button class="btn btn-success w-100" data-bs-toggle="modal"
+                                                                    data-bs-target="#editBarangayModal{{ $barangay->id }}">
+                                                                    <i class="ti ti-pencil"></i>
+                                                                    Update
 
-                                                <td class="w-25 py-2">
-                                                    <div class="d-flex flex-row">
-                                                        <div class="me-1">
-                                                            <button class="btn btn-success w-100"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editBarangayModal{{ $barangay->id }}">
-                                                                <i class="ti ti-pencil"></i>
-                                                                Update
-                                                         
-                                                            </button>
+                                                                </button>
+                                                            </div>
+                                                            <div class="me-1">
+                                                                <button class="btn btn-danger w-100" data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteBarangayModal{{ $barangay->id }}">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete
+
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                        <div class="me-1">
-                                                            <button class="btn btn-danger w-100" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteBarangayModal{{ $barangay->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
-                                                               
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

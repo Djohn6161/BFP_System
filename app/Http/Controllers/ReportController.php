@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\Truck;
 use App\Models\Report;
+use App\Models\Victim;
+use App\Models\Station;
 use App\Models\Barangay;
 use App\Models\Personnel;
-use App\Models\Victim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,7 @@ class ReportController extends Controller
         $investigation = Report::all()->where('category', 'Investigation');
         $operation = Report::all()->where('category', 'Operation');
         $active = 'investigation';
-
+        $station = Station::first();
         return view('reports.investigation', compact('active', 'investigation', 'operation', 'user'));
     }
     public function operationIndex()

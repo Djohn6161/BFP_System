@@ -1,5 +1,3 @@
-
-
 @extends('layouts.user-template')
 
 @section('content')
@@ -17,12 +15,14 @@
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
                                 <h5 class="mb-0 text-light card-title fw-semibold">Accounts</h5>
+                                @if ($user->privilege == 'configuration_chief')
                                 <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                     data-bs-target="#addAccountModal">
                                     <i class="ti ti-plus"></i>
                                     Create Account
                                 </button>
                                 <x-truck.create :category="$active"></x-truck.create>
+                                @endif
                             </div>
                             <div class="table-responsive">
                                 <table class="table text-nowrap mb-0 align-middle" id="adminAccount">
@@ -32,11 +32,13 @@
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">Email</h6>
+                                                <h6 class="fw-semibold mb-0">username</h6>
                                             </th>
-                                            <th>
-                                                <h6 class="fw-semibold mb-0">Action</h6>
-                                            </th>
+                                            @if ($user->privilege == 'configuration_chief')
+                                                <th>
+                                                    <h6 class="fw-semibold mb-0">Action</h6>
+                                                </th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -46,55 +48,57 @@
                                                     <h6 class="mb-0 fw-normal">{{ $account->name }}</h6>
                                                 </td>
                                                 <td>
-                                                    <h6 class="mb-0 fw-normal">{{ $account->email }}</h6>
+                                                    <h6 class="mb-0 fw-normal">{{ $account->username }}</h6>
                                                 </td>
-                                                <td class="w-25 py-2">
-                                                    <div class="d-flex flex-row">
-                                                        <div class="me-1">
-                                                            <button class="btn btn-success" data-bs-toggle="modal"
-                                                                data-bs-target="#editAccountModal"
-                                                                data-user="{{ json_encode($account) }}"
-                                                                data-type="{{ $type }}">
-                                                                <i class="ti ti-pencil"></i>
-                                                                Edit Profile
+                                                @if ($user->privilege == 'configuration_chief')
+                                                    <td class="w-25 py-2">
+                                                        <div class="d-flex flex-row">
+                                                            <div class="me-1">
+                                                                <button class="btn btn-success" data-bs-toggle="modal"
+                                                                    data-bs-target="#editAccountModal"
+                                                                    data-user="{{ json_encode($account) }}"
+                                                                    data-type="{{ $type }}">
+                                                                    <i class="ti ti-pencil"></i>
+                                                                    Edit Profile
 
-                                                            </button>
+                                                                </button>
+                                                            </div>
+                                                            <div class="me-1">
+                                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                                    data-bs-target="#updatePasswordModal"
+                                                                    data-account-id="{{ $account->id }}">
+                                                                    <i class="ti ti-key"></i>
+                                                                    Change Password
+
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="me-1">
+                                                                <button href="#" class="btn btn-danger"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteAccountModal"
+                                                                    data-account-id="{{ $account->id }}">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete
+
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                        <div class="me-1">
-                                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                                data-bs-target="#updatePasswordModal"
-                                                                data-account-id="{{ $account->id }}">
-                                                                <i class="ti ti-key"></i>
-                                                                Change Password
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
 
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="me-1">
-                                                            <button href="#" class="btn btn-danger"
-                                                                data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
-                                                                data-account-id="{{ $account->id }}">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete
-
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                        <!-- Add more static data rows as needed -->
+                                    </tbody>
+                                </table>
                             </div>
-                            </td>
-                            </tr>
-                            @endforeach
-
-                            <!-- Add more static data rows as needed -->
-                            </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Removed custom blade components -->
         </div>
-        <!-- Removed custom blade components -->
-    </div>
     </div>
     <x-account.create :category="$active" :type="$type"> </x-account.create>
     <x-account.edit :category="$active" :type="$type"> </x-account.edit>

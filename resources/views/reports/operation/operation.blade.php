@@ -15,7 +15,7 @@
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center p-3 rounded bg-gradient-blue">
                                 <h5 class="mb-0 text-light card-title fw-semibold">Operation Reports</h5>
-                                @if ($user->privilege == 'operation_clerk')
+                                @if ($user->privilege == 'operation_clerk' || $user->privilege == 'operation_admin_chief')
                                     <div class="d-flex column-gap-2">
                                         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                                             data-bs-target="#importOperation">
@@ -61,8 +61,11 @@
                                             <th>
                                                 <h6 class="fw-semibold mb-0">Status</h6>
                                             </th>
-                                            @if ($user->privilege == 'operation_clerk' || $user->privilege == 'operation_admin_chief'  || $user->privilege == 'investigation_clerk')
-                                                <th>
+                                            @if (
+                                                $user->privilege == 'operation_clerk' ||
+                                                    $user->privilege == 'operation_admin_chief' ||
+                                                    $user->privilege == 'investigation_clerk')
+                                                <th style="min-width: 150px">
                                                     <h6 class="fw-semibold mb-0">Action</h6>
                                                 </th>
                                             @endif
@@ -79,7 +82,7 @@
                                         @foreach ($sortedOperations as $operation)
                                             <tr>
                                                 <td>
-                                                    <h6 class="fw-semibold mb-0">{{$operation->blotter_number}}</h6>
+                                                    <h6 class="fw-semibold mb-0">{{ $operation->blotter_number }}</h6>
                                                 </td>
                                                 <td>
                                                     <h6 class="fw-semibold mb-0">{{ $operation->alarm_received }}</h6>
@@ -119,7 +122,11 @@
                                                         }
                                                     @endphp
                                                 </td>
-                                                @if ($user->privilege == 'operation_clerk' || $user->privilege == 'operation_admin_chief' ||$user->privilege == 'investigation_clerk')
+                                                @if (
+                                                    $user->privilege == 'operation_clerk' ||
+                                                        $user->privilege == 'operation_admin_chief' ||
+                                                        $user->privilege == 'investigation_clerk' ||
+                                                        $user->privilege == 'investigation_admin_chief')
                                                     <td>
                                                         <button type="button" data-bs-toggle="modal"
                                                             data-bs-target="#viewOperationModal{{ $operation->id }}"
@@ -131,7 +138,7 @@
                                                         <x-reports.operation.operation_view :operation="$operation"
                                                             :responses="$responses"
                                                             :personnels="$personnels"></x-reports.operation.operation_view>
-                                                        @if ($user->privilege == 'operation_clerk')
+                                                        @if ($user->privilege == 'operation_clerk' || $user->privilege == 'operation_admin_chief')
                                                             <a href="{{ route('operation.update.form', ['id' => $operation->id]) }}"
                                                                 class="btn btn-success w-100 mb-1">
                                                                 <i class="ti ti-pencil"></i> Update

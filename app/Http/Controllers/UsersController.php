@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Afor;
 use App\Models\User;
 // use App\Models\Occupancy;
-use App\Models\Occupancy;
+use App\Models\Station;
 
+use App\Models\Occupancy;
 use Illuminate\Http\Request;
 use App\Models\Occupancy_name;
 use Illuminate\Support\Facades\Auth;
@@ -19,22 +20,24 @@ class UsersController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-
+        $station = Station::first();
         return view('user.home', [
             'active' => 'home',
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
             'afor' => Afor::all(),
             'occup' => Occupancy::all(),
-            
+            'station' => $station
         ]);
     }
 
     public function updateProfile(Request $request)
     {
+        // dd($request);
+        $user = auth()->user();
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
+            'username' => "required|string|max:255|unique:users,username,{$user->id}",
         ]);
 
         $status = false;

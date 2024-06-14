@@ -9,14 +9,15 @@ use App\Models\Truck;
 use App\Models\Ifinal;
 use App\Models\Victim;
 use App\Models\Minimal;
+use App\Models\Station;
 use App\Models\Barangay;
 use App\Models\Passcode;
 use App\Models\Progress;
 use App\Models\Response;
 use App\Models\Personnel;
 use App\Models\Alarm_name;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Models\Investigation;
 use Illuminate\Support\Carbon;
 use App\Models\InvestigationLog;
@@ -29,6 +30,7 @@ class InvestigationController extends Controller
     public function index()
     {
         // dd("Hello World");
+        $station = Station::first();
         return view('reports.investigation.index', [
             'active' => 'investigation',
             'user' => Auth::user(),
@@ -40,6 +42,7 @@ class InvestigationController extends Controller
             'afors' => Afor::all(),
             'personnels' => Personnel::all(),
             'responses' => Response::all(),
+            'station' => $station,
         ]);
     }
     public function investigationMinimalIndex()
@@ -59,12 +62,14 @@ class InvestigationController extends Controller
         $afors = Afor::all();
         $responses = Response::all();
         $personnels = Personnel::all();
-        return view('reports.investigation.minimal', compact('personnels', 'responses', 'active', 'investigations', 'user', 'minimals', 'spots', 'afors'));
+        $station = Station::first();
+        return view('reports.investigation.minimal', compact('personnels', 'responses', 'active', 'investigations', 'user', 'minimals', 'spots', 'afors', 'station'));
     }
     public function createMinimal(Afor $afor)
     {
         $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
         $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        $station = Station::first();
         // dd($firstResponse, $alarm, $afor);
         // dd($firstResponse->truck->name);
         return view('reports.investigation.minimal.create', [
@@ -76,13 +81,15 @@ class InvestigationController extends Controller
             'alarms' => Alarm_name::all(),
             'afor' => $afor,
             'firstRes' => $firstResponse,
-            'firstAlarm' => $alarm
+            'firstAlarm' => $alarm,
+            'station' => $station,
         ]);
     }
 
 
     public function Spot()
     {
+        $station = Station::first();
         return view('reports.investigation.spot', [
             'active' => 'spot',
             'user' => Auth::user(),
@@ -96,12 +103,14 @@ class InvestigationController extends Controller
             'afors' => Afor::all(),
             'personnels' => Personnel::all(),
             'responses' => Response::all(),
+            'station' => $station,
         ]);
     }
     public function createSpot(Afor $afor)
     {
         $firstResponse = $afor->responses()->orderBy('time_arrived_at_scene', 'asc')->first() ?? null;
         $alarm = $afor->alarmStatus()->orderBy('time', 'asc')->first() ?? null;
+        $station = Station::first();
         // dd($afor->casualties, $firstResponse, $alarm);
         return view('reports.investigation.spot.create', [
             'active' => 'spot',
@@ -111,7 +120,28 @@ class InvestigationController extends Controller
             'afor' => $afor,
             'firstRes' => $firstResponse,
             'firstAlarm' => $alarm,
-
+            'station' => $station,
+        ]);
+    }
+    public function Progress()
+    {
+        $station = Station::first();
+        return view('reports.investigation.progress', [
+            'active' => 'progress',
+            'user' => Auth::user(),
+            'minimals' => Minimal::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
+            'investigations' => Progress::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
+            'spots' => Spot::whereHas('investigation', function ($query) {
+                $query->whereNull('deleted_at');
+            })->latest()->get(),
+            'afors' => Afor::all(),
+            'personnels' => Personnel::all(),
+            'responses' => Response::all(),
+            'station' => $station,
         ]);
     }
     public function storeSpot(Request $request)
@@ -149,17 +179,17 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $investigation->fill([
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -198,32 +228,15 @@ class InvestigationController extends Controller
         $log->save();
         return redirect('/reports/investigation/Spot/index')->with("success", "Investigation Created Successfully!");
     }
-    public function Progress()
-    {
-        return view('reports.investigation.progress', [
-            'active' => 'progress',
-            'user' => Auth::user(),
-            'minimals' => Minimal::whereHas('investigation', function ($query) {
-                $query->whereNull('deleted_at');
-            })->latest()->get(),
-            'investigations' => Progress::whereHas('investigation', function ($query) {
-                $query->whereNull('deleted_at');
-            })->latest()->get(),
-            'spots' => Spot::whereHas('investigation', function ($query) {
-                $query->whereNull('deleted_at');
-            })->latest()->get(),
-            'afors' => Afor::all(),
-            'personnels' => Personnel::all(),
-            'responses' => Response::all(),
-        ]);
-    }
     public function createProgress(Spot $spot)
     {
         // dd($spot);
+        $station = Station::first();
         return view('reports.investigation.progress.create', [
             'active' => 'progress',
             'user' => Auth::user(),
             'spot' => $spot,
+            'station' => $station,
         ]);
     }
     public function storeProgress(Request $request, Spot $spot)
@@ -245,7 +258,7 @@ class InvestigationController extends Controller
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -271,7 +284,7 @@ class InvestigationController extends Controller
     }
     public function final()
     {
-
+        $station = Station::first();
         return view('reports.investigation.final', [
             'active' => 'final',
             'user' => Auth::user(),
@@ -287,15 +300,18 @@ class InvestigationController extends Controller
             'afors' => Afor::all(),
             'personnels' => Personnel::all(),
             'responses' => Response::all(),
+            'station' => $station,
         ]);
     }
     public function createFinal(Spot $spot)
     {
+        $station = Station::first();
         return view('reports.investigation.final.create', [
             'active' => 'final',
             'user' => Auth::user(),
             'spot' => $spot,
             'barangay' => Barangay::all(),
+            'station' => $station,
         ]);
     }
     public function storeFinal(Request $request, Spot $spot)
@@ -331,10 +347,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '');
@@ -342,7 +358,7 @@ class InvestigationController extends Controller
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         if ($request->input('victim')) {
@@ -399,6 +415,7 @@ class InvestigationController extends Controller
         if ($minimal->photos != '') {
             $photos = explode(", ", $minimal->photos);
         }
+        $station = Station::first();
         // dd($photos);
         return view('reports.investigation.minimal.edit', [
             'active' => 'minimal',
@@ -410,7 +427,7 @@ class InvestigationController extends Controller
             'minimal' => $minimal,
             'location' => $location,
             'photos' => $photos ?? [],
-
+            'station' => $station
         ]);
     }
     public function storeMinimal(Request $request)
@@ -453,16 +470,16 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone')) {
-            $location = $location . ', ' .  $request->input('zone');
+            $location = $location . ', ' . $request->input('zone');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $investigation->fill([
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $request->input('for') ?? '',
             'subject' => $request->input('subject') ?? '',
-            'date' =>  $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
+            'date' => $request->input('date') != null ? date('Y-m-d', strtotime($request->input('date'))) : '',
         ]);
         $investigation->save();
         // dd($investigation);
@@ -517,7 +534,24 @@ class InvestigationController extends Controller
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
-
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    // $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if (!$passcodeStatus) {
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
+        $inves = Investigation::findOrFail($minimal->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -546,11 +580,12 @@ class InvestigationController extends Controller
             'recommendation' => 'nullable',
             'curPhoto' => 'nullable',
             'photos' => 'nullable',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$inves->id}",
         ]);
+
         // dd($validatedData, $request->all());
 
-        $inves = Investigation::findOrFail($minimal->investigation_id);
+        // $inves = Investigation::findOrFail($minimal->investigation_id);
         $originalInvestigationData = $inves->getOriginal();
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
@@ -567,10 +602,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone')) {
-            $location = $location . ', ' .  $request->input('zone');
+            $location = $location . ', ' . $request->input('zone');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
 
         $remainingPhotos = array();
@@ -666,6 +701,7 @@ class InvestigationController extends Controller
         } else {
             $location = $spot->landmark;
         }
+        $station = Station::first();
         return view('reports.investigation.spot.edit', [
             'active' => 'spot',
             'user' => Auth::user(),
@@ -673,11 +709,30 @@ class InvestigationController extends Controller
             'alarms' => Alarm_name::all(),
             'spot' => $spot,
             'location' => $location,
+            'station' => $station,
         ]);
     }
     public function updateSpot(Request $request, Spot $spot)
     {
         // dd($request, $spot);
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    // $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if (!$passcodeStatus) {
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
+        $investigation = Investigation::findOrFail($spot->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -699,10 +754,9 @@ class InvestigationController extends Controller
             'time_fire_out' => 'required',
             'details' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}",
         ]);
 
-        $investigation = Investigation::findOrFail($spot->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
@@ -717,10 +771,10 @@ class InvestigationController extends Controller
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $updatedSpot = [
             'date_occurence' => $validatedData['date_occurence'] ?? '',
@@ -775,16 +829,36 @@ class InvestigationController extends Controller
     public function editProgress(Request $request, Progress $progress)
     {
         // dd($request, $progress);
+        $station = Station::first();
         return view('reports.investigation.progress.edit', [
             'active' => 'progress',
             'user' => Auth::user(),
             'barangay' => Barangay::all(),
             'progress' => $progress,
+            'station' => $station
         ]);
     }
     public function updateProgress(Request $request, Progress $progress)
     {
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    // $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if (!$passcodeStatus) {
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
         // dd($request);
+        $investigation = Investigation::findOrFail($progress->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -793,9 +867,8 @@ class InvestigationController extends Controller
             'matters_investigated' => 'required',
             'facts_of_the_case' => 'required',
             'disposition' => 'required',
-            'case_number' => 'required|unique:investigations,case_number',
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}",
         ]);
-        $investigation = Investigation::findOrFail($progress->investigation_id);
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'],
@@ -840,7 +913,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject .  " Updated Successfully!");
+        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject . " Updated Successfully!");
     }
     public function editFinal(Ifinal $final)
     {
@@ -851,6 +924,7 @@ class InvestigationController extends Controller
         }
         $td = explode(" ", $final->td_alarm);
         $victims = Victim::get()->where('investigation_id', $final->investigation_id);
+        $station = Station::first();
         // dd($victims);
         return view('reports.investigation.final.edit', [
             'active' => 'final',
@@ -860,11 +934,30 @@ class InvestigationController extends Controller
             'location' => $location,
             'td' => $td,
             'victims' => $victims,
+            'station' => $station,
         ]);
     }
     public function updateFinal(Request $request, Ifinal $final)
     {
         // dd($request);
+        if (auth()->user()->privilege == 'investigation_clerk') {
+            # code...
+            $passcodes = Passcode::all();
+            $passcodeStatus = false;
+            foreach ($passcodes as $passcode) {
+                if ($request->input('passcode') == $passcode->code) {
+                    $passcodeStatus = true;
+                    // $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
+                    $passcode->delete();
+                    break; // Stop checking once a match is found
+                }
+            }
+            if (!$passcodeStatus) {
+                return redirect()->back()->with('status', "Passcode doesn't match.");
+            }
+            // dd($passcodeStatus, $passcode);
+        }
+        $investigation = Investigation::find($final->investigation_id);
         $validatedData = $request->validate([
             'for' => 'required',
             'subject' => 'required',
@@ -885,28 +978,27 @@ class InvestigationController extends Controller
             'discussion' => 'required',
             'findings' => 'required',
             'recommendation' => 'required',
-            'case_number' => 'required|unique:investigations,case_number'
-    ]);
+            'case_number' => "required|unique:investigations,case_number,{$investigation->id}"
+        ]);
         // dd($validatedData);
 
-        $investigation = Investigation::find($final->investigation_id);
         $originalInvestigationData = $investigation->getOriginal();
         $location = "";
         if ($request->input('landmark')) {
             $location = $request->input('landmark');
         }
         if ($request->input('zone_street')) {
-            $location = $location . ', ' .  $request->input('zone_street');
+            $location = $location . ', ' . $request->input('zone_street');
         }
         if ($request->input('barangay')) {
-            $location = $location . ', ' .  $request->input('barangay') . ', Ligao City, Albay';
+            $location = $location . ', ' . $request->input('barangay') . ', Ligao City, Albay';
         }
         $td = ($request->input('time_alarm') ?? '') . " " . ($request->input('date_alarm') != null ? date('Y-m-d', strtotime($request->input('date_alarm'))) : '');
         $updateInve = [
             'case_number' => $validatedData['case_number'] ?? "",
             'for' => $validatedData['for'] ?? '',
             'subject' => $validatedData['subject'] ?? '',
-            'date' =>  $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',
+            'date' => $validatedData['date'] != null ? date('Y-m-d', strtotime($validatedData['date'])) : '',
         ];
         $investigation->touch();
         $investigation->update($updateInve);
@@ -982,12 +1074,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1033,12 +1125,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1070,12 +1162,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1107,12 +1199,12 @@ class InvestigationController extends Controller
             foreach ($passcodes as $passcode) {
                 if ($request->input('passcode') == $passcode->code) {
                     $passcodeStatus = true;
-                    $extension = " Using this passcode: " . $passcode->code . ".";
+                    $extension = ", Using this passcode: <b>" . $passcode->code . "</b>. Generated by <b>" . $passcode->creator->username . "</b>.";
                     $passcode->delete();
                     break; // Stop checking once a match is found
                 }
             }
-            if(!$passcodeStatus){
+            if (!$passcodeStatus) {
                 return redirect()->back()->with('status', "Passcode doesn't match.");
             }
             // dd($passcodeStatus, $passcode);
@@ -1137,35 +1229,43 @@ class InvestigationController extends Controller
     public function printSpot(Spot $spot)
     {
         // dd($spot);
+        $station = Station::first();
         return view('reports.investigation.spot.printable', [
             'active' => 'spot',
             'user' => Auth::user(),
             'spot' => $spot,
+            'station' => $station,
         ]);
     }
     public function printMinimal(Minimal $minimal)
     {
         // dd($spot);
+        $station = Station::first();
         return view('reports.investigation.minimal.printable', [
             'active' => 'minimal',
             'user' => Auth::user(),
             'minimal' => $minimal,
+            'station' => $station
         ]);
     }
     public function printProgress(Progress $progress)
     {
+        $station = Station::first();
         return view('reports.investigation.progress.printable', [
             'active' => 'progress',
             'user' => Auth::user(),
             'progress' => $progress,
+            'station' => $station
         ]);
     }
     public function printFinal(Ifinal $final)
     {
+        $station = Station::first();
         return view('reports.investigation.final.printable', [
             'active' => 'final',
             'user' => Auth::user(),
             'final' => $final,
+            'station' => $station,
         ]);
     }
 }

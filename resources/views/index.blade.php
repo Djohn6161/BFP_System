@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BFP - Login</title>
+    <title>{{$station->acronym}} - Login</title>
 
     <link rel="stylesheet" href="{{ asset('/assets/libs/bootstrap/dist/css/bootstrap.min.css') }}">
     <script src="{{ asset('/assets/libs/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
@@ -31,7 +31,7 @@
                                 <img src="../assets/images/logos/login.gif" width="150" height="auto"
                                     alt="">
                             </a>
-                            <h4 class="text-center shining-text"><b>Bureau of Fire Protection<br> Ligao City<b></h4>
+                            <h4 class="text-center shining-text"><b>{{$station->name}}<br> {{$station->acronym}}<b></h4>
 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rank;
+use App\Models\Station;
 use Illuminate\Http\Request;
 use App\Models\ConfigurationLog;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class RankController extends Controller
         $user = Auth::user();
         $ranks = Rank::all();
         $active = 'rank';
-        return view('admin.rank.index', compact('user', 'active', 'ranks'));
+        $station = Station::first();
+        return view('admin.rank.index', compact('user', 'active', 'ranks', 'station'));
     }
 
     public function storeRank(Request $request)

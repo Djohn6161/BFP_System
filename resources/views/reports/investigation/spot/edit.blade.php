@@ -35,7 +35,8 @@
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="">Reports</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('investigation.spot.index') }}">Spots Investigation Reports</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('investigation.spot.index') }}">Spots Investigation
+                        Reports</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Spots Investigation Reports</li>
             </ol>
         </nav>
@@ -60,7 +61,8 @@
                         @csrf
                         @method('PUT')
                         {{-- {{dd($spot->investigation->date)}} --}}
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$spot
+                            :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
@@ -416,48 +418,57 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-end px-0">
-                    <button type="submit" id="submit" class="btn btn-success">
-                        <span>
-                            <i class="ti ti-send"></i>
-                        </span>
-                        <span>Submit</span>
-                    </button>
+                    @if ($user->privilege == 'investigation_admin_chief')
+                        <button type="submit" id="submit" class="btn btn-success">
+                            <span>
+                                <i class="ti ti-send"></i>
+                            </span>
+                            <span>Submit</span>
+                        </button>
+                    @else
+                        <button data-bs-toggle="modal" data-bs-target="#passUpdateModal" type="button" id="submit"
+                            class="btn btn-success">
+                            <span>
+                                <i class="ti ti-send"></i>
+                            </span>
+                            <span>Submit</span>
+                        </button>
+                        <x-reports.investigation.passcode></x-reports.investigation.passcode>
+                    @endif
+
                 </div>
             </div>
 
             </form>
         </div>
-    </div>
-    </div>
-    </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.spotAlarmSelect').select2();
-        });
-    </script>
-    <script>
-        const quillThird = new Quill('#detailsOfInvestigation', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar1',
-            },
+        <script>
+            $(document).ready(function() {
+                $('.spotAlarmSelect').select2();
+            });
+        </script>
+        <script>
+            const quillThird = new Quill('#detailsOfInvestigation', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar1',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quillFourth = new Quill('#disposition', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar2',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quillFourth = new Quill('#disposition', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar2',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-        $("#submit").click(function() {
-            $("#detail").val(quillThird.root.innerHTML);
-            $("#dispo").val(quillFourth.root.innerHTML);
-        });
-    </script>
-@endsection
+                placeholder: 'Compose an epic...',
+            });
+            $("#submit").click(function() {
+                $("#detail").val(quillThird.root.innerHTML);
+                $("#dispo").val(quillFourth.root.innerHTML);
+            });
+        </script>
+    @endsection

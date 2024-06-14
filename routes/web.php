@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Report;
+use App\Models\Station;
 use App\Models\Operation;
 use App\Models\Investigation;
 use Illuminate\Support\Facades\Route;
@@ -12,17 +13,18 @@ use App\Http\Controllers\TrashController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\BarangayController;
+use App\Http\Controllers\PasscodeController;
 use App\Http\Controllers\OccupancyController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\ConfigurationLogController;
-use App\Http\Controllers\PasscodeController;
-use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +81,9 @@ use App\Http\Controllers\ImportController;
 Route::middleware(['PreventBack'])->group(function () {
 
     Route::get('/', function () {
-        return view('index');
+        return view('index', [
+            'station' => Station::first(),
+        ]);
     })->middleware(['guest'])->name('index');
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/user/logout', [UsersController::class, 'userLogout'])->name('user.logout');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Truck;
+use App\Models\Station;
 use Illuminate\Http\Request;
 use App\Models\ConfigurationLog;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class TruckController extends Controller
         $user = Auth::user();
         $trucks = Truck::all();
         $active = 'truck';
-        return view('admin.trucks.index', compact('user','active', 'trucks'));
+        $station = Station::first();
+        return view('admin.trucks.index', compact('user','active', 'trucks', 'station'));
        
     }
 

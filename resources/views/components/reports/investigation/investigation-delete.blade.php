@@ -42,7 +42,7 @@
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
                     @if (auth()->user()->privilege == 'investigation_clerk')
-                    <div class="mb-3">
+                    <div class="mb-3 px-5">
                         {{-- <label for="passcode" class="form-label">Passcode:</label> --}}
                         <input type="hidden" name="passcode_id" id="passcode_id">
                         <input type="passcode" class="form-control" name="passcode"

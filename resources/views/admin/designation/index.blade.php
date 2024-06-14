@@ -21,12 +21,14 @@
                                 <h5 class="card-title fw-semibold mb-4">Occupancy Names
                                     <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                 </h5>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#addOtherDesignationModal">
-                                    <i class="ti ti-plus"></i>
+                                @if ($user->privilege == 'configuration_chief')
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addOtherDesignationModal">
+                                        <i class="ti ti-plus"></i>
 
-                                    Add Designation
-                                </button>
+                                        Add Designation
+                                    </button>
+                                @endif
                             </div>
 
                             <div>
@@ -36,7 +38,9 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Action</th>
+                                            @if ($user->privilege == 'configuration_chief')
+                                                <th>Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,29 +48,31 @@
                                             <tr>
                                                 <td class="py-2">{{ $item->id }}</td>
                                                 <td class="py-2">{{ $item->name }}</td>
-                                                <td class="w-25 py-2">
-                                                    <div class="d-flex flex-row">
-                                                        <div class="me-1">
-                                                            <button type="button" class="btn btn-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editOtherDesignationModal{{ $item->id }}">
-                                                                <i class="ti ti-pencil"></i>
-                                                                Update</button>
-                                                        </div>
-                                                        <div class="me-1">
+                                                @if ($user->privilege == 'configuration_chief')
+                                                    <td class="w-25 py-2">
+                                                        <div class="d-flex flex-row">
+                                                            <div class="me-1">
+                                                                <button type="button" class="btn btn-success"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#editOtherDesignationModal{{ $item->id }}">
+                                                                    <i class="ti ti-pencil"></i>
+                                                                    Update</button>
+                                                            </div>
+                                                            <div class="me-1">
 
-                                                            <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#deleteOtherDesignationModal{{ $item->id }}"
-                                                                class="btn btn-danger hide-menu">
-                                                                <i class="ti ti-trash"></i>
-                                                                Delete</button>
+                                                                <button type="button" data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteOtherDesignationModal{{ $item->id }}"
+                                                                    class="btn btn-danger hide-menu">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete</button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <x-designation.other.edit-other
-                                                        :designation="$item"></x-designation.other.edit-other>
-                                                    <x-designation.other.delete-other
-                                                        :designation="$item"></x-designation.other.delete-other>
-                                                </td>
+                                                        <x-designation.other.edit-other
+                                                            :designation="$item"></x-designation.other.edit-other>
+                                                        <x-designation.other.delete-other
+                                                            :designation="$item"></x-designation.other.delete-other>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -92,24 +98,29 @@
                                             <h5 class="fw-semibold text-center">{{ $section->name }}
                                                 <span class=" ms-3 badge rounded-pill bg-secondary"></span>
                                             </h5>
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Manage
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#addUnitModal{{ $section->id }}">Add
-                                                            Designation</button></li>
-                                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#editSectionModal{{ $section->id }}">
-                                                            Edit
-                                                            Section</button></li>
-                                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteSectionModal{{ $section->id }}">Delete
-                                                            Section</button></li>
-                                                </ul>
-                                            </div>
+                                            @if ($user->privilege == 'configuration_chief')
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Manage
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><button type="button" class="dropdown-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#addUnitModal{{ $section->id }}">Add
+                                                                Designation</button></li>
+                                                        <li><button type="button" class="dropdown-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editSectionModal{{ $section->id }}">
+                                                                Edit
+                                                                Section</button></li>
+                                                        <li><button type="button" class="dropdown-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteSectionModal{{ $section->id }}">Delete
+                                                                Section</button></li>
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
 
                                         <div>
@@ -119,7 +130,9 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Name</th>
-                                                            <th>Action</th>
+                                                            @if ($user->privilege == 'configuration_chief')
+                                                                <th>Action</th>
+                                                            @endif
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -127,29 +140,31 @@
                                                             <tr>
                                                                 <td class="py-2">{{ $item->id }}</td>
                                                                 <td class="py-2">{{ $item->name }}</td>
-                                                                <td class="py-2">
-                                                                    <div class="d-flex flex-row">
-                                                                        <div class="me-1">
-                                                                            <button type="button" class="btn btn-success w-100"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#editUnitModal{{ $item->id }}">
-                                                                                <i class="ti ti-pencil"></i>
-                                                                                Update</button>
+                                                                @if ($user->privilege == 'configuration_chief')
+                                                                    <td class="py-2">
+                                                                        <div class="d-flex flex-row">
+                                                                            <div class="me-1">
+                                                                                <button type="button"
+                                                                                    class="btn btn-success w-100"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#editUnitModal{{ $item->id }}">
+                                                                                    <i class="ti ti-pencil"></i>
+                                                                                    Update</button>
+                                                                            </div>
+                                                                            <div>
+                                                                                <button type="button" data-bs-toggle="modal"
+                                                                                    data-bs-target="#deleteUnitModal{{ $item->id }}"
+                                                                                    class="btn btn-danger hide-menu w-100">
+                                                                                    <i class="ti ti-trash"></i>
+                                                                                    Delete</button>
+                                                                            </div>
                                                                         </div>
-                                                                        <div >
-                                                                            <button type="button" data-bs-toggle="modal"
-                                                                                data-bs-target="#deleteUnitModal{{ $item->id }}"
-                                                                                class="btn btn-danger hide-menu w-100">
-                                                                                <i class="ti ti-trash"></i>
-                                                                                Delete</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <x-designation.unit.edit-unit
-                                                                        :designation="$item"></x-designation.unit.edit-unit>
-                                                                    <x-designation.unit.delete-unit
-                                                                        :designation="$item"></x-designation.unit.delete-unit>
-                                                                </td>
-
+                                                                        <x-designation.unit.edit-unit
+                                                                            :designation="$item"></x-designation.unit.edit-unit>
+                                                                        <x-designation.unit.delete-unit
+                                                                            :designation="$item"></x-designation.unit.delete-unit>
+                                                                    </td>
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -158,11 +173,13 @@
                                                 <div class="alert alert-secondary text-center rounded">
 
                                                     <p class="mb-1 fw-bold text-dark rounded">No Designation Found</p>
-                                                    <button type="button" class="text-uppercase btn btn-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#addUnitModal{{ $section->id }}"><span> <i
-                                                                class="ti ti-plus"></i></span> Add
-                                                        Designation</button>
+                                                    @if ($user->privilege == 'configuration_chief')
+                                                        <button type="button" class="text-uppercase btn btn-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#addUnitModal{{ $section->id }}"><span> <i
+                                                                    class="ti ti-plus"></i></span> Add
+                                                            Designation</button>
+                                                    @endif
                                                 </div>
                                             @endunless
                                         </div>
@@ -172,11 +189,12 @@
                             </div>
                         @endforeach
                     </div>
-
-                    <div class="d-grid">
-                        <button type="button" class="btn btn-block btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addDesignationSectionModal">+ Add Section</button>
-                    </div>
+                    @if ($user->privilege == 'configuration_chief')
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-block btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addDesignationSectionModal">+ Add Section</button>
+                        </div>
+                    @endif
 
                 </div>
             </div>

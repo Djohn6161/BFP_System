@@ -1,7 +1,16 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('investigation.spot.index') }}">Spots Investigation
+                        Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Spots Investigation Reports</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
@@ -18,13 +27,14 @@
                                 </a>
                             </div>
                         </div>
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$spot
+                            :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">AUTHORITY:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-3 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="authority" class="form-label">
                                     <h3></h3>
                                 </label>
@@ -283,51 +293,50 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        // First Quill editor initialization
-        const quill1 = new Quill('#authority', {
-            modules: {
-                toolbar: '#toolbar1',
-            },
-            theme: 'snow',
-            placeholder: 'a. Section 50, RULE VII, Implementing Rules...',
-        });
-    </script>
-    <script>
-        // Second Quill editor initialization
-        const quill2 = new Quill('#matters-investigated', {
-            modules: {
-                toolbar: '#toolbar2',
-            },
-            theme: 'snow',
-            placeholder: 'a. The origin and cause...',
-        });
-    </script>
-    <script>
-        // Third Quill editor initialization
-        const quill3 = new Quill('#facts-of-the-case', {
-            modules: {
-                toolbar: '#toolbar3',
-            },
-            theme: 'snow',
-            placeholder: 'This pertains is on-going...',
-        });
-    </script>
-    <script>
-        // Forth Quill editor initialization
-        const quill4 = new Quill('#disposition', {
-            modules: {
-                toolbar: '#toolbar4',
-            },
-            theme: 'snow',
-            placeholder: 'The Final Investigation is...',
-        });
-        $("#submit").click(function() {
-            $("#autho").val(quill1.root.innerHTML);
-            $("#matters").val(quill2.root.innerHTML);
-            $("#facts").val(quill3.root.innerHTML);
-            $("#dispo").val(quill4.root.innerHTML);
-        });
-    </script>
-@endsection
+        <script>
+            // First Quill editor initialization
+            const quill1 = new Quill('#authority', {
+                modules: {
+                    toolbar: '#toolbar1',
+                },
+                theme: 'snow',
+                placeholder: 'a. Section 50, RULE VII, Implementing Rules...',
+            });
+        </script>
+        <script>
+            // Second Quill editor initialization
+            const quill2 = new Quill('#matters-investigated', {
+                modules: {
+                    toolbar: '#toolbar2',
+                },
+                theme: 'snow',
+                placeholder: 'a. The origin and cause...',
+            });
+        </script>
+        <script>
+            // Third Quill editor initialization
+            const quill3 = new Quill('#facts-of-the-case', {
+                modules: {
+                    toolbar: '#toolbar3',
+                },
+                theme: 'snow',
+                placeholder: 'This pertains is on-going...',
+            });
+        </script>
+        <script>
+            // Forth Quill editor initialization
+            const quill4 = new Quill('#disposition', {
+                modules: {
+                    toolbar: '#toolbar4',
+                },
+                theme: 'snow',
+                placeholder: 'The Final Investigation is...',
+            });
+            $("#submit").click(function() {
+                $("#autho").val(quill1.root.innerHTML);
+                $("#matters").val(quill2.root.innerHTML);
+                $("#facts").val(quill3.root.innerHTML);
+                $("#dispo").val(quill4.root.innerHTML);
+            });
+        </script>
+    @endsection

@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="caller" class="form-label">Blotter Number</label>
-                                    <input type="text" class="form-control" placeholder="Enter Blotter Number"
+                                    <input type="text" class="form-control" placeholder="Enter Blotter Number" value="{{old('blotter_number') ?? $station->blotterNumberTemp }}"
                                         name="blotter_number">
                                 </div>
                                 <hr>

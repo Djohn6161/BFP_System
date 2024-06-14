@@ -7,6 +7,7 @@ use App\Models\Spot;
 use App\Models\Trash;
 use App\Models\Ifinal;
 use App\Models\Minimal;
+use App\Models\Station;
 use App\Models\Progress;
 use Illuminate\Http\Request;
 use App\Models\Investigation;
@@ -24,9 +25,11 @@ class TrashController extends Controller
     //Operation
     public function trashOperationIndex()
     {
+        $station = Station::first();
         return view('admin.trash.operation.index', [
             'active' => 'Operation',
             'user' => Auth::user(),
+            'station' => $station,
             'operations' => Afor::whereNotNull('deleted_at')->get(),
         ]);
     }
@@ -36,7 +39,7 @@ class TrashController extends Controller
         $operation = Afor::find($id);
         $operation->deleted_at = null;
         $operation->save();
-
+        
         return redirect()->back()->with('success', 'Operation report restored successfully');
     }
 
@@ -67,9 +70,11 @@ class TrashController extends Controller
     //Investigation
     public function trashinvestigationIndex()
     {
+        $station = Station::first();
         return view('admin.trash.investigation.index', [
             'active' => 'Investigation',
             'user' => Auth::user(),
+            'station' => $station,
             // 'minimals' => Minimal::all(),
             'investigations' => Investigation::where('deleted_at', '!=', null)->latest()->get(),
             'spots' => Spot::all(),

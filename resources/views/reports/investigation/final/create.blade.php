@@ -1,6 +1,16 @@
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="">Reports</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('investigation.spot.index') }}">Spots Investigation
+                        Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Spots Investigation Reports</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-11 p-4">
                 <div class="row">
@@ -19,7 +29,8 @@
                             </div>
                         </div>
 
-                        <x-reports.investigation.memo-investigate :spot=$spot></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate :spot=$spot
+                            :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
 
@@ -177,7 +188,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">ORIGIN OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-3">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar6">
@@ -225,7 +236,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="orig">
+                                    <div id="orig" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('origin_of_fire') !!}
                                     </div>
 
@@ -236,7 +247,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">CAUSE OF FIRE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-5">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar7">
@@ -284,7 +295,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="cause">
+                                    <div id="cause" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('cause_of_fire') !!}
                                     </div>
 
@@ -295,7 +306,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">SUBSTANTIATING DOCUMENTS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-1 pb-5 mb-5">
+                            <div class="col-lg-12 mb-1 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
@@ -343,7 +354,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="subsDoc">
+                                    <div id="subsDoc" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('substantiating_documents') !!}
                                     </div>
 
@@ -354,7 +365,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FACTS OF THE CASE:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-5">
+                            <div class="col-lg-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
@@ -402,7 +413,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="facts">
+                                    <div id="facts" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('facts_of_the_case') !!}
                                     </div>
 
@@ -414,7 +425,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DISCUSSION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-5">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar3">
@@ -462,7 +473,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="discus">
+                                    <div id="discus" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('discussion') !!}
                                     </div>
 
@@ -473,7 +484,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-5">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar4">
@@ -521,7 +532,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="find">
+                                    <div id="find" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('findings') !!}
                                     </div>
 
@@ -532,7 +543,7 @@
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 pb-5 mb-5">
+                            <div class="col-lg-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar5">
@@ -580,7 +591,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="recom">
+                                    <div id="recom" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('recommendation') !!}
                                     </div>
 
@@ -603,112 +614,111 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $("#addFireVictims").click(function() {
-                var inputField =
-                    '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}" name="victim[]" required value=""><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
-                $("#fireVictimsContainer").append(inputField);
+        <script>
+            $(document).ready(function() {
+                $("#addFireVictims").click(function() {
+                    var inputField =
+                        '<div class="col-lg-6 mb-3"><div class="input-group"><input type="text" placeholder="Enter victim name" class="form-control {{ $errors->has('victim') != '' ? 'is-invalid' : '' }}" name="victim[]" required value=""><button type="button" class="btn btn-outline-danger removeInput">x</button></div></div>';
+                    $("#fireVictimsContainer").append(inputField);
+                });
+
+                // Remove dynamically added input field
+                $(document).on('click', '.removeInput', function() {
+                    $(this).closest('.col-lg-6').remove();
+                });
             });
+            // Get the input element
+            var input = document.getElementById('telephone');
 
-            // Remove dynamically added input field
-            $(document).on('click', '.removeInput', function() {
-                $(this).closest('.col-lg-6').remove();
+            // Listen for input events
+            input.addEventListener('input', function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
+
+                // Limit the input to exactly 11 digits
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
+                }
             });
-        });
-        // Get the input element
-        var input = document.getElementById('telephone');
+        </script>
 
-        // Listen for input events
-        input.addEventListener('input', function() {
-            // Remove any non-numeric characters
-            this.value = this.value.replace(/\D/g, '');
+        <script>
+            const quill1 = new Quill('#subsDoc', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar1',
+                },
 
-            // Limit the input to exactly 11 digits
-            if (this.value.length > 11) {
-                this.value = this.value.slice(0, 11);
-            }
-        });
-    </script>
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill2 = new Quill('#facts', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar2',
+                },
 
-    <script>
-        const quill1 = new Quill('#subsDoc', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar1',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill3 = new Quill('#discus', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar3',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill2 = new Quill('#facts', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar2',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill4 = new Quill('#find', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar4',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill3 = new Quill('#discus', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar3',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill6 = new Quill('#orig', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar6',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill4 = new Quill('#find', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar4',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill7 = new Quill('#cause', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar7',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill6 = new Quill('#orig', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar6',
-            },
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+        <script>
+            const quill5 = new Quill('#recom', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar5',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill7 = new Quill('#cause', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar7',
-            },
-
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-    <script>
-        const quill5 = new Quill('#recom', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar5',
-            },
-
-            placeholder: 'Compose an epic...',
-        });
-        $("#submit").click(function() {
-            $("#substantiating_documents").val(quill1.root.innerHTML);
-            $("#facts_of_the_case").val(quill2.root.innerHTML);
-            $("#discussion").val(quill3.root.innerHTML);
-            $("#findings").val(quill4.root.innerHTML);
-            $("#recommendation").val(quill5.root.innerHTML);
-            $("#origin_of_fire").val(quill6.root.innerHTML);
-            $("#cause_of_fire").val(quill7.root.innerHTML);
-        });
-    </script>
-@endsection
+                placeholder: 'Compose an epic...',
+            });
+            $("#submit").click(function() {
+                $("#substantiating_documents").val(quill1.root.innerHTML);
+                $("#facts_of_the_case").val(quill2.root.innerHTML);
+                $("#discussion").val(quill3.root.innerHTML);
+                $("#findings").val(quill4.root.innerHTML);
+                $("#recommendation").val(quill5.root.innerHTML);
+                $("#origin_of_fire").val(quill6.root.innerHTML);
+                $("#cause_of_fire").val(quill7.root.innerHTML);
+            });
+        </script>
+    @endsection

@@ -28,9 +28,9 @@
                                 <div class="mb-3">
                                     <label for="privileges" class="form-label">Privileges:</label>
                                     <select class="form-select" name="privilege" id="edit_privilege">
-                                        <option value="AC">Admin Clerk</option>
-                                        <option value="OC">Operation Clerk</option>
-                                        <option value="IC">Investigation Clerk</option>
+                                        <option value="admin_clerk">Admin Clerk</option>
+                                        <option value="operation_clerk">Operation Clerk</option>
+                                        <option value="investigation_clerk">Investigation Clerk</option>
                                     </select>
                                 </div>
                             </div>

@@ -1,15 +1,25 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
+            <nav aria-label="breadcrumb" class="p-2 fw-bolder">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="">Reports</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('investigation.index') }}"> All Investigation Reports</a>
+                    </li>
+                    <li class="breadcrumb-item"> <a href="{{ route('investigation.spot.index') }}">Spots Investigation
+                            Reports</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Spots Investigation Reports</li>
+                </ol>
+            </nav>
             <div class="col-lg-11 p-4">
                 <div class="row">
 
                     <form action="{{ route('investigation.minimal.store') }}" class="needs-validation" novalidate
                         method="POST" id="minimalCreate" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="afor_id" value="{{$afor->id}}" id="afor{{$afor->id}}">
+                        <input type="hidden" name="afor_id" value="{{ $afor->id }}" id="afor{{ $afor->id }}">
                         <div class="row mb-3">
                             <div class="col d-flex justify-content-start px-0">
                                 <a href="{{ route('investigation.minimal.index') }}" class="btn btn-primary">
@@ -21,7 +31,8 @@
                             </div>
                         </div>
 
-                        <x-reports.investigation.memo-investigate></x-reports.investigation.memo-investigate>
+                        <x-reports.investigation.memo-investigate
+                            :station=$station></x-reports.investigation.memo-investigate>
 
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS</h3>
@@ -41,7 +52,7 @@
                                 <input type="text" placeholder="Eg. 06 March 2024 2300h" id="reported"
                                     name="dt_reported"
                                     class="form-control {{ $errors->has('dt_reported') != '' ? 'is-invalid' : '' }}"
-                                    value="{{ old('dt_reported') ?? $afor->alarm_received ?? ' ' }}" required>
+                                    value="{{ old('dt_reported') ?? ($afor->alarm_received ?? ' ') }}" required>
                                 @error('dt_reported')
                                     <span class="text-danger alert" role="alert">{{ $message }}</span>
                                 @enderror
@@ -97,7 +108,8 @@
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="officeAddress" class="form-label">Property Data</label>
-                                <input type="text" placeholder=" Eg. Juan Dela Cruz" id="province" name="property_data"
+                                <input type="text" placeholder=" Eg. Juan Dela Cruz" id="province"
+                                    name="property_data"
                                     class="form-control {{ $errors->has('property_data') != '' ? 'is-invalid' : '' }}"
                                     value="{{ old('property_data') }}" required>
                                 @error('property_data')
@@ -218,10 +230,7 @@
                                     <select class="form-select alarmStatus" aria-label="" name="alarm_status_time">
                                         <option value="">Select alarm status</option>
                                         @foreach ($alarms as $item)
-                                            <option
-                                            @if (old('alarm_status_time') == $item->id  || ($afor->alarm_status_arrival ?? ' ') == $item->name )
-                                                Selected
-                                            @endif
+                                            <option @if (old('alarm_status_time') == $item->id || ($afor->alarm_status_arrival ?? ' ') == $item->name) Selected @endif
                                                 value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -233,7 +242,8 @@
                                     <label for="timeFireOut" class="form-label">Time Fire Out</label>
                                     <input type="text" placeholder="Eg. 0200H" name="Time_Fire_out" id="timeFireOut"
                                         class="form-control {{ $errors->has('Time_Fire_out') != '' ? 'is-invalid' : '' }}"
-                                        value="{{ old('Time_Fire_out') ?? ($afor->td_declared_fireout ?? ' ') }}" required>
+                                        value="{{ old('Time_Fire_out') ?? ($afor->td_declared_fireout ?? ' ') }}"
+                                        required>
                                     @error('Time_Fire_out')
                                         <span class="text-danger alert" role="alert">{{ $message }}</span>
                                     @enderror
@@ -274,7 +284,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">DETAILS OF INVESTIGATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="dateTime" class="form-label"></label>
                                 <div>
                                     <div id="toolbar1">
@@ -318,11 +328,11 @@
                                             <button class="ql-video"></button>
                                             <button class="ql-formula"></button>
                                         </span>
-                                        <span class="ql-formats">
+                                        <span class="ql-formats" >
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="first">
+                                    <div id="first" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('details') !!}
                                     </div>
 
@@ -339,7 +349,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">FINDINGS:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="date" class="form-label"></label>
                                 <div>
                                     <div id="toolbar2">
@@ -387,7 +397,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="second">
+                                    <div id="second" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('findings') !!}
                                     </div>
                                 </div>
@@ -401,7 +411,7 @@
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Fire Incident Response Details</h3> --}}
                             <h3 class="border-bottom border-4 border-warning pb-2 mb-3">RECOMMENDATION:</h3>
                             {{-- <h5>Details</h5> --}}
-                            <div class="col-lg-12 mb-12 pb-5 mb-3">
+                            <div class="col-lg-12 mb-12 pb-3 mb-2">
                                 <label for="date" class="form-label"></label>
                                 <div>
                                     <div id="toolbar3">
@@ -449,7 +459,7 @@
                                             <button class="ql-clean"></button>
                                         </span>
                                     </div>
-                                    <div id="third">
+                                    <div id="third" style="border: 1px solid lightgray; height: 200px;">
                                         {!! old('details') !!}
                                     </div>
                                 </div>
@@ -485,125 +495,123 @@
                 </form>
             </div>
         </div>
-    </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $("#submit").click(function() {
-                $("#details").val($("#first").text());
-                $("#findings").val($("#second").html());
-                $("#recommendation").val($("#third").html());
+        <script>
+            $(document).ready(function() {
+                $("#submit").click(function() {
+                    $("#details").val($("#first").text());
+                    $("#findings").val($("#second").html());
+                    $("#recommendation").val($("#third").html());
+                });
+
+                $("#submit").click(function() {
+                    $("#details").val(quillFirst.root.innerHTML);
+                    $("#findings").val(quillSecond.root.innerHTML);
+                    $("#recommendation").val(quillThird.root.innerHTML);
+                });
+
+                $('#photos').on('change', function() {
+                    var files = $(this)[0].files; // Get the files selected
+                    var container = $('#photo'); // Get the preview container
+
+                    // Clear previous previews
+                    container.empty();
+
+                    // Loop through each file
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var reader = new FileReader();
+
+                        // Closure to capture the file information.
+                        reader.onload = (function(file) {
+                            return function(e) {
+                                // Create image preview
+                                var mainContainer = $(
+                                    '<div class="image-preview mb-1 col-sm-4"></div>')
+                                var imgPreview = $(
+                                    '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
+                                    e.target.result +
+                                    '" alt="' + '">'
+                                );
+                                mainContainer.append(imgPreview);
+
+                                // Append image preview to the container
+                                // container.append(imgPreview);
+
+                                // Create filename container with flex layout
+                                var fileInfoContainer = $(
+                                    '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
+                                );
+
+                                // Filename element
+                                var fileInfo = $(
+                                    '<div class="file-info flex-grow-1 me-2 text-break"></div>');
+
+                                // Remove button
+                                // var removeBtn = $(
+                                //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
+                                // );
+
+                                // Append filename and remove button to container
+                                fileInfoContainer.append(fileInfo);
+                                // fileInfoContainer.append(removeBtn);
+                                mainContainer.append(fileInfoContainer);
+                                // Append the filename container to the preview container
+                                container.append(mainContainer);
+
+                                // Remove button click event
+                                // removeBtn.click(function() {
+                                //     imgPreview.remove(); // Remove the image preview
+                                //     $(this).closest('.d-flex')
+                                //         .remove(); // Remove the flex container
+                                //     $('#photos').val(
+                                //         ''); // Clear the file input (if needed)
+                                // });
+                            };
+                        })(file);
+
+                        // Read in the image file as a data URL
+                        reader.readAsDataURL(file);
+                    }
+                });
             });
+            // Get the input element
+            var input = document.getElementById('telephone');
 
-            $("#submit").click(function() {
-                $("#details").val(quillFirst.root.innerHTML);
-                $("#findings").val(quillSecond.root.innerHTML);
-                $("#recommendation").val(quillThird.root.innerHTML);
-            });
+            // Listen for input events
+            input.addEventListener('input', function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
 
-            $('#photos').on('change', function() {
-                var files = $(this)[0].files; // Get the files selected
-                var container = $('#photo'); // Get the preview container
-
-                // Clear previous previews
-                container.empty();
-
-                // Loop through each file
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
-
-                    // Closure to capture the file information.
-                    reader.onload = (function(file) {
-                        return function(e) {
-                            // Create image preview
-                            var mainContainer = $(
-                                '<div class="image-preview mb-1 col-sm-4"></div>')
-                            var imgPreview = $(
-                                '<img style="height: 350px; object-fit: cover;" class="img-thumbnail w-100" src="' +
-                                e.target.result +
-                                '" alt="' + '">'
-                            );
-                            mainContainer.append(imgPreview);
-
-                            // Append image preview to the container
-                            // container.append(imgPreview);
-
-                            // Create filename container with flex layout
-                            var fileInfoContainer = $(
-                                '<div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2"></div>'
-                            );
-
-                            // Filename element
-                            var fileInfo = $(
-                                '<div class="file-info flex-grow-1 me-2 text-break"></div>');
-
-                            // Remove button
-                            // var removeBtn = $(
-                            //     '<button type="button" class="btn btn-sm btn-danger">Remove</button>'
-                            // );
-
-                            // Append filename and remove button to container
-                            fileInfoContainer.append(fileInfo);
-                            // fileInfoContainer.append(removeBtn);
-                            mainContainer.append(fileInfoContainer);
-                            // Append the filename container to the preview container
-                            container.append(mainContainer);
-
-                            // Remove button click event
-                            // removeBtn.click(function() {
-                            //     imgPreview.remove(); // Remove the image preview
-                            //     $(this).closest('.d-flex')
-                            //         .remove(); // Remove the flex container
-                            //     $('#photos').val(
-                            //         ''); // Clear the file input (if needed)
-                            // });
-                        };
-                    })(file);
-
-                    // Read in the image file as a data URL
-                    reader.readAsDataURL(file);
+                // Limit the input to exactly 11 digits
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
                 }
             });
-        });
-        // Get the input element
-        var input = document.getElementById('telephone');
-
-        // Listen for input events
-        input.addEventListener('input', function() {
-            // Remove any non-numeric characters
-            this.value = this.value.replace(/\D/g, '');
-
-            // Limit the input to exactly 11 digits
-            if (this.value.length > 11) {
-                this.value = this.value.slice(0, 11);
-            }
-        });
-        var hiddenInput = document.getElementById('editorContent');
+            var hiddenInput = document.getElementById('editorContent');
 
 
-        const quillFirst = new Quill('#first', {
-            modules: {
-                toolbar: '#toolbar1',
-            },
-            theme: 'snow',
-            placeholder: 'Compose an epic...',
-        });
-        const quillSecond = new Quill('#second', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar2',
-            },
+            const quillFirst = new Quill('#first', {
+                modules: {
+                    toolbar: '#toolbar1',
+                },
+                theme: 'snow',
+                placeholder: 'Compose an epic...',
+            });
+            const quillSecond = new Quill('#second', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar2',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-        const quillThird = new Quill('#third', {
-            theme: 'snow',
-            modules: {
-                toolbar: '#toolbar3',
-            },
+                placeholder: 'Compose an epic...',
+            });
+            const quillThird = new Quill('#third', {
+                theme: 'snow',
+                modules: {
+                    toolbar: '#toolbar3',
+                },
 
-            placeholder: 'Compose an epic...',
-        });
-    </script>
-@endsection
+                placeholder: 'Compose an epic...',
+            });
+        </script>
+    @endsection
