@@ -73,7 +73,8 @@
                                         name="received_by">
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
-                                            @if (old('received_by') == $personnel->id))
+                                            @if (old('received_by') == $personnel->id)
+                                                )
                                                 <option selected value="{{ $personnel->id }}">
                                                     {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
                                                     {{ $personnel->last_name }}</option>
@@ -88,9 +89,14 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-6 mb-3">
-                                    <label for="caller" class="form-label">Blotter Number</label>
-                                    <input type="text" class="form-control" placeholder="Enter Blotter Number" value="{{old('blotter_number') ?? $station->blotterNumberTemp }}"
+                                    <label for="caller" class="form-label">Blotter Number <i>( Format:
+                                            {{ $station->blotterNumberTemp }} )</i></label>
+                                    <input type="text" class="form-control" placeholder="Enter Blotter Number"
+                                        value="{{ old('blotter_number') ?? $station->blotterNumberTemp }}"
                                         name="blotter_number">
+                                    @error('blotter_number')
+                                        <span class="text-danger alert" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <hr>
                                 <div class="col-lg-6 mb-3">
@@ -239,11 +245,10 @@
                                                 name="alarm_time[]">
                                         </div>
                                         <div class="col-lg-4 mb-3">
-                                            <label for="fundCommander" class="form-label">Fund
-                                                Commander</label>
+                                            <label for="fundCommander" class="form-label">Ground Commander</label>
                                             <select class="form-select fundCommander" aria-label=""
                                                 name="fund_commander[]">
-                                                <option value="" selected>Select Fund Commanders</option>
+                                                <option value="" selected>Select Ground Commanders</option>
                                                 @foreach ($personnels as $personnel)
                                                     <option value="{{ $personnel->id }}">
                                                         {{ $personnel->rank->slug . ' ' . $personnel->first_name }}

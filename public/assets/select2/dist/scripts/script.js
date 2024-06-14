@@ -31,6 +31,7 @@ $(document).ready(function () {
     $(".specify").select2();
     $(".rankName").select2();
     $(".designation").select2({tags: true});
+    $(".designationSelect").select2({tags: true});
     $("#barangay-select").select2();
     $("#userschoice").select2({dropdownParent: $("#generatePasscodeModal")});
     
