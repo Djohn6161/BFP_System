@@ -437,8 +437,9 @@
                                     @foreach (old('breathing', ['']) as $index => $breathing)
                                         <div class="row breathing-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
+                                                <h5></h5> 
+                                                {{-- <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button> --}}
                                             </div>
                                             <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
                                                     class="form-label">No.</label> <input type="number"
@@ -471,8 +472,9 @@
                                     @foreach (old('extinguishing', ['']) as $index => $extinguishing)
                                         <div class="row extinguishing-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
+                                                <h5></h5> 
+                                                {{-- <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button> --}}
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Quantity</label>
@@ -504,8 +506,9 @@
                                     @foreach (old('rope_ladder', ['']) as $index => $rope_ladder)
                                         <div class="row rope-ladder-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
+                                                <h5></h5> 
+                                                {{-- <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button> --}}
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Type</label>
@@ -535,8 +538,9 @@
                                     @foreach (old('type_hose', ['']) as $index => $type_hose)
                                         <div class="row hose-line-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
+                                                <h5></h5> 
+                                                {{-- <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> --}}
                                             </div>
                                             <div class="col-lg-4 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Nr.</label>
