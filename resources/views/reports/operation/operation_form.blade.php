@@ -239,11 +239,11 @@
                                                 name="alarm_time[]">
                                         </div>
                                         <div class="col-lg-4 mb-3">
-                                            <label for="fundCommander" class="form-label">Fund
+                                            <label for="fundCommander" class="form-label">Ground
                                                 Commander</label>
                                             <select class="form-select fundCommander" aria-label=""
                                                 name="fund_commander[]">
-                                                <option value="" selected>Select Fund Commanders</option>
+                                                <option value="" selected>Select Ground Commanders</option>
                                                 @foreach ($personnels as $personnel)
                                                     <option value="{{ $personnel->id }}">
                                                         {{ $personnel->rank->slug . ' ' . $personnel->first_name }}

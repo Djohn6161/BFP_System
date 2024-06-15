@@ -45,16 +45,14 @@
                                     <div class="col-lg-6 mb-6">
                                         <label for="dateOfBirth" class="form-label">User Type</label>
                                             <select type="text" class="form-select" value="{{ $user->type }}" name="type" disabled>
-                                                <option value="admin">Admin</option>
-                                                <option value="user">User</option>
+
+                                                <option value="{{$user->type}}">{{$user->type}}</option>
                                             </select>
                                     </div>
                                     <div class="col-lg-6 mb-6">
                                         <label for="dateOfBirth" class="form-label">Privllege</label>
                                         <select type="text" class="form-select" value="{{ $user->privillege }}" name="privillege" disabled>
-                                            <option value="AC">Admin Clerk</option>
-                                            <option value="OC">Operation Clerk</option>
-                                            <option value="IC">Investigation Clerk</option>
+                                            <option value="{{$user->privilege}} " class="text-capitalize">{{$user->privilege}}</option>
                                         </select>
                                     </div>
                                 </div>
