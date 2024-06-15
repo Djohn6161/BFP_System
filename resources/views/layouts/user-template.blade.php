@@ -56,6 +56,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <h3>Change Password</h3>
                         </div>
                         <div class="modal-body">
                             <form method="POST" action="{{ route('profile.password.update') }}">

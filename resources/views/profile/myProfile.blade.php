@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -17,7 +16,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">My Profile</h3>
                             <div class="col-lg-3">
                                 <div class="col-lg-12 mb-3"> <!-- Photo column -->
-                                    <img id="personnel-picture" src="/assets/images/personnel_images/{{$user->picture}}"
+                                    <img id="personnel-picture" src="/assets/images/personnel_images/{{ $user->picture }}"
                                         class="object-fit-cover img-fluid w-100" style="height: 240px;"
                                         alt="Personnel Picture">
                                     <div class="row px-2">
@@ -41,28 +40,39 @@
                                     <input type="text" class="form-control" name="username" id="username"
                                         value="{{ $user->username }}">
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-6 mb-6">
-                                        <label for="dateOfBirth" class="form-label">User Type</label>
-                                            <select type="text" class="form-select" value="{{ $user->type }}" name="type" disabled>
-                                                <option value="admin">Admin</option>
-                                                <option value="user">User</option>
-                                            </select>
-                                    </div>
-                                    <div class="col-lg-6 mb-6">
-                                        <label for="dateOfBirth" class="form-label">Privllege</label>
-                                        <select type="text" class="form-select" value="{{ $user->privillege }}" name="privillege" disabled>
-                                            <option value="AC">Admin Clerk</option>
-                                            <option value="OC">Operation Clerk</option>
-                                            <option value="IC">Investigation Clerk</option>
-                                        </select>
-                                    </div>
+                                <div class="col-lg-12 mb-6">
+                                    <label for="dateOfBirth" class="form-label">User Type</label>
+                                    <select type="text" class="form-select" value="{{ $user->privilege }}" name="type"
+                                        disabled>
+                                        <option value="chief" {{ $user->privilege == 'chief' ? 'selected' : '' }}>Chief
+                                        </option>
+                                        <option value="configuration_chief"
+                                            {{ $user->privilege == 'configuration_chief' ? 'selected' : '' }}>Configuration
+                                            Chief</option>
+                                        <option value="operation_admin_chief"
+                                            {{ $user->privilege == 'operation_admin_chief' ? 'selected' : '' }}>Operation
+                                            Admin Chief</option>
+                                        <option value="investigation_admin_chief"
+                                            {{ $user->privilege == 'investigation_admin_chief' ? 'selected' : '' }}>
+                                            Investigation Admin Chief</option>
+                                        <option value="admin_chief"
+                                            {{ $user->privilege == 'admin_chief' ? 'selected' : '' }}>Admin Chief</option>
+                                        <option value="operation_clerk"
+                                            {{ $user->privilege == 'operation_clerk' ? 'selected' : '' }}>Operation Clerk
+                                        </option>
+                                        <option value="investigation_clerk"
+                                            {{ $user->privilege == 'investigation_clerk' ? 'selected' : '' }}>Investigation
+                                            Clerk</option>
+                                        <option value="admin_clerk"
+                                            {{ $user->privilege == 'admin_clerk' ? 'selected' : '' }}>Admin Clerk</option>
+                                    </select>
                                 </div>
-                                <div class="col d-flex justify-content-end mb-2 py-3">  
-                                    <a href="{{route('user.dashboard')}}" type="button" class="btn btn-secondary me-2">Cancel</a>
+                                <div class="col d-flex justify-content-end mb-2 py-3">
+                                    <a href="{{ route('user.dashboard') }}" type="button"
+                                        class="btn btn-secondary me-2">Cancel</a>
                                     <button id="saveChangesBtn" class="btn btn-primary">Update Profile</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                 </form>
