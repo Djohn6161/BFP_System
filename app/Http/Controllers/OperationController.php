@@ -57,8 +57,9 @@ class OperationController extends Controller
     public function operationStore(Request $request)
     {
 
+        // dd($request->all());
         $format = "OPT2024_";
-
+        
         $request->validate([
             'alarm_received' => 'required|string|max:255',
             'transmitted_by' => 'required|string|max:255',

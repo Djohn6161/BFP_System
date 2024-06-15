@@ -435,24 +435,25 @@
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used
                                     </h3>
                                     @foreach (old('breathing', ['']) as $index => $breathing)
-                                            <div class="row breathing-remove-button-container m-0 p-0">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h5></h5> <button type="button"
-                                                        class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
-                                                </div>
-                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                        class="form-label">No.</label> <input type="number"
-                                                        placeholder="No." class="form-control" id="firstResponderInput"
-                                                        name="no_breathing[]" value="{{ old('no_breathing.' . $index, '') }}">
-                                                </div>
-                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                        class="form-label">Type
-                                                        / Kind</label> <input type="text" placeholder="Enter type"
-                                                        class="form-control" id="firstResponderInput" name="breathing[]"
-                                                        value="{{ $breathing }}">
-                                                </div>
-                                                <hr>
+                                        <div class="row breathing-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
                                             </div>
+                                            <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                    class="form-label">No.</label> <input type="number"
+                                                    placeholder="No." class="form-control" id="firstResponderInput"
+                                                    name="no_breathing[]"
+                                                    value="{{ old('no_breathing.' . $index, '') }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                    class="form-label">Type
+                                                    / Kind</label> <input type="text" placeholder="Enter type"
+                                                    class="form-control" id="firstResponderInput" name="breathing[]"
+                                                    value="{{ $breathing }}">
+                                            </div>
+                                            {{-- <hr> --}}
+                                        </div>
                                     @endforeach
                                 </div>
                                 <hr>
@@ -467,17 +468,28 @@
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent Used
                                     </h3>
 
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Quantity</label>
-                                        <input type="number" placeholder="Enter quantity" class="form-control"
-                                            id="firstResponderInput" name="quantity_extinguishing[]">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Type /
-                                            Kind</label>
-                                        <input type="text" placeholder="Enter type" class="form-control"
-                                            id="firstResponderInput" name="extinguishing[]">
-                                    </div>
+                                    @foreach (old('extinguishing', ['']) as $index => $extinguishing)
+                                        <div class="row extinguishing-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Quantity</label>
+                                                <input type="number" placeholder="Enter quantity" class="form-control"
+                                                    id="firstResponderInput" name="quantity_extinguishing[]"
+                                                    value="{{ old('quantity_extinguishing.' . $index, '') }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type /
+                                                    Kind</label>
+                                                <input type="text" placeholder="Enter type" class="form-control"
+                                                    id="firstResponderInput" name="extinguishing[]"
+                                                    value="{{ $extinguishing }}">
+                                            </div>
+                                            {{-- <hr> --}}
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <hr>
                                 <div class="row m-0 p-0">
@@ -489,17 +501,26 @@
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                                 <div class="row m-0 p-0 rope-ladder">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
-
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Type</label>
-                                        <input type="text" placeholder="Enter type" class="form-control"
-                                            id="firstResponderInput" name="rope_ladder[]">
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Length</label>
-                                        <input type="text" placeholder="Enter length" class="form-control"
-                                            id="firstResponderInput" name="rope_ladder_length[]">
-                                    </div>
+                                    @foreach (old('rope_ladder', ['']) as $index => $rope_ladder)
+                                        <div class="row rope-ladder-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type</label>
+                                                <input type="text" placeholder="Enter type" class="form-control"
+                                                    id="firstResponderInput" name="rope_ladder[]"
+                                                    value="{{ $rope_ladder }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Length</label>
+                                                <input type="text" placeholder="Enter length" class="form-control"
+                                                    id="firstResponderInput" name="rope_ladder_length[]"
+                                                    value="{{ old('rope_ladder_length' . $index) }}">
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <hr>
                                 <div class="row m-0 p-0">
@@ -511,23 +532,35 @@
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
                                 <div class="row m-0 p-0 hose-line">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="firefighterDeath" class="form-label">No.</label>
-                                        <input type="number" placeholder="No." class="form-control"
-                                            id="firstResponderInput" name="no_hose[]">
-                                    </div>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Type /
-                                            Kind</label>
-                                        <input type="text" placeholder="Type / kind" class="form-control"
-                                            id="firstResponderInput" name="type_hose[]">
-                                    </div>
-                                    <div class="col-lg-4 mb-3">
-                                        <label for="firefighterDeath" class="form-label">Total
-                                            ft.</label>
-                                        <input type="text" placeholder="Enter total feet" class="form-control"
-                                            id="firstResponderInput" name="hose_feet[]">
-                                    </div>
+                                    @foreach (old('type_hose', ['']) as $index => $type_hose)
+                                        <div class="row hose-line-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Nr.</label>
+                                                <input type="number" placeholder="No." class="form-control"
+                                                    id="firstResponderInput" name="no_hose[]"
+                                                    value="{{ old('no_hose.' . $index) }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type /
+                                                    Kind</label>
+                                                <input type="text" placeholder="Type / kind" class="form-control"
+                                                    id="firstResponderInput" name="type_hose[]"
+                                                    value="{{ $type_hose }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Total
+                                                    ft.</label>
+                                                <input type="text" placeholder="Enter total feet" class="form-control"
+                                                    id="firstResponderInput" name="hose_feet[]"
+                                                    value="{{ old('hose_feet.' . $index) }}">
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewHoseLine" class="btn btn-primary">+ Add another hose
@@ -539,39 +572,47 @@
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Duty Personnel at the Fire
                                     Scene</h3>
-                                {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">13
-                            </h3> --}}
                                 <div class="row m-0 p-0" id="thirdDivApor">
                                     <div class="row m-0 p-0" id="thirdAddApor">
-                                        <h3></h3>
-                                        <div class="col-lg-6 mb-3">
-                                            <label for="dutyPersonnel" class="form-label">Rank /
-                                                Name</label>
-                                            <select class="form-select rankName" aria-label=""
-                                                name="duty_personnel_id[]">
-                                                <option value="" selected>Select Duty Personnel</option>
-                                                @foreach ($personnels as $personnel)
-                                                    <option value="{{ $personnel->id }}">
-                                                        {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                        {{ $personnel->last_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 mb-3">
-                                            <label for="dutyPersonnel" class="form-label">Designation</label>
-                                            <select class="form-select designationSelect" aria-label=""
-                                                name="duty_designations[]">
-                                                <option value="" selected>Select designation</option>
-                                                @foreach ($designations as $designation)
-                                                    <option value="{{ $designation->name }}">
-                                                        {{ $designation->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-12 mb-3">
-                                            <label for="firefighterDeath" class="form-label">Remarks</label>
-                                            <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea>
-                                        </div>
+                                        @foreach (old('duty_personnel_id', ['']) as $index => $duty_personnel_id)
+                                            <div class="row third-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5> <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                        class="form-label">Rank /
+                                                        Name</label> <select class="form-select rankName" aria-label=""
+                                                        name="duty_personnel_id[]">
+                                                        <option value="" selected>Select Fund Commander</option>
+                                                        @foreach ($personnels as $personnel)
+                                                            <option value="{{ $personnel->id }}"
+                                                                {{ $duty_personnel_id == $personnel->id ? 'selected' : '' }}>
+                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-lg-6 mb-3"> <label for="fundCommander"
+                                                        class="form-label">Designation</label> <select
+                                                        class="form-select designationSelect" aria-label=""
+                                                        name="duty_designation[]">
+                                                        <option value="" selected>Select designation</option>
+                                                        @foreach ($designations as $designation)
+                                                            <option value="{{ $designation->name }}"
+                                                                {{ old('duty_designation.' . $index) == $designation->name ? 'selected' : '' }}>
+                                                                {{ $designation->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select> </div>
+                                                <div class="col-lg-12 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">Remarks</label>
+                                                    <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ old('duty_remarks.' . $index) }}</textarea>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        <hr>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -593,6 +634,7 @@
                             </div>
 
                             <!-- Details narrative -->
+                            <input type="hidden" name="details" id="details">
                             <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details</h3>
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3> --}}
@@ -653,6 +695,8 @@
                             </div>
 
                             <!-- Problem encounterd -->
+                            <input type="hidden" name="problem_encounter" id="problem_encounter">
+
                             <div class="row border border-light-subtle shadow rounded my-4 p-4 bg-white">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During
                                     Operation</h3>
@@ -708,13 +752,14 @@
                                             </span>
                                         </div>
                                         <div id="second">
-                                            {!! old('details') !!}
+                                            {!! old('problem_encounter') !!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Observation Recommendation -->
+                            <input type="hidden" name="observation_recommendation" id="observation_recommendation">
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations
                                 </h3>
@@ -768,7 +813,7 @@
                                             </span>
                                         </div>
                                         <div id="third">
-                                            {!! old('details') !!}
+                                            {!! old('observation_recommendation') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -782,7 +827,8 @@
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
+                                                {{ old('prepared_by') == $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endforeach
@@ -794,7 +840,8 @@
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
+                                                {{ old('noted_by') == $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endforeach
@@ -803,7 +850,7 @@
                             </div>
                             <div class="row">
                                 <div class="col d-flex justify-content-end px-0">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" id="submit" class="btn btn-success">
                                         <span>
                                             <i class="ti ti-send"></i>
                                         </span>
@@ -822,6 +869,19 @@
             var parentCounter = 0;
             var childCounter = 0;
             $(document).ready(function() {
+
+                // $("#submit").click(function() {
+                //     $("#details").val($("#first").text());
+                //     $("#problem_encounter").val($("#second").html());
+                //     $("#observation_recommendation").val($("#third").html());
+                // });
+
+                $("#submit").click(function() {
+                    $('#details').val(quillFirst.getText().trim());
+                    $('#problem_encounter').val(quillSecond.getText().trim());
+                    $('#observation_recommendation').val(quillThird.getText().trim());
+                });
+
                 // Remove dynamically added input field
                 $(document).on('click', '.removeInput', function() {
                     $(this).closest('.col-lg-6').remove();
@@ -1121,6 +1181,7 @@
                 theme: 'snow',
                 placeholder: 'Compose an epic...',
             });
+
             const quillSecond = new Quill('#second', {
                 modules: {
                     toolbar: '#toolbar2',
@@ -1128,6 +1189,7 @@
                 theme: 'snow',
                 placeholder: 'Compose an epic...',
             });
+
             const quillThird = new Quill('#third', {
                 modules: {
                     toolbar: '#toolbar3',
