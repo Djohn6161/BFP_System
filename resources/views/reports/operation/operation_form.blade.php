@@ -531,7 +531,7 @@
                                                     <label for="firefighterDeath" class="form-label">Length</label>
                                                     <input type="text" placeholder="Enter length" class="form-control"
                                                         id="firstResponderInput" name="rope_ladder_length[]"
-                                                        value="{{ old('rope_ladder_length' . $index) }}">
+                                                        value="{{ old('rope_ladder_length.' . $index) }}">
                                                 </div>
                                                 <hr>
                                             </div>
