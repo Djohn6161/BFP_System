@@ -4,11 +4,12 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                @if ($type == 'user')
+                {{-- @if ($type == 'user')
                     <h1 class="modal-title fs-5" id="addAccountModalLabel">Update User Account Password</h1>
                 @else
                     <h1 class="modal-title fs-5" id="addAccountModalLabel">Update Admin Account Password</h1>
-                @endif
+                @endif --}}
+                <h1 class="modal-title fs-5" id="addAccountModalLabel">Update Account Password</h1>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

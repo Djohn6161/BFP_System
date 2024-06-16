@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$station->acronym}} - {{ $active ?? auth()->user()->type }}</title>
+    <title>{{ $station->acronym }} - {{ $active ?? auth()->user()->type }}</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.jpg') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
@@ -44,7 +44,8 @@
                         </div>
                         <div class="modal-footer justify-content-flex-center">
                             <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Cancel</button>
-                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes, Logout</a>
+                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes,
+                                Logout</a>
                         </div>
                     </div>
                 </div>
@@ -61,49 +62,49 @@
                             </div>
                             <div class="modal-body">
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="current_my_password" class="form-label">Current Password:</label>
-                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_current">
-                                        <input type="password" class="form-control" name="current_my_password" id="current_my_password" placeholder="Enter Current Password">
-                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
-                                    </div>
+                                <label for="current_password" class="form-label">Current Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_current">
+                                    <input type="password" class="form-control" name="current_password"
+                                        id="current_password" placeholder="Enter Current Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
                                 </div>
-                                
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">New Password:</label>
-                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_new">
-                                        <input type="password" class="form-control" name="password" placeholder="Enter Password">
-                                        <input type="hidden" name="password_id" id="password_id">
-                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
-                                    </div>
+
+                                <label for="password" class="form-label">New Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_new">
+                                    <input type="password" class="form-control" name="password"
+                                        placeholder="Enter Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
                                 </div>
-                                
-                                <div class="mb-3">
-                                    <label for="confirm_my_password" class="form-label">Confirmation:</label>
-                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_confirm">
-                                        <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password">
-                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
-                                    </div>
-                                </div>                                
-                            </div>
-                            <div class="modal-footer">
+
+                                <label for="confirm_password" class="form-label">Confirm Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_confirm">
+                                    <input type="password" class="form-control" name="confirmation"
+                                        placeholder="Confirm Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            </div>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancel</button>
                         </form>
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
-
-
-
-            @include('partials.header')
-            <x-flash-message></x-flash-message>
-            <!--  Header End -->
-            @yield('content')
-            @include('partials.footer')
-            {{-- Footer End --}}
         </div>
+
+
+
+        @include('partials.header')
+        <x-flash-message></x-flash-message>
+        <!--  Header End -->
+        @yield('content')
+        @include('partials.footer')
+        {{-- Footer End --}}
+    </div>
     </div>
     <script src="{{ asset('assets/js/loader.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
@@ -120,11 +121,12 @@
                 return true;
             });
 
-            $(".show-my-password a").on('click', function(event) {
+            $(".show-password a").on('click', function(event) {
                 event.preventDefault();
-                var passwordField = $(this).closest('.show-my-password').find('input[type="password"], input[type="text"]');
+                var passwordField = $(this).closest('.show-password').find(
+                    'input[type="password"], input[type="text"]');
                 var icon = $(this).find('i');
-                
+
                 if (passwordField.attr("type") == "text") {
                     passwordField.attr('type', 'password');
                     icon.addClass("ti-eye-off");

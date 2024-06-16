@@ -141,7 +141,7 @@
                                                 </div>
                                                 <div class="col-lg-3 mb-3">
                                                     <label for="vehicle" class="form-label">Engine
-                                                        Dispatched {{ $index }}</label>
+                                                        Dispatched</label>
                                                     <select class="form-select engineDispatched" aria-label=""
                                                         name="engine_dispatched[]">
                                                         <option value="">Select vehicle</option>
@@ -202,7 +202,6 @@
                                                         name="gas_consumed[]"
                                                         value="{{ old('gas_consumed.' . $index . '') }}">
                                                 </div>
-                                                <hr>
                                             </div>
                                         @endforeach
                                     </div>
@@ -257,33 +256,6 @@
                                 <div class="row m-0 p-0" id="secondDivApor">
                                     <div class="row m-0 p-0" id="secondAddApor">
                                         <h5>Time Alarm Status Declared</h5>
-                                        {{-- <div class="col-lg-4 mb-3">
-                                            <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label>
-                                            <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
-                                                <option value="" selected>Select alarm status</option>
-                                                @foreach ($alarm_list as $list)
-                                                    <option value="{{ $list->name }}">{{ $list->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
-                                            <input type="text" placeholder="Eg. 2300h"
-                                                class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime"
-                                                name="alarm_time[]">
-                                        </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <label for="fundCommander" class="form-label">Ground Commander</label>
-                                            <select class="form-select fundCommander" aria-label=""
-                                                name="fund_commander[]">
-                                                <option value="" selected>Select Ground Commanders</option>
-                                                @foreach ($personnels as $personnel)
-                                                    <option value="{{ $personnel->id }}">
-                                                        {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                        {{ $personnel->last_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
                                         @foreach (old('alarm_name', ['']) as $index => $alarm_name)
                                             <div class="row second-remove-button-container m-0 p-0">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -328,7 +300,6 @@
                                                 </div>
                                             </div>
                                         @endforeach
-
                                     </div>
                                     <hr>
                                 </div>
@@ -531,7 +502,7 @@
                                                     <label for="firefighterDeath" class="form-label">Length</label>
                                                     <input type="text" placeholder="Enter length" class="form-control"
                                                         id="firstResponderInput" name="rope_ladder_length[]"
-                                                        value="{{ old('rope_ladder_length' . $index) }}">
+                                                        value="{{ old('rope_ladder_length.' . $index) }}">
                                                 </div>
                                                 <hr>
                                             </div>
@@ -889,11 +860,6 @@
             var childCounter = 0;
             $(document).ready(function() {
 
-                // $("#submit").click(function() {
-                //     $("#details").val($("#first").text());
-                //     $("#problem_encounter").val($("#second").html());
-                //     $("#observation_recommendation").val($("#third").html());
-                // });
 
                 $("#submit").click(function() {
                     $('#details').val(quillFirst.getText().trim());
@@ -923,6 +889,7 @@
                     // Re-initialize Select2 on the cloned select element
                     mnewDiv.find('.engineDispatched').select2();
                 });
+
 
                 $('#secondDivApor').on('click', '.second-remove-section-btn', function() {
                     // Find the parent div of the clicked remove button and remove it
@@ -1088,7 +1055,7 @@
                 $('#addNewHoseLine').click(function() {
                     var newDiv = $('#addHoseLine').clone();
                     var mnewDiv = $(
-                        '<div class="row hose-line-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">No.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Type / kind" class="form-control" id="firstResponderInput" name="type_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Total ft.</label> <input type="text" placeholder="Enter total feet" class="form-control" id="firstResponderInput" name="hose_feet[]"> </div> <hr> </div>'
+                        '<div class="row hose-line-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Nr.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Type / kind" class="form-control" id="firstResponderInput" name="type_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Total ft.</label> <input type="text" placeholder="Enter total feet" class="form-control" id="firstResponderInput" name="hose_feet[]"> </div> <hr> </div>'
                     );
 
                     console.log(mnewDiv);
