@@ -206,7 +206,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <hr>
+                                    {{-- <hr> --}}
                                 </div>
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewDivApor" class="btn btn-primary">+ Add New Fire
