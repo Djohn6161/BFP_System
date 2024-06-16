@@ -438,8 +438,8 @@
                                         <div class="row breathing-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5></h5> 
-                                                {{-- <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button> --}}
+                                                <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
                                             </div>
                                             <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
                                                     class="form-label">No.</label> <input type="number"

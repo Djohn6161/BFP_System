@@ -25,10 +25,11 @@ class UsersController extends Controller
             'active' => 'home',
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
-            'afor' => Afor::all(),
+            'afor' => Afor::whereNull('deleted_at')->get(),
             'occup' => Occupancy::all(),
             'station' => $station
         ]);
+
     }
 
     public function updateProfile(Request $request)
@@ -66,7 +67,6 @@ class UsersController extends Controller
         if ($userChange) {
             $user->update($userInfoUpdatedData);
             $status = true;
-
         }
 
         if ($status) {
@@ -103,7 +103,6 @@ class UsersController extends Controller
             }
         } else {
             return redirect()->back()->with('status', "Admin password confirmation doesn't match.");
-
         }
     }
     public function userLogout(Request $request): RedirectResponse
@@ -126,6 +125,5 @@ class UsersController extends Controller
         }
 
         return false;
-
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$station->acronym}} - {{ $active ?? auth()->user()->type }}</title>
+    <title>{{ $station->acronym }} - {{ $active ?? auth()->user()->type }}</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logo.jpg') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/mystyle.css') }}">
@@ -44,7 +44,8 @@
                         </div>
                         <div class="modal-footer justify-content-flex-center">
                             <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Cancel</button>
-                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes, Logout</a>
+                            <a href="{{ route('user.logout') }}" type="button" class="btn btn-primary w-50">Yes,
+                                Logout</a>
                         </div>
                     </div>
                 </div>
@@ -61,21 +62,32 @@
                         <div class="modal-body">
                             <form method="POST" action="{{ route('profile.password.update') }}">
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" name="current_password">
+                                <label for="current_password" class="form-label">Current Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_current">
+                                    <input type="password" class="form-control" name="current_password"
+                                        id="current_password" placeholder="Enter Current Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
                                 </div>
-                                <div class="mb-3">
-                                    <input type="hidden" name="password_id" id="password_id">
-                                    <label for="inputEmail" class="form-label">New Password</label>
-                                    <input type="password" class="form-control" name="password">
+
+                                <label for="password" class="form-label">New Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_new">
+                                    <input type="password" class="form-control" name="password"
+                                        placeholder="Enter Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Confirmation</label>
-                                    <input type="password" class="form-control" name="confirmation">
+
+                                <label for="confirm_password" class="form-label">Confirm Password:</label>
+                                <div class="input-group show-password mb-3" id="show_hide_password_confirm">
+                                    <input type="password" class="form-control" name="confirmation"
+                                        placeholder="Confirm Password">
+                                    <span class="input-group-text"><a href="#"><i class="ti ti-eye-off"
+                                                aria-hidden="true"></i></a></span>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancel</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -108,6 +120,22 @@
                 // submit the form
                 return true;
             });
+
+            $(".show-password a").on('click', function(event) {
+            event.preventDefault();
+            var passwordField = $(this).closest('.show-password').find('input[type="password"], input[type="text"]');
+            var icon = $(this).find('i');
+            
+            if (passwordField.attr("type") == "text") {
+                passwordField.attr('type', 'password');
+                icon.addClass("ti-eye-off");
+                icon.removeClass("ti-eye");
+            } else if (passwordField.attr("type") == "password") {
+                passwordField.attr('type', 'text');
+                icon.removeClass("ti-eye-off");
+                icon.addClass("ti-eye");
+            }
+        });
         });
     </script>
 </body>

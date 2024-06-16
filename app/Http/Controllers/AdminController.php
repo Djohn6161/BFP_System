@@ -17,13 +17,12 @@ class AdminController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-
         return view('admin.home', [
             'station' => Station::first(),
             'active' => 'home',
             'user' => $user,
             'occupancies' => Occupancy_name::all(),
-            'afor' => Afor::all(), 
+            'afor' => Afor::whereNull('deleted_at')->get(), 
             'occup' => Occupancy::all(),
         ]);
     }
