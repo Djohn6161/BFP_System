@@ -887,7 +887,7 @@
                     // mnewDiv.find('#closeCrew').prop('disabled', false);
 
                     // Re-initialize Select2 on the cloned select element
-                    mnewDiv.find('.engineDispatched').select2();
+                    mnewDiv.find('.engineDispatched').select2({tags: true});
                 });
 
 
@@ -931,7 +931,7 @@
 
                     // Re-initialize Select2 on the cloned select element
                     mnewDiv.find('.rankName').select2();
-                    mnewDiv.find('.designationSelect').select2();
+                    mnewDiv.find('.designationSelect').select2({tags: true});
                 });
 
                 $(document).on('click', '.remove-designation', function() {
