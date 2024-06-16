@@ -56,11 +56,11 @@
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Change Password</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('profile.password.update') }}">
+                        <form method="POST" action="{{ route('profile.password.update') }}">
+                            <div class="modal-header">
+                                <h3>Change Password</h3>
+                            </div>
+                            <div class="modal-body">
                                 @csrf
                                 <label for="current_password" class="form-label">Current Password:</label>
                                 <div class="input-group show-password mb-3" id="show_hide_password_current">
@@ -88,23 +88,23 @@
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancel</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
-
-
-
-            @include('partials.header')
-            <x-flash-message></x-flash-message>
-            <!--  Header End -->
-            @yield('content')
-            @include('partials.footer')
-            {{-- Footer End --}}
         </div>
+
+
+
+        @include('partials.header')
+        <x-flash-message></x-flash-message>
+        <!--  Header End -->
+        @yield('content')
+        @include('partials.footer')
+        {{-- Footer End --}}
+    </div>
     </div>
     <script src="{{ asset('assets/js/loader.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
@@ -122,20 +122,21 @@
             });
 
             $(".show-password a").on('click', function(event) {
-            event.preventDefault();
-            var passwordField = $(this).closest('.show-password').find('input[type="password"], input[type="text"]');
-            var icon = $(this).find('i');
-            
-            if (passwordField.attr("type") == "text") {
-                passwordField.attr('type', 'password');
-                icon.addClass("ti-eye-off");
-                icon.removeClass("ti-eye");
-            } else if (passwordField.attr("type") == "password") {
-                passwordField.attr('type', 'text');
-                icon.removeClass("ti-eye-off");
-                icon.addClass("ti-eye");
-            }
-        });
+                event.preventDefault();
+                var passwordField = $(this).closest('.show-password').find(
+                    'input[type="password"], input[type="text"]');
+                var icon = $(this).find('i');
+
+                if (passwordField.attr("type") == "text") {
+                    passwordField.attr('type', 'password');
+                    icon.addClass("ti-eye-off");
+                    icon.removeClass("ti-eye");
+                } else if (passwordField.attr("type") == "password") {
+                    passwordField.attr('type', 'text');
+                    icon.removeClass("ti-eye-off");
+                    icon.addClass("ti-eye");
+                }
+            });
         });
     </script>
 </body>
