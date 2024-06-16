@@ -431,33 +431,38 @@
                             <!-- Material Used -->
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                                <div class="row m-0 p-0 breathing-apparatus">
-                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus Used
-                                    </h3>
-                                    @foreach (old('breathing', ['']) as $index => $breathing)
-                                        <div class="row breathing-remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> 
-                                                {{-- <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button> --}}
-                                            </div>
-                                            <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                    class="form-label">No.</label> <input type="number"
-                                                    placeholder="No." class="form-control" id="firstResponderInput"
-                                                    name="no_breathing[]"
-                                                    value="{{ old('no_breathing.' . $index, '') }}">
-                                            </div>
-                                            <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                    class="form-label">Type
-                                                    / Kind</label> <input type="text" placeholder="Enter type"
-                                                    class="form-control" id="firstResponderInput" name="breathing[]"
-                                                    value="{{ $breathing }}">
+                                <div class="row m-0 p-0" id="divBreathingApparatus">
+                                    <div class="row m-0 p-0 border-0" id="addBreathingApparatus">
+                                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing Apparatus
+                                            Used
+                                        </h3>
+                                        @foreach (old('breathing', ['']) as $index => $breathing)
+                                            <div class="row breathing-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">
+                                                        Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">No.</label> <input type="number"
+                                                        placeholder="No." class="form-control" id="firstResponderInput"
+                                                        name="no_breathing[]"
+                                                        value="{{ old('no_breathing.' . $index, '') }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
+                                                        class="form-label">Type
+                                                        / Kind</label> <input type="text" placeholder="Enter type"
+                                                        class="form-control" id="firstResponderInput" name="breathing[]"
+                                                        value="{{ $breathing }}">
+                                                </div>
+                                                <hr>
                                             </div>
                                             {{-- <hr> --}}
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <hr>
+                                {{-- <hr> --}}
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewBreathingApparatus" class="btn btn-primary">+ Add
                                         another breathing apparatus used</button>
@@ -465,35 +470,39 @@
                             </div>
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                                <div class="row m-0 p-0 extinguishing-agent">
-                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent Used
-                                    </h3>
+                                <div class="row m-0 p-0" id="divExtinguishing">
+                                    <div class="row m-0 p-0" id="addExtinguishing">
+                                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent
+                                            Used
+                                        </h3>
 
-                                    @foreach (old('extinguishing', ['']) as $index => $extinguishing)
-                                        <div class="row extinguishing-remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> 
-                                                {{-- <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button> --}}
+                                        @foreach (old('extinguishing', ['']) as $index => $extinguishing)
+                                            <div class="row extinguishing-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Quantity</label>
+                                                    <input type="number" placeholder="Enter quantity"
+                                                        class="form-control" id="firstResponderInput"
+                                                        name="quantity_extinguishing[]"
+                                                        value="{{ old('quantity_extinguishing.' . $index, '') }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type /
+                                                        Kind</label>
+                                                    <input type="text" placeholder="Enter type" class="form-control"
+                                                        id="firstResponderInput" name="extinguishing[]"
+                                                        value="{{ $extinguishing }}">
+                                                </div>
+                                                <hr>
                                             </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Quantity</label>
-                                                <input type="number" placeholder="Enter quantity" class="form-control"
-                                                    id="firstResponderInput" name="quantity_extinguishing[]"
-                                                    value="{{ old('quantity_extinguishing.' . $index, '') }}">
-                                            </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Type /
-                                                    Kind</label>
-                                                <input type="text" placeholder="Enter type" class="form-control"
-                                                    id="firstResponderInput" name="extinguishing[]"
-                                                    value="{{ $extinguishing }}">
-                                            </div>
-                                            {{-- <hr> --}}
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <hr>
+                                {{-- <hr> --}}
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewExtinguishingAgent" class="btn btn-primary">+ Add
                                         another extinguishing agent</button>
@@ -501,31 +510,35 @@
                             </div>
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                                <div class="row m-0 p-0 rope-ladder">
-                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
-                                    @foreach (old('rope_ladder', ['']) as $index => $rope_ladder)
-                                        <div class="row rope-ladder-remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> 
-                                                {{-- <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button> --}}
+                                <div class="row m-0 p-0" id="divRopeLadder">
+                                    <div class="row m-0 p-0" id="addRopeLadder">
+                                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used
+                                        </h3>
+                                        @foreach (old('rope_ladder', ['']) as $index => $rope_ladder)
+                                            <div class="row rope-ladder-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type</label>
+                                                    <input type="text" placeholder="Enter type" class="form-control"
+                                                        id="firstResponderInput" name="rope_ladder[]"
+                                                        value="{{ $rope_ladder }}">
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Length</label>
+                                                    <input type="text" placeholder="Enter length" class="form-control"
+                                                        id="firstResponderInput" name="rope_ladder_length[]"
+                                                        value="{{ old('rope_ladder_length' . $index) }}">
+                                                </div>
+                                                <hr>
                                             </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Type</label>
-                                                <input type="text" placeholder="Enter type" class="form-control"
-                                                    id="firstResponderInput" name="rope_ladder[]"
-                                                    value="{{ $rope_ladder }}">
-                                            </div>
-                                            <div class="col-lg-6 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Length</label>
-                                                <input type="text" placeholder="Enter length" class="form-control"
-                                                    id="firstResponderInput" name="rope_ladder_length[]"
-                                                    value="{{ old('rope_ladder_length' . $index) }}">
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <hr>
+                                {{-- <hr> --}}
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewRopeAndLadder" class="btn btn-primary">+ Add another
                                         rope and ladder used</button>
@@ -533,38 +546,40 @@
                             </div>
                             <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                                 {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Equipments Used</h3> --}}
-                                <div class="row m-0 p-0 hose-line">
-                                    <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
-                                    @foreach (old('type_hose', ['']) as $index => $type_hose)
-                                        <div class="row hose-line-remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> 
-                                                {{-- <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> --}}
+                                <div class="row m-0 p-0" id="divHoseLine">
+                                    <div class="row m-0 p-0" id="addHoseLine">
+                                        <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
+                                        @foreach (old('type_hose', ['']) as $index => $type_hose)
+                                            <div class="row hose-line-remove-button-container m-0 p-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5></h5>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Nr.</label>
+                                                    <input type="number" placeholder="No." class="form-control"
+                                                        id="firstResponderInput" name="no_hose[]"
+                                                        value="{{ old('no_hose.' . $index) }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Type /
+                                                        Kind</label>
+                                                    <input type="text" placeholder="Type / kind" class="form-control"
+                                                        id="firstResponderInput" name="type_hose[]"
+                                                        value="{{ $type_hose }}">
+                                                </div>
+                                                <div class="col-lg-4 mb-3">
+                                                    <label for="firefighterDeath" class="form-label">Total
+                                                        ft.</label>
+                                                    <input type="text" placeholder="Enter total feet"
+                                                        class="form-control" id="firstResponderInput" name="hose_feet[]"
+                                                        value="{{ old('hose_feet.' . $index) }}">
+                                                </div>
+                                                <hr>
                                             </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Nr.</label>
-                                                <input type="number" placeholder="No." class="form-control"
-                                                    id="firstResponderInput" name="no_hose[]"
-                                                    value="{{ old('no_hose.' . $index) }}">
-                                            </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Type /
-                                                    Kind</label>
-                                                <input type="text" placeholder="Type / kind" class="form-control"
-                                                    id="firstResponderInput" name="type_hose[]"
-                                                    value="{{ $type_hose }}">
-                                            </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="firefighterDeath" class="form-label">Total
-                                                    ft.</label>
-                                                <input type="text" placeholder="Enter total feet" class="form-control"
-                                                    id="firstResponderInput" name="hose_feet[]"
-                                                    value="{{ old('hose_feet.' . $index) }}">
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewHoseLine" class="btn btn-primary">+ Add another hose
@@ -1020,160 +1035,64 @@
                     }
                 });
 
+                $('#divBreathingApparatus').on('click', '.breathing-remove-section-btn', function() {
+                    // Find the parent div of the clicked remove button and remove it
+                    $(this).closest('.breathing-remove-button-container').remove();
+                });
+
                 $('#addNewBreathingApparatus').click(function() {
-                    // Clone the first row (assuming it's the row you want to duplicate)
-                    var newRow = $('.breathing-apparatus:first').clone();
+                    var newDiv = $('#addBreathingApparatus').clone();
+                    var mnewDiv = $(
+                        '<div class="row breathing-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">No.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_breathing[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="breathing[]"> </div> <hr> </div>'
+                    );
 
-                    // Reset input values in the cloned row (if needed)
-                    newRow.find('input').val('');
+                    console.log(mnewDiv);
+                    $('#divBreathingApparatus').append(mnewDiv);
+                });
 
-                    // Update the header text to reflect "New Fire Engine Response Details"
-                    var newHeaderText = "";
-                    var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                    // Create a flex container for the header and button
-                    var flexContainer = $(
-                        '<div class="d-flex justify-content-between align-items-center"></div>');
-                    flexContainer.append(newHeader); // Append the new header to the flex container
-
-                    // Create and append the removal ('X') button
-                    var removeButton = $(
-                        '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                    removeButton.click(function() {
-                        var rowToRemove = $(this).closest('.breathing-apparatus');
-                        var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                        // Remove both the row and the preceding <hr> element
-                        rowToRemove.remove();
-                        hrToRemove.remove();
-                    });
-                    flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                    // Replace the existing header with the flex container
-                    newRow.find('h3').replaceWith(flexContainer);
-
-                    // Insert the cloned row before the button
-                    $(this).parent().before(newRow);
-
-                    // Add <hr> tag after each cloned row for visual separation
-                    $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                $('#divExtinguishing').on('click', '.extinguishing-remove-section-btn', function() {
+                    // Find the parent div of the clicked remove button and remove it
+                    $(this).closest('.extinguishing-remove-button-container').remove();
                 });
 
                 $('#addNewExtinguishingAgent').click(function() {
-                    // Clone the first row (assuming it's the row you want to duplicate)
-                    var newRow = $('.extinguishing-agent:first').clone();
+                    var newDiv = $('#addExtinguishing').clone();
+                    var mnewDiv = $(
+                        '<div class="row extinguishing-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Quantity</label> <input type="number" placeholder="Enter quantity" class="form-control" id="firstResponderInput" name="quantity_extinguishing[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="extinguishing[]"> </div> </div>'
+                    );
 
-                    // Reset input values in the cloned row (if needed)
-                    newRow.find('input').val('');
+                    console.log(mnewDiv);
+                    $('#divExtinguishing').append(mnewDiv);
+                });
 
-                    // Update the header text to reflect "New Fire Engine Response Details"
-                    var newHeaderText = "";
-                    var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                    // Create a flex container for the header and button
-                    var flexContainer = $(
-                        '<div class="d-flex justify-content-between align-items-center"></div>');
-                    flexContainer.append(newHeader); // Append the new header to the flex container
-
-                    // Create and append the removal ('X') button
-                    var removeButton = $(
-                        '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                    removeButton.click(function() {
-                        var rowToRemove = $(this).closest('.extinguishing-agent');
-                        var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                        // Remove both the row and the preceding <hr> element
-                        rowToRemove.remove();
-                        hrToRemove.remove();
-                    });
-                    flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                    // Replace the existing header with the flex container
-                    newRow.find('h3').replaceWith(flexContainer);
-
-                    // Insert the cloned row before the button
-                    $(this).parent().before(newRow);
-
-                    // Add <hr> tag after each cloned row for visual separation
-                    $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                $('#divRopeLadder').on('click', '.rope-ladder-remove-section-btn', function() {
+                    // Find the parent div of the clicked remove button and remove it
+                    $(this).closest('.rope-ladder-remove-button-container').remove();
                 });
 
                 $('#addNewRopeAndLadder').click(function() {
-                    // Clone the first row (assuming it's the row you want to duplicate)
-                    var newRow = $('.rope-ladder:first').clone();
+                    var newDiv = $('#addRopeLadder').clone();
+                    var mnewDiv = $(
+                        '<div class="row rope-ladder-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Type</label> <input type="text" placeholder="Enter type" class="form-control" id="firstResponderInput" name="rope_ladder[]"> </div> <div class="col-lg-6 mb-3"> <label for="firefighterDeath" class="form-label">Length</label> <input type="text" placeholder="Enter length" class="form-control" id="firstResponderInput" name="rope_ladder_length[]"> </div> <hr> </div>'
+                    );
 
-                    // Reset input values in the cloned row (if needed)
-                    newRow.find('input').val('');
+                    console.log(mnewDiv);
+                    $('#divRopeLadder').append(mnewDiv);
+                });
 
-                    // Update the header text to reflect "New Fire Engine Response Details"
-                    var newHeaderText = "";
-                    var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                    // Create a flex container for the header and button
-                    var flexContainer = $(
-                        '<div class="d-flex justify-content-between align-items-center"></div>');
-                    flexContainer.append(newHeader); // Append the new header to the flex container
-
-                    // Create and append the removal ('X') button
-                    var removeButton = $(
-                        '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                    removeButton.click(function() {
-                        var rowToRemove = $(this).closest('.rope-ladder');
-                        var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                        // Remove both the row and the preceding <hr> element
-                        rowToRemove.remove();
-                        hrToRemove.remove();
-                    });
-                    flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                    // Replace the existing header with the flex container
-                    newRow.find('h3').replaceWith(flexContainer);
-
-                    // Insert the cloned row before the button
-                    $(this).parent().before(newRow);
-
-                    // Add <hr> tag after each cloned row for visual separation
-                    $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                $('#divHoseLine').on('click', '.hose-line-remove-section-btn', function() {
+                    // Find the parent div of the clicked remove button and remove it
+                    $(this).closest('.hose-line-remove-button-container').remove();
                 });
 
                 $('#addNewHoseLine').click(function() {
-                    // Clone the first row (assuming it's the row you want to duplicate)
-                    var newRow = $('.hose-line:first').clone();
+                    var newDiv = $('#addHoseLine').clone();
+                    var mnewDiv = $(
+                        '<div class="row hose-line-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">No.</label> <input type="number" placeholder="No." class="form-control" id="firstResponderInput" name="no_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Type / Kind</label> <input type="text" placeholder="Type / kind" class="form-control" id="firstResponderInput" name="type_hose[]"> </div> <div class="col-lg-4 mb-3"> <label for="firefighterDeath" class="form-label">Total ft.</label> <input type="text" placeholder="Enter total feet" class="form-control" id="firstResponderInput" name="hose_feet[]"> </div> <hr> </div>'
+                    );
 
-                    // Reset input values in the cloned row (if needed)
-                    newRow.find('input').val('');
-
-                    // Update the header text to reflect "New Fire Engine Response Details"
-                    var newHeaderText = "";
-                    var newHeader = $('<h3></h3>').text(newHeaderText);
-
-                    // Create a flex container for the header and button
-                    var flexContainer = $(
-                        '<div class="d-flex justify-content-between align-items-center"></div>');
-                    flexContainer.append(newHeader); // Append the new header to the flex container
-
-                    // Create and append the removal ('X') button
-                    var removeButton = $(
-                        '<button type="button" class="btn btn-outline-danger btn-sm">Remove</button>');
-                    removeButton.click(function() {
-                        var rowToRemove = $(this).closest('.hose-line');
-                        var hrToRemove = rowToRemove.prev('hr'); // Find the previous <hr> element
-
-                        // Remove both the row and the preceding <hr> element
-                        rowToRemove.remove();
-                        hrToRemove.remove();
-                    });
-                    flexContainer.append(removeButton); // Append the remove button to the flex container
-
-                    // Replace the existing header with the flex container
-                    newRow.find('h3').replaceWith(flexContainer);
-
-                    // Insert the cloned row before the button
-                    $(this).parent().before(newRow);
-
-                    // Add <hr> tag after each cloned row for visual separation
-                    $(this).parent().before('<hr>'); // Insert <hr> after the newly added row
+                    console.log(mnewDiv);
+                    $('#divHoseLine').append(mnewDiv);
                 });
             });
 
