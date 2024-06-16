@@ -55,31 +55,42 @@
                 aria-labelledby="addResponseModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Change Password</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('profile.password.update') }}">
+                        <form method="POST" action="{{ route('profile.password.update') }}">
+                            <div class="modal-header">
+                                <h3>Change Password</h3>
+                            </div>
+                            <div class="modal-body">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" name="current_password">
+                                    <label for="current_my_password" class="form-label">Current Password:</label>
+                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_current">
+                                        <input type="password" class="form-control" name="current_my_password" id="current_my_password" placeholder="Enter Current Password">
+                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
+                                    </div>
                                 </div>
+                                
                                 <div class="mb-3">
-                                    <input type="hidden" name="password_id" id="password_id">
-                                    <label for="inputEmail" class="form-label">New Password</label>
-                                    <input type="password" class="form-control" name="password">
+                                    <label for="password" class="form-label">New Password:</label>
+                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_new">
+                                        <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                                        <input type="hidden" name="password_id" id="password_id">
+                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
+                                    </div>
                                 </div>
+                                
                                 <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Confirmation</label>
-                                    <input type="password" class="form-control" name="confirmation">
-                                </div>
+                                    <label for="confirm_my_password" class="form-label">Confirmation:</label>
+                                    <div class="input-group show-my-password mb-3" id="show_hide_my_password_confirm">
+                                        <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password">
+                                        <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -107,6 +118,22 @@
                 $('button[type="submit"]').attr('disabled', true);
                 // submit the form
                 return true;
+            });
+
+            $(".show-my-password a").on('click', function(event) {
+                event.preventDefault();
+                var passwordField = $(this).closest('.show-my-password').find('input[type="password"], input[type="text"]');
+                var icon = $(this).find('i');
+                
+                if (passwordField.attr("type") == "text") {
+                    passwordField.attr('type', 'password');
+                    icon.addClass("ti-eye-off");
+                    icon.removeClass("ti-eye");
+                } else if (passwordField.attr("type") == "password") {
+                    passwordField.attr('type', 'text');
+                    icon.removeClass("ti-eye-off");
+                    icon.addClass("ti-eye");
+                }
             });
         });
     </script>
