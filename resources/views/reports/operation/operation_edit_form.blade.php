@@ -105,74 +105,6 @@
                                 <div class="row m-0 p-0 border-0" id="addApor">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Engine Dispatched
                                     </h3>
-                                    {{-- @foreach ($responses as $index => $response)
-                                        <div class="row remove-button-container m-0 p-0">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5>
-                                                <button type="button"
-                                                    class="btn btn-outline-danger btn-sm float-end remove-section-btn">Remove</button>
-                                            </div>
-                                            <div class="col-lg-3 mb-3">
-                                                <label for="vehicle" class="form-label">Engine Dispatched</label>
-                                                <select class="form-select engineDispatched" aria-label=""
-                                                    name="engine_dispatched[]">
-                                                    <option value="">Select vehicle</option>
-                                                    @foreach ($trucks as $truck)
-                                                        <option value="{{ $truck->name }}"
-                                                            {{ old('engine_dispatched.' . $index, $response->engine_dispatched) == $truck->name ? 'selected' : '' }}>
-                                                            {{ $truck->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3 mb-3">
-                                                <label for="timeDispatched" class="form-label">Time Dispatched</label>
-                                                <input type="text" placeholder="Eg. 2300h"
-                                                    class="form-control text-uppercase" id="timeDispatchedInput"
-                                                    name="time_dispatched[]"
-                                                    value="{{ old('time_dispatched.' . $index, $response->time_dispatched) }}">
-                                            </div>
-                                            <div class="col-lg-3 mb-3">
-                                                <label for="timeArrivedFireScene" class="form-label">Time Arrived at Fire
-                                                    Scene</label>
-                                                <input type="text" placeholder="Eg. 2300h"
-                                                    class="form-control text-uppercase" id="timeArrivedFireSceneInput"
-                                                    name="time_arrived_at_scene[]"
-                                                    value="{{ old('time_arrived_at_scene.' . $index, $response->time_arrived_at_scene) }}">
-                                            </div>
-                                            <div class="col-lg-3 mb-3">
-                                                <label for="responseTime" class="form-label">Response Time</label>
-                                                <input type="text" placeholder="Eg. 1900h - 2300h"
-                                                    class="form-control text-uppercase" id="responseTimeInput"
-                                                    name="response_duration[]"
-                                                    value="{{ old('response_duration.' . $index, $response->response_duration) }}">
-                                            </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="timeReturned" class="form-label">Time Returned to Base</label>
-                                                <input type="text" placeholder="Eg. 1900h - 2300h"
-                                                    class="form-control text-uppercase" id="timeReturnedInput"
-                                                    name="time_return_to_base[]"
-                                                    value="{{ old('time_return_to_base.' . $index, $response->time_return_to_base) }}">
-                                            </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="waterTank" class="form-label">Water Tank Refilled
-                                                    (GAL)
-                                                </label>
-                                                <input type="text" placeholder="Eg. 100 GAL"
-                                                    class="form-control text-uppercase" id="waterTankInput"
-                                                    name="water_tank_refilled[]"
-                                                    value="{{ old('water_tank_refilled.' . $index, $response->water_tank_refilled) }}">
-                                            </div>
-                                            <div class="col-lg-4 mb-3">
-                                                <label for="gasConsumed" class="form-label">Gas Consumed (L)</label>
-                                                <input type="text" placeholder="Eg. 24l"
-                                                    class="form-control text-uppercase" id="gasConsumedInput"
-                                                    name="gas_consumed[]"
-                                                    value="{{ old('gas_consumed.' . $index, $response->gas_consumed) }}">
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    @endforeach --}}
                                     @foreach (old('engine_dispatched', $responses->pluck('engine_dispatched')->toArray()) as $index => $engine)
                                         <div class="row remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -245,8 +177,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-
-
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -264,12 +194,9 @@
                                 <select class="form-select alarmStatus" aria-label="" name="alarm_status_arrival">
                                     <option value="" selected>Select alarm status</option>
                                     @foreach ($alarm_list as $list)
-                                        @if ($list->name == $operation->alarm_status_arrival)
-                                            <option selected value="{{ $list->name }}" selected>{{ $list->name }}
-                                            </option>
-                                        @else
-                                            <option value="{{ $list->name }}">{{ $list->name }}</option>
-                                        @endif
+                                        <option value="{{ $list->name }}"
+                                            {{ old('alarm_status_arrival', $operation->alarm_status_arrival) == $list->name ? 'selected' : '' }}>
+                                            {{ $list->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -278,28 +205,31 @@
                                     Responder</label>
                                 <input type="text" placeholder="Enter responder" class="form-control"
                                     id="firstResponderInput" name="first_responder"
-                                    value="{{ $operation->first_responder }}">
+                                    value="{{ old('first_responder', $operation->first_responder) }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="underControl" class="form-label">Time / Date Under
                                     Control</label>
                                 <input type="datetime-local" class="form-control" id="firstResponderInput"
-                                    name="td_under_control" value="{{ $operation->td_under_control }}">
+                                    name="td_under_control"
+                                    value="{{ old('td_under_control', $operation->td_under_control) }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="fireOut" class="form-label">Time / Date Declared
                                     Fire Out</label>
                                 <input type="datetime-local" class="form-control" id="firstResponderInput"
-                                    name="td_declared_fireout" value="{{ $operation->td_under_control }}">
+                                    name="td_declared_fireout"
+                                    value="{{ old('td_declared_fireout', $operation->td_under_control) }}">
                             </div>
                             <hr>
                             <div class="row m-0 p-0" id="secondDivApor">
                                 <div class="row m-0 p-0" id="secondAddApor">
                                     <h5>Time Alarm Status Declared</h5>
-                                    @foreach ($declared_alarms as $declared)
+                                    @foreach (old('alarm_name', $declared_alarms->pluck('alarm_name')->toArray()) as $index => $declared)
                                         <div class="row second-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5></h5> <button type="button"
+                                                <h5></h5>
+                                                <button type="button"
                                                     class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button>
                                             </div>
                                             <div class="col-lg-4 mb-3">
@@ -308,45 +238,37 @@
                                                 <select class="form-select alarmApor" aria-label="" name="alarm_name[]">
                                                     <option value="" selected>Select alarm status</option>
                                                     @foreach ($alarm_list as $list)
-                                                        @if ($list->name == $declared->alarm_name)
-                                                            <option selected value="{{ $list->name }}" selected>
-                                                                {{ $list->name }}
-                                                            </option>
-                                                        @else
-                                                            <option value="{{ $list->name }}">{{ $list->name }}
-                                                            </option>
-                                                        @endif
+                                                        <option value="{{ $list->name }}"
+                                                            {{ $declared == $list->name ? 'selected' : '' }}>
+                                                            {{ $list->name }}
+                                                        </option>
                                                     @endforeach
-
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 mb-3">
                                                 <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label>
                                                 <input type="text" placeholder="Eg. 2300h"
                                                     class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime"
-                                                    name="alarm_time[]" value="{{ $declared->time }}">
+                                                    name="alarm_time[]"
+                                                    value="{{ old('alarm_time.' . $index, $declared_alarms[$index]->time ?? '') }}">
                                             </div>
                                             <div class="col-lg-4 mb-3">
-                                                <label for="fundCommander" class="form-label">Fund
-                                                    Commander</label>
+                                                <label for="fundCommander" class="form-label">Ground Commander</label>
                                                 <select class="form-select fundCommander" aria-label=""
                                                     name="fund_commander[]">
-                                                    <option value="" selected>Select Fund Commanders</option>
+                                                    <option value="" selected>Select Ground Commanders</option>
                                                     @foreach ($personnels as $personnel)
-                                                        @if ($personnel->id == $declared->ground_commander)
-                                                            <option selected value="{{ $personnel->id }}">
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                                {{ $personnel->last_name }}</option>
-                                                        @else
-                                                            <option value="{{ $personnel->id }}">
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                                {{ $personnel->last_name }}</option>
-                                                        @endif
+                                                        <option value="{{ $personnel->id }}"
+                                                            {{ old('fund_commander.' . $index, isset($declared_alarms[$index]) ? $declared_alarms[$index]->ground_commander : null) == $personnel->id ? 'selected' : '' }}>
+                                                            {{ $personnel->rank->slug }} {{ $personnel->first_name }}
+                                                            {{ $personnel->last_name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     @endforeach
+
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -365,11 +287,9 @@
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="">Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
-                                        @if ($names->name == $occupancy->occupancy_name)
-                                            <option selected value="{{ $names->name }}">{{ $names->name }}</option>
-                                        @else
-                                            <option value="{{ $names->name }}">{{ $names->name }}</option>
-                                        @endif
+                                        <option value="{{ $names->name }}"
+                                            {{ old('occupancy_name', $occupancy->name) == $names->name ? 'selected' : '' }}>
+                                            {{ $names->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -377,7 +297,7 @@
                             <div class="col-lg-6 mb-2">
                                 <label for="specifyTypeOfOccupancy" class="form-label">Specify</label>
                                 <input type="text" placeholder="Enter the office or address" class="form-control"
-                                    name="occupancy_specify" value="{{ $occupancy->specify }}">
+                                    name="occupancy_specify" value="{{ old('occupancy_specify', $occupancy->specify) }}">
                             </div>
 
                             <div class="col-lg-12 mb-3">
@@ -387,7 +307,7 @@
                                         <div class="col-lg-4 mb-3 form-check me-5">
                                             <input class="form-check-input" type="radio" name="occupancy_type"
                                                 id="occupancy{{ $type }}" value="{{ $type }}"
-                                                {{ $type == $occupancy->type ? 'checked' : '' }}>
+                                                {{ old('occupancy_type', $occupancy->type) == $type ? 'checked' : '' }}>
                                             <label class="form-check-label"
                                                 for="occupancy{{ $type }}">{{ $type }}</label>
                                         </div>
@@ -400,12 +320,13 @@
                                 <label for="approxDistanceFireIncident" class="form-label">Approximate Distance of Fire
                                     Incident from Fire Station (Km)</label>
                                 <input type="text" placeholder="eg. 1.5Km" class="form-control"
-                                    name="distance_to_fire_incident" value="{{ $occupancy->distance }}">
+                                    name="distance_to_fire_incident"
+                                    value="{{ old('distance_to_fire_incident', $occupancy->distance) }}">
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="deneralDescriptionStructureInvolved" class="form-label">General Description of
                                     the structure/s involved</label>
-                                <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description">{{ $occupancy->description }}</textarea>
+                                <textarea type="text" placeholder="Enter description" class="form-control" name="structure_description">{{ old('structure_description', $occupancy->description) }}</textarea>
                             </div>
                         </div>
 
@@ -422,12 +343,14 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label for="civilianInjured" class="form-label">Injured</label>
                                                 <input type="number" placeholder="No. of injured" class="form-control"
-                                                    name="civilian_injured" value="{{ $casualty->injured }}">
+                                                    name="civilian_injured"
+                                                    value="{{ old('civilian_injured', $casualty->injured) }}">
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label for="civilianDeath" class="form-label">Death</label>
                                                 <input type="number" placeholder="No. of deaths" class="form-control"
-                                                    name="civilian_deaths" value="{{ $casualty->death }}">
+                                                    name="civilian_deaths"
+                                                    value="{{ old('civilian_deaths', $casualty->death) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -438,12 +361,14 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterInjured" class="form-label">Injured</label>
                                                 <input type="number" placeholder="No. of injured" class="form-control"
-                                                    name="firefighter_injured" value="{{ $casualty->injured }}">
+                                                    name="firefighter_injured"
+                                                    value="{{ old('firefighter_injured', $casualty->injured) }}">
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Death</label>
                                                 <input type="number" placeholder="No. of deaths" class="form-control"
-                                                    name="firefighter_deaths" value="{{ $casualty->death }}">
+                                                    name="firefighter_deaths"
+                                                    value="{{ old('firefighter_deaths', $casualty->death) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -460,28 +385,31 @@
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Breathing
                                         Apparatus Used
                                     </h3>
-                                    @foreach ($used_equipments as $equipment)
-                                        @if ($equipment->category == 'breathing apparatus')
-                                            <div class="row breathing-remove-button-container m-0 p-0">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h5></h5> <button type="button"
-                                                        class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
-                                                </div>
-                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                        class="form-label">No.</label> <input type="number"
-                                                        placeholder="No." class="form-control" id="firstResponderInput"
-                                                        name="no_breathing[]" value="{{ $equipment->quantity }}">
-                                                </div>
-                                                <div class="col-lg-6 mb-3"> <label for="firefighterDeath"
-                                                        class="form-label">Type
-                                                        / Kind</label> <input type="text" placeholder="Enter type"
-                                                        class="form-control" id="firstResponderInput" name="breathing[]"
-                                                        value="{{ $equipment->type }}">
-                                                </div>
-                                                <hr>
+                                    @foreach (old('breathing', $used_equipments->where('category', 'breathing apparatus')->pluck('type')->toArray()) as $index => $breathing)
+                                        <div class="row breathing-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5>
+                                                <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end breathing-remove-section-btn">Remove</button>
                                             </div>
-                                        @endif
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="no_breathing_{{ $index }}"
+                                                    class="form-label">No.</label>
+                                                <input type="number" placeholder="No." class="form-control"
+                                                    id="no_breathing_{{ $index }}" name="no_breathing[]"
+                                                    value="{{ old('no_breathing.' . $index, $used_equipments[$index]->quantity) }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="breathing_{{ $index }}" class="form-label">Type /
+                                                    Kind</label>
+                                                <input type="text" placeholder="Enter type" class="form-control"
+                                                    id="breathing_{{ $index }}" name="breathing[]"
+                                                    value="{{ $breathing }}">
+                                            </div>
+                                            <hr>
+                                        </div>
                                     @endforeach
+
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -496,30 +424,27 @@
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Extinguishing Agent
                                         Used
                                     </h3>
-                                    @foreach ($used_equipments as $equipment)
-                                        @if ($equipment->category == 'extinguishing agent')
-                                            <div class="row extinguishing-remove-button-container m-0 p-0">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h5></h5> <button type="button"
-                                                        class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Quantity</label>
-                                                    <input type="number" placeholder="Enter quantity"
-                                                        class="form-control" id="firstResponderInput"
-                                                        name="quantity_extinguishing[]"
-                                                        value="{{ $equipment->quantity }}">
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Type /
-                                                        Kind</label>
-                                                    <input type="text" placeholder="Enter type" class="form-control"
-                                                        id="firstResponderInput" name="extinguishing[]"
-                                                        value="{{ $equipment->type }}">
-                                                </div>
-                                                <hr>
+                                    @foreach (old('extinguishing', $used_equipments->where('category', 'extinguishing agent')->pluck('type')->toArray()) as $index => $extinguishing)
+                                        <div class="row extinguishing-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end extinguishing-remove-section-btn">Remove</button>
                                             </div>
-                                        @endif
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Quantity</label>
+                                                <input type="number" placeholder="Enter quantity" class="form-control"
+                                                    id="firstResponderInput" name="quantity_extinguishing[]"
+                                                    value="{{ old('quantity_extinguishing.' . $index, $used_equipments[$index]->quantity) }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type /
+                                                    Kind</label>
+                                                <input type="text" placeholder="Enter type" class="form-control"
+                                                    id="firstResponderInput" name="extinguishing[]"
+                                                    value="{{ $extinguishing }}">
+                                            </div>
+                                            <hr>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -534,28 +459,26 @@
                             <div class="row m-0 p-0" id="divRopeLadder">
                                 <div class="row m-0 p-0" id="addRopeLadder">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
-                                    @foreach ($used_equipments as $equipment)
-                                        @if ($equipment->category == 'rope and ladder')
-                                            <div class="row rope-ladder-remove-button-container m-0 p-0">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h5></h5> <button type="button"
-                                                        class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Type</label>
-                                                    <input type="text" placeholder="Enter type" class="form-control"
-                                                        id="firstResponderInput" name="rope_ladder[]"
-                                                        value="{{ $equipment->type }}">
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Length</label>
-                                                    <input type="text" placeholder="Enter length" class="form-control"
-                                                        id="firstResponderInput" name="rope_ladder_length[]"
-                                                        value="{{ $equipment->length }}">
-                                                </div>
-                                                <hr>
+                                    @foreach (old('rope_ladder', $used_equipments->where('category', 'rope and ladder')->pluck('type')->toArray()) as $index => $rope_ladder)
+                                        <div class="row rope-ladder-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end rope-ladder-remove-section-btn">Remove</button>
                                             </div>
-                                        @endif
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type</label>
+                                                <input type="text" placeholder="Enter type" class="form-control"
+                                                    id="firstResponderInput" name="rope_ladder[]"
+                                                    value="{{ $rope_ladder }}">
+                                            </div>
+                                            <div class="col-lg-6 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Length</label>
+                                                <input type="text" placeholder="Enter length" class="form-control"
+                                                    id="firstResponderInput" name="rope_ladder_length[]"
+                                                    value="{{ old('rope_ladder_length.' . $index, $used_equipments[$index]->length) }}">
+                                            </div>
+                                            <hr>
+                                        </div>
                                     @endforeach
 
                                 </div>
@@ -571,36 +494,34 @@
                             <div class="row m-0 p-0" id="divHoseLine">
                                 <div class="row m-0 p-0" id="addHoseLine">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
-                                    @foreach ($used_equipments as $equipment)
-                                        @if ($equipment->category == 'hose line')
-                                            <div class="row hose-line-remove-button-container m-0 p-0">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h5></h5> <button type="button"
-                                                        class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
-                                                </div>
-                                                <div class="col-lg-4 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Nr.</label>
-                                                    <input type="number" placeholder="No." class="form-control"
-                                                        id="firstResponderInput" name="no_hose[]"
-                                                        value="{{ $equipment->nr }}">
-                                                </div>
-                                                <div class="col-lg-4 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Type /
-                                                        Kind</label>
-                                                    <input type="text" placeholder="Type / kind" class="form-control"
-                                                        id="firstResponderInput" name="type_hose[]"
-                                                        value="{{ $equipment->type }}">
-                                                </div>
-                                                <div class="col-lg-4 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">Total
-                                                        ft.</label>
-                                                    <input type="text" placeholder="Enter total feet"
-                                                        class="form-control" id="firstResponderInput" name="hose_feet[]"
-                                                        value="{{ $equipment->length }}">
-                                                </div>
-                                                <hr>
+                                    @foreach (old('type_hose', $used_equipments->where('category', 'hose line')->pluck('type')->toArray()) as $index => $type_hose)
+                                        <div class="row hose-line-remove-button-container m-0 p-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5></h5> <button type="button"
+                                                    class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
                                             </div>
-                                        @endif
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Nr.</label>
+                                                <input type="number" placeholder="No." class="form-control"
+                                                    id="firstResponderInput" name="no_hose[]"
+                                                    value="{{ old('no_hose.' . $index, $used_equipments[$index]->quantity) }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Type /
+                                                    Kind</label>
+                                                <input type="text" placeholder="Type / kind" class="form-control"
+                                                    id="firstResponderInput" name="type_hose[]"
+                                                    value="{{ $type_hose }}">
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <label for="firefighterDeath" class="form-label">Total
+                                                    ft.</label>
+                                                <input type="text" placeholder="Enter total feet" class="form-control"
+                                                    id="firstResponderInput" name="hose_feet[]"
+                                                    value="{{ old('hose_feet.' . $index, $used_equipments[$index]->length) }}">
+                                            </div>
+                                            <hr>
+                                        </div>
                                     @endforeach
 
                                 </div>
@@ -617,7 +538,7 @@
                             </h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row m-0 p-0" id="thirdAddApor">
-                                    @foreach ($operation->dutyPersonnels as $dutyPersonnel)
+                                    @foreach (old('duty_personnel_id', $operation->dutyPersonnels->pluck('duty_personnel_id')->toArray()) as $index => $duty_personnel_id)
                                         <div class="row third-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5></h5> <button type="button"
@@ -628,17 +549,11 @@
                                                     Name</label> <select class="form-select rankName" aria-label=""
                                                     name="duty_personnel_id[]">
                                                     <option value="" selected>Select Fund Commander</option>
-
                                                     @foreach ($personnels as $personnel)
-                                                        @if ($dutyPersonnel->personnels_id == $personnel->id)
-                                                            <option selected value="{{ $personnel->id }}">
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                                {{ $personnel->last_name }}</option>
-                                                        @else
-                                                            <option value="{{ $personnel->id }}">
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                                {{ $personnel->last_name }}</option>
-                                                        @endif
+                                                        <option selected value="{{ $personnel->id }}"
+                                                            {{ $duty_personnel_id == $personnel->id ? 'selected' : '' }}>
+                                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                            {{ $personnel->last_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -649,20 +564,15 @@
                                                     name="duty_designation[]">
                                                     <option value="" selected>Select designation</option>
                                                     @foreach ($designations as $designation)
-                                                        @if ($dutyPersonnel->designation == $designation->name)
-                                                            <option selected value="{{ $designation->name }}">
-                                                                {{ $designation->name }}
-                                                            </option>
-                                                        @else
-                                                            <option value="{{ $designation->name }}">
-                                                                {{ $designation->name }}
-                                                            </option>
-                                                        @endif
+                                                        <option value="{{ $designation->name }}"
+                                                            {{ old('duty_designation.' . $index, isset($operation->dutyPersonnels[$index]) ? $operation->dutyPersonnels[$index]->designation : null) == $designation->name ? 'selected' : '' }}>
+                                                            {{ $designation->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select> </div>
                                             <div class="col-lg-12 mb-3"> <label for="firefighterDeath"
                                                     class="form-label">Remarks</label>
-                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ $dutyPersonnel->remarks }}</textarea>
+                                                <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]">{{ old('duty_remarks.' . $index, isset($operation->dutyPersonnels[$index]) ? $operation->dutyPersonnels[$index]->remarks : null) }}</textarea>
                                             </div>
                                         </div>
                                     @endforeach
@@ -705,8 +615,8 @@
                         <!-- Details narrative -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">15</h3>
-                            <label for="firefighterDeath" class="form-label">Details (Narrative)</label>
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Details (Narrative)</h3>
+                            {{-- <label for="firefighterDeath" class="form-label">Details (Narrative)</label> --}}
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <label for="dateTime" class="form-label"></label>
                                 <div style="height: 150px;">
@@ -765,10 +675,11 @@
                         <!-- Problem encounterd -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problem/s Encountered During Operation</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">16
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Problems / Encountered during
+                                operation
                             </h3>
-                            <label for="firefighterDeath" class="form-label">Problems / Encountered during
-                                operation:</label>
+                            {{-- <label for="firefighterDeath" class="form-label">Problems / Encountered during
+                                operation:</label> --}}
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <label for="dateTime" class="form-label"></label>
                                 <div style="height: 150px;">
@@ -827,9 +738,9 @@
                         <!-- Observation Recommendation -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
-                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">17
+                            <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observation / Recommendation
                             </h3>
-                            <label for="firefighterDeath" class="form-label">Observation / Recommendation</label>
+                            {{-- <label for="firefighterDeath" class="form-label">Observation / Recommendation</label> --}}
                             <div class="col-lg-12 mb-6 pb-5 mb-3">
                                 <div style="height: 150px;">
                                     <div id="toolbar3">
@@ -976,7 +887,9 @@
                 // mnewDiv.find('#closeCrew').prop('disabled', false);
 
                 // Re-initialize Select2 on the cloned select element
-                mnewDiv.find('.engineDispatched').select2({tags: true});
+                mnewDiv.find('.engineDispatched').select2({
+                    tags: true
+                });
             });
 
             $('#secondDivApor').on('click', '.second-remove-section-btn', function() {
@@ -996,6 +909,7 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.alarmApor').select2();
+                mnewDiv.find('.fundCommander').select2();
             });
 
             $('#thirdDivApor').on('click', '.third-remove-section-btn', function() {
@@ -1015,7 +929,9 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
-                mnewDiv.find('.designationSelectEdit').select2({tags: true});
+                mnewDiv.find('.designationSelectEdit').select2({
+                    tags: true
+                });
             });
 
             $(document).on('click', '.remove-designation', function() {

@@ -465,7 +465,6 @@ class OperationController extends Controller
                 }
             } else {
                 // No existing record for this index, create a new one
-                $nameNewDispatched = Truck::where('id', $newDispatched)->first();
                 $newResponse = new Response();
                 $newResponse->afor_id = $request->operation_id;
                 $newResponse->engine_dispatched = $newDispatched;
@@ -477,8 +476,8 @@ class OperationController extends Controller
                 $newResponse->gas_consumed = $new_gas_consumed;
 
 
-                $string = $string . "New Engine Dispatched: " . $nameNewDispatched->name . "<br> Info: <br>";
-                $string = $string . "<li>" . "<b> Engine Dispatached: </b>" . $nameNewDispatched->name . "</li>";
+                $string = $string . "New Engine Dispatched: " . $newDispatched . "<br> Info: <br>";
+                $string = $string . "<li>" . "<b> Engine Dispatached: </b>" . $newDispatched . "</li>";
                 $string = $string . "<li>" . "<b> Time Dispatched: </b>" . $new_time_dispatched . "</li>";
                 $string = $string . "<li>" . "<b> Time Arrived At Scene: </b>" . $new_time_arrived_at_scene . "</li>";
                 $string = $string . "<li>" . "<b> Response Duration: </b>" . $new_response_duration . "</li>";
