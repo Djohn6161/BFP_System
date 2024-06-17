@@ -73,13 +73,7 @@
                                         name="received_by">
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
-                                            @if (old('received_by') == $personnel->id)
-                                                )
-                                                <option selected value="{{ $personnel->id }}">
-                                                    {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
-                                                    {{ $personnel->last_name }}</option>
-                                            @endif
-                                            <option value="{{ $personnel->id }}">
+                                            <option value="{{ $personnel->id }}" {{ old('received_by') == $personnel->id ? 'selected' : '' }}>
                                                 {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
                                                 {{ $personnel->last_name }}</option>
                                         @endforeach
@@ -104,13 +98,7 @@
                                     <select class="form-select barangayApor" aria-label="" name="barangay_name">
                                         <option value="" selected>Select barangay</option>
                                         @foreach ($barangays as $barangay)
-                                            @if (old('barangay_name') == $barangay->name)
-                                                )
-                                                <option selected value="{{ $barangay->name }}">
-                                                    {{ $barangay->name }} - {{ $barangay->unit }}
-                                                </option>
-                                            @endif
-                                            <option value="{{ $barangay->name }}">
+                                            <option value="{{ $barangay->name }}" {{ old('barangay_name') == $barangay->name ? 'selected' : '' }}>
                                                 {{ $barangay->name }} - {{ $barangay->unit }}
                                             </option>
                                         @endforeach
