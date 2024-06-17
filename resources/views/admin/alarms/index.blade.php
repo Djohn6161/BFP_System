@@ -29,7 +29,7 @@
                                 <table class="table mb-0 align-middle w-100" id="alarmTable">
                                     <thead class="text-dark fs-4 ">
                                         <tr>
-                                            <th class="border-bottom-0">ID</th>
+                                            <th class="border-bottom-0">#</th>
                                             <th class="border-bottom-0">Alarm Name</th>
                                             @if ($user->privilege == 'configuration_chief')
                                                 <th class="border-bottom-0">Action</th>
@@ -41,7 +41,7 @@
                                             <x-alarm.edit :list="$list"></x-alarm.edit>
 
                                             <tr>
-                                                <td>{{ $list->id }}</td>
+                                                <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $list->name }}</td>
                                                 @if ($user->privilege == 'configuration_chief')
                                                     <td class="w-25 py-2">

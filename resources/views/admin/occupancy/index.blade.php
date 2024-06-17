@@ -31,7 +31,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th class="border-bottom-0" style="max-width:10%">
-                                                ID
+                                                #
                                             </th>
                                             <th class="border-bottom-0" style="max-width:10%">
                                                 Occupancy Name
@@ -52,7 +52,7 @@
                                             <tr>
 
                                                 <td>
-                                                    {{ $occupancyName->id }}
+                                                    {{ $loop->index + 1 }}
                                                 </td>
                                                 <td>
                                                     {{ $occupancyName->name }}

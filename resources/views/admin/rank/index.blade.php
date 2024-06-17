@@ -30,7 +30,7 @@
                                     <thead class="text-dark fs-4">
                                         <tr>
                                             <th>
-                                                <h6 class="fw-semibold mb-0">ID</h6>
+                                                <h6 class="fw-semibold mb-0">#</h6>
                                             </th>
                                             <th style="max-width:10%">
                                                 <h6 class="fw-semibold mb-0">Name</h6>
@@ -48,7 +48,7 @@
                                             <x-rank.edit :rank="$rank"> </x-rank.edit>
                                             <x-rank.delete :rank="$rank"> </x-rank.delete>
                                             <tr>
-                                                <td>{{ $rank->id }}</td>
+                                                <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $rank->name }}</td>
                                                 <td>{{ $rank->slug }}</td>
                                                 @if ($user->privilege == 'configuration_chief')

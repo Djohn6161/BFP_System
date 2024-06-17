@@ -34,7 +34,7 @@
                                 <table class="table mb-0 align-middle w-100" id="trucksTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th>ID</th>
+                                            <th>#</th>
                                             <th>Truck Name</th>
                                             <th>Plate Number</th>
                                             <th>Status</th>
@@ -50,7 +50,7 @@
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
                                                 <td>
-                                                    {{ $truck->id }}
+                                                    {{ $loop->index + 1 }}
                                                 </td>
                                                 <td>
                                                     {{ $truck->name }}
