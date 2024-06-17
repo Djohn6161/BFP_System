@@ -193,7 +193,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <hr>
+                                    {{-- <hr> --}}
                                 </div>
                                 <div class="row m-0 p-0">
                                     <button type="button" id="addNewDivApor" class="btn btn-primary">+ Add New Fire
@@ -875,7 +875,7 @@
                     // mnewDiv.find('#closeCrew').prop('disabled', false);
 
                     // Re-initialize Select2 on the cloned select element
-                    mnewDiv.find('.engineDispatched').select2();
+                    mnewDiv.find('.engineDispatched').select2({tags: true});
                 });
 
 
@@ -919,7 +919,7 @@
 
                     // Re-initialize Select2 on the cloned select element
                     mnewDiv.find('.rankName').select2();
-                    mnewDiv.find('.designationSelect').select2();
+                    mnewDiv.find('.designationSelect').select2({tags: true});
                 });
 
                 $(document).on('click', '.remove-designation', function() {

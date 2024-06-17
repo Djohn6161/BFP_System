@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(".caller").select2({tags: true});
     //operation designation
     $(".designationSelect").select2();
-    $(".designationSelectEdit").select2();
+    $(".designationSelectEdit").select2({tags: true});
 
     // personnel select2
     $(".designation_select_edit").select2();

@@ -976,7 +976,7 @@
                 // mnewDiv.find('#closeCrew').prop('disabled', false);
 
                 // Re-initialize Select2 on the cloned select element
-                mnewDiv.find('.engineDispatched').select2();
+                mnewDiv.find('.engineDispatched').select2({tags: true});
             });
 
             $('#secondDivApor').on('click', '.second-remove-section-btn', function() {
@@ -1015,7 +1015,7 @@
 
                 // Re-initialize Select2 on the cloned select element
                 mnewDiv.find('.rankName').select2();
-                mnewDiv.find('.designationSelectEdit').select2();
+                mnewDiv.find('.designationSelectEdit').select2({tags: true});
             });
 
             $(document).on('click', '.remove-designation', function() {
