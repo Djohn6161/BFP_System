@@ -238,10 +238,10 @@
                 <table class="table table-striped ">
                     <tr>
                         <th>Nr.</th>
-                        <th> TYPE/KIND</th>
+                        <th>TYPE/KIND</th>
                         <th>TOTAL ft</th>
                     </tr>
-                    @foreach ($operation->getRopeAndLadder as $equipment)
+                    @foreach ($operation->getHoseLine as $equipment)
                         <tr>
                             <td>{{ $equipment->nr }}</td>
                             <td>{{ $equipment->type }}</td>

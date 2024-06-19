@@ -521,10 +521,10 @@
                                                         class="btn btn-outline-danger btn-sm float-end hose-line-remove-section-btn">Remove</button>
                                                 </div>
                                                 <div class="col-lg-4 mb-3">
-                                                    <label for="firefighterDeath" class="form-label">No.</label>
+                                                    <label for="firefighterDeath" class="form-label">Nr.</label>
                                                     <input type="number" placeholder="No." class="form-control"
                                                         id="firstResponderInput" name="no_hose[]"
-                                                        value="{{ $equipment->quantity }}">
+                                                        value="{{ $equipment->nr }}">
                                                 </div>
                                                 <div class="col-lg-4 mb-3">
                                                     <label for="firefighterDeath" class="form-label">Type /
@@ -584,6 +584,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
                                             <div class="col-lg-6 mb-3"> <label for="fundCommander"
                                                     class="form-label">Designation</label> <select
                                                     class="form-select designationSelectEdit" aria-label=""
@@ -882,17 +883,6 @@
                                 </select>
                             </div>
                         </div>
-                        @if ($user->privilege != 'operation_admin_chief')
-                            <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
-                                {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
-                                <div class="col-lg-12 mb-3">
-                                    <label for="alarmReceived" class="form-label">Passcode:</label>
-                                    <input type="password" placeholder="Enter Passcode" class="form-control"
-                                        name="passcode">
-                                </div>
-
-                            </div>
-                        @endif
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
                                 <button type="submit" class="btn btn-success">

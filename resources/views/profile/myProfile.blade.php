@@ -1,4 +1,3 @@
-
 @extends('layouts.user-template')
 @section('content')
     <div class="container-fluid">
@@ -17,7 +16,7 @@
                             <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">My Profile</h3>
                             <div class="col-lg-3">
                                 <div class="col-lg-12 mb-3"> <!-- Photo column -->
-                                    <img id="personnel-picture" src="/assets/images/personnel_images/{{$user->picture}}"
+                                    <img id="personnel-picture" src="/assets/images/personnel_images/{{ $user->picture }}"
                                         class="object-fit-cover img-fluid w-100" style="height: 240px;"
                                         alt="Personnel Picture">
                                     <div class="row px-2">
@@ -56,11 +55,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col d-flex justify-content-end mb-2 py-3">  
-                                    <a href="{{route('user.dashboard')}}" type="button" class="btn btn-secondary me-2">Cancel</a>
+                                <div class="col d-flex justify-content-end mb-2 py-3">
+                                    <a href="{{ route('user.dashboard') }}" type="button"
+                                        class="btn btn-secondary me-2">Cancel</a>
                                     <button id="saveChangesBtn" class="btn btn-primary">Update Profile</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                 </form>
