@@ -19,6 +19,10 @@
                         <td class="text-break">{{ $operation->transmitted_by }}</td>
                     </tr>
                     <tr>
+                        <th>Originator:</th>
+                        <td class="text-break">{{ $operation->originator }}</td>
+                    </tr>
+                    <tr>
                         <th>Office/Address of the Caller:</th>
                         <td class="text-break">{{ $operation->caller_address }}</td>
                     </tr>
@@ -31,6 +35,10 @@
                     <tr>
                         <th>Location:</th>
                         <td class="text-break">{{ $operation->full_location }}</td>
+                    </tr>
+                    <tr>
+                        <th>Blotter Number:</th>
+                        <td class="text-break">{{ $operation->blotter_number }}</td>
                     </tr>
                 </table>
                 <br>
@@ -50,40 +58,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @unless (count($operation->responses) !=0)
-                            
-                        @foreach ($operation->responses as $response)
+                        @unless (count($operation->responses) != 0)
+
+                            @foreach ($operation->responses as $response)
+                                <tr>
+                                    <td class="text-break">
+                                        {{ $response->truck->name }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->time_dispatched }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->time_arrived_at_scene }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->response_duration }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->time_return_to_base }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->water_tank_refilled }}
+                                    </td>
+                                    <td class="text-break">
+                                        {{ $response->gas_consumed }}
+                                    </td>
+                                </tr>
+                            @endforeach
                             <tr>
-                                <td class="text-break">
-                                    {{ $response->truck->name }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->time_dispatched }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->time_arrived_at_scene }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->response_duration }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->time_return_to_base }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->water_tank_refilled }}
-                                </td>
-                                <td class="text-break">
-                                    {{ $response->gas_consumed }}
+                                <td colspan="7">
+                                    <div class="alert alert-secondary">
+                                        No Responses
+                                    </div>
                                 </td>
                             </tr>
-                        @endforeach
-                        <tr>
-                            <td colspan="7">
-                                <div class="alert alert-secondary">
-                                    No Responses
-                                </div>
-                            </td>
-                        </tr>
                         @endunless
                     </tbody>
                 </table>

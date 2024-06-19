@@ -68,7 +68,7 @@
                                             $sortedInvestigations = $investigations->sortByDesc(function (
                                                 $investigation,
                                             ) {
-                                                return \Carbon\Carbon::parse($investigation->investigation->date);
+                                                return \Carbon\Carbon::parse($investigation->investigation->created_at);
                                             });
                                         @endphp
 

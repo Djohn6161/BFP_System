@@ -8,6 +8,10 @@
             <hr>
             <div class="modal-body pt-4 px-4 pt-0">
                 <div class="row p-2">
+                    <div class="col-sm-2 text-dark">Case Number:</div>
+                    <div class="col-sm-10"><b>{{ $progress->investigation->case_number }}</b></div>
+                </div>
+                <div class="row p-2">
                     <div class="col-sm-2 text-dark">For:</div>
                     <div class="col-sm-10"><b>{{ $progress->investigation->for }}</b></div>
                 </div>
