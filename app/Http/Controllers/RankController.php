@@ -13,7 +13,7 @@ class RankController extends Controller
     public function viewRank()
     {
         $user = Auth::user();
-        $ranks = Rank::all();
+        $ranks = Rank::all()->sortByDesc("created_at");
         $active = 'rank';
         $station = Station::first();
         return view('admin.rank.index', compact('user', 'active', 'ranks', 'station'));

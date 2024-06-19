@@ -226,7 +226,7 @@ class InvestigationController extends Controller
             'action' => "Store",
         ]);
         $log->save();
-        return redirect('/reports/investigation/Spot/index')->with("success", "Investigation Created Successfully!");
+        return redirect()->back()->with("success", "Investigation Created Successfully!");
     }
     public function createProgress(Spot $spot)
     {
@@ -279,7 +279,7 @@ class InvestigationController extends Controller
             'action' => "Store",
         ]);
         $log->save();
-        return redirect('/reports/investigation/progress/index')->with("success", "Investigation Created Successfully!");
+        return redirect()->back()->with("success", "Investigation Created Successfully!");
         // dd($request->all(), $validatedData);
     }
     public function final()
@@ -401,7 +401,7 @@ class InvestigationController extends Controller
             'action' => "Store",
         ]);
         $log->save();
-        return redirect('/reports/investigation/final/index')->with("success", "Investigation Created Successfully!");
+        return redirect()->back()->with("success", "Investigation Created Successfully!");
     }
     public function editMinimal(Minimal $minimal)
     {
@@ -530,7 +530,7 @@ class InvestigationController extends Controller
             'action' => "Store",
         ]);
         $log->save();
-        return redirect('/reports/investigation/minimal/index')->with("success", "Investigation Created Successfully!");
+        return redirect()->back()->with("success", "Investigation Created Successfully!");
     }
     public function updateMinimal(Request $request, Minimal $minimal)
     {
@@ -692,7 +692,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/minimal/index')->with("success", $minimal->investigation->subject . " Updated Successfully!");
+        return redirect()->back()->with("success", $minimal->investigation->subject . " Updated Successfully!");
     }
     public function editSpot(Spot $spot)
     {
@@ -824,7 +824,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/Spot/index')->with("success", $spot->investigation->subject . " Updated Successfully!");
+        return redirect()->back()->with("success", $spot->investigation->subject . " Updated Successfully!");
     }
     public function editProgress(Request $request, Progress $progress)
     {
@@ -913,7 +913,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/progress/index')->with("success", $progress->investigation->subject . " Updated Successfully!");
+        return redirect()->back()->with("success", $progress->investigation->subject . " Updated Successfully!");
     }
     public function editFinal(Ifinal $final)
     {
@@ -1060,7 +1060,7 @@ class InvestigationController extends Controller
             'action' => "Update",
         ]);
         $log->save();
-        return redirect('/reports/investigation/final/index')->with("success", $final->investigation->subject . " Updated Successfully!");
+        return redirect()->back()->with("success", $final->investigation->subject . " Updated Successfully!");
     }
 
     public function destroyMinimal(Request $request)

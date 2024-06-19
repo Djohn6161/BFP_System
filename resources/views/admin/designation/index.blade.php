@@ -36,7 +36,7 @@
                                     <thead class="text-dark fs-4">
 
                                         <tr>
-                                            <th>ID</th>
+                                            <th>#</th>
                                             <th>Name</th>
                                             @if ($user->privilege == 'configuration_chief')
                                                 <th>Action</th>
@@ -46,7 +46,7 @@
                                     <tbody>
                                         @foreach ($otherDes as $item)
                                             <tr>
-                                                <td class="py-2">{{ $item->id }}</td>
+                                                <td class="py-2">{{ $loop->index + 1 }}</td>
                                                 <td class="py-2">{{ $item->name }}</td>
                                                 @if ($user->privilege == 'configuration_chief')
                                                     <td class="w-25 py-2">
@@ -128,7 +128,7 @@
                                                 <table class="table mb-0 align-middle w-100" id="designationTable">
                                                     <thead class="text-dark fs-4">
                                                         <tr>
-                                                            <th>ID</th>
+                                                            <th>#</th>
                                                             <th>Name</th>
                                                             @if ($user->privilege == 'configuration_chief')
                                                                 <th>Action</th>
@@ -138,7 +138,7 @@
                                                     <tbody>
                                                         @foreach ($designations->where('section', $section->id) as $item)
                                                             <tr>
-                                                                <td class="py-2">{{ $item->id }}</td>
+                                                                <td class="py-2">{{ $loop->index + 1 }}</td>
                                                                 <td class="py-2">{{ $item->name }}</td>
                                                                 @if ($user->privilege == 'configuration_chief')
                                                                     <td class="py-2">

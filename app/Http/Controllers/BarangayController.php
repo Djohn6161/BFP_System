@@ -13,7 +13,7 @@ class BarangayController extends Controller
     public function viewBarangay()
     {
         $user = Auth::user();
-        $barangays = Barangay::all();
+        $barangays = Barangay::orderBy('name', 'asc')->get();
         $active = 'barangay';
         $station = Station::first();
         return view('admin.barangay.index', compact('user','active', 'barangays', 'station'));

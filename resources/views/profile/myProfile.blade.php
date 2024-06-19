@@ -40,32 +40,20 @@
                                     <input type="text" class="form-control" name="username" id="username"
                                         value="{{ $user->username }}">
                                 </div>
-                                <div class="col-lg-12 mb-6">
-                                    <label for="dateOfBirth" class="form-label">User Type</label>
-                                    <select type="text" class="form-select" value="{{ $user->privilege }}" name="type"
-                                        disabled>
-                                        <option value="chief" {{ $user->privilege == 'chief' ? 'selected' : '' }}>Chief
-                                        </option>
-                                        <option value="configuration_chief"
-                                            {{ $user->privilege == 'configuration_chief' ? 'selected' : '' }}>Configuration
-                                            Chief</option>
-                                        <option value="operation_admin_chief"
-                                            {{ $user->privilege == 'operation_admin_chief' ? 'selected' : '' }}>Operation
-                                            Admin Chief</option>
-                                        <option value="investigation_admin_chief"
-                                            {{ $user->privilege == 'investigation_admin_chief' ? 'selected' : '' }}>
-                                            Investigation Admin Chief</option>
-                                        <option value="admin_chief"
-                                            {{ $user->privilege == 'admin_chief' ? 'selected' : '' }}>Admin Chief</option>
-                                        <option value="operation_clerk"
-                                            {{ $user->privilege == 'operation_clerk' ? 'selected' : '' }}>Operation Clerk
-                                        </option>
-                                        <option value="investigation_clerk"
-                                            {{ $user->privilege == 'investigation_clerk' ? 'selected' : '' }}>Investigation
-                                            Clerk</option>
-                                        <option value="admin_clerk"
-                                            {{ $user->privilege == 'admin_clerk' ? 'selected' : '' }}>Admin Clerk</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-lg-6 mb-6">
+                                        <label for="dateOfBirth" class="form-label">User Type</label>
+                                            <select type="text" class="form-select" value="{{ $user->type }}" name="type" disabled>
+
+                                                <option value="{{$user->type}}">{{$user->type}}</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-lg-6 mb-6">
+                                        <label for="dateOfBirth" class="form-label">Privllege</label>
+                                        <select type="text" class="form-select" value="{{ $user->privillege }}" name="privillege" disabled>
+                                            <option value="{{$user->privilege}} " class="text-capitalize">{{$user->privilege}}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col d-flex justify-content-end mb-2 py-3">
                                     <a href="{{ route('user.dashboard') }}" type="button"

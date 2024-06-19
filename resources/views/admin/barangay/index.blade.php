@@ -31,7 +31,7 @@
                                 <table class="table mb-0 align-middle w-100" id="barangayTable">
                                     <thead class="text-dark fs-4">
                                         <tr>
-                                            <th class="border-bottom-0">ID</th>
+                                            <th class="border-bottom-0">#</th>
                                             <th class="border-bottom-0">Name</th>
                                             <th class="border-bottom-0">Unit</th>
                                             @if ($user->privilege == 'configuration_chief')
@@ -49,7 +49,7 @@
                                             <tr>
                                                 {{-- {{dd($occupancies)}} --}}
                                                 <td>
-                                                    {{ $barangay->id }}
+                                                    {{ $loop->index + 1 }}
                                                 </td>
                                                 <td>
                                                     {{ $barangay->name }}
