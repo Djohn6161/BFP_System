@@ -50,7 +50,7 @@
                             <tbody>
                                 @php
                                     $sortedAfors = $afors->sortByDesc(function ($item) {
-                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                        return \Carbon\Carbon::parse($item->updated_at);
                                     });
                                 @endphp
 
@@ -120,7 +120,7 @@
                             <tbody>
                                 @php
                                     $sortedAfors = $afors->sortByDesc(function ($item) {
-                                        return \Carbon\Carbon::parse($item->td_under_control);
+                                        return \Carbon\Carbon::parse($item->updated_at);
                                     });
                                 @endphp
 
@@ -185,7 +185,7 @@
                             <tbody>
                                 @php
                                     $sortedSpots = $spots->sortByDesc(function ($spot) {
-                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                        return \Carbon\Carbon::parse($spot->investigation->created_at);
                                     });
                                 @endphp
 
@@ -247,7 +247,7 @@
                             <tbody>
                                 @php
                                     $sortedSpots = $spots->sortByDesc(function ($spot) {
-                                        return \Carbon\Carbon::parse($spot->investigation->date);
+                                        return \Carbon\Carbon::parse($spot->investigation->created_at);
                                     });
                                 @endphp
 

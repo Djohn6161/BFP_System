@@ -342,34 +342,32 @@
             </div>
             <div class="modal-footer">
 
-                @if (auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'investigation_admin_chief')
-                    @if ($operation->minimal)
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                            data-bs-target="#viewMinimalOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
-                            View
-                            Minimal</button>
+                {{-- @if (auth()->user()->privilege === 'investigation_clerk' || auth()->user()->privilege === 'investigation_admin_chief') --}}
+                @if ($operation->minimal)
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#viewMinimalOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
+                        View
+                        Minimal</button>
+                @endif
+
+                @if ($operation->spot)
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i> View
+                        Spot</button>
+                    @if ($operation->spot->progress)
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            data-bs-target="#viewProgressOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
+                            View Progress</button>
                     @endif
 
-                    @if ($operation->spot)
-                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                            data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i> View
-                            Spot</button>
-                        @if ($operation->spot->progress)
-                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#viewProgressOperationModal{{ $operation->id }}"><i
-                                    class="ti ti-eye"></i>
-                                View Progress</button>
-                        @endif
-
-                        @if ($operation->spot->final)
-                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                data-bs-target="#viewFinalOperationModal{{ $operation->id }}"><i
-                                    class="ti ti-eye"></i>
-                                View Final</button>
-                        @endif
+                    @if ($operation->spot->final)
+                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                            data-bs-target="#viewFinalOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
+                            View Final</button>
                     @endif
                 @endif
-                @if (auth()->user()->privilege === 'operation_clerk')
+                {{-- @endif --}}
+                @if (auth()->user()->privilege === 'operation_clerk' || auth()->user()->privilege === 'operation_admin_chief')
                     <a href="{{ route('operation.print', $operation->id) }}" type="button" class="btn btn-warning">
                         <i class="ti ti-printer"></i> Print</a>
                 @endif

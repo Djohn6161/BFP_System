@@ -64,7 +64,8 @@
                                             @if (
                                                 $user->privilege == 'operation_clerk' ||
                                                     $user->privilege == 'operation_admin_chief' ||
-                                                    $user->privilege == 'investigation_clerk')
+                                                    $user->privilege == 'investigation_clerk' ||
+                                                    $user->privilege == 'investigation_admin_chief')
                                                 <th style="min-width: 150px">
                                                     <h6 class="fw-semibold mb-0">Action</h6>
                                                 </th>
