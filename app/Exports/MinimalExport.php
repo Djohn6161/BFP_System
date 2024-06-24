@@ -88,6 +88,7 @@ class MinimalExport implements WithHeadings, FromCollection, WithStyles, WithCol
             'U' => ['alignment' => ['wrapText' => true]],
             'V' => ['alignment' => ['wrapText' => true]],
             'W' => ['alignment' => ['wrapText' => true]],
+            'X' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array

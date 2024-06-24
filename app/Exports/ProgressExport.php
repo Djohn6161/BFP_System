@@ -56,6 +56,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'E' => ['alignment' => ['wrapText' => true]],
             'F' => ['alignment' => ['wrapText' => true]],
             'G' => ['alignment' => ['wrapText' => true]],
+            'H' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -65,7 +66,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'B' => 45,
             'C' => 60,
             'D' => 15,
-            'R' => 100,
+            'E' => 100,
             'F' => 100,
             'G' => 100,
             'H' => 100,

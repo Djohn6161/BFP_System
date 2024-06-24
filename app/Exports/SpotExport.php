@@ -79,6 +79,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'N' => ['alignment' => ['wrapText' => true]],
             'O' => ['alignment' => ['wrapText' => true]],
             'P' => ['alignment' => ['wrapText' => true]],
+            'Q' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
