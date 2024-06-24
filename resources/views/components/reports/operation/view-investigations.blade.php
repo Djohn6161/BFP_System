@@ -399,11 +399,11 @@
                                 View
                                 Minimal</button>
                         @endif
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                             data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
                             View Spot</button>
                         @if ($operation->spot->final)
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                                 data-bs-target="#viewFinalOperationModal{{ $operation->id }}"><i
                                     class="ti ti-eye"></i> View
                                 Final</button>
@@ -541,11 +541,11 @@
                                 View
                                 Minimal</button>
                         @endif
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                             data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
                             View Spot</button>
                         @if ($operation->spot->progress)
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                 data-bs-target="#viewProgressOperationModal{{ $operation->id }}"><i
                                     class="ti ti-eye"></i> View Progress</button>
                         @endif
