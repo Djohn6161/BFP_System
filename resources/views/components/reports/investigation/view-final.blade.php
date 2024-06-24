@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header pt-4 px-4 pb-1">
-                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject . " "  }}</h3>
+                <h3 class="modal-title fw-bolder text-primary">{{ $investigation->investigation->subject . ' ' }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
@@ -106,15 +106,23 @@
                 <hr>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
-                        class="ti ti-eye"></i> View Operation</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                    data-bs-target="#viewProgressFinalModal{{ $investigation->investigation_id }}"><i
-                        class="ti ti-eye"></i> View Progress</button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                    data-bs-target="#viewSpotFinalModal{{ $investigation->investigation_id }}"><i
-                        class="ti ti-eye"></i> View Spot</button>
+                @if ($investigation->spot)
+
+                    @if ($investigation->spot->afor)
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#viewOperationModal{{ $investigation->investigation_id }}"><i
+                                class="ti ti-eye"></i> View Operation</button>
+                    @endif
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#viewSpotFinalModal{{ $investigation->investigation_id }}"><i
+                            class="ti ti-eye"></i> View Spot</button>
+                    @if ($investigation->spot->progress)
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#viewProgressFinalModal{{ $investigation->investigation_id }}"><i
+                                class="ti ti-eye"></i> View Progress</button>
+                    @endif
+                @endif
+
                 <a href="{{ route('investigation.final.print', ['final' => $investigation->id]) }}" type="button"
                     class="btn btn-warning"> <i class="ti ti-printer"></i> Print</a>
 

@@ -354,7 +354,7 @@
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                         data-bs-target="#viewSpotOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i> View
                         Spot</button>
-                    @if ($operation->spot->progress)
+                    @if ($operation->spot->progress)`
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                             data-bs-target="#viewProgressOperationModal{{ $operation->id }}"><i class="ti ti-eye"></i>
                             View Progress</button>
