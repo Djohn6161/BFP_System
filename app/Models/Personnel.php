@@ -56,5 +56,11 @@ class Personnel extends Model
     {
         return $this->hasMany(Post_graduate_course::class, 'personnel_id');
     }
+    public static function getByName($name){
+        $details = explode(' ',$name);
+        $rank = $details[0]
+        dd($details);
+
+    }
 
 }

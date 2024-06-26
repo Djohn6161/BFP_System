@@ -25,4 +25,5 @@ class Spot extends Model
     public function afor(){
         return $this->belongsTo(Afor::class, 'afor_id');
     }
+    
 }

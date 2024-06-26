@@ -29,4 +29,7 @@ class Investigation extends Model
     public function logs(){
         return $this->hasMany(InvestigationLog::class, 'investigation_id');
     }
+    public static function  findbyCaseNumber($caseNumber){
+        return self::where('case_number', $caseNumber)->first();
+    }
 }

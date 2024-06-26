@@ -14,4 +14,7 @@ class Truck extends Model
     public function minimalEngine(){
         return $this->hasMany(Minimal::class, 'first_responding_engine');
     }
+    public static function getByName($name){
+        return self::where('name', $name)->first();
+    }
 }

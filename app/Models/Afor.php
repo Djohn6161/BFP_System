@@ -78,4 +78,7 @@ class Afor extends Model
     public function spot(){
         return $this->hasOne(Spot::class, 'afor_id');
     }
+    public static function getByBlotterNumber($blotter_number){
+        return self::where('blotter_number', $blotter_number)->first();
+    }
 }
