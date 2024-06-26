@@ -32,6 +32,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
+                    $investigation->progress->Spot->investigation->case_number,
                     $investigation->progress->authority,
                     $investigation->progress->matters_investigated,
                     $investigation->progress->facts_of_the_case,
@@ -57,6 +58,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'F' => ['alignment' => ['wrapText' => true]],
             'G' => ['alignment' => ['wrapText' => true]],
             'H' => ['alignment' => ['wrapText' => true]],
+            'J' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -66,10 +68,11 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'B' => 45,
             'C' => 60,
             'D' => 15,
-            'E' => 100,
+            'E' => 15,
             'F' => 100,
             'G' => 100,
             'H' => 100,
+            'J' => 100,
         ];
     }
     public function headings(): array
@@ -79,6 +82,7 @@ class ProgressExport implements WithHeadings, FromCollection, WithStyles, WithCo
             'For',
             'Subject',
             'Date',
+            'Spot Case Number',
             'Authority',
             'Matters Investigated',
             'Facts of the Case',

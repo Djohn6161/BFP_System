@@ -41,6 +41,7 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
+                    $investigation->progress->Spot->investigation->case_number,
                     $investigation->final->intelligence_unit,
                     $investigation->final->place_of_fire,
                     $td[0] . ' ' . date('F d, Y', strtotime($td[1])),
@@ -85,6 +86,7 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
             'O' => ['alignment' => ['wrapText' => true]],
             'P' => ['alignment' => ['wrapText' => true]],
             'Q' => ['alignment' => ['wrapText' => true]],
+            'R' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -94,19 +96,20 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
             'B' => 45,
             'C' => 60,
             'D' => 15,
-            'E' => 40,
-            'F' => 30,
+            'E' => 15,
+            'F' => 40,
             'G' => 30,
             'H' => 30,
             'I' => 30,
-            'J' => 20,
-            'K' => 60,
-            'L' => 40,
-            'M' => 100,
+            'J' => 30,
+            'K' => 20,
+            'L' => 60,
+            'M' => 40,
             'N' => 100,
             'O' => 100,
             'P' => 100,
             'Q' => 100,
+            'R' => 100,
         ];
     }
     public function headings(): array
@@ -116,6 +119,7 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
             'For',
             'Subject',
             'Date',
+            'Spot Case Number',
             'INVESTIGATION AND INTELLIGENCE UNIT',
             'PLACE OF FIRE',
             'TIME AND DATE OF ALARM',

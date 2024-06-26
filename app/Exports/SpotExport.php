@@ -37,6 +37,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
+                    $investigation->Spot->afor->blotter_number,
                     $investigation->Spot->date_occurence . ', ' . $investigation->Spot->time_occurence . ', ' . $location,
                     $investigation->Spot->involved,
                     $investigation->Spot->name_of_establishment,
@@ -80,6 +81,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'O' => ['alignment' => ['wrapText' => true]],
             'P' => ['alignment' => ['wrapText' => true]],
             'Q' => ['alignment' => ['wrapText' => true]],
+            'R' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -89,19 +91,20 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'B' => 45,
             'C' => 60,
             'D' => 15,
-            'E' => 30,
-            'F' => 20,
-            'G' => 30,
-            'H' => 20,
+            'E' => 15,
+            'F' => 30,
+            'G' => 20,
+            'H' => 30,
             'I' => 20,
-            'J' => 15,
+            'J' => 20,
             'K' => 15,
-            'L' => 20,
+            'L' => 15,
             'M' => 20,
-            'N' => 15,
+            'N' => 20,
             'O' => 15,
-            'P' => 100,
-            'Q' => 60,
+            'P' => 15,
+            'Q' => 100,
+            'R' => 60,
         ];
     }
     public function headings(): array
@@ -111,6 +114,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'For',
             'Subject',
             'Date',
+            'Operation Blotter Number',
             'Date and Time Place of Occurence',
             'Involved',
             'Name of Establishment',

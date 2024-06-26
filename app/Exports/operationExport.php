@@ -73,6 +73,7 @@ class OperationExport implements FromCollection, WithHeadings
             }
 
             $data[] = [
+                $operation->blotter_number,
                 $operation->alarm_received,
                 $operation->transmitted_by,
                 $operation->originator,
@@ -129,6 +130,7 @@ class OperationExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
+            'blotter_number',
             'alarm_received',
             'transmitted_by',
             'originator',
