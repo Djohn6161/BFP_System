@@ -57,9 +57,37 @@ class Personnel extends Model
         return $this->hasMany(Post_graduate_course::class, 'personnel_id');
     }
     public static function getByName($name){
-        $details = explode(' ',$name);
-        $rank = $details[0]
-        dd($details);
+        $data = explode(' ',$name);
+        // dd($data);
+        if (count($data) >= 3) {
+            $rankName = $data[0];
+            $lastName = rtrim($data[1], ','); // Remove the trailing comma from the last name
+            $firstNames = implode(' ', array_slice($data, 2)); // Join the remaining elements to form the first name(s)
+        } else {
+            // Handle error for insufficient data elements
+            throw new Exception('Insufficient data elements');
+        }
+        
+        // Now you can use these variables in your query
+        return self::whereHas('rank', function ($query) use ($rankName) {
+            $query->where('slug', $rankName);
+        })
+        ->where('last_name', $lastName)
+        ->where('first_name', $firstNames)
+        ->first();
+        
+        // dd($personnel);
+        // $rankName = $data[0];
+        // $lastName = array_pop($data);
+        // $firstNames = implode(' ', array_slice($data, 1));
+        // $personnel = Personnel::whereHas('rank', function ($query) use ($rankName) {
+        //     $query->where('slug', $rankName);
+        // })
+        // // ->where('first_name', $firstNames)
+        // // ->where('last_name', $lastName)
+        // ->get();
+        // $rank = $details[0];
+        // $last
 
     }
 

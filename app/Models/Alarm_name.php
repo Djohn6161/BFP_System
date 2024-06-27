@@ -20,4 +20,7 @@ class Alarm_name extends Model
     public function spots(){
         return $this->hasMany(Spot::class, 'alarm');
     }
+    public static function getByName($name){
+        return self::where('name', $name)->first();
+    }
 }
