@@ -48,7 +48,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
                     $investigation->Spot->occupant,
                     $investigation->Spot->fatality != 0 ? $investigation->Spot->fatality : 'Negative',
                     $investigation->Spot->injured != 0 ? $investigation->Spot->injured : 'Negative',
-                    '₱ ' . number_format($investigation->Spot->injured, 0, '.', ','),
+                    '₱ ' . number_format($investigation->Spot->estimate_damage, 0, '.', ','),
                     $investigation->Spot->time_fire_start,
                     $investigation->Spot->time_fire_out,
                     $investigation->Spot->alarmed->name,

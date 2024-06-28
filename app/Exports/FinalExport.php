@@ -29,9 +29,11 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
             if ($investigation->final != null) {
                 $victims = "";
                 if (count($investigation->victims) != 0) {
+                    $victimnames = [];
                     foreach ($investigation->victims as $victim) {
-                        $victims = $victims . ", " . $victim->name;
+                        $victimnames[] = $victim->name;
                     }
+                    $victims = implode(', ', $victimnames);
                 } else {
                     $victims = 'N\A';
                 }
@@ -41,10 +43,10 @@ class FinalExport implements WithHeadings, FromCollection, WithStyles, WithColum
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
-                    $investigation->progress->Spot->investigation->case_number,
+                    $investigation->final->Spot->investigation->case_number,
                     $investigation->final->intelligence_unit,
                     $investigation->final->place_of_fire,
-                    $td[0] . ' ' . date('F d, Y', strtotime($td[1])),
+                    $investigation->final->td_alarm,
                     $investigation->final->establishment_burned,
                     $victims,
 

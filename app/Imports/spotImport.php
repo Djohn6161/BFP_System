@@ -30,9 +30,12 @@ class spotImport implements ToCollection, WithHeadingRow
             ]);
             $afor = Afor::getByBlotterNumber($row['operation_blotter_number']);
             $alarm = Alarm_name::getByName($row['alarm']);
+            
             // $receiver = Personnel::getByName($row['call_receiver']);
             // dd($afor, $truck, $lead, $alarm, $row, $receiver);
             // dd(ltrim($row['estimated_damage'], '₱ '));
+            $property = ltrim($row['estimated_damage'], '₱ ');
+            $property = str_replace(',', "", $property);
             $spot = Spot::create([
                 'afor_id' => $afor->id,
                 'investigation_id' => $inves->id,
@@ -45,7 +48,7 @@ class spotImport implements ToCollection, WithHeadingRow
                 'occupant' => $row['occupant'] ?? '',
                 'fatality' => $row['casualty'] == "Negative" ? 0 : $row['casualty'],
                 'injured' => $row['injured'] == "Negative" ? 0 : $row['casualty'],
-                'estimate_damage' => ltrim($row['estimated_damage'], '₱ ') ?? '',
+                'estimate_damage' => $property ?? '',
                 'time_fire_start' => $row['time_fire_started'] ?? '',
                 'time_fire_out' => $row['time_of_fire_out'] ?? '',
                 'alarm' => $alarm->id ?? '',

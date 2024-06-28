@@ -40,20 +40,20 @@ class ImportController extends Controller
             if ($validatedData['Type'] == 'Minimal') {
                 Excel::import(new minimalImport, $validatedData['file']);
                 // dd($request->file('importfile'));
-                // return redirect()->back()->with('message', 'File Imported Successfully');
+                return redirect()->back()->with('success', 'Minimal Investigation Imported Successfully');
                 
             } else if($validatedData['Type'] == 'Spot'){
                 Excel::import(new spotImport, $validatedData['file']);
                 // dd($validatedData['file']);
-                // return redirect()->back()->with('message', 'File Imported Successfully');
+                return redirect()->back()->with('success', 'Spot Investigation Imported Successfully');
             } else if($validatedData['Type'] == 'Progress'){
                 Excel::import(new progressImport, $validatedData['file']);
                 // dd($validatedData['file']);
-                // return redirect()->back()->with('message', 'File Imported Successfully');
+                return redirect()->back()->with('success', 'Progress Investigation Imported Successfully');
             } else if($validatedData['Type'] == 'Final'){
                 Excel::import(new finalImport, $validatedData['file']);
                 // dd($validatedData['file']);
-                // return redirect()->back()->with('message', 'File Imported Successfully');
+                return redirect()->back()->with('success', 'Final Investigation Imported Successfully');
             } else {
                 return redirect()->back()->with('status', 'An unexpected error occurred while importing the file.');
             }
@@ -62,7 +62,7 @@ class ImportController extends Controller
             dd($e->getMessage());
             return redirect()->back()->with('status', 'An error occurred while importing the file. Error:' . $e->getMessage());
         }
-        return redirect()->back()->with('success', 'Investigation Imported Successfully');
+        // return redirect()->back()->with('success', 'Investigation Imported Successfully');
         // Excel::import(new )
     }
 }
