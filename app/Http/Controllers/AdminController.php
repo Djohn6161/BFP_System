@@ -105,7 +105,7 @@ class AdminController extends Controller
             ];
         }
 
-        if (Hash::check($request->input('admin_confirm_password'), $user->password)) {
+        if (Hash::check($request->input('admin_confirm_password'), auth()->user()->password)) {
             $userChange = $this->hasChanges($user, $userInfoUpdatedData);
             if ($userChange) {
                 $user->update($userInfoUpdatedData);
@@ -125,17 +125,17 @@ class AdminController extends Controller
     public function accountPasswordUpdate(Request $request)
     {
         $request->validate([
-            'current_password' => 'required|min:8',
+            // 'current_password' => 'required|min:8',
             'password' => 'required|min:8',
             'confirm_password' => 'required|min:8',
             'admin_confirm_password' => 'required|min:8',
         ]);
 
         $profile = $request->user();
-
+        // dd($profile);
         $user = User::find($request->input('password_id'));
 
-        if (Hash::check($request->input('admin_confirm_password'), $profile->password)) {
+        if (Hash::check($request->input('admin_confirm_password'), auth()->user()->password)) {
             if ($request->input('password') === $request->input('confirm_password')) {
                 // Check if the provided password matches the current password
                 if (Hash::check($request->input('password'), $user->password)) {

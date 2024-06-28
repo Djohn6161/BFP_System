@@ -16,13 +16,13 @@
             <form action="{{ route('admin.account.password.update') }}" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <label for="current_password" class="form-label">Current Password:</label>
+                    {{-- <label for="current_password" class="form-label">Current Password:</label>
                     <div class="input-group show-password mb-3" id="show_hide_password_current">
                         <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Enter Current Password">
-                        <input type="hidden" name="password_id" id="update_password_id">
                         <span class="input-group-text"><a href="#"><i class="ti ti-eye-off" aria-hidden="true"></i></a></span>
-                    </div>
-            
+                    </div> --}}
+                    
+                    <input type="hidden" name="password_id" id="update_password_id">
                     <label for="password" class="form-label">New Password:</label>
                     <div class="input-group show-password mb-3" id="show_hide_password_new">
                         <input type="password" class="form-control" name="password" placeholder="Enter Password">
