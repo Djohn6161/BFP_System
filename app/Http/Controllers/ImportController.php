@@ -41,6 +41,7 @@ class ImportController extends Controller
                 Excel::import(new minimalImport, $validatedData['file']);
                 // dd($request->file('importfile'));
                 // return redirect()->back()->with('message', 'File Imported Successfully');
+                
             } else if($validatedData['Type'] == 'Spot'){
                 Excel::import(new spotImport, $validatedData['file']);
                 // dd($validatedData['file']);
@@ -61,6 +62,7 @@ class ImportController extends Controller
             dd($e->getMessage());
             return redirect()->back()->with('status', 'An error occurred while importing the file. Error:' . $e->getMessage());
         }
+        return redirect()->back()->with('success', 'Investigation Imported Successfully');
         // Excel::import(new )
     }
 }

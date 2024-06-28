@@ -34,7 +34,8 @@ class minimalImport implements ToCollection, WithHeadingRow
             $truck = Truck::getByName($row['first_responding_engine']);
             $lead = Personnel::getByName($row['first_responding_leader']);
             $alarm = Alarm_name::getByName($row['alarm_status_time']);
-            // dd($afor, $truck, $lead, $alarm, $row);
+            $receiver = Personnel::getByName($row['call_receiver']);
+            // dd($afor, $truck, $lead, $alarm, $row, $receiver);
             $minimal = Minimal::create([
                 'afor_id' => $afor->id,
                 'investigation_id' => $inves->id,
@@ -44,7 +45,7 @@ class minimalImport implements ToCollection, WithHeadingRow
                 'involved_property' => $row['involved_property'] ?? '',
                 'property_data' => $row['property_data'] ?? '',
                 'property_occupant' => $row['property_occupant'] ?? '',
-                'receiver' => $row['call_receiver'] ?? '',
+                'receiver' => $receiver->id ?? '',
                 'caller_name' => $row['caller_name'] ?? '',
                 'caller_address' => $row['caller_address'] ?? '',
                 'caller_number' => $row['caller_number'] ?? '',
@@ -69,7 +70,7 @@ class minimalImport implements ToCollection, WithHeadingRow
                 'action' => "Store",
             ]);
             $log->save();
-            return redirect()->back()->with('success', 'Progress Investigation Imported Successfully');            // dd($inves);
+                        // dd($inves);
         }
     }
 }

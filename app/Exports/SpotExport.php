@@ -28,17 +28,20 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
         foreach ($this->investigations as $investigation) {
             if ($investigation->Spot != null) {
                 if ($investigation->landmark == null || $investigation->landmark == '') {
-                    $location = $investigation->address_occurence;
+                    $location = $investigation->Spot->address_occurence;
                 } else {
                     $location = $investigation->landmark;
                 }
+                // dd($investigation);
                 $data[] = [
                     $investigation->case_number,
                     $investigation->for,
                     $investigation->subject,
                     $investigation->date,
                     $investigation->Spot->afor->blotter_number,
-                    $investigation->Spot->date_occurence . ', ' . $investigation->Spot->time_occurence . ', ' . $location,
+                    $investigation->Spot->date_occurence,
+                    $investigation->Spot->time_occurence,
+                    $location,
                     $investigation->Spot->involved,
                     $investigation->Spot->name_of_establishment,
                     $investigation->Spot->owner,
@@ -82,6 +85,8 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'P' => ['alignment' => ['wrapText' => true]],
             'Q' => ['alignment' => ['wrapText' => true]],
             'R' => ['alignment' => ['wrapText' => true]],
+            'S' => ['alignment' => ['wrapText' => true]],
+            'T' => ['alignment' => ['wrapText' => true]],
         ];
     }
     public function columnWidths(): array
@@ -92,19 +97,21 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'C' => 60,
             'D' => 15,
             'E' => 15,
-            'F' => 30,
-            'G' => 20,
+            'F' => 15,
+            'G' => 15,
             'H' => 30,
             'I' => 20,
-            'J' => 20,
-            'K' => 15,
-            'L' => 15,
-            'M' => 20,
-            'N' => 20,
-            'O' => 15,
-            'P' => 15,
-            'Q' => 100,
-            'R' => 60,
+            'J' => 30,
+            'K' => 20,
+            'L' => 20,
+            'M' => 15,
+            'N' => 15,
+            'O' => 20,
+            'P' => 20,
+            'Q' => 15,
+            'R' => 15,
+            'S' => 100,
+            'T' => 60,
         ];
     }
     public function headings(): array
@@ -115,7 +122,9 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'Subject',
             'Date',
             'Operation Blotter Number',
-            'Date and Time Place of Occurence',
+            'Date of Occurence',
+            'Time of Occurence',
+            'Place of Occurence',
             'Involved',
             'Name of Establishment',
             'Owner',
@@ -127,7 +136,7 @@ class SpotExport implements WithHeadings, FromCollection, WithStyles, WithColumn
             'Time of Fire Out',
             'Alarm',
             'Details',
-            'Final',
+            'Disposition',
         ];
     }
 }
