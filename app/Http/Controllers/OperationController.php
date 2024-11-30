@@ -84,7 +84,7 @@ class OperationController extends Controller
         $afor->fill([
             'alarm_received' => $request->input('alarm_received'),
             'transmitted_by' => $request->input('transmitted_by'),
-            'originator' => $request->input('originator'),
+            'originator' => $request->input('originator') ?? "",
             'caller_address' => $request->input('caller_address'),
             'received_by' => $request->input('received_by'),
             'barangay_name' => $request->input('barangay_name') ?? '',
@@ -946,7 +946,7 @@ class OperationController extends Controller
                 if ($dutyPersonnelChange) {
 
                     $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
-                    $string = $string . "Duty Personnel: " . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " <br> Updated: <br>";
+                    $string = $string . "Duty Personnel: " . ($personnelName->rank?->slug ?? "Unknown") . " " . $personnelName->first_name . " " . $personnelName->last_name . " <br> Updated: <br>";
                     foreach ($dutyPersonnelChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
                         $format = ucwords($format);
@@ -954,7 +954,7 @@ class OperationController extends Controller
 
 
                         if ($format == "Personnels Id") {
-                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . $personnelName->rank->slug . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "</li>";
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . ($personnelName->rank?->slug ?? "Unknown") . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "</li>";
                         } else {
                             $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingAlarm[$index] . " -> " . $change . "</li>";
                         }

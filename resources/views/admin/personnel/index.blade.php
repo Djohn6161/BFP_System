@@ -72,6 +72,48 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <?php $count = 0; ?>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseunk" aria-expanded="false"
+                                            aria-controls="flush-collapseunk">
+                                            Unknown Personnel
+                                            @foreach ($personnels as $personnel)
+                                                @if ($personnel->ranks_id == null)
+                                                    <?php $count++; ?>
+                                                @endif
+                                            @endforeach
+                                            <span
+                                                class="ms-3 badge rounded-pill bg-secondary text-dark">{{ $count }}</span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseunk" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionRankPersonnel">
+                                        <div class="row row-cols-1 row-cols-md-4 g-4 p-3 mt-2">
+                                            
+                                            @foreach ($personnels->whereNull('ranks_id') as $personnel)
+                                            {{-- {{dd($personnels->whereNull('ranks_id'))}} --}}
+                                                    <div class="card justify-content-center m-2"
+                                                    style="width: calc(25% - 1rem); padding: 0.25rem;">
+                                                        <a href="{{ route('admin.personnel.view', $personnel->id) }}">
+                                                            <div class="col py-2">
+                                                                <img src="{{ asset('assets/images/personnel_images/'.$personnel->picture) }}"
+                                                                    class="card-img-top object-fit-cover rounded"
+                                                                    height="300" alt="personnel picture">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title text-center fw-bold fs-5">
+                                                                        {{ $personnel->first_name }}
+                                                                        {{ $personnel->last_name }}</h5>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

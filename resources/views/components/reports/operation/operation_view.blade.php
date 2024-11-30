@@ -27,7 +27,7 @@
                     <tr>
                         <th>Personnel on duty who receive the alarm:</th>
                         <td class="text-break">
-                            {{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}
+                            {{ ($operation->receivedBy?->rank?->slug ?? "unknown") . ' ' . ($operation->receivedBy?->first_name ?? "unknown") . ' ' . ($operation->receivedBy?->last_name ?? "unknown") }}
                         </td>
                     </tr>
                     <tr>
@@ -172,13 +172,13 @@
                     <tr>
                         <th>Alarm Status</th>
                         <th>Time</th>
-                        <th>Fund Commander</th>
+                        <th>Ground Commander</th>
                     </tr>
                     @foreach ($operation->declaredAlarms as $alarm)
                         <tr>
                             <td>{{ $alarm->alarm_name }}</td>
                             <td>{{ $alarm->time }}</td>
-                            <td>{{ $alarm->getGroundCommander->rank->slug . ' ' . $alarm->getGroundCommander->first_name . ' ' . $alarm->getGroundCommander->last_name }}
+                            <td>{{ ($alarm?->getGroundCommander?->rank?->slug ?? "unknown") . ' ' . ($alarm?->getGroundCommander?->first_name ?? "unknown") . ' ' . ($alarm->getGroundCommander?->last_name ?? "unknown") }}
                             </td>
                         </tr>
                     @endforeach
@@ -263,7 +263,7 @@
                         <tr>
                             @foreach ($personnels as $personnel)
                                 @if ($duty_personnel->personnels_id == $personnel->id)
-                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                    <td>{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                     </td>
                                 @endif
                             @endforeach
@@ -298,7 +298,7 @@
                                         <div class="col-lg-4">
                                             <div class="card-body p-1">
                                                 <img style="height: 350px; object-fit: cover;" class="w-100"
-                                                    src="{{ asset('/assets/images/operation_images/' . $photo) }}">
+                                                    src="{{ asset('operation_image/' . $photo) }}">
                                             </div>
                                         </div>
                                     @endforeach

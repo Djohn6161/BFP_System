@@ -12,8 +12,18 @@ class ConfigurationLogController extends Controller
     public function index() {
         $user = Auth::user();
         $active = "configurationLog";
-        $logs = ConfigurationLog::all();
+        $logs = ConfigurationLog::orderBy('created_at', 'desc')->where("type", "!=", "personnel")->get();
         $station = Station::first();
         return view('admin.logs.configuration.viewLogs', compact('user', 'active', 'logs', 'station'));
+    }
+    public function logsAdminIndex(){
+        $user = Auth::user();
+        $stations = Station::first();
+        return view("admin.logs.admin.viewLogs",[
+            'active' => 'viewAdminLogs',
+            'user' => $user,
+            'logs' => ConfigurationLog::orderBy('created_at', 'desc')->where("type", "personnel")->get(),
+            'station' => $stations,
+        ]);
     }
 }

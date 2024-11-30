@@ -65,7 +65,7 @@
                         <tr>
                             {{-- {{dd($investigation->receiver)}} --}}
                             <td colspan="1" class="fw-bold">Receiver</td>
-                            <td colspan="1" class="fw-bold">{{$investigation->receiverPersonnel->rank->slug . " " . $investigation->receiverPersonnel->last_name . " " . $investigation->receiverPersonnel->first_name}}</td>
+                            <td colspan="1" class="fw-bold">{{($investigation?->receiverPersonnel?->rank?->slug ?? "Unknown") . " " . ($investigation?->receiverPersonnel?->last_name ?? "Unnknown") . " " . ($investigation?->receiverPersonnel?->first_name ?? "Unknown")}}</td>
                         </tr>
                         <tr>
                             <td>Caller Information:</td>
@@ -91,8 +91,8 @@
                         </tr>
                         <tr>
                             <td>First Responding Unit:</td>
-                            <td> <b>{{ $investigation->respondingEngine->name }}</b> and Crew,
-                                <b>{{ $investigation->respondingLeader->rank->slug . ' ' . $investigation->respondingLeader->last_name . ' ' . $investigation->respondingLeader->first_name }}</b>
+                            <td> <b>{{ $investigation->respondingEngine != null ? $investigation->respondingEngine->name : "Unknown" }}</b> and Crew,
+                                <b>{{ ($investigation?->respondingLeader?->rank?->slug ?? "Unknown") . ' ' . ($investigation?->respondingLeader->last_name ?? "Unknown") . ' ' . ($investigation?->respondingLeader->first_name ?? "Unknown") }}</b>
                                 Team Leader
                             </td>
                         </tr>
@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <td>Alarm Status-Time:</td>
-                            <td>{{ $investigation->alarm->name }}</td>
+                            <td>{{ $investigation->alarm != null ? $investigation->alarm->name : "Unknown" }}</td>
                         </tr>
                         <tr>
                             <td>Time Fire Out:</td>

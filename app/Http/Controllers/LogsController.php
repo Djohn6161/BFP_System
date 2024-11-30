@@ -17,7 +17,7 @@ class LogsController extends Controller
         return view('admin.logs.investigation.viewLogs', [
             'active' => 'viewInvestigationLogs',
             'user' => $user,
-            'logs' => InvestigationLog::all(),
+            'logs' => InvestigationLog::orderBy('created_at', 'desc')->get(),
             'station' => $station
         ]);
     }
@@ -34,4 +34,5 @@ class LogsController extends Controller
             
         ]);
     }
+    
 }

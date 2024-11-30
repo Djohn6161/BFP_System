@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">ALARM</th>
-                        <td colspan="2">{{ $spot->alarmed->name }}</td>
+                        <td colspan="2">{{ $spot->alarmed != null ? $spot->alarmed->name : "unknown" }}</td>
                     </tr>
                 </table>
                 <hr>

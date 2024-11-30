@@ -56,13 +56,13 @@
                                                             </div>
                                                             <div class="me-1">
                                                                 {{-- {{ dd(count($list->spots)) }} --}}
-                                                                @if (count($list->minimals ?? []) != 0 || count($list->spots ?? []) != 0)
+                                                                {{-- @if (count($list->minimals ?? []) != 0 || count($list->spots ?? []) != 0)
                                                                     <button disabled class="btn btn-secondary w-100"
                                                                         data-bs-toggle="modal">
                                                                         <i class="ti ti-x"></i>
                                                                         Invalid
                                                                     </button>
-                                                                @else
+                                                                @else --}}
                                                                     <button class="btn btn-danger w-100"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#deleteAlarmModalll{{ $list->id }}">
@@ -71,7 +71,7 @@
 
                                                                     </button>
                                                                     <x-alarm.delete :list="$list"></x-alarm.delete>
-                                                                @endif
+                                                                {{-- @endif --}}
                                                             </div>
                                                         </div>
                                                     </td>

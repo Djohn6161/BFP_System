@@ -62,7 +62,7 @@
                                     @foreach ($personnels as $personnel)
                                         <option value="{{ $personnel->id }}"
                                             {{ old('received_by', $operation->received_by) == $personnel->id ? 'selected' : '' }}>
-                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                            {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -260,7 +260,7 @@
                                                     @foreach ($personnels as $personnel)
                                                         <option value="{{ $personnel->id }}"
                                                             {{ old('fund_commander.' . $index, isset($declared_alarms[$index]) ? $declared_alarms[$index]->ground_commander : null) == $personnel->id ? 'selected' : '' }}>
-                                                            {{ $personnel->rank->slug }} {{ $personnel->first_name }}
+                                                            {{ ($personnel->rank?->slug ?? "Unknown") }} {{ $personnel->first_name }}
                                                             {{ $personnel->last_name }}
                                                         </option>
                                                     @endforeach
@@ -552,7 +552,7 @@
                                                     @foreach ($personnels as $personnel)
                                                         <option selected value="{{ $personnel->id }}"
                                                             {{ $duty_personnel_id == $personnel->id ? 'selected' : '' }}>
-                                                            {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                            {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }}
                                                             {{ $personnel->last_name }}</option>
                                                     @endforeach
                                                 </select>
@@ -599,7 +599,7 @@
                                         <div class="image-preview mb-1">
                                             <input type="hidden" name="default_photos[]" value="{{ $photo }}">
                                             <img class="img-thumbnail w-100"
-                                                src="/assets/images/operation_images/{{ $photo }}">
+                                                src="{{ asset('operation_image/' .  $photo ) }}">
                                         </div>
                                         <div
                                             class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
@@ -671,6 +671,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="details" id="details">
 
                         <!-- Problem encounterd -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
@@ -734,7 +735,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <input type="hidden" name="problem_encounter" id="problem_encounter">
                         <!-- Observation Recommendation -->
                         <div class="row border border-light-subtle shadow rounded my-3 p-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Observations/Recommendations</h3> --}}
@@ -794,7 +795,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <input type="hidden" name="observation_recommendation" id="observation_recommendation">
                         <div class="row border border-light-subtle shadow rounded p-4 mb-4 bg-white">
                             {{-- <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">1</h3> --}}
                             <div class="col-lg-6 mb-3">
@@ -804,7 +805,7 @@
                                     @foreach ($personnels as $personnel)
                                         @if (
                                             $operation->prepared_by ==
-                                                $personnel->rank->slug .
+                                                ($personnel->rank?->slug ?? "Unknown") .
                                                     ' ' .
                                                     $personnel->first_name .
                                                     ' ' .
@@ -812,13 +813,13 @@
                                                     ' ' .
                                                     $personnel->last_name)
                                             <option selected
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @else
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endif
                                     @endforeach
@@ -831,7 +832,7 @@
                                     @foreach ($personnels as $personnel)
                                         @if (
                                             $operation->prepared_by ==
-                                                $personnel->rank->slug .
+                                                ($personnel->rank?->slug ?? "Unknown") .
                                                     ' ' .
                                                     $personnel->first_name .
                                                     ' ' .
@@ -839,13 +840,13 @@
                                                     ' ' .
                                                     $personnel->last_name)
                                             <option selected
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @else
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}">
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endif
                                     @endforeach
@@ -854,7 +855,7 @@
                         </div>
                         <div class="row">
                             <div class="col d-flex justify-content-end px-0">
-                                <button type="submit" class="btn btn-success">
+                                <button type="submit" class="btn btn-success" id="submit">
                                     <span>
                                         <i class="ti ti-send"></i>
                                     </span>
@@ -870,6 +871,7 @@
     </div>
 
     <script>
+        
         $(document).ready(function() {
             $('#divApor').on('click', '.remove-section-btn', function() {
                 // Find the parent div of the clicked remove button and remove it
@@ -900,7 +902,7 @@
             $('#addTimeAlarmStatusDeclared').click(function() {
                 var newDiv = $('#secondAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
+                    '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Ground Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Ground Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
                 );
 
                 console.log(mnewDiv);
@@ -920,7 +922,7 @@
             $('#addNewDutyPersonnelAtFireScene').click(function() {
                 var newDiv = $('#thirdAddApor').clone();
                 var mnewDiv = $(
-                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Fund Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select designationSelectEdit" aria-label="" name="duty_designation[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                    '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Ground Commander</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="fundCommander" class="form-label">Designation</label> <select class="form-select designationSelectEdit" aria-label="" name="duty_designation[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                 );
 
                 console.log(mnewDiv);
@@ -1104,6 +1106,11 @@
             },
             theme: 'snow',
             placeholder: 'Compose an epic...',
+        });
+        $("#submit").click(function() {
+            $("#details").val(quillFirst.root.innerHTML);
+            $("#problem_encounter").val(quillSecond.root.innerHTML);
+            $("#observation_recommendation").val(quillThird.root.innerHTML);
         });
     </script>
 @endsection

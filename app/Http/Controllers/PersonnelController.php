@@ -449,7 +449,7 @@ class PersonnelController extends Controller
                 'action' => 'Update',
             ]);
             $log->save();
-            return redirect()->back()->with('success', "Personnel Information Updated successfully.");
+            return redirect('/admin/personnel/view/' . $personnel->id)->with('success', "Personnel Information Updated successfully.");
         } else {
             return redirect()->back()->with('status', "Nothing's change.");
         }
@@ -474,9 +474,11 @@ class PersonnelController extends Controller
 
         if (Hash::check($request->input('password'), $user->password)) {
             $log = new ConfigurationLog();
+            $rank = $personnel->rank != null ? $personnel->rank->slug : "unknown";
+            // dd($rank);
             $log->fill([
                 'userID' => auth()->user()->id,
-                'Details' => "Deleted Personnel <b>" . $personnel->rank->slug . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>",
+                'Details' => "Deleted Personnel <b>" . $rank . " " . $personnel->last_name . ", " . $personnel->first_name . " " . $personnel->middle_name . "</b>",
                 'type' => 'personnel',
                 'action' => 'Delete',
             ]);

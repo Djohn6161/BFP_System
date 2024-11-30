@@ -74,7 +74,7 @@
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option value="{{ $personnel->id }}" {{ old('received_by') == $personnel->id ? 'selected' : '' }}>
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name }}
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }}
                                                 {{ $personnel->last_name }}</option>
                                         @endforeach
                                     </select>
@@ -274,14 +274,14 @@
                                                         value="{{ old('alarm_time.' . $index, '') }}">
                                                 </div>
                                                 <div class="col-lg-4 mb-3">
-                                                    <label for="fundCommander" class="form-label">Fund Commander</label>
+                                                    <label for="fundCommander" class="form-label">Ground Commander</label>
                                                     <select class="form-select fundCommander" aria-label=""
                                                         name="fund_commander[]">
-                                                        <option value="" selected>Select Fund Commander</option>
+                                                        <option value="" selected>Select Ground Commander</option>
                                                         @foreach ($personnels as $personnel)
                                                             <option value="{{ $personnel->id }}"
                                                                 {{ old('fund_commander.' . $index) == $personnel->id ? 'selected' : '' }}>
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -562,11 +562,11 @@
                                                         class="form-label">Rank /
                                                         Name</label> <select class="form-select rankName" aria-label=""
                                                         name="duty_personnel_id[]">
-                                                        <option value="" selected>Select Fund Commander</option>
+                                                        <option value="" selected>Select Ground Commander</option>
                                                         @foreach ($personnels as $personnel)
                                                             <option value="{{ $personnel->id }}"
                                                                 {{ $duty_personnel_id == $personnel->id ? 'selected' : '' }}>
-                                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -805,9 +805,9 @@
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
-                                                {{ old('prepared_by') == $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? 'Unknown') . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
+                                                {{ old('prepared_by') == ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
+                                                {{ ($personnel->rank?->slug ?? 'Unknown') . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -818,9 +818,9 @@
                                         <option value="" selected>Select personnel</option>
                                         @foreach ($personnels as $personnel)
                                             <option
-                                                value="{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
-                                                {{ old('noted_by') == $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
-                                                {{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
+                                                value="{{ ($personnel->rank?->slug ?? 'Unknown') . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}"
+                                                {{ old('noted_by') == ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name ? 'selected' : '' }}>
+                                                {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . ucfirst(substr($personnel->middle_name, 0, 1)) . ' ' . $personnel->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -887,7 +887,7 @@
                 $('#addTimeAlarmStatusDeclared').click(function() {
                     var newDiv = $('#secondAddApor').clone();
                     var mnewDiv = $(
-                        '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
+                        '<div class="row second-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end second-remove-section-btn">Remove</button> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclared" class="form-label">Alarm Status</label> <select class="form-select alarmApor" aria-label="" name="alarm_name[]"> <option value="" selected>Select alarm status</option> <option value="1st Alarm">1st Alarm</option><option value="2nd Alarm">2nd Alarm</option> <option value="3rd Alarm">3rd Alarm</option> <option value="4th Alarm">4th Alarm</option> <option value="5th Alarm">5th Alarm</option> <option value="Task Force Alpha">Task Force Alpha</option> <option value="Task Force Bravo">Task Force Bravo</option> <option value="Task Force Charlie">Task Force Charlie</option> <option value="Task Force Delta">Task Force Delta</option> <option value="Task Force Echo">Task Force Echo</option> <option value="Task Force Hotel">Task Force Hotel</option> <option value="Task Force India">Task Force India</option> <option value="General Alarm">General Alarm</option> </select> </div> <div class="col-lg-4 mb-3"> <label for="timeAlarmStatusDeclaredTime" class="form-label">Time</label> <input type="text" placeholder="Eg. 2300h" class="form-control text-uppercase" id="timeAlarmStatusDeclaredTime" name="alarm_time[]"> </div> <div class="col-lg-4 mb-3"> <label for="fundCommander" class="form-label">Fund Commander</label> <select class="form-select fundCommander" aria-label="" name="fund_commander[]"> <option selected>Select Fund Commanders</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div><hr></div>'
                     );
 
                     console.log(mnewDiv);
@@ -910,7 +910,7 @@
                     console.log(parentCounter, childCounter);
                     var newDiv = $('#thirdAddApor').clone();
                     var mnewDiv = $(
-                        '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Duty Personnel</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ $personnel->rank->slug . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Designation</label> <select class="form-select designationSelect" aria-label="" name="duty_designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
+                        '<div class="row third-remove-button-container m-0 p-0"> <div class="d-flex justify-content-between align-items-center"> <h5></h5> <button type="button" class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Rank / Name</label> <select class="form-select rankName" aria-label="" name="duty_personnel_id[]"> <option value="" selected>Select Duty Personnel</option> @foreach ($personnels as $personnel) <option value="{{ $personnel->id }}"> {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }} {{ $personnel->last_name }}</option> @endforeach </select> </div> <div class="col-lg-6 mb-3"> <label for="dutyPersonnel" class="form-label">Designation</label> <select class="form-select designationSelect" aria-label="" name="duty_designations[]"> <option value="" selected>Select designation</option> @foreach ($designations as $designation) <option value="{{ $designation->name }}"> {{ $designation->name }}</option> @endforeach </select> </div> <div class="col-lg-12 mb-3"> <label for="firefighterDeath" class="form-label">Remarks</label> <textarea type="text" placeholder="Remarks" class="form-control" name="duty_remarks[]"></textarea> </div> <hr> </div>'
                     );
 
                     console.log(mnewDiv);

@@ -184,7 +184,7 @@ Route::middleware(['PreventBack'])->group(function () {
 
                 // Route::get('/update/form/{id}', [OperationController::class, 'operationUpdateForm'])->name('update.form');
                 // Route::post('/update/submit', [OperationController::class, 'operationUpdate'])->name('update');
-                Route::middleware(['checkPrivilege:investigation_admin_chief,operation_admin_chief,configuration_chief'])->group(function () {
+                Route::middleware(['checkPrivilege:investigation_admin_chief,operation_admin_chief,configuration_chief,admin_chief'])->group(function () {
                     // Passcode
                     Route::get('/passcode/index', [PasscodeController::class, 'passcodeIndex'])->name('passcode.index');
                     Route::post('/passcode/generate', [PasscodeController::class, 'passcodeGenerate'])->name('passcode.generate');
@@ -201,6 +201,10 @@ Route::middleware(['PreventBack'])->group(function () {
                     });
                     Route::middleware(['checkPrivilege:configuration_chief'])->group(function () {
                         Route::get('/logs/configuration/viewLogs', [ConfigurationLogController::class, 'index'])->name('logs.configuration.viewLogs');
+                    });
+                    
+                    Route::middleware(['checkPrivilege:admin_chief'])->group(function () {
+                        Route::get('/logs/admin/viewLogs', [ConfigurationLogController::class, 'logsAdminIndex'])->name('logs.admin.viewLogs');
                     });
                 });
                 // Route::middleware(['checkPrivilege:investigation_admin_chief', 'checkPrivilege:operation_admin_chief', 'checkPrivilege:configuration_chief', ])->group(function () {

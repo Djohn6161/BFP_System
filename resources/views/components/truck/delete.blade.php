@@ -10,7 +10,7 @@
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
                     <h4 class="modal-title"id="deleteTruckModalLabel">Delete this <strong>"{{ $truck->name }}"</strong> truck?</h4>
-                    <p>The data associated with this truck will be lost.</p>
+                    <p>Be <span class="text-danger text-bolder">ALARMED </span> That data associated with this truck will be lost.</p>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>

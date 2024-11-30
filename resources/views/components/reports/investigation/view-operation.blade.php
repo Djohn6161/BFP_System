@@ -29,7 +29,7 @@
                     <tr>
                         <th>Personnel on duty who receive the alarm:</th>
                         <td class="text-break">
-                            {{ $operation->receivedBy->rank->slug . ' ' . $operation->receivedBy->first_name . ' ' . $operation->receivedBy->last_name }}
+                            {{ ($operation?->receivedBy?->rank?->slug ?? "Unknown") . ' ' . $operation?->receivedBy?->first_name ?? "Unknown" . ' ' . ($operation?->receivedBy?->last_name ?? "Unknown") }}
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +63,7 @@
                             @foreach ($operation->responses as $response)
                                 <tr>
                                     <td class="text-break">
-                                        {{ $response->truck->name }}
+                                        {{ ($response->truck?->name ?? "Unknown") }}
                                     </td>
                                     <td class="text-break">
                                         {{ $response->time_dispatched }}
@@ -123,18 +123,18 @@
 
                 <h5 class="my-4 fw-bolder">Type of Occupancy (please specify):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->occupancy_name . ' - ' . $operation->getOccupancy->type . ' / ' . $operation->getOccupancy->specify }}
+                    {{ ($operation->getOccupancy?->occupancy_name ?? "Unknown") . ' - ' . ($operation->getOccupancy?->type ?? "Unknown") . ' / ' . ($operation->getOccupancy?->specify ?? "Unknown") }}
                 </div>
                 <hr>
                 <h5 class="my-4 fw-bolder">Approximate Distance of Fire Incident From Fire Station (Km):</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->distance }}
+                    {{ ($operation->getOccupancy?->distance ?? "Unknown") }}
                 </div>
 
                 <hr>
                 <h5 class="my-4 fw-bolder">General Description of the structure/s involved:</h5>
                 <div class="ps-5">
-                    {{ $operation->getOccupancy->description }}
+                    {{ ($operation->getOccupancy?->description ?? "Unknown") }}
                 </div>
                 <hr>
                 <br>
@@ -176,7 +176,7 @@
                         <tr>
                             <td>{{ $alarm->alarm_name }}</td>
                             <td>{{ $alarm->time }}</td>
-                            <td>{{ $alarm->getGroundCommander->rank->slug . ' ' . $alarm->getGroundCommander->first_name . ' ' . $alarm->getGroundCommander->last_name }}
+                            <td>{{ ($alarm->getGroundCommander?->rank?->slug ?? "Unknown") . ' ' . ($alarm->getGroundCommander?->first_name ?? "Unknown") . ' ' . ($alarm->getGroundCommander?->last_name ?? "Unknown") }}
                             </td>
                         </tr>
                     @endforeach
@@ -261,7 +261,7 @@
                         <tr>
                             @foreach ($personnels as $personnel)
                                 @if ($duty_personnel->personnels_id == $personnel->id)
-                                    <td>{{ $personnel->rank->slug . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
+                                    <td>{{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}
                                     </td>
                                 @endif
                             @endforeach

@@ -36,11 +36,14 @@
                     <div class="modal-icon mt-3">
                         <img src="/assets/images/icons/delete.gif" alt="Warning Icon">
                     </div>
-                  
-                        <h4 class="modal-title" id="deleteModalLabel">Delete <strong>"{{ $personnel->rank->slug . " " . $personnel->first_name . " " . $personnel->last_name }}"</strong> information?</h4>
-                  
 
-                    <p>The data associated with this personnel will be lost.</p>
+                    <h4 class="modal-title" id="deleteModalLabel">Delete
+                        <strong>"{{ ($personnel->rank != null ? $personnel->rank->slug : 'unknown') . ' ' . $personnel->first_name . ' ' . $personnel->last_name }}"</strong>
+                        information?</h4>
+
+
+                    <p>Be <span class="text-danger text-bolder">ALARMED </span> That data associated with this personnel
+                        will be lost.</p>
                     <div class="row">
                         <label for="" class="form-label">Admin Password Confirmation</label>
                         <div class="container">

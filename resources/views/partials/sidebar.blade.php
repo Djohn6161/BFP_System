@@ -212,7 +212,8 @@
 
                 @if (auth()->user()->privilege === 'operation_admin_chief' ||
                         auth()->user()->privilege === 'investigation_admin_chief' ||
-                        auth()->user()->privilege === 'configuration_chief')
+                        auth()->user()->privilege === 'configuration_chief' || 
+                        auth()->user()->privilege === 'admin_chief')
                     <hr class="my-2">
                     <p class="">ACTIVITIES</p>
 
@@ -254,6 +255,13 @@
                                             class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'configurationLog' ? 'bg-primary text-light' : '' }}">
                                             <span><i class="ti ti-caret-right"></i></span>
                                             Configurations
+                                        </a>
+                                    @endif
+                                    @if (auth()->user()->privilege === 'admin_chief')
+                                        <a href="{{ route('admin.logs.admin.viewLogs') }}"
+                                            class="sidebar-link accordion-body ms-2 reports-collapse {{ $active == 'viewAdminLogs' ? 'bg-primary text-light' : '' }}">
+                                            <span><i class="ti ti-caret-right"></i></span>
+                                            Admin
                                         </a>
                                     @endif
                                 </div>

@@ -67,7 +67,7 @@
                                 {{-- {{dd($operation->minimal->receiver)}} --}}
                                 <td colspan="1" class="fw-bold">Receiver</td>
                                 <td colspan="1" class="fw-bold">
-                                    {{ $operation->minimal->receiverPersonnel->rank->slug . ' ' . $operation->minimal->receiverPersonnel->last_name . ' ' . $operation->minimal->receiverPersonnel->first_name }}
+                                    {{ ($operation->minimal?->receiverPersonnel?->rank?->slug ?? "unknown") . ' ' . ($operation->minimal?->receiverPersonnel?->last_name ?? "Unknown") . ' ' . ($operation->minimal?->receiverPersonnel?->first_name ?? "Unknown") }}
                                 </td>
                             </tr>
                             <tr>
@@ -94,8 +94,8 @@
                             </tr>
                             <tr>
                                 <td>First Responding Unit:</td>
-                                <td> <b>{{ $operation->minimal->respondingEngine->name }}</b> and Crew,
-                                    <b>{{ $operation->minimal->respondingLeader->rank->slug . ' ' . $operation->minimal->respondingLeader->last_name . ' ' . $operation->minimal->respondingLeader->first_name }}</b>
+                                <td> <b>{{ $operation->minimal->respondingEngine != null ? $operation->minimal->respondingEngine->name : "Unknown" }}</b> and Crew,
+                                    <b>{{ ($operation->minimal?->respondingLeader?->rank?->slug ?? "Unknown") . ' ' . ($operation->minimal?->respondingLeader->last_name ?? "Unknown") . ' ' . ($operation->minimal?->respondingLeader?->first_name ?? "Unknown") }}</b>
                                     Team Leader
                                 </td>
                             </tr>
@@ -105,7 +105,7 @@
                             </tr>
                             <tr>
                                 <td>Alarm Status-Time:</td>
-                                <td>{{ $operation->minimal->alarm->name }}</td>
+                                <td>{{ $operation->minimal->alarm != null ? $operation->minimal->alarm->name : "Unknown"}}</td>
                             </tr>
                             <tr>
                                 <td>Time Fire Out:</td>
@@ -292,7 +292,7 @@
                         </tr>
                         <tr>
                             <th colspan="2">ALARM</th>
-                            <td colspan="2">{{ $operation->spot->alarmed->name }}</td>
+                            <td colspan="2">{{ $operation->spot->alarmed != null ? $operation->spot->alarmed->name : "Unknown"}}</td>
                         </tr>
                     </table>
                     <hr>

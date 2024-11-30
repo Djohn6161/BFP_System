@@ -28,10 +28,10 @@ return new class extends Migration
             $table->string('caller_address');
             $table->string('caller_number');
             $table->string('notification_originator');
-            $table->foreignId('first_responding_engine')->constrained('trucks')->onUpdate('cascade');
+            $table->foreignId('first_responding_engine')->nullable()->constrained('trucks')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('first_responding_leader')->nullable()->constrained('personnels')->onUpdate('cascade')->onDelete('set null');
             $table->string('time_arrival_on_scene');
-            $table->foreignId('alarm_status_time')->constrained('alarm_names')->onUpdate('cascade');
+            $table->foreignId('alarm_status_time')->nullable()->constrained('alarm_names')->onUpdate('cascade')->onDelete('set null');
             $table->string('Time_Fire_out');
             $table->string('property_owner');
             $table->string('property_occupant');

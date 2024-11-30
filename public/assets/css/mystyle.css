@@ -32,13 +32,13 @@
 
 .flast-pos {
     width: 50%;
-    top: 60px;
+    top: 40vh;
     right: 30%;
     z-index: 10;
 }
 .danger-flash {
     width: 40%;
-    top: 60px;
+    top: 40vh;
     right: 30%;
     z-index: 10;
     background-size: cover;

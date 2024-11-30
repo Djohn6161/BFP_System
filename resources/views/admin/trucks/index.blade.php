@@ -73,7 +73,7 @@
                                                                 </button>
                                                             </div>
                                                             {{-- {{dd(count($truck->minimalEngine ?? []))}} --}}
-                                                            @if (count($truck->responses ?? []) != 0 || count($truck->minimalEngine ?? []) != 0)
+                                                            {{-- @if (count($truck->responses ?? []) != 0 || count($truck->minimalEngine ?? []) != 0)
                                                                 <div class="me-1">
                                                                     <button disabled class="btn btn-secondary"
                                                                         data-bs-toggle="modal">
@@ -81,7 +81,7 @@
                                                                         Invalid
                                                                     </button>
                                                                 </div>
-                                                            @else
+                                                            @else --}}
                                                                 <div class="me-1">
                                                                     <button class="btn btn-danger w-100"
                                                                         data-bs-toggle="modal"
@@ -90,7 +90,7 @@
                                                                         Delete
                                                                     </button>
                                                                 </div>
-                                                            @endif
+                                                            {{-- @endif --}}
                                                         </div>
                                                     </td>
                                                 @endif

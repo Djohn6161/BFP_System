@@ -22,7 +22,7 @@
                                         <i class="ti ti-plus"></i>
                                         Create
                                     </button>
-                                    <x-truck.create :category="$active"></x-truck.create>
+                                    {{-- <x-truck.create :category="$active"></x-truck.create> --}}
                                 @endif
                             </div>
                             <div class="accordion accordion-flush table-responsive" id="accordionRankPersonnel">
@@ -62,7 +62,16 @@
 
                                                                 </button>
                                                             </div>
-                                                            @if (count($rank->personnels ?? []) != 0)
+                                                            <div class="me-1">
+                                                                <button class="btn btn-danger w-100"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteRankModal{{ $rank->id }}">
+                                                                    <i class="ti ti-trash"></i>
+                                                                    Delete
+
+                                                                </button>
+                                                            </div>
+                                                            {{-- @if (count($rank->personnels ?? []) != 0)
                                                                 <div class="me-1">
                                                                     <button disabled class="btn btn-secondary"
                                                                         data-bs-toggle="modal">
@@ -71,16 +80,8 @@
                                                                     </button>
                                                                 </div>
                                                             @else
-                                                                <div class="me-1">
-                                                                    <button class="btn btn-danger w-100"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#deleteRankModal{{ $rank->id }}">
-                                                                        <i class="ti ti-trash"></i>
-                                                                        Delete
-
-                                                                    </button>
-                                                                </div>
-                                                            @endif
+                                                                
+                                                            @endif --}}
 
                                                         </div>
                                                     </td>

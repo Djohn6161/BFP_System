@@ -30,7 +30,7 @@ return new class extends Migration
             $table->decimal('estimate_damage');
             $table->string('time_fire_start');
             $table->string('time_fire_out');
-            $table->foreignId('alarm')->constrained('alarm_names')->onUpdate('cascade');;
+            $table->foreignId('alarm')->nullable()->constrained('alarm_names')->onUpdate('cascade')->onDelete('set null');
             $table->longText('details');
             $table->longText('disposition');
             $table->timestamps();
