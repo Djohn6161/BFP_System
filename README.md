@@ -1,7 +1,7 @@
 
 ## FIRMS BFP SYSTEM
 
-This website will contain the literatures that are found inside the library of the Camarines Sur Polytechnic College, this is to help fellow researcher in their journey of searching related literatures for their own thesis or capstone.
+An instruction to successfully run this website system.
 
 #System Information
 
