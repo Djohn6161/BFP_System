@@ -298,7 +298,7 @@
                                         <div class="col-lg-4">
                                             <div class="card-body p-1">
                                                 <img style="height: 350px; object-fit: cover;" class="w-100"
-                                                    src="{{ asset('operation_image/' . $photo) }}">
+                                                    src="{{ asset('assets/images/operation_images/' . $photo) }}">
                                             </div>
                                         </div>
                                     @endforeach

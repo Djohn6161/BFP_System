@@ -300,8 +300,8 @@ class OperationController extends Controller
         $responses = Response::where('afor_id', $id)->get();
         $declared_alarms = Declared_alarm::where('afor_id', $id)->get();
         $alarm_list = Alarm_name::all();
-        $occupancy = Occupancy::where('afor_id', $id)->first();
         $occupancy_names = Occupancy_name::all();
+        $occupancy = Occupancy::where('afor_id', $id)->first();
         $casualties = Afor_casualties::where('afor_id', $id)->get();
         $used_equipments = Used_equipment::where('afor_id', $id)->get();
         $duty_personnels = Afor_duty_personnel::where('afor_id', $id)->get();
@@ -785,14 +785,13 @@ class OperationController extends Controller
                 $status = true;
             }
         }
-
         foreach ($types as $index => $type) {
             // Check if there's an existing record at this index
             $ropeLadder = $existRopeLadder->get($index);
-
+            
             $new_length = $length[$index];
             $new_type = $types[$index];
-
+            
             // Check if an existing record exists for this index
             if ($ropeLadder) {
                 // Check if any field has changed
@@ -800,9 +799,10 @@ class OperationController extends Controller
                     'length' => $new_length,
                     'type' => $new_type,
                 ];
-
+                
                 $ropeLadderChange = $this->hasChanges($ropeLadder, $changes);
-
+                // dd($ropeLadder, $changes);
+                
                 if ($ropeLadderChange) {
 
                     $string = $string . "Rope and Ladder Used Equipment: " . $ropeLadder->type . " <br> Updated: <br>";
@@ -836,7 +836,6 @@ class OperationController extends Controller
         $length = $request->input('hose_feet', []);
         $quantity = $request->input('no_hose', []);
         $types = $request->input('type_hose', []);
-
         // Retrieve the existing data from the database
         $existHose = Used_equipment::where('afor_id', $request->operation_id)->where('category', 'hose line')->get();
         $requestIndexes = array_keys($types);
@@ -932,7 +931,7 @@ class OperationController extends Controller
             $new_personnel = $personnels[$index];
             $new_desgination = $designations[$index];
             $new_remarks = $remarks[$index];
-
+            // dd($personnels);
             // Check if an existing record exists for this index
             if ($personnel) {
                 // Check if any field has changed
@@ -942,19 +941,20 @@ class OperationController extends Controller
                     'remarks' => $new_remarks,
                 ];
                 $dutyPersonnelChange = $this->hasChanges($personnel, $changes);
-
                 if ($dutyPersonnelChange) {
-
-                    $personnelName = Personnel::where('id', $personnel->personnels_id)->first();
-                    $string = $string . "Duty Personnel: " . ($personnelName->rank?->slug ?? "Unknown") . " " . $personnelName->first_name . " " . $personnelName->last_name . " <br> Updated: <br>";
+                    
+                    $personnelName = Personnel::where('id', ($personnel->personnels_id))->first();
+                    // dd($personnelName);
+                    $string = $string . "Duty Personnel: " . ($personnelName?->rank?->slug ?? "Unknown") . " " . ($personnelName?->first_name ?? "Unknown") . " " . ($personnelName?->last_name ?? "Unknown") . " <br> Updated: <br>";
                     foreach ($dutyPersonnelChange as $index => $change) {
                         $format = str_replace('_', ' ', $index);
                         $format = ucwords($format);
                         $personnelData = Personnel::where('id', $change)->first();
-
+                        
+                        
 
                         if ($format == "Personnels Id") {
-                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . ($personnelName->rank?->slug ?? "Unknown") . " " . $personnelName->first_name . " " . $personnelName->last_name . " -> " . $personnelData->rank->slug . " " . $personnelData->first_name . " " . $personnelData->last_name . "</li>";
+                            $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . "" . ($personnelName?->rank?->slug ?? "Unknown") . " " . ($personnelName?->first_name ?? "Unknown") . " " . ($personnelName?->last_name ?? "Unknown") . " -> " . ($personnelData?->rank?->slug ?? 'Unknown') . " " . ($personnelData?->first_name ?? "Unknown") . " " . ($personnelData?->last_name ?? "Unknown") . "</li>";
                         } else {
                             $string = $string . "<li>" . "<b>" . $format . "</b>" . ": " . $existingAlarm[$index] . " -> " . $change . "</li>";
                         }

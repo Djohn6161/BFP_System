@@ -246,7 +246,7 @@
                                 <select name="alarm" class="form-select spotAlarmSelect" id="alarm" required>
                                     <option value="">-- Select an Alarm --</option>
                                     @foreach ($alarms as $item)
-                                        <option @if (old('alarm_status_time') == $item->id || ($afor->alarm_status_arrival ?? ' ') == $item->name) selected @endif
+                                        <option @if (old('alarm') == $item->id || ($afor->alarm_status_arrival ?? ' ') == $item->name) selected @endif
                                             value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>

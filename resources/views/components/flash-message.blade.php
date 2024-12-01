@@ -6,7 +6,7 @@
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
-        </ul>        
+        </ul>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
@@ -33,6 +33,9 @@
         alerts.forEach(alert => {
             setTimeout(() => {
                 alert.classList.remove('show');
+                setTimeout(() => {
+                    alert.classList.add('d-none'); // Completely hides after fade-out
+                }, 500);
             }, 4000); // 4000 milliseconds = 4 seconds
         });
     });

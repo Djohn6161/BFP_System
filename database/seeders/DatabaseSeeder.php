@@ -21,16 +21,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             DepartmentSeeder::class,
-            TruckSeeder::class,
+            // TruckSeeder::class,
             AlarmNamesSeeder::class,
             occupancyNameSeeder::class,
             RankSeeder::class,
             DesignationSeeder::class,
-            PersonnelSeeder::class,
+            // PersonnelSeeder::class,
             BarangaySeeder::class,
-            AforSeeder::class,
+            // AforSeeder::class,
             StationSeeder::class,
-            InvestigationSeeder::class,
+            // InvestigationSeeder::class,
             ConfigurationLogSeeder::class,
         ]);
     }

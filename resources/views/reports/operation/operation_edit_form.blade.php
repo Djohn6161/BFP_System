@@ -79,7 +79,7 @@
                                     <option value="" selected>Select barangay</option>
                                     @foreach ($barangays as $barangay)
                                         <option value="{{ $barangay->name }}"
-                                            {{ old('barangay_name', $operation->barangay_nam) == $barangay->name ? 'selected' : '' }}>
+                                            {{ old('barangay_name', $operation->barangay_name) == $barangay->name ? 'selected' : '' }}>
                                             {{ $barangay->name }} - {{ $barangay->unit }}
                                         </option>
                                     @endforeach
@@ -284,11 +284,12 @@
                             </h3>
                             <div class="col-lg-6 mb-2">
                                 <label for="typeOfOccupancy" class="form-label">Occupancy name</label>
+                                {{-- {{dd($occupancy->occupancy_name)}} --}}
                                 <select class="form-select typeOccupancy" aria-label="" name="occupancy_name">
                                     <option value="">Select occupancy name</option>
                                     @foreach ($occupancy_names as $names)
                                         <option value="{{ $names->name }}"
-                                            {{ old('occupancy_name', $occupancy->name) == $names->name ? 'selected' : '' }}>
+                                            {{ old('occupancy_name', $occupancy->occupancy_name) == $names->name ? 'selected' : '' }}>
                                             {{ $names->name }}</option>
                                     @endforeach
                                 </select>
@@ -459,7 +460,7 @@
                             <div class="row m-0 p-0" id="divRopeLadder">
                                 <div class="row m-0 p-0" id="addRopeLadder">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Rope and Ladder Used</h3>
-                                    @foreach (old('rope_ladder', $used_equipments->where('category', 'rope and ladder')->pluck('type')->toArray()) as $index => $rope_ladder)
+                                    @foreach (old('rope_ladder', $used_equipments->where('category', 'rope and ladder')) as $index => $rope_ladder)
                                         <div class="row rope-ladder-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5></h5> <button type="button"
@@ -467,15 +468,17 @@
                                             </div>
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Type</label>
+                                                {{-- {{dd($rope_ladder)}} --}}
                                                 <input type="text" placeholder="Enter type" class="form-control"
                                                     id="firstResponderInput" name="rope_ladder[]"
-                                                    value="{{ $rope_ladder }}">
+                                                    value="{{ old('rope_ladder_length.' . $index, ($rope_ladder?->type ?? $rope_ladder)) }}">
                                             </div>
+                                            {{-- {{dd(old('rope_ladder_length.' . $index))}} --}}
                                             <div class="col-lg-6 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Length</label>
                                                 <input type="text" placeholder="Enter length" class="form-control"
                                                     id="firstResponderInput" name="rope_ladder_length[]"
-                                                    value="{{ old('rope_ladder_length.' . $index, $used_equipments[$index]->length) }}">
+                                                    value="{{ old('rope_ladder_length.' . $index, ($rope_ladder?->length ?? "")) }}">
                                             </div>
                                             <hr>
                                         </div>
@@ -494,7 +497,7 @@
                             <div class="row m-0 p-0" id="divHoseLine">
                                 <div class="row m-0 p-0" id="addHoseLine">
                                     <h3 class="border-bottom border-4 border-secondary pb-2 mb-3">Hose Line Used</h3>
-                                    @foreach (old('type_hose', $used_equipments->where('category', 'hose line')->pluck('type')->toArray()) as $index => $type_hose)
+                                    @foreach (old('type_hose', $used_equipments->where('category', 'hose line')) as $index => $type_hose)
                                         <div class="row hose-line-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5></h5> <button type="button"
@@ -504,21 +507,21 @@
                                                 <label for="firefighterDeath" class="form-label">Nr.</label>
                                                 <input type="number" placeholder="No." class="form-control"
                                                     id="firstResponderInput" name="no_hose[]"
-                                                    value="{{ old('no_hose.' . $index, $used_equipments[$index]->quantity) }}">
+                                                    value="{{ old('no_hose.' . $index, ($type_hose?->quantity ?? "")) }}">
                                             </div>
                                             <div class="col-lg-4 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Type /
                                                     Kind</label>
                                                 <input type="text" placeholder="Type / kind" class="form-control"
                                                     id="firstResponderInput" name="type_hose[]"
-                                                    value="{{ $type_hose }}">
+                                                    value="{{ ($type_hose?->type ?? $type_hose) }}">
                                             </div>
                                             <div class="col-lg-4 mb-3">
                                                 <label for="firefighterDeath" class="form-label">Total
                                                     ft.</label>
                                                 <input type="text" placeholder="Enter total feet" class="form-control"
                                                     id="firstResponderInput" name="hose_feet[]"
-                                                    value="{{ old('hose_feet.' . $index, $used_equipments[$index]->length) }}">
+                                                    value="{{ old('hose_feet.' . $index, ($type_hose?->length ?? "")) }}">
                                             </div>
                                             <hr>
                                         </div>
@@ -538,19 +541,25 @@
                             </h3>
                             <div class="row m-0 p-0" id="thirdDivApor">
                                 <div class="row m-0 p-0" id="thirdAddApor">
-                                    @foreach (old('duty_personnel_id', $operation->dutyPersonnels->pluck('duty_personnel_id')->toArray()) as $index => $duty_personnel_id)
+                                    @foreach (old('duty_personnel_id', $operation->dutyPersonnels->pluck('personnels_id')->toArray()) as $index => $duty_personnel_id)
                                         <div class="row third-remove-button-container m-0 p-0">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5></h5> <button type="button"
                                                     class="btn btn-outline-danger btn-sm float-end third-remove-section-btn">Remove</button>
                                             </div>
+                                            {{-- @foreach ($personnels as $personnel)
+                                            @if($duty_personnel_id == $personnel->id)
+                                            {{dd($personnel)}}
+                                            @endif
+                                            @endforeach --}}
+                                            {{-- {{dd($personnels)}} --}}
                                             <div class="col-lg-6 mb-3"> <label for="fundCommander"
-                                                    class="form-label">Rank /
-                                                    Name</label> <select class="form-select rankName" aria-label=""
-                                                    name="duty_personnel_id[]">
-                                                    <option value="" selected>Select Fund Commander</option>
-                                                    @foreach ($personnels as $personnel)
-                                                        <option selected value="{{ $personnel->id }}"
+                                                class="form-label">Rank /
+                                                Name</label> <select class="form-select rankName" aria-label=""
+                                                name="duty_personnel_id[]">
+                                                <option value="" selected>Select Ground Commander</option>
+                                                @foreach ($personnels as $personnel)
+                                                <option value="{{ $personnel->id }}"
                                                             {{ $duty_personnel_id == $personnel->id ? 'selected' : '' }}>
                                                             {{ ($personnel->rank?->slug ?? "Unknown") . ' ' . $personnel->first_name }}
                                                             {{ $personnel->last_name }}</option>
@@ -599,7 +608,7 @@
                                         <div class="image-preview mb-1">
                                             <input type="hidden" name="default_photos[]" value="{{ $photo }}">
                                             <img class="img-thumbnail w-100"
-                                                src="{{ asset('operation_image/' .  $photo ) }}">
+                                                src="{{ asset('assets/images/operation_images/' . $photo) }}">
                                         </div>
                                         <div
                                             class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
@@ -666,7 +675,7 @@
                                         </span>
                                     </div>
                                     <div id="first">
-                                        {{ $operation->details }}
+                                        {!! $operation->details !!}
                                     </div>
                                 </div>
                             </div>
@@ -730,7 +739,7 @@
                                         </span>
                                     </div>
                                     <div id="second">
-                                        {{ $operation->problem_encounter }}
+                                        {!! $operation->problem_encounter !!}
                                     </div>
                                 </div>
                             </div>
@@ -790,7 +799,7 @@
                                         </span>
                                     </div>
                                     <div id="third">
-                                        {{ $operation->observation_recommendation }}
+                                        {!! $operation->observation_recommendation !!}
                                     </div>
                                 </div>
                             </div>
