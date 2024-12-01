@@ -8,12 +8,12 @@ This website will contain the literatures that are found inside the library of t
 - This website uses mysql as the database
 - download the XAMPP application if there is no xampp
 ```
-[XAMPP Download](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe)
+https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe
 ```
 - It use a composer to install laravel
 - Seach this and download the composer application if there is no Composer
 ```
-[Composer istall](https://getcomposer.org/Composer-Setup.exe)
+https://getcomposer.org/Composer-Setup.exe
 ```
 ## How to host this website:
 
